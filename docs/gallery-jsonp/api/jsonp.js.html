@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: gallery-jsonp   jsonp.js  (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css" />
+
+    <script type="text/javascript" src="assets/api-js"></script>
+    <script type="text/javascript" src="assets/ac-js"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="Yahoo! UI Library">Yahoo! UI Library</a></h1>
+        <h3>gallery-jsonp&nbsp; <span class="subtitle">3</span></h3>
+        <a href="./index.html" title="Yahoo! UI Library">Yahoo! UI Library</a> 
+            &gt; <a href="./module_gallery-jsonp.html" title="gallery-jsonp">gallery-jsonp</a>
+                
+                 &gt; jsonp.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+                        <div class="highlight" ><pre><span class="k">var</span> <span class="nx">l</span>    <span class="o">=</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Lang</span><span class="o">,</span>
+    <span class="nx">noop</span> <span class="o">=</span> <span class="k">function</span> <span class="o">()</span> <span class="o">{};</span>
+
+<span class="c">/**</span>
+<span class="c"> * &lt;p&gt;Provides a JSONPRequest class for repeated JSONP calls, and a convenience</span>
+<span class="c"> * method Y.jsonp(url, callback) to instantiate and send a JSONP request.&lt;/p&gt;</span>
+<span class="c"> *</span>
+<span class="c"> * &lt;p&gt;The url of the JSONP service will have a proxy function assigned as the</span>
+<span class="c"> * callback name.  By default it will look for callback=(anything).  If</span>
+<span class="c"> * (anything) is present, it will be clobbered by the proxy name.  And if the</span>
+<span class="c"> * callback= param can&#39;t be found, it will be appended to the url.&lt;/p&gt;</span>
+<span class="c"> *</span>
+<span class="c"> * &lt;p&gt;To override this behavior, pass a function to the &amp;quot;format&amp;quot;</span>
+<span class="c"> * property in the callback config.&lt;/p&gt;</span>
+<span class="c"> *</span>
+<span class="c"> * &lt;p&gt;The second parameter can be a callback function that accepts the JSON</span>
+<span class="c"> * payload as its argument, or a configuration object supporting the keys:&lt;/p&gt;</span>
+<span class="c"> * &lt;ul&gt;</span>
+<span class="c"> *   &lt;li&gt;success - function handler for successful transmission&lt;/li&gt;</span>
+<span class="c"> *   &lt;li&gt;failure - function handler for failed transmission&lt;/li&gt;</span>
+<span class="c"> *   &lt;li&gt;format - function for inserting the proxy name into the url&lt;/li&gt;</span>
+<span class="c"> * &lt;/ul&gt;</span>
+<span class="c"> *</span>
+<span class="c"> * @module gallery-jsonp</span>
+<span class="c"> * @class JSONPRequest</span>
+<span class="c"> * @constructor</span>
+<span class="c"> * @param url {String} the url of the JSONP service</span>
+<span class="c"> * @param callback {Object|Function} the callback configuration or success</span>
+<span class="c"> *                     handler</span>
+<span class="c"> */</span>
+<span class="k">function</span> <span class="nx">JSONPRequest</span><span class="o">(</span><span class="nx">url</span><span class="o">,</span><span class="nx">callback</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">url</span> <span class="o">=</span> <span class="nx">url</span><span class="o">;</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="nx">_init</span><span class="o">(</span><span class="nx">callback</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c">/**</span>
+<span class="c"> * RegExp used by the default URL formatter to insert the generated callback</span>
+<span class="c"> * name into the JSONP url.  Looks for a query param callback=.  If a value is</span>
+<span class="c"> * assigned, it will be clobbered.</span>
+<span class="c"> *</span>
+<span class="c"> * @member JSONPRequest._pattern</span>
+<span class="c"> * @type RegExp</span>
+<span class="c"> * @default /\bcallback=.*?(?=&amp;|$)/i</span>
+<span class="c"> * @protected</span>
+<span class="c"> * @static</span>
+<span class="c"> */</span>
+<span class="nx">JSONPRequest</span><span class="o">.</span><span class="nx">_pattern</span> <span class="o">=</span> <span class="sr">/\bcallback=.*?(?=&amp;|$)/i</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> * Template used by the default URL formatter to add the callback function name</span>
+<span class="c"> * to the url.</span>
+<span class="c"> *</span>
+<span class="c"> * @member JSONPRequest._template</span>
+<span class="c"> * @type String</span>
+<span class="c"> * @default &quot;callback={callback}&quot;</span>
+<span class="c"> * @protected</span>
+<span class="c"> * @static</span>
+<span class="c"> */</span>
+<span class="nx">JSONPRequest</span><span class="o">.</span><span class="nx">_template</span> <span class="o">=</span> <span class="s2">&quot;callback={callback}&quot;</span><span class="o">;</span>
+
+<span class="nx">JSONPRequest</span><span class="o">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="c">/**</span>
+<span class="c">     * Set up the success and failure handlers and the regex pattern used</span>
+<span class="c">     * to insert the temporary callback name in the url.</span>
+<span class="c">     *</span>
+<span class="c">     * @method _init</span>
+<span class="c">     * @param cfg {Object|Function} The success callback or the config</span>
+<span class="c">     *                  object containing success and failure functions and</span>
+<span class="c">     *                  the url regex.</span>
+<span class="c">     * @protected</span>
+<span class="c">     */</span>
+    <span class="nx">_init</span> <span class="o">:</span> <span class="k">function</span> <span class="o">(</span><span class="nx">cfg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">l</span><span class="o">.</span><span class="nx">isObject</span><span class="o">(</span><span class="nx">cfg</span><span class="o">)</span> <span class="o">?</span> <span class="nx">cfg</span> <span class="o">:</span> <span class="o">{};</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">success</span> <span class="o">=</span> <span class="nx">l</span><span class="o">.</span><span class="nx">isFunction</span><span class="o">(</span><span class="nx">c</span><span class="o">)</span> <span class="o">?</span>
+            <span class="nx">c</span> <span class="o">:</span>
+            <span class="nx">l</span><span class="o">.</span><span class="nx">isFunction</span><span class="o">(</span><span class="nx">c</span><span class="o">.</span><span class="nx">success</span><span class="o">)</span> <span class="o">?</span>
+                <span class="nx">c</span><span class="o">.</span><span class="nx">success</span> <span class="o">:</span>
+                <span class="nx">noop</span><span class="o">;</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="nx">failure</span> <span class="o">=</span> <span class="nx">l</span><span class="o">.</span><span class="nx">isFunction</span><span class="o">(</span><span class="nx">c</span><span class="o">.</span><span class="nx">failure</span><span class="o">)</span> <span class="o">?</span> <span class="nx">c</span><span class="o">.</span><span class="nx">failure</span> <span class="o">:</span> <span class="nx">noop</span><span class="o">;</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="nx">l</span><span class="o">.</span><span class="nx">isFunction</span><span class="o">(</span><span class="nx">c</span><span class="o">.</span><span class="nx">format</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="nx">_format</span> <span class="o">=</span> <span class="nx">c</span><span class="o">.</span><span class="nx">format</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">},</span>
+
+    <span class="c">/**</span>
+<span class="c">     * Default url formatter.  Looks for callback= in the url and appends it</span>
+<span class="c">     * if not present.  The supplied proxy name will be assigned to the query</span>
+<span class="c">     * param.  Override this method by passing a function as the</span>
+<span class="c">     * &amp;quot;format&amp;quot; property in the config object to the constructor.</span>
+<span class="c">     *</span>
+<span class="c">     * @method _format</span>
+<span class="c">     * @param proxy {String} the function name that will be used as a proxy to</span>
+<span class="c">     *      the configured callback methods.</span>
+<span class="c">     * @return {String} fully qualified JSONP url</span>
+<span class="c">     * @protected</span>
+<span class="c">     */</span>
+    <span class="nx">_format</span><span class="o">:</span> <span class="k">function</span> <span class="o">(</span><span class="nx">proxy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">url</span>       <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">url</span><span class="o">,</span>
+            <span class="nx">callback</span>  <span class="o">=</span> <span class="nx">JSONPRequest</span><span class="o">.</span><span class="nx">_template</span><span class="o">.</span><span class="nx">replace</span><span class="o">(</span><span class="sr">/\{callback\}/</span><span class="o">,</span> <span class="nx">proxy</span><span class="o">),</span>
+            <span class="nx">c</span><span class="o">;</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="nx">JSONPRequest</span><span class="o">.</span><span class="nx">_pattern</span><span class="o">.</span><span class="nx">test</span><span class="o">(</span><span class="nx">url</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nx">url</span><span class="o">.</span><span class="nx">replace</span><span class="o">(</span><span class="nx">JSONPRequest</span><span class="o">.</span><span class="nx">_pattern</span><span class="o">,</span> <span class="nx">callback</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="nx">c</span> <span class="o">=</span> <span class="nx">url</span><span class="o">.</span><span class="nx">slice</span><span class="o">(-</span><span class="m">1</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="nx">c</span> <span class="o">!==</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">c</span> <span class="o">!==</span> <span class="s1">&#39;?&#39;</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nx">url</span> <span class="o">+=</span> <span class="o">(</span><span class="nx">url</span><span class="o">.</span><span class="nx">indexOf</span><span class="o">(</span><span class="s1">&#39;?&#39;</span><span class="o">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="m">1</span><span class="o">)</span> <span class="o">?</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">:</span> <span class="s1">&#39;?&#39;</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="nx">url</span> <span class="o">+</span> <span class="nx">callback</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">},</span>
+
+    <span class="c">/** </span>
+<span class="c">     * Issues the JSONP request.</span>
+<span class="c">     *</span>
+<span class="c">     * @method send</span>
+<span class="c">     * @chainable</span>
+<span class="c">     */</span>
+    <span class="nx">send</span> <span class="o">:</span> <span class="k">function</span> <span class="o">()</span> <span class="o">{</span>
+        <span class="k">var</span> <span class="nx">proxy</span>   <span class="o">=</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">guid</span><span class="o">().</span><span class="nx">replace</span><span class="o">(</span><span class="sr">/-/g</span><span class="o">,</span><span class="s1">&#39;_&#39;</span><span class="o">),</span>
+            <span class="nx">url</span>     <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">_format</span><span class="o">(</span><span class="s1">&#39;YUI.&#39;</span> <span class="o">+</span> <span class="nx">proxy</span><span class="o">),</span>
+            <span class="nx">success</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">success</span><span class="o">,</span>
+            <span class="nx">failure</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">failure</span><span class="o">;</span>
+
+        <span class="c">// Temporary un-sandboxed function alias</span>
+<span class="c"></span>        <span class="nx">YUI</span><span class="o">[</span><span class="nx">proxy</span><span class="o">]</span> <span class="o">=</span> <span class="nx">success</span><span class="o">;</span>
+
+        <span class="c">// Use the YUI instance&#39;s Get util to add the script and trigger the</span>
+<span class="c"></span>        <span class="c">// callback.</span>
+<span class="c"></span>        <span class="nx">YUI</span><span class="o">({</span> <span class="nx">modules</span><span class="o">:</span> <span class="o">{</span> <span class="nx">_</span> <span class="o">:</span> <span class="o">{</span> <span class="nx">fullpath</span> <span class="o">:</span> <span class="nx">url</span> <span class="o">}</span> <span class="o">}</span> <span class="o">}).</span>
+        <span class="nx">use</span><span class="o">(</span><span class="s1">&#39;_&#39;</span><span class="o">,</span> <span class="k">function</span><span class="o">(</span><span class="nx">X</span><span class="o">,</span><span class="nx">res</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nx">delete</span> <span class="nx">YUI</span><span class="o">[</span><span class="nx">proxy</span><span class="o">];</span>
+
+            <span class="k">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">Selector</span><span class="o">.</span><span class="nx">query</span><span class="o">(</span><span class="s1">&#39;head &gt; script[src*=&#39;</span><span class="o">+</span><span class="nx">proxy</span><span class="o">+</span><span class="s1">&#39;]&#39;</span><span class="o">,</span><span class="kc">null</span><span class="o">,</span><span class="kc">true</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="nx">el</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nx">el</span><span class="o">.</span><span class="nx">parentNode</span><span class="o">.</span><span class="nx">removeChild</span><span class="o">(</span><span class="nx">el</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="nx">Y</span><span class="o">.</span><span class="nx">log</span><span class="o">(</span><span class="s1">&#39;JSONP script element not found for cleanup&#39;</span><span class="o">,</span><span class="s1">&#39;warn&#39;</span><span class="o">,</span><span class="s1">&#39;jsonp&#39;</span><span class="o">);</span>
+            <span class="o">}</span>
+
+            <span class="k">if</span> <span class="o">(!</span><span class="nx">res</span><span class="o">.</span><span class="nx">success</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nx">failure</span><span class="o">(</span><span class="nx">url</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="nx">Y</span><span class="o">.</span><span class="nx">JSONPRequest</span> <span class="o">=</span> <span class="nx">JSONPRequest</span><span class="o">;</span>
+
+<span class="c">/**</span>
+<span class="c"> *</span>
+<span class="c"> * @method Y.jsonp</span>
+<span class="c"> * @param url {String} the url of the JSONP service with the {callback}</span>
+<span class="c"> *          placeholder where the callback function name typically goes.</span>
+<span class="c"> * @param c {Function|Object} Callback function accepting the JSON payload</span>
+<span class="c"> *          as its argument, or a configuration object (see above).</span>
+<span class="c"> * @return {JSONPRequest}</span>
+<span class="c"> * @static</span>
+<span class="c"> */</span>
+<span class="nx">Y</span><span class="o">.</span><span class="nx">jsonp</span> <span class="o">=</span> <span class="k">function</span> <span class="o">(</span><span class="nx">url</span><span class="o">,</span><span class="nx">c</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Y</span><span class="o">.</span><span class="nx">JSONPRequest</span><span class="o">(</span><span class="nx">url</span><span class="o">,</span><span class="nx">c</span><span class="o">);</span>
+
+    <span class="c">// returns null if invalid inputs</span>
+<span class="c"></span>    <span class="k">return</span> <span class="nx">req</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="o">.</span><span class="nx">send</span><span class="o">();</span>
+<span class="o">};</span>
+</pre></div>
+
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_gallery-jsonp.html" title="gallery-jsonp">gallery-jsonp</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="JSONPRequest.html" title="JSONPRequest">JSONPRequest</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class="selected"><a href="jsonp.js.html" title="jsonp.js">jsonp.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 Yahoo! Inc. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "JSONPRequest.html#method__format", "access": "protected", "host": "JSONPRequest", "type": "method", "name": "_format"}, {"url": "JSONPRequest.html#method__init", "access": "protected", "host": "JSONPRequest", "type": "method", "name": "_init"}, {"url": "JSONPRequest.html#property__pattern", "access": "protected", "host": "JSONPRequest", "type": "property", "name": "_pattern"}, {"url": "JSONPRequest.html#method_send", "access": "", "host": "JSONPRequest", "type": "method", "name": "send"}, {"url": "JSONPRequest.html#property__template", "access": "protected", "host": "JSONPRequest", "type": "property", "name": "_template"}, {"url": "JSONPRequest.html#method_Y.jsonp", "access": "", "host": "JSONPRequest", "type": "method", "name": "Y.jsonp"}];
+</script>
+</body>
+</html>

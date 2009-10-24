@@ -1,0 +1,434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: gallery-jsonp  JSONPRequest   (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css" />
+
+    <script type="text/javascript" src="assets/api-js"></script>
+    <script type="text/javascript" src="assets/ac-js"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="Yahoo! UI Library">Yahoo! UI Library</a></h1>
+        <h3>gallery-jsonp&nbsp; <span class="subtitle">3</span></h3>
+        <a href="./index.html" title="Yahoo! UI Library">Yahoo! UI Library</a> 
+            &gt; <a href="./module_gallery-jsonp.html" title="gallery-jsonp">gallery-jsonp</a>
+                 &gt; JSONPRequest 
+                
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <h2>
+                        
+
+                        
+                        
+                            Class <b property="yui:name">JSONPRequest</b>
+                        <span class="extends">
+                        </span>
+
+                    </h2>
+                    <!-- class tree goes here -->
+                    
+                
+  
+
+                    <div class="summary description" property="yui:description">
+                        <p>Provides a JSONPRequest class for repeated JSONP calls, and a convenience
+method Y.jsonp(url, callback) to instantiate and send a JSONP request.</p>
+<p>The url of the JSONP service will have a proxy function assigned as the
+callback name.  By default it will look for callback=(anything).  If
+(anything) is present, it will be clobbered by the proxy name.  And if the
+callback= param can't be found, it will be appended to the url.</p>
+<p>To override this behavior, pass a function to the &quot;format&quot;
+property in the callback config.</p>
+<p>The second parameter can be a callback function that accepts the JSON
+payload as its argument, or a configuration object supporting the keys:</p>
+<ul>
+<li>success - function handler for successful transmission</li>
+<li>failure - function handler for failed transmission</li>
+<li>format - function for inserting the proxy name into the url</li>
+</ul>
+                    </div>
+
+                        <div class="section constructor details" rel="yui:constructor" resource="#constructor">
+                        <h3 id="constructor">Constructor</h3>
+                        <div class="content">
+                            <div class="detail">
+                                <strong property="yui:name">JSONPRequest</strong>
+                                <code>
+                                    (
+  
+                                        
+                                                
+                                                url
+
+                                                , 
+                                                callback
+                                    )
+                                </code>
+                                <div class="description">
+                                        <dl rel="yui:parameters">
+                                            <dt>Parameters:</dt>
+                                                <dd rel="yui:parameter">
+                                                    <code><span property="yui:name">url</span>
+                                                    &lt;<span property="yui:type">String</span>&gt;
+                                                    </code>
+                                                    <span property="yui:description">  the url of the JSONP service</span>
+                                                </dd>
+                                                <dd rel="yui:parameter">
+                                                    <code><span property="yui:name">callback</span>
+                                                    &lt;<span property="yui:type">Object|Function</span>&gt;
+                                                    </code>
+                                                    <span property="yui:description">  the callback configuration or success
+handler</span>
+                                                </dd>
+                                        </dl>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div rel="yui:properties" resource="#properties">
+                        <div class="section field details">
+                            <h3 id="properties">Properties</h3>
+                            <div class="content">
+                                    <div class="protected" rel="yui:property" resource="#property__pattern">
+                                    <h4><a name="property__pattern" property="yui:name">_pattern</a>
+                                        - <code>protected static <span property="yui:type">RegExp</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            RegExp used by the default URL formatter to insert the generated callback
+name into the JSONP url.  Looks for a query param callback=.  If a value is
+assigned, it will be clobbered.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default" property="yui:defaultValue">
+                                        Default Value: /\bcallback=.*?(?=&|$)/i
+                                    </div>        
+
+
+                                    <hr />
+                                    </div>
+                                    <div class="protected" rel="yui:property" resource="#property__template">
+                                    <h4><a name="property__template" property="yui:name">_template</a>
+                                        - <code>protected static <span property="yui:type">String</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            Template used by the default URL formatter to add the callback function name
+to the url.
+                                        </div>
+                                    </div>
+     
+                                        
+                                    <div class="default" property="yui:defaultValue">
+                                        Default Value: "callback={callback}"
+                                    </div>        
+
+
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div rel="yui:methods" resource="#methods">
+                        <div class="section method details">
+                            <h3 id="methods">Methods</h3>
+                            <div class="content">
+                                    <div class="protected" rel="yui:method" resource="#method__format">
+                                    <h4>
+                                        <a name="method__format">_format</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        String
+                                            <strong property="yui:name">_format</strong>
+                                           (
+                                                
+                                                        
+                                                         proxy
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Default url formatter.  Looks for callback= in the url and appends it
+if not present.  The supplied proxy name will be assigned to the query
+param.  Override this method by passing a function as the
+&quot;format&quot; property in the config object to the constructor.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">proxy</span>
+                                                        &lt;<span property="yui:type">String</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  the function name that will be used as a proxy to
+the configured callback methods.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                            String
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">fully qualified JSONP url</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="protected" rel="yui:method" resource="#method__init">
+                                    <h4>
+                                        <a name="method__init">_init</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">_init</strong>
+                                           (
+                                                
+                                                        
+                                                         cfg
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Set up the success and failure handlers and the regex pattern used
+to insert the temporary callback name in the url.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">cfg</span>
+                                                        &lt;<span property="yui:type">Object|Function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  The success callback or the config
+object containing success and failure functions and
+the url regex.</span>
+                                                        </dd>
+                                                </dl>
+
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_send">
+                                    <h4>
+                                        <a name="method_send">send</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">send</strong>
+                                           (
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Issues the JSONP request.
+                                        </div>
+
+                                        <div class="description">
+
+
+
+                                            <div class="chainable">
+                                                <strong>Chainable:</strong> This method is chainable.
+                                            </div>        
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_Y.jsonp">
+                                    <h4>
+                                        <a name="method_Y.jsonp">Y.jsonp</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        JSONPRequest
+                                            <strong property="yui:name">Y.jsonp</strong>
+                                           (
+                                                
+                                                        
+                                                         url
+                                                    
+                                                
+                                                        , 
+                                                         c
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">url</span>
+                                                        &lt;<span property="yui:type">String} the url of the JSONP service with the {callback</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> 
+placeholder where the callback function name typically goes.</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">c</span>
+                                                        &lt;<span property="yui:type">Function|Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  Callback function accepting the JSON payload
+as its argument, or a configuration object (see above).</span>
+                                                        </dd>
+                                                </dl>
+
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div rel="yui:events" resource="#events">
+
+
+                    </div>
+
+                    <div rel="yui:attributes" resource="#configattributes">
+
+                    </div>
+
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_gallery-jsonp.html" title="gallery-jsonp">gallery-jsonp</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="JSONPRequest.html" title="JSONPRequest">JSONPRequest</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class=""><a href="jsonp.js.html" title="jsonp.js">jsonp.js</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="propertyList" class="module">
+                        <h4>Properties</h4>
+                        <ul class="content">        
+                                <li class="protected"><a href="#property__pattern" title="_pattern">_pattern</a></li>
+                                <li class="protected"><a href="#property__template" title="_template">_template</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="methodsList" class="module">
+                        <h4>Methods</h4>
+                        <ul class="content">        
+                                <li class="protected"><a href="#method__format" title="_format">_format</a></li>
+                                <li class="protected"><a href="#method__init" title="_init">_init</a></li>
+                                <li class=""><a href="#method_send" title="send">send</a></li>
+                                <li class=""><a href="#method_Y.jsonp" title="Y.jsonp">Y.jsonp</a></li>
+                        </ul>
+                    </div>
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 Yahoo! Inc. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "JSONPRequest.html#method__format", "access": "protected", "host": "JSONPRequest", "type": "method", "name": "_format"}, {"url": "JSONPRequest.html#method__init", "access": "protected", "host": "JSONPRequest", "type": "method", "name": "_init"}, {"url": "JSONPRequest.html#property__pattern", "access": "protected", "host": "JSONPRequest", "type": "property", "name": "_pattern"}, {"url": "JSONPRequest.html#method_send", "access": "", "host": "JSONPRequest", "type": "method", "name": "send"}, {"url": "JSONPRequest.html#property__template", "access": "protected", "host": "JSONPRequest", "type": "property", "name": "_template"}, {"url": "JSONPRequest.html#method_Y.jsonp", "access": "", "host": "JSONPRequest", "type": "method", "name": "Y.jsonp"}];
+</script>
+</body>
+</html>
