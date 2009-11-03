@@ -4,9 +4,16 @@
  * provided, the time delta is in reference to this date.
  *
  * @module gallery-torelativetime
+ *
+ * @class YUI~toRelativeTime
+ *
+ */
+
+/**
  * @method toRelativeTime
  * @param d {Date} the Date to translate.
  * @param from {Date} (optional) reference Date. Default is now.
+ * @return {String} delta of from - d in human readable form
  */
 function toRelativeTime(d,from) {
     d = d || new Date();
