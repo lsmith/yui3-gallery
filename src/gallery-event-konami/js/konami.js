@@ -5,13 +5,14 @@
  * responsibility, after all.
  *
  * @module event-konami
+ *
+ * @class YUI~event-konami
  */
 
 /**
  * Provides a subscribable event named &quot;konami&quot;.
  *
  * @event konami
- * @for YUI
  * @param type {String} 'konami'
  * @param fn {Function} the callback function
  * @param id {String|Node|etc} the element to bind (typically document)

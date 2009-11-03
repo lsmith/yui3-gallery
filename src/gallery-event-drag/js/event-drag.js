@@ -49,17 +49,8 @@
  * the Node as <code>node.dd</code>.</p>
  *
  * @module event-drag
- */
-
-/**
- * Also &quot;drag:drag&quot;.  Subscribes to the respective event on the generated Drag instance.
  *
- * @event drag
- * @param type {String} 'drag'
- * @param fn {Function} the callback function
- * @param id {String|Node|etc} the element to bind (typically document)
- * @param conf {Object} (optional) configuration to pass to Drag constructor
- * @return {Event.Handle} the detach handle
+ * @class YUI~event-drag
  */
 var eventPlugin = Y.Env.evt.plugins,
     nodeEvents  = Y.Node.DOM_EVENTS,
@@ -117,7 +108,7 @@ eventDef = {
      * Normalizes the third param of on() to a NodeList.  The resulting list
      * may be empty.
      *
-     * @method _getNodes
+     * @method Y.Node.DOM_EVENTS.drag._getNodes
      * @param el {String|Node|NodeList|HTMLElement|Array} valid context for on()
      * @return NodeList
      * @protected
@@ -138,7 +129,7 @@ eventDef = {
      * Applies the attribute values from the config object to the Drag instance.
      * Also checks for loaded Plugins by the name of the property to apply.
      *
-     * @method _applyConfig
+     * @method Y.Node.DOM_EVENTS.drag._applyConfig
      * @param dd {Y.Plugin.Drag} the Drag plugin for the node
      * @param conf {Object} the attribute configuration
      * @protected
