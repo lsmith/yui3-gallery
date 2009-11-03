@@ -286,4 +286,8 @@ for (i = events.length - 1; i >= 0; --i) {
  */
 
 
+<<<<<<< HEAD:build/gallery-event-drag/gallery-event-drag-debug.js
 }, '@VERSION@' ,{requires:['dd-plugin']});
+=======
+}, 'gallery-2009.11.02-20' ,{optional:['dd-proxy','dd-constrain'], requires:['dd-plugin']});
+>>>>>>> upstream/master:build/gallery-event-drag/gallery-event-drag-debug.js
