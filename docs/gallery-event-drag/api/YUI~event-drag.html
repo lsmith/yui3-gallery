@@ -1,0 +1,1071 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: event-drag  YUI~event-drag   (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css" />
+
+    <script type="text/javascript" src="assets/api-js"></script>
+    <script type="text/javascript" src="assets/ac-js"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="Yahoo! UI Library">Yahoo! UI Library</a></h1>
+        <h3>event-drag&nbsp; <span class="subtitle">3</span></h3>
+        <a href="./index.html" title="Yahoo! UI Library">Yahoo! UI Library</a> 
+            &gt; <a href="./module_event-drag.html" title="event-drag">event-drag</a>
+                 &gt; YUI~event-drag 
+                
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <h2>
+                        
+
+                        
+                        
+                            Class <b property="yui:name">YUI~event-drag</b>
+                        <span class="extends">
+                        </span>
+
+                    </h2>
+                    <!-- class tree goes here -->
+                    
+                
+  
+
+                    <div class="summary description" property="yui:description">
+                        <p>Provides subscribable drag events from Node or NodeLists.  Subscribing
+to any of the events causes the node to be plugged with Y.Plugin.Drag.  The
+config object passed can be used to set Drag instance attributes or add
+additional Plugins to the Drag instance such as Y.Plugin.DDProxy.</p>
+Config properties are formatted and tested for a corresponding Y.Plugin.* as
+'somePlugin' => Y.Plugin.DDSomePlugin if the property name doesn't already
+start with "DD".  So { proxy: true } and { DDProxy: true } are functionally
+equivalent.  Both add Y.Plugin.DDProxy to the Drag instance.</p>
+<pre><code>node.on('drag:start', fn, { proxy: true, data: 123 });</code></pre>
+<p>This adds Y.Plugin.DDProxy to the Drag instance and also set's the Drag instance's data attribute.</p>
+<p>Passing any value will result in the Plugin being added, but if you pass
+an object literal as the value, it will be sent to the Plugin's
+constructor.</p>
+<pre><code>node.on('drag:end', fn, {
+constrained: { constrain2node: '#container' }
+});</code></pre>
+<p>This adds Y.Plugin.DDConstrained to the Drag instance using the specified
+configuration.</p>
+<p>A custom detach handle is returned, whose detach method unplugs the
+Y.Plugin.Drag from the node(s).</p>
+<p>Supported events are:</p>
+<ul>
+<li>drag or drag:drag</li>
+<li>drag:start</li>
+<li>drag:end</li>
+<li>drag:mouseDown</li>
+<li>drag:afterMouseDown</li>
+<li>drag:removeHandle</li>
+<li>drag:addHandle</li>
+<li>drag:removeInvalid</li>
+<li>drag:addInvalid</li>
+<li>drag:align</li>
+</ul>
+<p>Additionally, the default callback context is overridden to the
+subscribing Node unless otherwise specified during the subscription.
+So &quot;this&quot; in the callback will refer to the node.  On the
+event object passed to subscribers, <code>e.currentTarget</code> is also the
+Node regardless of context override.  The Drag instance is available from
+the Node as <code>node.dd</code>.</p>
+                    </div>
+
+                    
+                    <div rel="yui:properties" resource="#properties">
+
+                    </div>
+
+                    <div rel="yui:methods" resource="#methods">
+                        <div class="section method details">
+                            <h3 id="methods">Methods</h3>
+                            <div class="content">
+                                    <div class="protected" rel="yui:method" resource="#method_Y.Node.DOM_EVENTS.drag._applyConfig">
+                                    <h4>
+                                        <a name="method_Y.Node.DOM_EVENTS.drag._applyConfig">Y.Node.DOM_EVENTS.drag._applyConfig</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">Y.Node.DOM_EVENTS.drag._applyConfig</strong>
+                                           (
+                                                
+                                                        
+                                                         dd
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Applies the attribute values from the config object to the Drag instance.
+Also checks for loaded Plugins by the name of the property to apply.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">dd</span>
+                                                        &lt;<span property="yui:type">Y.Plugin.Drag</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  the Drag plugin for the node</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">conf</span>
+                                                        &lt;<span property="yui:type">Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  the attribute configuration</span>
+                                                        </dd>
+                                                </dl>
+
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="protected" rel="yui:method" resource="#method_Y.Node.DOM_EVENTS.drag._getNodes">
+                                    <h4>
+                                        <a name="method_Y.Node.DOM_EVENTS.drag._getNodes">Y.Node.DOM_EVENTS.drag._getNodes</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">Y.Node.DOM_EVENTS.drag._getNodes</strong>
+                                           (
+                                                
+                                                        
+                                                         el
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Normalizes the third param of on() to a NodeList.  The resulting list
+may be empty.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">el</span>
+                                                        &lt;<span property="yui:type">String|Node|NodeList|HTMLElement|Array</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  valid context for on()</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">NodeList</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div rel="yui:events" resource="#events">
+                        <div class="section method details">
+                            <h3 id="events">Events</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:event" resource="#event_drag">
+                                    <h4>
+                                        <a name="event_drag">drag</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Also &quot;drag:drag&quot;.  Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:addHandle">
+                                    <h4>
+                                        <a name="event_drag:addHandle">drag:addHandle</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:addHandle</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:addHandle'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:addInvalid">
+                                    <h4>
+                                        <a name="event_drag:addInvalid">drag:addInvalid</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:addInvalid</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:addInvalid'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:afterMouseDown">
+                                    <h4>
+                                        <a name="event_drag:afterMouseDown">drag:afterMouseDown</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:afterMouseDown</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:afterMouseDown'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:align">
+                                    <h4>
+                                        <a name="event_drag:align">drag:align</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:align</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:align'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:end">
+                                    <h4>
+                                        <a name="event_drag:end">drag:end</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:end</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:end'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:mouseDown">
+                                    <h4>
+                                        <a name="event_drag:mouseDown">drag:mouseDown</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:mouseDown</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:mouseDown'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:removeHandle">
+                                    <h4>
+                                        <a name="event_drag:removeHandle">drag:removeHandle</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:removeHandle</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:removeHandle'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:removeInvalid">
+                                    <h4>
+                                        <a name="event_drag:removeInvalid">drag:removeInvalid</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:removeInvalid</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:removeInvalid'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_drag:start">
+                                    <h4>
+                                        <a name="event_drag:start">drag:start</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">drag:start</strong>
+
+                                            (
+                                                
+                                                        
+                                                         type
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         id
+                                                    
+                                                
+                                                        , 
+                                                         conf
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Subscribes to the respective event on the generated Drag instance.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">type</span>
+                                                                &lt;<span property="yui:type">String</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  'drag:start'</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">fn</span>
+                                                                &lt;<span property="yui:type">Function</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the callback function</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">id</span>
+                                                                &lt;<span property="yui:type">String|Node|etc</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  the element to bind (typically document)</span>
+                                                        </dd>
+                                                        
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">conf</span>
+                                                                &lt;<span property="yui:type">Object</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">  (optional) configuration to pass to Drag constructor</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div rel="yui:attributes" resource="#configattributes">
+
+                    </div>
+
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_event-drag.html" title="event-drag">event-drag</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="YUI~event-drag.html" title="YUI~event-drag">YUI~event-drag</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class=""><a href="event-drag.js.html" title="event-drag.js">event-drag.js</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div id="methodsList" class="module">
+                        <h4>Methods</h4>
+                        <ul class="content">        
+                                <li class="protected"><a href="#method_Y.Node.DOM_EVENTS.drag._applyConfig" title="Y.Node.DOM_EVENTS.drag._applyConfig">Y.Node.DOM_EVENTS.drag._applyConfig</a></li>
+                                <li class="protected"><a href="#method_Y.Node.DOM_EVENTS.drag._getNodes" title="Y.Node.DOM_EVENTS.drag._getNodes">Y.Node.DOM_EVENTS.drag._getNodes</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="eventsList" class="module">
+                        <h4>Events</h4>
+                        <ul class="content">        
+                                <li class=""><a href="#event_drag" title="drag">drag</a></li>
+                                <li class=""><a href="#event_drag:addHandle" title="drag:addHandle">drag:addHandle</a></li>
+                                <li class=""><a href="#event_drag:addInvalid" title="drag:addInvalid">drag:addInvalid</a></li>
+                                <li class=""><a href="#event_drag:afterMouseDown" title="drag:afterMouseDown">drag:afterMouseDown</a></li>
+                                <li class=""><a href="#event_drag:align" title="drag:align">drag:align</a></li>
+                                <li class=""><a href="#event_drag:end" title="drag:end">drag:end</a></li>
+                                <li class=""><a href="#event_drag:mouseDown" title="drag:mouseDown">drag:mouseDown</a></li>
+                                <li class=""><a href="#event_drag:removeHandle" title="drag:removeHandle">drag:removeHandle</a></li>
+                                <li class=""><a href="#event_drag:removeInvalid" title="drag:removeInvalid">drag:removeInvalid</a></li>
+                                <li class=""><a href="#event_drag:start" title="drag:start">drag:start</a></li>
+                        </ul>
+                    </div>
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 Yahoo! Inc. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "YUI~event-drag.html#event_drag", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag"}, {"url": "YUI~event-drag.html#event_drag:addHandle", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:addHandle"}, {"url": "YUI~event-drag.html#event_drag:addInvalid", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:addInvalid"}, {"url": "YUI~event-drag.html#event_drag:afterMouseDown", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:afterMouseDown"}, {"url": "YUI~event-drag.html#event_drag:align", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:align"}, {"url": "YUI~event-drag.html#event_drag:end", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:end"}, {"url": "YUI~event-drag.html#event_drag:mouseDown", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:mouseDown"}, {"url": "YUI~event-drag.html#event_drag:removeHandle", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:removeHandle"}, {"url": "YUI~event-drag.html#event_drag:removeInvalid", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:removeInvalid"}, {"url": "YUI~event-drag.html#event_drag:start", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:start"}, {"url": "YUI~event-drag.html#method_Y.Node.DOM_EVENTS.drag._applyConfig", "access": "protected", "host": "YUI~event-drag", "type": "method", "name": "Y.Node.DOM_EVENTS.drag._applyConfig"}, {"url": "YUI~event-drag.html#method_Y.Node.DOM_EVENTS.drag._getNodes", "access": "protected", "host": "YUI~event-drag", "type": "method", "name": "Y.Node.DOM_EVENTS.drag._getNodes"}];
+</script>
+</body>
+</html>

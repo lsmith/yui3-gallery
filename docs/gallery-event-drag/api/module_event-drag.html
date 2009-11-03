@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: event-drag   (YUI Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css" />
+
+    <script type="text/javascript" src="assets/api-js"></script>
+    <script type="text/javascript" src="assets/ac-js"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="Yahoo! UI Library">Yahoo! UI Library</a></h1>
+        <h3>event-drag&nbsp; <span class="subtitle">3</span></h3>
+        <a href="./index.html" title="Yahoo! UI Library">Yahoo! UI Library</a> 
+            &gt; <a href="./module_event-drag.html" title="event-drag">event-drag</a>
+                
+                
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                   
+                    <h3>Module: event-drag
+                    
+
+
+                    </h3>
+                    <div class="description summary">
+                        <p>Provides subscribable drag events from Node or NodeLists.  Subscribing
+to any of the events causes the node to be plugged with Y.Plugin.Drag.  The
+config object passed can be used to set Drag instance attributes or add
+additional Plugins to the Drag instance such as Y.Plugin.DDProxy.</p>
+Config properties are formatted and tested for a corresponding Y.Plugin.* as
+'somePlugin' => Y.Plugin.DDSomePlugin if the property name doesn't already
+start with "DD".  So { proxy: true } and { DDProxy: true } are functionally
+equivalent.  Both add Y.Plugin.DDProxy to the Drag instance.</p>
+<pre><code>node.on('drag:start', fn, { proxy: true, data: 123 });</code></pre>
+<p>This adds Y.Plugin.DDProxy to the Drag instance and also set's the Drag instance's data attribute.</p>
+<p>Passing any value will result in the Plugin being added, but if you pass
+an object literal as the value, it will be sent to the Plugin's
+constructor.</p>
+<pre><code>node.on('drag:end', fn, {
+constrained: { constrain2node: '#container' }
+});</code></pre>
+<p>This adds Y.Plugin.DDConstrained to the Drag instance using the specified
+configuration.</p>
+<p>A custom detach handle is returned, whose detach method unplugs the
+Y.Plugin.Drag from the node(s).</p>
+<p>Supported events are:</p>
+<ul>
+<li>drag or drag:drag</li>
+<li>drag:start</li>
+<li>drag:end</li>
+<li>drag:mouseDown</li>
+<li>drag:afterMouseDown</li>
+<li>drag:removeHandle</li>
+<li>drag:addHandle</li>
+<li>drag:removeInvalid</li>
+<li>drag:addInvalid</li>
+<li>drag:align</li>
+</ul>
+<p>Additionally, the default callback context is overridden to the
+subscribing Node unless otherwise specified during the subscription.
+So &quot;this&quot; in the callback will refer to the node.  On the
+event object passed to subscribers, <code>e.currentTarget</code> is also the
+Node regardless of context override.  The Drag instance is available from
+the Node as <code>node.dd</code>.</p>
+                    </div>
+
+
+
+                <div class="yui-gc">
+                    <div class="yui-u first">
+
+                            <p>This module contains the following classes:</p>
+                            <script>
+                            //var YUI_CLASS_LIST = [{"extends": {"superclass": {}, "events": {}, "configs": {}, "properties": {}, "methods": {}}, "description": "<p>Provides subscribable drag events from Node or NodeLists.  Subscribing\nto any of the events causes the node to be plugged with Y.Plugin.Drag.  The\nconfig object passed can be used to set Drag instance attributes or add\nadditional Plugins to the Drag instance such as Y.Plugin.DDProxy.</p>\nConfig properties are formatted and tested for a corresponding Y.Plugin.* as\n'somePlugin' => Y.Plugin.DDSomePlugin if the property name doesn't already\nstart with \"DD\".  So { proxy: true } and { DDProxy: true } are functionally\nequivalent.  Both add Y.Plugin.DDProxy to the Drag instance.</p>\n<pre><code>node.on('drag:start', fn, { proxy: true, data: 123 });</code></pre>\n<p>This adds Y.Plugin.DDProxy to the Drag instance and also set's the Drag instance's data attribute.</p>\n<p>Passing any value will result in the Plugin being added, but if you pass\nan object literal as the value, it will be sent to the Plugin's\nconstructor.</p>\n<pre><code>node.on('drag:end', fn, {\nconstrained: { constrain2node: '#container' }\n});</code></pre>\n<p>This adds Y.Plugin.DDConstrained to the Drag instance using the specified\nconfiguration.</p>\n<p>A custom detach handle is returned, whose detach method unplugs the\nY.Plugin.Drag from the node(s).</p>\n<p>Supported events are:</p>\n<ul>\n<li>drag or drag:drag</li>\n<li>drag:start</li>\n<li>drag:end</li>\n<li>drag:mouseDown</li>\n<li>drag:afterMouseDown</li>\n<li>drag:removeHandle</li>\n<li>drag:addHandle</li>\n<li>drag:removeInvalid</li>\n<li>drag:addInvalid</li>\n<li>drag:align</li>\n</ul>\n<p>Additionally, the default callback context is overridden to the\nsubscribing Node unless otherwise specified during the subscription.\nSo &quot;this&quot; in the callback will refer to the node.  On the\nevent object passed to subscribers, <code>e.currentTarget</code> is also the\nNode regardless of context override.  The Drag instance is available from\nthe Node as <code>node.dd</code>.</p>", "guessedname": "YUI~event-drag", "name": "YUI~event-drag"}];
+                            </script>
+                            <div id="splash_classList">
+                                <ul>
+                                    <li><a href="YUI~event-drag.html" title="YUI~event-drag" id="class_0">YUI~event-drag</a></li>
+                                </ul>
+                            </div>
+                    </div>
+                    <div class="yui-u">
+
+                        </div>
+                </div>
+
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_event-drag.html" title="event-drag">event-drag</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="YUI~event-drag.html" title="YUI~event-drag">YUI~event-drag</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class=""><a href="event-drag.js.html" title="event-drag.js">event-drag.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 Yahoo! Inc. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "YUI~event-drag.html#event_drag", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag"}, {"url": "YUI~event-drag.html#event_drag:addHandle", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:addHandle"}, {"url": "YUI~event-drag.html#event_drag:addInvalid", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:addInvalid"}, {"url": "YUI~event-drag.html#event_drag:afterMouseDown", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:afterMouseDown"}, {"url": "YUI~event-drag.html#event_drag:align", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:align"}, {"url": "YUI~event-drag.html#event_drag:end", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:end"}, {"url": "YUI~event-drag.html#event_drag:mouseDown", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:mouseDown"}, {"url": "YUI~event-drag.html#event_drag:removeHandle", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:removeHandle"}, {"url": "YUI~event-drag.html#event_drag:removeInvalid", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:removeInvalid"}, {"url": "YUI~event-drag.html#event_drag:start", "access": "", "host": "YUI~event-drag", "type": "event", "name": "drag:start"}, {"url": "YUI~event-drag.html#method_Y.Node.DOM_EVENTS.drag._applyConfig", "access": "protected", "host": "YUI~event-drag", "type": "method", "name": "Y.Node.DOM_EVENTS.drag._applyConfig"}, {"url": "YUI~event-drag.html#method_Y.Node.DOM_EVENTS.drag._getNodes", "access": "protected", "host": "YUI~event-drag", "type": "method", "name": "Y.Node.DOM_EVENTS.drag._getNodes"}];
+</script>
+</body>
+</html>
