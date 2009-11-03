@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <title>Test Page</title>
+    <style type="text/css">
+        .markup {
+            border: 1px solid #777;
+            width: 400px;
+            height: 400px;
+        }
+        .markup div {
+            height: 50px;
+            width: 50px;
+            background: #f00;
+        }
+        ul li {
+            height: 20px;
+            width: 150px;
+            background: #00f;
+            color #fff;
+        }
+    </style>
+</head>
+<body class="yui-skin-sam">
+<div class="markup">
+    <div id="basic"></div>
+    <ul>
+        <li>ONE</li>
+        <li>TWO</li>
+        <li>THREE</li>
+    </ul>
+
+    <div id="proxy"></div>
+    <div id="constrained"></div>
+    <div id="configured_proxy_and_constrained"></div>
+</div>
+
+<script src="http://yui.yahooapis.com/3.0.0/build/yui/yui.js"></script>
+<script>
+YUI({
+    modules: {
+        'gallery-event-drag': {
+            fullpath: '../../../build/gallery-event-drag/gallery-event-drag.js',
+            requires: ['node-base','dd-plugin']
+        }
+    }
+}).use('dd-proxy','dd-constrain','gallery-event-drag',function (Y) {
+
+function zeroPad(n) {
+    return (n < 10 ? '0' : '') + n;
+}
+
+function makeColor() {
+    return "#" +
+        zeroPad((Math.random() * 255)|0).toString(16) +
+        zeroPad((Math.random() * 255)|0).toString(16) +
+        zeroPad((Math.random() * 255)|0).toString(16);
+}
+
+Y.one('#basic').on('drag', function (e) {
+    this.setStyle('background', makeColor());
+});
+
+Y.all('.markup li').on('drag:end', function (e) {
+    Y.log(this.get('text'));
+});
+
+Y.one('#proxy').on('drag:start', function (e) {
+    Y.log(this.getXY());
+}, { proxy: true });
+
+Y.one('#constrained').on('drag:mouseDown', function (e) {
+    Y.log( this.getXY() );
+}, { constrained: { constrain2node: '.markup' } });
+
+var obj = {
+    getB : function (x) { return x % 13; },
+    handleDrag : function (e, a) {
+        var node = e.currentTarget,
+            dd = node.dd,
+            b = this.getB(dd.get('data')),
+            x = a + b;
+
+        node.setContent(x);
+        dd.set('data', x);
+    }
+};
+
+Y.one('#configured_proxy_and_constrained').on('drag', obj.handleDrag, {
+    data: 5,
+    proxy: { 
+        borderStyle: '3px dashed #684'
+    },
+    constrained: {
+        constrain2view: true,
+        gutter: '10 50'
+    }
+}, obj, 3);
+
+});
+</script>
+</body>
+</html>
