@@ -40,9 +40,11 @@
 YUI({
     modules: {
         'gallery-event-drag': {
-            fullpath: '../../../build/gallery-event-drag/gallery-event-drag.js',
-            requires: ['node-base','dd-plugin']
+            fullpath: 'http://yui.yahooapis.com/gallery-2009.11.02-20/build/gallery-event-drag/gallery-event-drag-min.js',
+            requires: ["dd-plugin"],
+            optional: ["dd-proxy","dd-constrain"]
         }
+
     }
 }).use('dd-proxy','dd-constrain','gallery-event-drag',function (Y) {
 
