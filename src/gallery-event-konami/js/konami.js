@@ -13,7 +13,6 @@
  * Provides a subscribable event named &quot;konami&quot;.
  *
  * @event konami
- *
  * @param type {String} 'konami'
  * @param fn {Function} the callback function
  * @param id {String|Node|etc} the element to bind (typically document)

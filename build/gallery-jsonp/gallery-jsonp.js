@@ -173,4 +173,4 @@ Y.jsonp = function (url,c) {
 };
 
 
-}, 'gallery-2009.10.27' ,{requires:['selector-css3']});
+}, '@VERSION@' ,{requires:['selector-css3']});
