@@ -127,27 +127,25 @@ JSONPRequest.prototype = {
         var proxy   = Y.guid().replace(/-/g,'_'),
             url     = this._format('YUI.' + proxy),
             success = this.success,
-            failure = this.failure;
+            failure = this.failure,
+            script  = Y.doc.createElement('script'),
+            head    = Y.doc.getElementsByTagName('head')[0];
 
         // Temporary un-sandboxed function alias
-        YUI[proxy] = success;
+        YUI.Env.JSONP[proxy] = success;
 
-        // Use the YUI instance's Get util to add the script and trigger the
-        // callback.
-        YUI({ modules: { _ : { fullpath : url } } }).
-        use('_', function(X,res) {
-            delete YUI[proxy];
+        // @TODO do I need readyStateChange as well?
+        script.onload = function () {
+            delete YUI.Env.JSONP[proxy];
+            script.parentNode.removeChild(script);
+        };
+        script.onerror = function () {
+            delete YUI.Env.JSONP[proxy];
+            script.parentNode.removeChild(script);
+            failure(url);
+        };
 
-            var el = Y.Selector.query('head > script[src*='+proxy+']',null,true);
-            if (el) {
-                el.parentNode.removeChild(el);
-            } else {
-            }
-
-            if (!res.success) {
-                failure(url);
-            }
-        });
+        head.appendChild(script);
 
         return this;
     }
@@ -171,6 +169,8 @@ Y.jsonp = function (url,c) {
     // returns null if invalid inputs
     return req && req.send();
 };
+
+YUI.Env.JSON = {};
 
 
 }, '@VERSION@' ,{requires:['selector-css3']});
