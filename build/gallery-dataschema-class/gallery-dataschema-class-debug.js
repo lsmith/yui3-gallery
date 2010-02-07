@@ -117,4 +117,4 @@ DataSchema.prototype = {
 Y.DataSchema = Y.mix(DataSchema, Y.DataSchema);
 
 
-}, '@VERSION@' ,{requires:['dataschema-base']});
+}, 'gallery-2010.01.13-20' ,{requires:['dataschema-base']});
