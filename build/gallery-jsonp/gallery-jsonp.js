@@ -160,7 +160,8 @@ JSONPRequest.prototype = {
 
         var proxy  = Y.guid().replace( /-/g, '_' ),
             config = this._config,
-            url    = config.format.call( this, this.url, 'YUI.' + proxy );
+            url    = config.format.call( this,
+                        this.url, 'YUI.Env.JSONP.' + proxy );
 
         function wrap( fn ) {
             return ( isFunction( fn ) ) ?
