@@ -38,7 +38,7 @@ var isObject   = Y.Lang.isObject,
  *                                   success handler
  */
 function JSONPRequest() {
-    this._init( arguments );
+    this._init.apply( this, arguments );
 }
 
 /**

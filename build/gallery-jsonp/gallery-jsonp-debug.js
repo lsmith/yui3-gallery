@@ -40,7 +40,7 @@ var isObject   = Y.Lang.isObject,
  *                                   success handler
  */
 function JSONPRequest() {
-    this._init( arguments );
+    this._init.apply( this, arguments );
 }
 
 /**
@@ -234,4 +234,4 @@ Y.jsonp = function (url,c) {
 YUI.Env.JSONP = {};
 
 
-}, '@VERSION@' ,{requires:['selector-css3']});
+}, '@VERSION@' ,{requires:['get']});
