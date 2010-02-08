@@ -60,6 +60,33 @@ Y.extend(TwitterStatus, Y.Widget, {
             data:  { defaultFn: this._defDataFn },
             error: { defaultFn: this._defErrorFn }
         });
+
+        this._initJSONPRequest();
+
+        this.after( {
+            usernameChange: this._refreshJSONPRequest,
+            countChange   : this._refreshJSONPRequest
+        } );
+    },
+
+    _initJSONPRequest: function () {
+        var un      = this.get('username'),
+            url     = TwitterStatus.TWITTER_URL + TwitterStatus.FEED_URI +
+                      un + '.json?'+
+                      'd=' + (new Date()).getTime() + // cache busting needed?
+                      '&count=' + this.get('count');
+
+        this._jsonpHandle = new Y.JSONPRequest( url, {
+            on: {
+                success: this._handleJSONPResponse
+            },
+            context: this
+        });
+    },
+
+    _refreshJSONPRequest: function () {
+        this._initJSONPRequest();
+        this.syncUI();
     },
 
     renderUI: function () {
@@ -110,14 +137,7 @@ Y.extend(TwitterStatus, Y.Widget, {
     },
 
     update: function () {
-        var un      = this.get('username'),
-            count   = this.get('count'),
-            url     = TwitterStatus.TWITTER_URL + TwitterStatus.FEED_URI +
-                      un + '.json?'+
-                      'd=' + (new Date()).getTime() + // cache busting needed?
-                      '&count=' + this.get('count');
-
-        Y.jsonp(url, Y.bind(this._handleJSONPResponse, this));
+        this._jsonpRequest.send();
     },
 
     _handleJSONPResponse: function (data) {
