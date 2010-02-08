@@ -235,4 +235,4 @@ Y.jsonp = function (url,c) {
 YUI.Env.JSONP = {};
 
 
-}, '@VERSION@' ,{requires:['get']});
+}, '@VERSION@' ,{requires:['get','oop']});
