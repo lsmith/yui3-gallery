@@ -132,7 +132,7 @@ JSONPRequest.prototype = {
 
             callback = bits.shift();
 
-            for ( i = bits.length - 1; i <= 0; --i ) {
+            for ( i = bits.length - 1; i >= 0; --i ) {
                 context = context[ bits[ i ] ];
                 if ( !isObject( context ) ) {
                     return null;
