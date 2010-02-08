@@ -178,8 +178,7 @@ JSONPRequest.prototype = {
         Y.Get.script( url, {
             onFailure: wrap( config.on.failure ),
             onTimeout: wrap( config.on.timeout || config.on.failure ),
-            timeout  : config.timeout,
-            autoPurge: true
+            timeout  : config.timeout
         } );
 
         return this;

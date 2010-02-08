@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <title>Test Page</title>
+</head>
+<body>
+<pre id="x"></pre>
+
+<script type="text/javascript" src="http://yui.yahooapis.com/3.0.0/build/yui/yui.js"></script>
+<script>
+YUI.add( 'yql', function ( Y ) {
+
+    function yql( sql, callback, params ) {
+        var url = [],
+            request;
+
+        params = params || {};
+        
+        params = Y.merge( params, {
+            q     : sql,
+            format: 'json',
+            env   : params.env || yql.TABLES_URL
+        } );
+
+        Y.each( params, function ( value, param ) {
+            url.push( param + '=' + encodeURIComponent( value ) );
+        } );
+
+        request = new Y.JSONPRequest( yql.YQL_URL + url.join( '&' ), {
+            on: {
+                success: yql._receive,
+                timeout: yql._timeout
+            },
+            //context: Y,
+            args   : [ callback ]
+        } );
+
+        Y.augment( request, Y.EventTarget );
+
+        return request.send();
+    }
+
+    Y.mix( yql, {
+        YQL_URL : 'http:/'+'/query.yahooapis.com/v1/public/yql?',
+
+        TABLES_URL: 'http:/'+'/datatables.org/alltables.env',
+
+        // executed from a JSONPRequest object augmented with EventTarget API
+        _receive : function ( data, callback ) {
+            if ( data.query ) {
+                this.fire( 'query', data.query );
+            }
+
+            if ( data.error ) {
+                this.fire( 'error', data.error );
+            }
+
+            callback.call( Y, data );
+        },
+
+        _timeout : function ( data, callback ) {
+            this.fire( 'timeout', data );
+
+            callback.call( Y, data );
+        }
+    } );
+
+    Y.yql = yql;
+
+}, '0.0.1', { requires: [ 'gallery-jsonp', 'event-base'] } );
+
+YUI({
+    modules: {
+        'gallery-jsonp': {
+            fullpath: 'gallery-jsonp.js',
+            requires: ['get']
+        }
+    }
+})
+//YUI()
+.use('yql', 'json-stringify', function (Y) {
+
+    var sql =
+            'select * ' +
+            'from   yui.gallery.user ' +
+            'where  ( username = "davglass" )',
+        done = false;
+
+    var req = Y.yql( sql, function ( data ) {
+        document.getElementById( 'x' ).appendChild(
+            document.createTextNode(
+                Y.JSON.stringify( data, null, 4 ) ) );
+    } );
+    
+    req.on( 'query', function ( query ) {
+        console.log( query.created, arguments.length, this.foo );
+        if ( ! done ) {
+            done = true;
+            req.send(); // test JSONPRequest API to resend request
+        }
+    }, { foo: "<-- 4 = context and extra arg support works" }, 1, 2, 3 );
+
+    
+});
+</script>
+</body>
+</html>

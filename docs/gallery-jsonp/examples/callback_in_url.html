@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <title>Test Page</title>
+</head>
+<body>
+<pre id="x"></pre>
+
+<script type="text/javascript" src="http://yui.yahooapis.com/3.0.0/build/yui/yui.js"></script>
+<script type="text/javascript">
+var One = {
+    two: {
+        foo  : "Context preservation working",
+        three: function ( data ) {
+            console.log( ( this.foo || "BROKEN" ), data[0].text );
+        }
+    }
+};
+
+YUI({
+    modules: {
+        'gallery-jsonp': {
+            fullpath: 'gallery-jsonp.js',
+            requires: ['get']
+        }
+    }
+})
+//YUI()
+.use('gallery-jsonp', function (Y) {
+
+    Y.jsonp( 'http://twitter.com/statuses/user_timeline/ls_n.json?' +
+             'count=3&callback=One.two.three' );
+
+});
+</script>
+</body>
+</html>
