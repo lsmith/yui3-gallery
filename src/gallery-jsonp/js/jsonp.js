@@ -87,6 +87,8 @@ JSONPRequest.prototype = {
             callback = { on: { success: callback } };
         }
 
+        callback.on = callback.on || {};
+
         if ( !callback.on.success ) {
             callback.on.success = this._getCallbackFromUrl( url );
         }
