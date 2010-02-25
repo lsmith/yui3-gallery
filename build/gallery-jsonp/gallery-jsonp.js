@@ -235,8 +235,4 @@ Y.jsonp = function (url,c) {
 YUI.Env.JSONP = {};
 
 
-<<<<<<< HEAD
-}, '@VERSION@' ,{requires:['get','oop']});
-=======
 }, 'gallery-2010.02.10-01' ,{requires:['get','oop']});
->>>>>>> 4b63848c4f4680210815ee45a428edb31e2b3e26
