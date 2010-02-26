@@ -1,4 +1,4 @@
-YUI.add('gallery-event-common-keys', function(Y) {
+YUI.add('gallery-event-nav-keys', function(Y) {
 
 var keys = {
         enter    : 13,
@@ -6,7 +6,11 @@ var keys = {
         backspace: 8,
         tab      : 9,
         pageUp   : 33,
-        pageDown : 34
+        pageDown : 34,
+        left     : 37,
+        up       : 38,
+        right    : 39,
+        down     : 40
     };
 
 Y.Object.each( keys, function ( keyCode, name ) {
@@ -18,6 +22,7 @@ Y.Object.each( keys, function ( keyCode, name ) {
 
             node.on( sub._evtGuid + 'keydown', function ( e ) {
                 if ( e.keyCode === keyCode ) {
+                    e.type = name;
                     ce.fire( e );
                 }
             });
@@ -39,6 +44,8 @@ Y.Event.define( 'arrow', {
 
         node.on( 'keydown', function ( e ) {
             if ( e.keyCode > 36 && e.keyCode < 41 ) {
+                e.originalType = e.type;
+                e.type = 'arrow';
                 e.direction = directions[ e.keyCode ];
 
                 ce.fire( e );
