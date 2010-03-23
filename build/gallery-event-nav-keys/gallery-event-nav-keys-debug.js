@@ -66,4 +66,4 @@ Y.Event.define( 'arrow', {
 } );
 
 
-}, '@VERSION@' ,{requires:['event-synthetic']});
+}, 'gallery-2010.03.02-18' ,{requires:['event-synthetic']});
