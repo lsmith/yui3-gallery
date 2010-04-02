@@ -23,26 +23,30 @@
  */
 Y.Event.define('konami', {
     on: function (node, sub, notifier) {
-        var guid = Y.guid();
+        if ( Y.Object.keys( notifier.getSubs()[0] ).length === 1 ) {
+            var guid = Y.guid();
 
-        node.on(guid + '|keydown', function (e) {
-            if (e.keyCode === sub.keys[sub.progress]) {
-                if (++sub.progress === sub.keys.length) {
-                    notifier.fire();
-                    notifier.detach(sub.fn, sub.context);
+            node.on(guid + '|keydown', function (e) {
+                if (e.keyCode === notifier._keys[notifier._progress]) {
+                    if (++notifier._progress === notifier._keys.length) {
+                        notifier.fire();
+                        notifier.detach(sub.fn, sub.context);
+                    }
+                } else {
+                    notifier._progress = 0;
                 }
-            } else {
-                sub.progress = 0;
-            }
-        });
+            });
 
-        Y.mix(sub,{
-            progress : 0,
-            keys     : [38,38,40,40,37,39,37,39,66,65],
-            _evtGuid : guid
-        });
+            Y.mix(notifier,{
+                _progress : 0,
+                _keys     : [38,38,40,40,37,39,37,39,66,65],
+                _evtGuid  : guid
+            });
+        }
     },
-    detach: function (node, sub) {
-        node.detach(sub._evtGuid + '|*');
+    detach: function (node, sub, notifier) {
+        if ( Y.Object.keys( notifier.getSubs()[0] ).length === 1 ) {
+            node.detach( notifier._evtGuid + '|*' );
+        }
     }
 });
