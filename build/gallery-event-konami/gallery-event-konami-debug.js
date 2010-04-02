@@ -23,51 +23,31 @@ YUI.add('gallery-event-konami', function(Y) {
  * to the listener.
  * @return {Event.Handle} the detach handle
  */
-var progress = {},
-    handlers = {},
-    keys = [38,38,40,40,37,39,37,39,66,65],
-    eventDef;
+Y.Event.define('konami', {
+    on: function (node, sub, notifier) {
+        var guid = Y.guid();
 
-eventDef = {
-    on: function (type, fn, el) {
-        var args = Y.Array(arguments,0,true),
-            ename;
-
-        el = args[2] = Y.get(el);
-
-        if (el) {
-            ename = ('konami_' + Y.stamp(el)).replace(/,/g,'_');
-
-            if (!Y.getEvent(ename)) {
-                progress[ename] = 0;
-                handlers[ename] = {};
-
-                handlers[ename].dom = el.on('keydown', function (e) {
-                    if (e.keyCode === keys[progress[ename]]) {
-                        if (++progress[ename] === keys.length) {
-                            Y.fire(ename,e);
-                            handlers[ename].dom.detach();
-                            handlers[ename].proxy.detach();
-                            delete handlers[ename];
-                        }
-                    } else {
-                        progress[ename] = 0;
-                    }
-                });
+        node.on(guid + '|keydown', function (e) {
+            if (e.keyCode === sub.keys[sub.progress]) {
+                if (++sub.progress === sub.keys.length) {
+                    notifier.fire();
+                    notifier.detach(sub.fn, sub.context);
+                }
+            } else {
+                sub.progress = 0;
             }
+        });
 
-            args[0] = ename;
-            args.splice(2,1);
-
-            handlers[ename].proxy = Y.on.apply(Y,args);
-        }
+        Y.mix(sub,{
+            progress : 0,
+            keys     : [38,38,40,40,37,39,37,39,66,65],
+            _evtGuid : guid
+        });
+    },
+    detach: function (node, sub) {
+        node.detach(sub._evtGuid + '|*');
     }
-};
-
-Y.Env.evt.plugins.konami = eventDef;
-if (Y.Node) {
-    Y.Node.DOM_EVENTS.konami = eventDef;
-}
+});
 
 
-}, '@VERSION@' ,{requires:['node-base','event-custom']});
+}, '@VERSION@' ,{requires:['event-synthetic']});
