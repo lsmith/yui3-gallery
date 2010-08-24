@@ -237,4 +237,4 @@ if (!YUI.Env.JSONP) {
 }
 
 
-}, '@VERSION@' ,{requires:['get','oop']});
+}, 'gallery-2010.08.11-20-39' ,{requires:['get','oop']});
