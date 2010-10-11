@@ -130,4 +130,4 @@ toRelativeTime.strings = {
 Y.toRelativeTime = toRelativeTime;
 
 
-}, '@VERSION@' );
+}, 'gallery-2010.08.25-19-45' );
