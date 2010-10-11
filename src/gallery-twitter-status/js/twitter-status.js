@@ -1,17 +1,8 @@
 var RE_USERNAME = /@(\w+)/g,
-    RE_LINK     = /((?:https?|s?ftp|ssh)\:\/\/[^"\s<>]*[^.,;'">\:\s<>\)\]\!])/g;
+    RE_LINK     = /((?:https?|s?ftp|ssh)\:\/\/[^"\s<>]*[^.,;'">\:\s<>\)\]\!])/g,
+    TwitterStatus;
 
-function TwitterStatus() {
-    TwitterStatus.superclass.constructor.apply(this,arguments);
-}
-
-Y.mix(TwitterStatus, {
-    NAME: 'twitterstatus',
-
-    TWITTER_URL: 'http://twitter.com/',
-
-    FEED_URI: 'statuses/user_timeline/',
-
+TwitterStatus = Y.Base.create("twitterStatus", Y.Widget, [], {
     ENTRY_TEMPLATE:
     '<div class="twitter-status-update">'+
         '<p>{text} '+
@@ -23,35 +14,6 @@ Y.mix(TwitterStatus, {
     '<h3 class="twitter-status-title">{title} '+
         '<a href="{url}" class="twitter-status-username">{username}</a>'+
     '</h3>',
-
-    ATTRS: {
-        username: {},
-
-        count: {
-            value: 10,
-            validator: Y.Lang.isNumber
-        },
-
-        refreshSeconds: {
-            value: 300, // 5mins
-            validator: Y.Lang.isNumber
-        },
-
-        strings: {
-            value: {
-                title:  'Latest Updates',
-                error:  'Oops!  We had some trouble connecting to Twitter :('
-            }
-        },
-
-        includeTitle: {
-            value: true,
-            validator: Y.Lang.isBoolean
-        }
-    }
-});
-
-Y.extend(TwitterStatus, Y.Widget, {
 
     interval: null,
 
@@ -74,9 +36,10 @@ Y.extend(TwitterStatus, Y.Widget, {
             url     = TwitterStatus.TWITTER_URL + TwitterStatus.FEED_URI +
                       un + '.json?'+
                       'd=' + (new Date()).getTime() + // cache busting needed?
-                      '&count=' + this.get('count');
+                      '&count=' + this.get('count') +
+                      '&callback={callback}';
 
-        this._jsonpHandle = new Y.JSONPRequest( url, {
+        this._jsonpHandle = new Y.JSONPRequest(url, {
             on: {
                 success: this._handleJSONPResponse
             },
@@ -119,10 +82,10 @@ Y.extend(TwitterStatus, Y.Widget, {
         if (this.get('includeTitle')) {
             un = this.get('username');
 
-            content = Y.substitute(TwitterStatus.TITLE_TEMPLATE, {
+            content = Y.Lang.sub(this.TITLE_TEMPLATE, {
                 title   : this.get('strings.title'),
                 username: '@' + un,
-                url     : TwitterStatus.TWITTER_URL + un
+                url     : this.TWITTER_URL + un
             });
 
 
@@ -137,7 +100,7 @@ Y.extend(TwitterStatus, Y.Widget, {
     },
 
     update: function () {
-        this._jsonpRequest.send();
+        this._jsonpHandle.send();
     },
 
     _handleJSONPResponse: function (data) {
@@ -179,10 +142,12 @@ Y.extend(TwitterStatus, Y.Widget, {
     },
 
     _createEntry: function (entry) {
-        return Y.substitute(TwitterStatus.ENTRY_TEMPLATE, entry)
+        return Y.Lang.sub(this.ENTRY_TEMPLATE, entry)
                     .replace(RE_LINK,'<a href="$1">$1</a>')
                     .replace(RE_USERNAME,
-                        '<a class="twitter-acct" href="'+TwitterStatus.TWITTER_URL+'$1">@$1</a>');
+                        '<a class="twitter-acct" href="' +
+                            TwitterStatus.TWITTER_URL +
+                        '$1">@$1</a>');
     },
 
     _defErrorFn: function () {
@@ -199,6 +164,37 @@ Y.extend(TwitterStatus, Y.Widget, {
         this.interval = Y.later(
             this.get('refreshSeconds') * 1000,
             this, this.update, null, true);
+    }
+
+}, {
+    TWITTER_URL: 'http://twitter.com/',
+
+    FEED_URI: 'statuses/user_timeline/',
+
+    ATTRS: {
+        username: {},
+
+        count: {
+            value: 10,
+            validator: Y.Lang.isNumber
+        },
+
+        refreshSeconds: {
+            value: 300, // 5mins
+            validator: Y.Lang.isNumber
+        },
+
+        strings: {
+            value: {
+                title:  'Latest Updates',
+                error:  'Oops!  We had some trouble connecting to Twitter :('
+            }
+        },
+
+        includeTitle: {
+            value: true,
+            validator: Y.Lang.isBoolean
+        }
     }
 });
 
