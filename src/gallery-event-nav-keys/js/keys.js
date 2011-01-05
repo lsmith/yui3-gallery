@@ -11,27 +11,73 @@ var keys = {
         down     : 40
     };
 
-Y.Object.each( keys, function ( keyCode, name ) {
-    Y.Event.define( name, {
-        publishConfig: { emitFacade: false },
+Y.Object.each(keys, function (keyCode, name) {
+    Y.Event.define(name, {
+        _keydown: function (e) {
+            var keyFilter = this.getData('-yui3-keydown-filter') || {},
+                notifiers = keyFilter[e.keyCode],
+                i, len;
 
-        on: function ( node, sub, ce ) {
-            // Only need to set up the keydown listener once
-            if (sub.getSubs().length === 1) {
-                ce._evtGuid = Y.guid() + '|';
-
-                node.on( ce._evtGuid + 'keydown', function ( e ) {
-                    if ( e.keyCode === keyCode ) {
-                        e.type = name;
-                        ce.fire( e );
-                    }
-                } );
+            if (notifiers) {
+                for (i = 0, len = notifiers.length; i < len; ++i) {
+                    notifiers[i].fire(e);
+                }
             }
         },
 
-        detach: function (node, sub, ce) {
-            if ( sub.getSubs().length === 1 ) {
-                node.detach( ce._evtGuid + '*');
+        on: function (node, sub, notifier) {
+            // Only need to set up the keydown listener once for all nav key
+            // events, so keep track of additional subscriptions in node data
+            var key = keys[name],
+                keyFilter = node.getData('-yui3-keydown-filter');
+
+            if (!keyFilter) {
+                keyFilter = {};
+                node.setData('-yui3-keydown-filter', keyFilter);
+                node.on('keydown', this._keydown);
+            }
+
+            if (!keyFilter[key]) {
+                keyFilter[key] = [];
+            }
+
+            keyFilter[key].push(notifier);
+        },
+
+        delegate: function (node, sub, notifier, filter) {
+            sub._delegateHandle = node.delegate('keydown', function (e) {
+                if (e.keyCode === keys[name]) {
+                    notifier.fire(e);
+                }
+            }, filter);
+        },
+
+        detach: function (node, sub, notifier) {
+            var keyFilter = node.getData('-yui3-keydown-filter'),
+                key = keys[name],
+                index;
+
+            if (keyFilter && keyFilter[key]) {
+                index = Y.Array.indexOf(keyFilter[key], notifier);
+
+                if (index > -1) {
+                    keyFilter[key].splice(index, 1);
+
+                    if (keyFilter[key].length === 0) {
+                        delete keyFilter[key];
+                    }
+
+                    if (!Y.Object.keys(keyFilter).length) {
+                        node.clearData('-yui3-keydown-filter');
+                        node.detach('keydown', this._keydown);
+                    }
+                }
+            }
+        },
+
+        detachDelegate: function (node, sub) {
+            if (sub._delegateHandle) {
+                sub._delegateHandle.detach();
             }
         }
     } );
