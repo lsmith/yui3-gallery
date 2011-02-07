@@ -94,4 +94,4 @@ function delegate(type, fn, el, filter) {
 Y.delegate = Y.mix(delegate, Y.delegate);
 
 
-}, '@VERSION@' ,{requires:['event-delegate']});
+}, 'gallery-2011.01.26-20-33' ,{requires:['event-delegate']});

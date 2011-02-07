@@ -118,4 +118,4 @@ Y.Event.define("arrow", {
 //}, '@VERSION', { requires: ['event-synthetic'] });
 
 
-}, '@VERSION@' ,{requires:['event-synthetic']});
+}, 'gallery-2011.01.18-21-05' ,{requires:['event-synthetic']});

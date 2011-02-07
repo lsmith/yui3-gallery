@@ -34,4 +34,4 @@ Y.Node.prototype.toggleView = function (name, on) {
 };
 
 
-}, '@VERSION@' ,{requires:['transition-native']});
+}, 'gallery-2011.01.26-20-33' ,{requires:['transition-native']});

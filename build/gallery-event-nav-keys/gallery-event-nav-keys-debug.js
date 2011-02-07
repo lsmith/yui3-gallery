@@ -42,4 +42,4 @@ Y.Object.each(keys, function (keyCode, name) {
 });
 
 
-}, '@VERSION@' ,{requires:['event-synthetic']});
+}, 'gallery-2011.02.02-21-07' ,{requires:['event-synthetic']});

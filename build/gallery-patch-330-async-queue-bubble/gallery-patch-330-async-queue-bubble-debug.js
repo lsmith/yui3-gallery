@@ -8,4 +8,4 @@ Y.AsyncQueue.prototype._init = function () {
 };
 
 
-}, '@VERSION@' ,{requires:['async-queue']});
+}, 'gallery-2011.01.26-20-33' ,{requires:['async-queue']});
