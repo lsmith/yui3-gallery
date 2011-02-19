@@ -216,4 +216,4 @@ Y.jsonrpc = function (url, method, params, callback) {
 };
 
 
-}, '@VERSION@' ,{requires:['io-base', 'event-custom', 'json']});
+}, 'gallery-2011.02.09-21-32' ,{requires:['io-base', 'event-custom', 'json']});

@@ -163,4 +163,4 @@ Y.CustomEvent.prototype.fireComplex = function(args) {
 };
 
 
-}, '@VERSION@' ,{requires:['event-custom-complex']});
+}, 'gallery-2011.02.09-21-32' ,{requires:['event-custom-complex']});
