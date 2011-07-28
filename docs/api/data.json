@@ -1,0 +1,91 @@
+{
+    "project": {},
+    "files": {
+        "js/attr.js": {
+            "name": "js/attr.js",
+            "modules": {
+                "gallery-pluginattr": 1
+            },
+            "classes": {},
+            "fors": {
+                "Plugin": 1
+            },
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "gallery-pluginattr": {
+            "name": "gallery-pluginattr",
+            "submodules": {},
+            "classes": {
+                "Plugin": 1
+            },
+            "fors": {
+                "Plugin": 1
+            },
+            "namespaces": {},
+            "tag": "module",
+            "file": "js/attr.js",
+            "line": 1,
+            "description": "Adds a static method `Y.Plugin.addHostAttr(...)` to allow plugging and\nunplugging to happen via host attribute configuration."
+        }
+    },
+    "classes": {
+        "Plugin": {
+            "name": "Plugin",
+            "shortname": "Plugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gallery-pluginattr",
+            "namespace": ""
+        }
+    },
+    "classitems": [
+        {
+            "file": "js/attr.js",
+            "line": 13,
+            "description": "Register a Plugin with an activation attribute on a host class.\nSetting this attribute at construction or at run time will cause the\nPlugin to be plugged into the instance.\n\nBy default, trigger attributes will support values `true` or a configuration\nobject to `plug()` the plugin and `false` to `unplug()` it.\n\nTo support enhancing host instance behavior when the plugin is\n`use()`d after the host instance is instantiated, you can also pass the\ninstance as the second parameter.\n\nTo allow custom values to be passed to the trigger attribute, pass a\npreprocessor function as the fourth parameter. The value assigned to the\nattribute will be translated by this function prior to getting passed to\n`plug()` as the configuration.  Return false from this function to cause\nthe plugin to be unplugged.\n\nThe host class must have a static `ATTRS` collection.",
+            "example": [
+                " Adds a \"filters\" attribute that accepts additional value types:\n\n    // Adds a triggering attribute \"filters\" that accepts true|false or\n    // a configuration object (out-of-the-box support), as well as a single\n    // string or string array to pass as the plugin's \"category\" configuration\n    Y.Plugin.addHostAttr('filters', Y.Console, Y.Plugin.ConsoleFilters,\n         function (config) {\n             if (Y.Lang.isString(config) || Y.Lang.isArray(config)) {\n                 config = {\n                     defaultVisibility: false,\n                     category: Y.Array.hash(Y.Array(config))\n                 };\n             }\n\n            return config;\n        }\n    });\n\n    var con = new Y.Console({ filters: ['warn', 'error'] });\n\n",
+                " Adds a \"filters\" attribute that accepts additional value types:\n\n    // Adds a triggering attribute \"filters\" that accepts true|false or\n    // a configuration object (out-of-the-box support), as well as a single\n    // string or string array to pass as the plugin's \"category\" configuration\n    Y.Plugin.addHostAttr('filters', Y.Console, Y.Plugin.ConsoleFilters,\n         function (config) {\n             if (Y.Lang.isString(config) || Y.Lang.isArray(config)) {\n                 config = {\n                     defaultVisibility: false,\n                     category: Y.Array.hash(Y.Array(config))\n                 };\n             }\n\n            return config;\n        }\n    });\n\n    var con = new Y.Console({ filters: ['warn', 'error'] });\n\n"
+            ],
+            "itemtype": "method",
+            "name": "Plugin.addHostAttr",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The attribute name to trigger plug and unplug",
+                    "type": "String"
+                },
+                {
+                    "name": "host",
+                    "description": "The class or instance to receive the\n                              triggering attribute",
+                    "type": "Function|Object"
+                },
+                {
+                    "name": "plugin",
+                    "description": "The plugin class",
+                    "type": "Function"
+                },
+                {
+                    "name": "setter",
+                    "description": "Attribute value preprocessor",
+                    "type": "Function",
+                    "optional": true
+                },
+                {
+                    "name": "force",
+                    "description": "Redefine an existing host attribue?",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "static": 1,
+            "class": "Plugin",
+            "module": "gallery-pluginattr"
+        }
+    ]
+}
