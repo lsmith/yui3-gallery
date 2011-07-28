@@ -194,28 +194,16 @@ the plugin to be unplugged.</p>
     
     
         <h5>Example</h5>
-        <p>Adds a "filters" attribute that accepts additional value types:</p>
+        <pre class="code"><code class="prettyprint">// Example 1.
+// Add "draggable" triggering attribute to Y.DataTable:
+Y.Plugin.addHostAttr('sortable', Y.DataTable, Y.Plugin.DataTableSort);
 
-<pre class="code"><code class="prettyprint">// Adds a triggering attribute "filters" that accepts true|false or
-// a configuration object (out-of-the-box support), as well as a single
-// string or string array to pass as the plugin's "category" configuration
-Y.Plugin.addHostAttr('filters', Y.Console, Y.Plugin.ConsoleFilters,
-     function (config) {
-         if (Y.Lang.isString(config) || Y.Lang.isArray(config)) {
-             config = {
-                 defaultVisibility: false,
-                 category: Y.Array.hash(Y.Array(config))
-             };
-         }
+var dt = new Y.DataTable({ sortable: true }); // plugs DTSort
+dt.set('sortable', false); // unplugs DTSort
 
-        return config;
-    }
-});
 
-var con = new Y.Console({ filters: ['warn', 'error'] });
-</code></pre><p>Adds a "filters" attribute that accepts additional value types:</p>
-
-<pre class="code"><code class="prettyprint">// Adds a triggering attribute "filters" that accepts true|false or
+// Example 2.
+// Add a triggering attribute "filters" that accepts true|false or
 // a configuration object (out-of-the-box support), as well as a single
 // string or string array to pass as the plugin's "category" configuration
 Y.Plugin.addHostAttr('filters', Y.Console, Y.Plugin.ConsoleFilters,
