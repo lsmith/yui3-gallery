@@ -30,17 +30,16 @@ the plugin to be unplugged.
 
 The host class must have a static `ATTRS` collection.
 
-@example
+@example Add "draggable" triggering attribute to Y.DataTable.Base:
 
-    // Example 1.
-    // Add "draggable" triggering attribute to Y.DataTable:
-    Y.Plugin.addHostAttr('sortable', Y.DataTable, Y.Plugin.DataTableSort);
+    Y.Plugin.addHostAttr('sortable', Y.DataTable.Base, Y.Plugin.DataTableSort);
 
-    var dt = new Y.DataTable({ sortable: true }); // plugs DTSort
-    dt.set('sortable', false); // unplugs DTSort
+    var table = new Y.DataTable({ sortable: true }); // plugs DTSort
+    table.set('sortable', false); // unplugs DTSort
 
 
-    // Example 2.
+@example Add support for custom values passed to the triggering attribute
+
     // Add a triggering attribute "filters" that accepts true|false or
     // a configuration object (out-of-the-box support), as well as a single
     // string or string array to pass as the plugin's "category" configuration
