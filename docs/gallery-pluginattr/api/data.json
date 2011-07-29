@@ -1,8 +1,8 @@
 {
     "project": {},
     "files": {
-        "js/attr.js": {
-            "name": "js/attr.js",
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js",
             "modules": {
                 "gallery-pluginattr": 1
             },
@@ -25,7 +25,7 @@
             },
             "namespaces": {},
             "tag": "module",
-            "file": "js/attr.js",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js",
             "line": 1,
             "description": "Adds a static method `Y.Plugin.addHostAttr(...)` to allow plugging and\nunplugging to happen via host attribute configuration."
         }
@@ -45,11 +45,12 @@
     },
     "classitems": [
         {
-            "file": "js/attr.js",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js",
             "line": 13,
             "description": "Register a Plugin with an activation attribute on a host class.\nSetting this attribute at construction or at run time will cause the\nPlugin to be plugged into the instance.\n\nBy default, trigger attributes will support values `true` or a configuration\nobject to `plug()` the plugin and `false` to `unplug()` it.\n\nTo support enhancing host instance behavior when the plugin is\n`use()`d after the host instance is instantiated, you can also pass the\ninstance as the second parameter.\n\nTo allow custom values to be passed to the trigger attribute, pass a\npreprocessor function as the fourth parameter. The value assigned to the\nattribute will be translated by this function prior to getting passed to\n`plug()` as the configuration.  Return false from this function to cause\nthe plugin to be unplugged.\n\nThe host class must have a static `ATTRS` collection.",
             "example": [
-                "\n\n    // Example 1.\n    // Add \"draggable\" triggering attribute to Y.DataTable:\n    Y.Plugin.addHostAttr('sortable', Y.DataTable, Y.Plugin.DataTableSort);\n\n    var dt = new Y.DataTable({ sortable: true }); // plugs DTSort\n    dt.set('sortable', false); // unplugs DTSort\n\n\n    // Example 2.\n    // Add a triggering attribute \"filters\" that accepts true|false or\n    // a configuration object (out-of-the-box support), as well as a single\n    // string or string array to pass as the plugin's \"category\" configuration\n    Y.Plugin.addHostAttr('filters', Y.Console, Y.Plugin.ConsoleFilters,\n         function (config) {\n             if (Y.Lang.isString(config) || Y.Lang.isArray(config)) {\n                 config = {\n                     defaultVisibility: false,\n                     category: Y.Array.hash(Y.Array(config))\n                 };\n             }\n\n            return config;\n        }\n    });\n\n    var con = new Y.Console({ filters: ['warn', 'error'] });\n\n"
+                " Add \"draggable\" triggering attribute to Y.DataTable.Base:\n\n    Y.Plugin.addHostAttr('sortable', Y.DataTable.Base, Y.Plugin.DataTableSort);\n\n    var table = new Y.DataTable({ sortable: true }); // plugs DTSort\n    table.set('sortable', false); // unplugs DTSort",
+                " Add support for custom values passed to the triggering attribute\n\n    // Add a triggering attribute \"filters\" that accepts true|false or\n    // a configuration object (out-of-the-box support), as well as a single\n    // string or string array to pass as the plugin's \"category\" configuration\n    Y.Plugin.addHostAttr('filters', Y.Console, Y.Plugin.ConsoleFilters,\n         function (config) {\n             if (Y.Lang.isString(config) || Y.Lang.isArray(config)) {\n                 config = {\n                     defaultVisibility: false,\n                     category: Y.Array.hash(Y.Array(config))\n                 };\n             }\n\n            return config;\n        }\n    });\n\n    var con = new Y.Console({ filters: ['warn', 'error'] });"
             ],
             "itemtype": "method",
             "name": "Plugin.addHostAttr",
