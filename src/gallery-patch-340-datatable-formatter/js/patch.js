@@ -38,7 +38,7 @@ Y.mix(Y.DataTable.Base.prototype, {
             columns[i] = {
                 column : column,
                 field  : column.get('field'),
-                classes: column.get('classnames'),
+                classnames: column.get('classnames'),
                 headers: column.headers
             };
 
@@ -106,7 +106,7 @@ Y.mix(Y.DataTable.Base.prototype, {
             data.column    = columnData.column;
             data.field     = columnData.field;
             data.formatter = columnData.formatter;
-            data.classes   = columnData.classes;
+            data.classnames= columnData.classnames;
             data.headers   = columnData.headers;
 
             this._addTbodyTdNode(data);
