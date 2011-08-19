@@ -9,7 +9,7 @@ Y.mix(Y.DataTable.Base.prototype, {
         var oldTbody = this._tbodyNode,
             parent = oldTbody.get("parentNode"),
             nextSibling = oldTbody.next(),
-            columns = this.get('columnset').keys,
+            columns = this.get('columnset').keys.slice(),
             cellValueTemplate = this.get('tdValueTemplate'),
             rowTemplate = this.get('trTemplate'),
             cellTemplate = this.tdTemplate,
