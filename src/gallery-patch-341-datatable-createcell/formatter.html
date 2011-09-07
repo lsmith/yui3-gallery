@@ -1,0 +1,55 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Test Page</title>
+</head>
+<body class="yui3-skin-sam">
+<div id="x"></div>
+
+<!--script src="http://yui.yahooapis.com/3.4.0/build/yui/yui.js"></script-->
+<script src="../../../yui3/build/yui/yui.js"></script>
+<script src="../../build/gallery-patch-341-datatable-createcell/gallery-patch-341-datatable-createcell.js"></script>
+<script>
+YUI({
+    filter: 'raw'
+}).use('gallery-patch-341-datatable-createcell', function (Y) {
+
+    var x = true;
+    var table = new Y.DataTable.Base({
+        columnset: [
+            {
+                key: 'name',
+                formatter: function (o) {
+                    return o.value.toUpperCase();
+                }
+            },
+            'age',
+            {
+                key: 'other',
+                formatter: "Letter: {value}"
+            },
+            {
+                key: 'fooga',
+                formatter: function (o) {
+                    if (x) {
+                        o.classnames += " goose";
+                        x = false;
+                    }
+                    this.createCell(o).one('.yui3-datatable-liner')
+                        .setContent("<strong>FOOOOOOOGA!</strong>");
+                }
+            }
+        ],
+        recordset: []
+    }).render('#x');
+
+    table.set('recordset', [
+        { name: "Phil", age: 53, other: "A" },
+        { name: "Brian", age: 23, other: "B" },
+        { name: "Doug", age: 50, other: "C" },
+        { name: "Sal", age: 153, other: "D" }
+    ]);
+});
+</script>
+</body>
+</html>
