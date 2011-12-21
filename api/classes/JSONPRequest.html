@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSONPRequest</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <script src="http://yui.yahooapis.com/combo?3.4.0/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            <h1><a href="../index.html"><img src="../assets/css/logo.png">undefined: JSONPRequest</a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/DataSchema.html">DataSchema</a></li>
+            
+                <li><a href="../classes/DataTable.BodyView.html">DataTable.BodyView</a></li>
+            
+                <li><a href="../classes/DataTable.Core.html">DataTable.Core</a></li>
+            
+                <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
+            
+                <li><a href="../classes/JSONPRequest.html">JSONPRequest</a></li>
+            
+                <li><a href="../classes/Plugin.html">Plugin</a></li>
+            
+                <li><a href="../classes/YUI~event-drag.html">YUI~event-drag</a></li>
+            
+                <li><a href="../classes/YUI~event-konami.html">YUI~event-konami</a></li>
+            
+                <li><a href="../classes/YUI~toRelativeTime.html">YUI~toRelativeTime</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/dataschema.html">dataschema</a></li>
+            
+                <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
+            
+                <li><a href="../modules/datatable-body.html">datatable-body</a></li>
+            
+                <li><a href="../modules/datatable-core.html">datatable-core</a></li>
+            
+                <li><a href="../modules/datatable-head.html">datatable-head</a></li>
+            
+                <li><a href="../modules/event-drag.html">event-drag</a></li>
+            
+                <li><a href="../modules/event-konami.html">event-konami</a></li>
+            
+                <li><a href="../modules/gallery-jsonp.html">gallery-jsonp</a></li>
+            
+                <li><a href="../modules/gallery-pluginattr.html">gallery-pluginattr</a></li>
+            
+                <li><a href="../modules/gallery-torelativetime.html">gallery-torelativetime</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main" class="content">
+                    <h1>JSONPRequest Class</h1>
+<div class="box meta">
+    
+    
+        <div class="uses">
+            Extension For
+            <ul class="inline commas">
+                
+            </ul>
+        </div>
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l4"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:4</code></a>
+        </div>
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Provides a JSONPRequest class for repeated JSONP calls, and a convenience
+method Y.jsonp(url, callback) to instantiate and send a JSONP request.</p>
+
+<p>The callback for the response can be named in the url explicitly or
+provided in the configuration (second parameter to the constructor).
+
+<p>By default, the query parameter string &quot;callback=???&quot; will be
+searched for in the url (??? can be anything).  If it's not found, it will
+be added on.  If the JSONP service uses a different parameter name or url
+format, you can override this behavior with the <code>format</code> property
+in the callback config.</p>
+
+<p>The second parameter can be a callback function that accepts the JSON
+payload as its argument, or a configuration object supporting the keys:</p>
+
+<ul>
+  <li>on - map of callback subscribers
+     <ul>
+        <li>success - function handler for successful transmission</li>
+        <li>failure - function handler for failed transmission</li>
+        <li>timeout - function handler for transactions that timeout</li>
+     </ul>
+ </li>
+ <li>format  - override function for inserting the proxy name in the url</li>
+ <li>timeout - the number of milliseconds to wait before giving up</li>
+ <li>context - becomes <code>this</code> in the callbacks</li>
+ <li>args    - array of subsequent parameters to pass to the callbacks</li>
+</ul>
+</div>
+
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__format">_format</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__getCallbackFromUrl">_getCallbackFromUrl</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__init">_init</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_JSONPRequest._pattern">JSONPRequest._pattern</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_JSONPRequest._template">JSONPRequest._template</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_send">send</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_Y.jsonp">Y.jsonp</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__format" class="method item protected">
+    <h3 class="name"><code>_format</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>proxy</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l188"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:188</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default url formatter.  Looks for callback= in the url and appends it
+if not present.  The supplied proxy name will be assigned to the query
+param.  Override this method by passing a function as the
+&quot;format&quot; property in the config object to the constructor.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        the original url
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">proxy</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        the function name that will be used as a proxy to
+     the configured callback methods.
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    fully qualified JSONP url
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__getCallbackFromUrl" class="method item protected">
+    <h3 class="name"><code>_getCallbackFromUrl</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Function</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l106"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:106</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Parses the url for a callback named explicitly in the string.
+Override this if the target JSONP service uses a different query
+parameter or url format.</p>
+
+<p>If the callback is declared inline, the corresponding function will
+be returned.  Otherwise null.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        the url to search in
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Function</span>:
+                    
+                    the callback function if found, or null
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__init" class="method item protected">
+    <h3 class="name"><code>_init</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l70"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:70</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Set up the success and failure handlers and the regex pattern used
+to insert the temporary callback name in the url.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        the url of the JSONP service
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type">Object | Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Optional success callback or config
+                 object containing success and failure functions and
+                 the url regex.
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_JSONPRequest._pattern" class="method item protected">
+    <h3 class="name"><code>JSONPRequest._pattern</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l44"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:44</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>RegExp used by the default URL formatter to insert the generated callback
+name into the JSONP url.  Looks for a query param callback=.  If a value is
+assigned, it will be clobbered.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_JSONPRequest._template" class="method item protected">
+    <h3 class="name"><code>JSONPRequest._template</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l57"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:57</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Template used by the default URL formatter to add the callback function name
+to the url.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_send" class="method item">
+    <h3 class="name"><code>send</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l150"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:150</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Issues the JSONP request.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_Y.jsonp" class="method item">
+    <h3 class="name"><code>Y.jsonp</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>c</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/JSONPRequest.html" class="crosslink">JSONPRequest</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-jsonp_js_jsonp.js.html#l220"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-jsonp&#x2F;js&#x2F;jsonp.js:220</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type">Callback</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        {String} the url of the JSONP service with the 
+          placeholder where the callback function name typically goes.
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">c</code>
+                        <span class="type">Function | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Callback function accepting the JSON payload
+          as its argument, or a configuration object (see above).
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/JSONPRequest.html" class="crosslink">JSONPRequest</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+
+        
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<!--script src="../assets/js/tabs.js"></script-->
+<script src="../assets/../api.js"></script>
+
+
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

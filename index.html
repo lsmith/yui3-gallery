@@ -5,8 +5,6 @@
 	<link type="text/css" rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-  <a href="http://github.com/lsmith/yui3-gallery"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-  
   <div id="container">
 
     <div class="download">
@@ -20,46 +18,91 @@
       <span class="small">by <a href="http://github.com/lsmith">lsmith</a></span></h1>
 
     <div class="description">
-      YUI3 Gallery Modules
+        <p>
+            Documentation and examples for YUI 3 Gallery modules contributed by
+            Luke Smith.
+        </p>
     </div>
 
-    <p>Documentation and examples for YUI 3 Gallery modules contributed by me, Luke Smith.</p>
-    
-    <h3 id="utilities">Utilities</h3>
+    <ul id="nav">
+        <li><a href="api/">API docs</a></li>
+        <li><a href="examples/">Examples</a></li>
+    </ul>
+
+    <h3 id="components">Components</h3>
     <dl>
-        <dt><code>gallery-jsonp</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-jsonp/api/module_gallery-jsonp.html">API docs</a></dd>
-        <dd><em>Examples</em>: <a href="docs/gallery-jsonp/examples/">examples</a></dd>
+        <dt><code>gallery-datatable-350-preview</code></dt>
+        <dd>
+            The version of <code>Y.DataTable</code> that will appear in version
+            3.5.0 of the library, replacing the prior version.  This module is
+            a development preview that will be updated through the 3.5.0
+            development cycle, and will be deprecated on the official release
+            in 3.5.0.
+        </dd>
+
+        <dt><code><del>gallery-jsonp</del></code></dt>
+        <dd><strong>Deprecated</strong>. Use <a href="http://yuilibrary.com/yui/docs/jsonp/"><code>the core module</code></a>).</dd>
 
         <dt><code>gallery-torelativetime</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-torelativetime/api/module_gallery-torelativetime.html">API docs</a></dd>
-        <!--dd><em>Examples</em>: <a href="docs/gallery-torelativetime/examples/">examples</a></dd-->
+        <dd>
+            Translates <code>Date</code>s into relative time strings, such as
+            "25 minutes ago".
+        </dd>
 
         <dt><code>gallery-dataschema-class</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-dataschema-class/api/module_gallery-dataschema-class.html">API docs</a></dd>
-        <dd><em>Examples</em>: <a href="docs/gallery-dataschema-class/examples/">examples</a></dd>
+        <dd>
+            Makes <code>Y.DataSchema</code> an instantiable class, allowing you
+            to encapsulate schema configuration in a reusable instance.
+        </dd>
 
         <dt><code>gallery-pluginattr</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-pluginattr/api/classes/Plugin.html">API docs</a></dd>
-    </dl>
+        <dd>
+            Allows Plugins to register an attribute on host classes that
+            automatically plug or unplug the plugin.
+        </dd>
 
-    <h3 id="synthetic">Synthethic events</h3>
-    <dl>
+        <dt><code>gallery-textnodes</code></dt>
+        <dd>
+            Adds support for <code>node.get('textNodes')</code> to return an
+            array of text nodes (akin to <code>node.get('children')</code>).
+        </dd>
+
+        <dt><code>gallery-jsonrpc</code></dt>
+        <dd>
+            Provides a <code>Y.JSONRPC</code> class to encapsulate a remote API
+            that supports the JSON-RPC transport. Also adds
+            <code>Y.jsonrpc(url, method, paramArray, callback)</code> method.
+        </dd>
+
         <dt><code>gallery-event-konami</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-event-konami/api/module_gallery-event-konami.html">API docs</a></dd>
-        <!--dd><em>Examples</em>: <a href="docs/gallery-event-konami/examples/">examples</a></dd-->
+        <dd>
+            Adds a "konami" DOM event (<code>node.on('konami',
+            activateGodMode)</code>) that is triggered when users enter the <a
+            href="http://en.wikipedia.org/wiki/Konami_Code">Konami code</a>.
+        </dd>
 
         <dt><code>gallery-event-drag</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-event-drag/api/module_gallery-event-drag.html">API docs</a></dd>
-        <dd><em>Examples</em>: <a href="docs/gallery-event-drag/examples/">examples</a></dd>
+        <dd>
+            <strong>(Abandoned)</strong> Adds syntehtic events to allow
+            subscribing to "drag", "drag:start", "drag:end".  Subscribing to
+            these events will plug the Node with <code>Y.Plugin.Drag</code>.
+        </dd>
 
         <dt><code>gallery-event-nav-keys</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-event-nav-keys/api/module_gallery-event-nav-keys.html">API docs</a></dd>
-        <dd><em>Examples</em>: <a href="docs/gallery-event-nav-keys/examples/">examples</a></dd>
+        <dd>
+            <em>(Mostly subsumed by <a
+            href="http://yuilibrary.com/yui/docs/event/key.html"><code>event-key</code></a>
+            and <code>gallery-event-arrow</code>)</em> Adds synthetic events
+            "enter", "esc", "backspace", "tab", "pageUp", "pageDown", "up",
+            "down", "left", and "right" (arrow keys).
+        </dd>
 
         <dt><code>gallery-event-arrow</code></dt>
-        <dd><em>API docs</em>: <a href="docs/gallery-event-arrow/api/module_gallery-event-arrow.html">API docs</a></dd>
-        <dd><em>Examples</em>: <a href="docs/gallery-event-nav-keys/examples/">examples</a></dd>
+        <dd>
+            Adds an "arrow" synthetic event. The event object includes a
+            "direction" property that will be one of "n", "s", "e", "w", "nw",
+            "ne", "sw", or "se".
+        </dd>
     </dl>
 
 

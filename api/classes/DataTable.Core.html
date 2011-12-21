@@ -1,0 +1,3577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DataTable.Core</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <script src="http://yui.yahooapis.com/combo?3.4.0/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            <h1><a href="../index.html"><img src="../assets/css/logo.png">undefined: DataTable.Core</a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/DataSchema.html">DataSchema</a></li>
+            
+                <li><a href="../classes/DataTable.BodyView.html">DataTable.BodyView</a></li>
+            
+                <li><a href="../classes/DataTable.Core.html">DataTable.Core</a></li>
+            
+                <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
+            
+                <li><a href="../classes/JSONPRequest.html">JSONPRequest</a></li>
+            
+                <li><a href="../classes/Plugin.html">Plugin</a></li>
+            
+                <li><a href="../classes/YUI~event-drag.html">YUI~event-drag</a></li>
+            
+                <li><a href="../classes/YUI~event-konami.html">YUI~event-konami</a></li>
+            
+                <li><a href="../classes/YUI~toRelativeTime.html">YUI~toRelativeTime</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/dataschema.html">dataschema</a></li>
+            
+                <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
+            
+                <li><a href="../modules/datatable-body.html">datatable-body</a></li>
+            
+                <li><a href="../modules/datatable-core.html">datatable-core</a></li>
+            
+                <li><a href="../modules/datatable-head.html">datatable-head</a></li>
+            
+                <li><a href="../modules/event-drag.html">event-drag</a></li>
+            
+                <li><a href="../modules/event-konami.html">event-konami</a></li>
+            
+                <li><a href="../modules/gallery-jsonp.html">gallery-jsonp</a></li>
+            
+                <li><a href="../modules/gallery-pluginattr.html">gallery-pluginattr</a></li>
+            
+                <li><a href="../modules/gallery-torelativetime.html">gallery-torelativetime</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main" class="content">
+                    <h1>DataTable.Core Class</h1>
+<div class="box meta">
+    
+    
+        <div class="uses">
+            Extension For
+            <ul class="inline commas">
+                
+            </ul>
+        </div>
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l29"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:29</code></a>
+        </div>
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Class extension providing the core API and structure for the DataTable Widget.</p>
+</div>
+
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+            <li class="api-class-tab attrs"><a href="#attrs">Attributes</a></li>
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterCaptionChange">_afterCaptionChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterColumnsChange">_afterColumnsChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterSummaryChange">_afterSummaryChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__createRecordClass">_createRecordClass</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__getColumns">_getColumns</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected deprecated">
+                                <a href="#method__getColumnset">_getColumnset</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__getData">_getData</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__initColumns">_initColumns</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__initData">_initData</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__initRecordType">_initRecordType</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__parseColumns">_parseColumns</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__renderBody">_renderBody</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__renderFooter">_renderFooter</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__renderHeader">_renderHeader</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__renderTable">_renderTable</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__setColumnMap">_setColumnMap</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected deprecated">
+                                <a href="#method__setColumnset">_setColumnset</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__setData">_setData</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected deprecated">
+                                <a href="#method__setRecordset">_setRecordset</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__setRecordType">_setRecordType</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__uiUpdateCaption">_uiUpdateCaption</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__uiUpdateSummary">_uiUpdateSummary</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__validateView">_validateView</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_bindUI">bindUI</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getCell">getCell</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getColumn">getColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getRow">getRow</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_initializer">initializer</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_renderUI">renderUI</a>
+
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property protected">
+                                <a href="#property__columnMap">_columnMap</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property__tableNode">_tableNode</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_body">body</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_CAPTION_TEMPLATE">CAPTION_TEMPLATE</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_data">data</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_foot">foot</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_head">head</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_TABLE_TEMPLATE">TABLE_TEMPLATE</a>
+
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section attrs">
+                    <h3>Attributes</h3>
+
+                    <ul class="index-list attrs">
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_bodyView">bodyView</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_caption">caption</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_columns">columns</a>
+                            </li>
+                        
+                            <li class="index-item attr deprecated">
+                                <a href="#attr_columnset">columnset</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_data">data</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_footerView">footerView</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_headerView">headerView</a>
+                            </li>
+                        
+                            <li class="index-item attr deprecated">
+                                <a href="#attr_recordset">recordset</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_recordType">recordType</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_summary">summary</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__afterCaptionChange" class="method item protected">
+    <h3 class="name"><code>_afterCaptionChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l432"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:432</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Relays <code>captionChange</code> events to <code>_uiUpdateCaption</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>captionChange</code> event object
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__afterColumnsChange" class="method item protected">
+    <h3 class="name"><code>_afterColumnsChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l443"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:443</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Updates the <code>_columnMap</code> property in response to changes in the <code>columns</code>
+attribute.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>columnsChange</code> event object
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__afterSummaryChange" class="method item protected">
+    <h3 class="name"><code>_afterSummaryChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l455"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:455</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Relays <code>summaryChange</code> events to <code>_uiUpdateSummary</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>summaryChange</code> event object
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__createRecordClass" class="method item protected">
+    <h3 class="name"><code>_createRecordClass</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>attrs</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Model</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l466"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:466</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates a Model subclass from an array of attribute names or an object of
+attribute definitions.  This is used to generate a class suitable to
+represent the data passed to the <code>data</code> attribute if no <code>recordType</code> is
+set.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">attrs</code>
+                        <span class="type">String | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Names assigned to the Model subclass's
+            <code>ATTRS</code> or its entire <code>ATTRS</code> definition object
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Model</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__getColumns" class="method item protected">
+    <h3 class="name"><code>_getColumns</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>columns</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>name</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l494"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:494</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The getter for the <code>columns</code> attribute.  Returns the array of column
+configuration objects if <code>instance.get('columns')</code> is called, or the
+specific column object if <code>instance.get('columns.columnKey')</code> is called.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">columns</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The full array of column objects
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">name</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The attribute name requested
+                     (e.g. 'columns' or 'columns.foo');
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__getColumnset" class="method item protected deprecated">
+    <h3 class="name"><code>_getColumnset</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>ignored</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>name</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="This will be removed with the <code>columnset</code> attribute in a future
+            version.">deprecated</span>
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l513"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:513</code></a></p>
+
+        
+            <p>Deprecated: This will be removed with the <code>columnset</code> attribute in a future
+            version.</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Relays the <code>get()</code> request for the deprecated <code>columnset</code> attribute to the
+<code>columns</code> attribute.</p>
+
+<p>THIS BREAKS BACKWARD COMPATIBILITY.  3.4.1 and prior implementations will
+expect a Columnset instance returned from <code>get('columnset')</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">ignored</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The current value stored in the <code>columnset</code> state
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">name</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The attribute name requested
+                     (e.g. 'columnset' or 'columnset.foo');
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__getData" class="method item protected">
+    <h3 class="name"><code>_getData</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>val</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l532"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:532</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The getter for the <code>data</code> attribute.  Returns the ModelList stored in the
+<code>data</code> property.  If the ModelList is not yet set, it returns the current
+raw data (presumably an empty array or <code>undefined</code>).</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">val</code>
+                        <span class="type">Object | ModelList</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The current data stored in the attribute
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__initColumns" class="method item protected">
+    <h3 class="name"><code>_initColumns</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l545"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:545</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initializes the instance's <code>_columnMap</code> from the configured <code>columns</code>
+attribute.  If <code>columns</code> is not set, but <code>recordType</code> is, it uses the
+<code>ATTRS</code> of that class.  If neither are set, it temporarily falls back to an
+empty array. <code>_initRecordType</code> will call back into this method if it finds
+the <code>columnMap</code> empty.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__initData" class="method item protected">
+    <h3 class="name"><code>_initData</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l571"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:571</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initializes the instance's <code>data</code> property from the value of the <code>data</code>
+attribute.  If the attribute value is a ModelList, it is assigned directly
+to <code>this.data</code>.  If it is an array, a ModelList is created, its <code>model</code>
+property is set to the configured <code>recordType</code> class, and it is seeded with
+the array data.  This ModelList is then assigned to <code>this.data</code>.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__initRecordType" class="method item protected">
+    <h3 class="name"><code>_initRecordType</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l623"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:623</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If the <code>recordType</code> attribute is not set, this method attempts to set a
+default value.</p>
+
+<p>It tries the following methods to determine a default:</p>
+
+<ol>
+<li>If the <code>data</code> attribute is set with a ModelList with a <code>model</code> property,
+that class is used.</li>
+<li>If the <code>data</code> attribute is set with a non-empty ModelList, the
+<code>constructor</code> of the first item is used.</li>
+<li>If the <code>data</code> attribute is set with a non-empty array and the first item
+is a Base subclass, its constructor is used.</li>
+<li>If the <code>data</code> attribute is set with a non-empty array a custom Model
+subclass is generated using the keys of the first item as its <code>ATTRS</code>.</li>
+<li>If the <code>_columnMap</code> property has keys, a custom Model subclass is
+generated using those keys as its <code>ATTRS</code>.</li>
+</ol>
+
+<p>Of none of those are successful, it subscribes to the change events for
+<code>columns</code>, <code>recordType</code>, and <code>data</code> to try again.</p>
+
+<p>If defaulting the <code>recordType</code> and the current <code>_columnMap</code> property is
+empty, it will call <code>_initColumns</code>.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__parseColumns" class="method item protected">
+    <h3 class="name"><code>_parseColumns</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>columns</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[map]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l714"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:714</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Iterates the array of column configurations to capture all columns with a
+<code>key</code> property.  Columns that are represented as strings will be replaced
+with objects with the string assigned as the <code>key</code> property.  If a column
+has a <code>children</code> property, it will be iterated, adding any nested column
+keys to the returned map. There is no limit to the levels of nesting.</p>
+
+<p>The result is an object map with column keys as the property name and the
+corresponding column object as the associated value.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">columns</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The array of column names or
+            configuration objects to scan
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[map]</code>
+                        <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The map to add keyed columns to
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__renderBody" class="method item protected">
+    <h3 class="name"><code>_renderBody</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l754"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:754</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Delegates rendering to the configured <code>bodyView</code>.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__renderFooter" class="method item protected">
+    <h3 class="name"><code>_renderFooter</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l781"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:781</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Delegates rendering to the configured <code>footerView</code>.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__renderHeader" class="method item protected">
+    <h3 class="name"><code>_renderHeader</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l806"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:806</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Delegates rendering to the configured <code>headerView</code>.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__renderTable" class="method item protected">
+    <h3 class="name"><code>_renderTable</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l832"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:832</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates the table and caption and assigns the table's summary attribute.</p>
+
+<p>Assigns the generated table to the <code>_tableNode</code> property.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__setColumnMap" class="method item protected">
+    <h3 class="name"><code>_setColumnMap</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>columns</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l853"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:853</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Assigns the <code>_columnMap</code> property with the parsed results of the array of
+column definitions passed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">columns</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        the raw column configuration objects or
+                                   key names
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__setColumnset" class="method item protected deprecated">
+    <h3 class="name"><code>_setColumnset</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>val</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="This will be removed with the deprecated <code>columnset</code> attribute
+            in a later version.">deprecated</span>
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l866"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:866</code></a></p>
+
+        
+            <p>Deprecated: This will be removed with the deprecated <code>columnset</code> attribute
+            in a later version.</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Relays attribute assignments of the deprecated <code>columnset</code> attribute to the
+<code>columns</code> attribute.  If a Columnset is object is passed, its basic object
+structure is mined.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">val</code>
+                        <span class="type">Array | Columnset</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The columnset value to relay
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__setData" class="method item protected">
+    <h3 class="name"><code>_setData</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l885"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:885</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Accepts an object with <code>each</code> and <code>getAttrs</code> (preferably a ModelList or
+subclass) or an array of data objects.  If an array is passes, it will
+create a ModelList to wrap the data.  In doing so, it will set the created
+ModelList's <code>model</code> property to the class in the <code>recordType</code> attribute,
+which will be defaulted if not yet set.</p>
+
+<p>If the <code>data</code> property is already set with a ModelList, passing an array as
+the value will call the ModelList's <code>reset()</code> method with that array rather
+than replacing the stored ModelList wholesale.</p>
+
+<p>Any non-ModelList-ish and non-array value is invalid.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__setRecordset" class="method item protected deprecated">
+    <h3 class="name"><code>_setRecordset</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>val</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="This will be removed with the deprecated <code>recordset</code> attribute
+            in a later version.">deprecated</span>
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l932"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:932</code></a></p>
+
+        
+            <p>Deprecated: This will be removed with the deprecated <code>recordset</code> attribute
+            in a later version.</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Relays the value assigned to the deprecated <code>recordset</code> attribute to the
+<code>data</code> attribute.  If a Recordset instance is passed, the raw object data
+will be culled from it.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">val</code>
+                        <span class="type">Object | Recordset</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The recordset value to relay
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__setRecordType" class="method item protected">
+    <h3 class="name"><code>_setRecordType</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>val</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Function</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l957"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:957</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Accepts a Base subclass (preferably a Model subclass). Alternately, it will
+generate a custom Model subclass from an array of attribute names or an
+object defining attributes and their respective configurations (it is
+assigned as the <code>ATTRS</code> of the new class).</p>
+
+<p>Any other value is invalid.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">val</code>
+                        <span class="type">Function | String | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The Model subclass, array of
+        attribute names, or the <code>ATTRS</code> definition for a custom model
+        subclass
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Function</span>:
+                    
+                    A Base/Model subclass
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__uiUpdateCaption" class="method item protected">
+    <h3 class="name"><code>_uiUpdateCaption</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>htmlContent</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l985"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:985</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates, removes, or updates the table's <code>&lt;caption&gt;</code> element per the input
+value.  Empty values result in the caption being removed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">htmlContent</code>
+                        <span class="type">HTML</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The content to populate the table caption
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__uiUpdateSummary" class="method item protected">
+    <h3 class="name"><code>_uiUpdateSummary</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1028"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1028</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Updates the table's <code>summary</code> attribute with the input value.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__validateView" class="method item protected">
+    <h3 class="name"><code>_validateView</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1038"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1038</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Verifies the input value is a function with a <code>render</code> method on its
+prototype.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_bindUI" class="method item protected">
+    <h3 class="name"><code>bindUI</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l395"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:395</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Subscribes to attribute change events to update the UI.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_getCell" class="method item">
+    <h3 class="name"><code>getCell</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>row</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>col</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Node</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l320"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:320</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the Node for a cell at the given coordinates.</p>
+
+<p>Technically, this only relays to the <code>bodyView</code> instance's <code>getCell</code> method.
+If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>undefined</code> is returned.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">row</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Index of the cell's containing row
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">col</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Index of the cell's containing column
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Node</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getColumn" class="method item">
+    <h3 class="name"><code>getColumn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>key</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l335"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:335</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the column configuration object for the given key.
+<code>instance.getColumn('foo')</code> is an alias for <code>instance.get('columns.foo')</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">key</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    the column configuration object
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getRow" class="method item">
+    <h3 class="name"><code>getRow</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>index</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Node</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l347"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:347</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the Node for a row at the given index.</p>
+
+<p>Technically, this only relays to the <code>bodyView</code> instance's <code>getRow</code> method.
+If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>undefined</code> is returned.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Index of the row in the data <code>&lt;tbody&gt;</code>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Node</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_initializer" class="method item protected">
+    <h3 class="name"><code>initializer</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l607"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:607</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initializes the columns, <code>recordType</code> and data ModelList.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_renderUI" class="method item">
+    <h3 class="name"><code>renderUI</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l361"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:361</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Builds the table and attaches it to the DOM.  This requires the host class
+to provide a <code>contentBox</code> attribute.  This is typically provided by Widget.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__columnMap" class="property item protected">
+    <h3 class="name"><code>_columnMap</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l409"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:409</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A map of column key to column configuration objects parsed from the
+<code>columns</code> attribute.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> undefined (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property__tableNode" class="property item protected">
+    <h3 class="name"><code>_tableNode</code></h3>
+    <span class="type">Node</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l420"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:420</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The Node instance of the table containing the data rows.  This is set when
+the table is rendered.  It may also be set by progressive enhancement,
+though this extension does not provide the logic to parse from source.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> undefined (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_body" class="property item">
+    <h3 class="name"><code>body</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l276"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:276</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The object or instance of the class assigned to <code>bodyView</code> that is
+responsible for rendering and managing the table's <code>&lt;tbody&gt;</code>(s) and its
+content.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> undefined (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_CAPTION_TEMPLATE" class="property item">
+    <h3 class="name"><code>CAPTION_TEMPLATE</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l257"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:257</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The HTML template used to create the caption Node if the <code>caption</code>
+attribute is set.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> '&lt;caption&gt;&lt;/caption&gt;'</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_data" class="property item">
+    <h3 class="name"><code>data</code></h3>
+    <span class="type">ModelList</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l309"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:309</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The ModelList that manages the table's data.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> undefined (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_foot" class="property item">
+    <h3 class="name"><code>foot</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l287"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:287</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The object or instance of the class assigned to <code>footerView</code> that is
+responsible for rendering and managing the table's <code>&lt;tfoot&gt;</code> and its
+content.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> undefined (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_head" class="property item">
+    <h3 class="name"><code>head</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l298"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:298</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The object or instance of the class assigned to <code>headerView</code> that is
+responsible for rendering and managing the table's <code>&lt;thead&gt;</code> and its
+content.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> undefined (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_TABLE_TEMPLATE" class="property item">
+    <h3 class="name"><code>TABLE_TEMPLATE</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l267"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:267</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The HTML template used to create the table Node.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> '&lt;table&gt;&lt;/table&gt;'</p>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="attrs" class="api-class-tabpanel">
+                <h2 class="off-left">Attributes</h2>
+
+                
+                    <div id="attr_bodyView" class="attr item">
+    <a name="config_bodyView"></a> 
+    <h3 class="name"><code>bodyView</code></h3>
+    <span class="type">Function | Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l168"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:168</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The class or object to use for rendering the <code>&lt;tbody&gt;</code> or <code>&lt;tbody&gt;</code>s and
+all data row content for the table.  This attribute is responsible for
+populating the the instance's <code>body</code> property.</p>
+
+<p>If a class constructor (function) is passed, an instance of that clas will
+be created at <code>render()</code> time and assigned to <code>this.body</code>.  If an object is
+passed, <code>body</code> will be set immediately.</p>
+
+<p>Valid objects or classes will have a <code>render()</code> method, though it is
+recommended that they be subclasses of <code>Y.Base</code> or <code>Y.View</code>.  If the object
+or class supports events, its <code>addTarget()</code> method will be called to bubble
+its events to this instance.</p>
+
+<p>The core implementaion does not define a default <code>bodyView</code>.  Classes
+built from this extension should define a default.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_caption" class="attr item">
+    <a name="config_caption"></a> 
+    <h3 class="name"><code>caption</code></h3>
+    <span class="type">HTML</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l208"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:208</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>HTML content of an optional <code>&lt;caption&gt;</code> element to appear above the table.
+Leave this config unset or set to a falsy value to remove the caption.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> '' (empty string)</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_columns" class="attr item">
+    <a name="config_columns"></a> 
+    <h3 class="name"><code>columns</code></h3>
+    <span class="type">Object | String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l37"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:37</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Columns to include in the rendered table.</p>
+
+<p>If omitted, the attributes on the configured <code>recordType</code> or the first item
+in the <code>data</code> collection will be used as a source.</p>
+
+<p>This attribute takes an array of strings or objects (mixing the two is
+fine).  Each string or object is considered a column to be rendered.
+Strings are converted to objects, so <code>columns: ['first', 'last']</code> becomes
+<code>columns: [{ key: 'first' }, { key: 'last' }]</code>.</p>
+
+<p>DataTable.Core only concerns itself with the <code>key</code> property of columns.
+All other properties are for use by the <code>headerView</code>, <code>bodyView</code>,
+<code>footerView</code>, and any class extensions or plugins on the final class or
+instance. See the descriptions of the view classes and feature class
+extensions and plugins for details on the specific properties they read or
+add to column definitions.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> (from <code>recordType</code> ATTRS or first item in the <code>data</code>)</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_columnset" class="attr item deprecated">
+    <a name="config_columnset"></a> 
+    <h3 class="name"><code>columnset</code></h3>
+    <span class="type">Object | Columnset</span>
+
+    
+        <span class="flag deprecated" title="Use the <code>columns</code> attribute">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l235"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:235</code></a></p>
+
+        
+            <p>Deprecated: Use the <code>columns</code> attribute</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Deprecated as of 3.5.0. Passes through to the <code>columns</code> attribute.</p>
+
+<p>If a Columnset object is passed, its raw object and array column data will
+be extracted for use.</p>
+
+<p>WARNING: <code>get('columnset')</code> will NOT return a Columnset instance as of
+3.5.0.  This is a break in backward compatibility.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_data" class="attr item">
+    <a name="config_data"></a> 
+    <h3 class="name"><code>data</code></h3>
+    <span class="type">ModelList | Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l96"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:96</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The collection of data records to display.  This attribute is a pass
+through to a <code>data</code> property, which is a ModelList instance.</p>
+
+<p>If this attribute is passed a ModelList or subclass, it will be assigned to
+the property directly.  If an array of objects is passed, a new ModelList
+will be created using the configured <code>recordType</code> as its <code>model</code> property
+and seeded with the array.</p>
+
+<p>Retrieving this attribute will return the ModelList stored in the <code>data</code>
+property.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> <code>new ModelList()</code></p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_footerView" class="attr item">
+    <a name="config_footerView"></a> 
+    <h3 class="name"><code>footerView</code></h3>
+    <span class="type">Function | Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l143"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:143</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The class or object to use for rendering the <code>&lt;tfoot&gt;</code> and any relevant
+content for it.  This attribute is responsible for populating the the
+instance's <code>foot</code> property.</p>
+
+<p>If a class constructor (function) is passed, an instance of that clas will
+be created at <code>render()</code> time and assigned to <code>this.foot</code>.  If an object is
+passed, <code>foot</code> will be set immediately.</p>
+
+<p>Valid objects or classes will have a <code>render()</code> method, though it is
+recommended that they be subclasses of <code>Y.Base</code> or <code>Y.View</code>.  If the object
+or class supports events, its <code>addTarget()</code> method will be called to bubble
+its events to this instance.</p>
+
+<p>The core implementaion does not define a default <code>footerView</code>.  Classes
+built from this extension should define a default if appropriate.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_headerView" class="attr item">
+    <a name="config_headerView"></a> 
+    <h3 class="name"><code>headerView</code></h3>
+    <span class="type">Function | Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l118"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:118</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The class or object to use for rendering the <code>&lt;thead&gt;</code> and column headers
+for the table.  This attribute is responsible for populating the the
+instance's <code>head</code> property.</p>
+
+<p>If a class constructor (function) is passed, an instance of that clas will
+be created at <code>render()</code> time and assigned to <code>this.head</code>.  If an object is
+passed, <code>head</code> will be set immediately.</p>
+
+<p>Valid objects or classes will have a <code>render()</code> method, though it is
+recommended that they be subclasses of <code>Y.Base</code> or <code>Y.View</code>.  If the object
+or class supports events, its <code>addTarget()</code> method will be called to bubble
+its events to this instance.</p>
+
+<p>The core implementaion does not define a default <code>headerView</code>.  Classes
+built from this extension should define a default.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_recordset" class="attr item deprecated">
+    <a name="config_recordset"></a> 
+    <h3 class="name"><code>recordset</code></h3>
+    <span class="type">Object | Recordset</span>
+
+    
+        <span class="flag deprecated" title="Use the <code>data</code> attribute">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l220"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:220</code></a></p>
+
+        
+            <p>Deprecated: Use the <code>data</code> attribute</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Deprecated as of 3.5.0. Passes through to the <code>data</code> attribute.</p>
+
+<p>WARNING: <code>get('recordset')</code> will NOT return a Recordset instance as of
+3.5.0.  This is a break in backward compatibility.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_recordType" class="attr item">
+    <a name="config_recordType"></a> 
+    <h3 class="name"><code>recordType</code></h3>
+    <span class="type">Function</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l65"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:65</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Model subclass to use as the <code>model</code> for the ModelList stored in the <code>data</code>
+attribute.</p>
+
+<p>If not provided, it will try really hard to figure out what to use.  The
+following attempts will be made to set a default value:</p>
+
+<ol>
+<li>If the <code>data</code> attribute is set with a ModelList instance and its <code>model</code>
+property is set, that will be used.</li>
+<li>If the <code>data</code> attribute is set with a ModelList instance, and its
+<code>model</code> property is unset, but it is populated, the <code>ATTRS</code> of the
+`constructor of the first item will be used.</li>
+<li>If the <code>data</code> attribute is set with a non-empty array, a Model subclass
+will be generated using the keys of the first item as its <code>ATTRS</code> (see
+the <code>\_createRecordClass</code> method).</li>
+<li>If the <code>columns</code> attribute is set, a Model subclass will be generated
+using the columns defined with a <code>key</code>. This is least desirable because
+columns can be duplicated or nested in a way that's not parsable.</li>
+<li>If neither <code>data</code> nor <code>columns</code> is set or populated, a change event
+subscriber will listen for the first to be changed and try all over
+again.</li>
+</ol>
+    </div>
+
+    
+        <p><strong>Default:</strong> (see description)</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_summary" class="attr item">
+    <a name="config_summary"></a> 
+    <h3 class="name"><code>summary</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-core.html">datatable-core</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l193"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:193</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Content for the <code>&lt;table summary="ATTRIBUTE VALUE HERE"&gt;</code>.  Values assigned
+to this attribute will be HTML escaped for security.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> '' (empty string)</p>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<!--script src="../assets/js/tabs.js"></script-->
+<script src="../assets/../api.js"></script>
+
+
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

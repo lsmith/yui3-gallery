@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>datatable-head</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <script src="http://yui.yahooapis.com/combo?3.4.0/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            <h1><a href="../index.html"><img src="../assets/css/logo.png">undefined: datatable-head</a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/DataSchema.html">DataSchema</a></li>
+            
+                <li><a href="../classes/DataTable.BodyView.html">DataTable.BodyView</a></li>
+            
+                <li><a href="../classes/DataTable.Core.html">DataTable.Core</a></li>
+            
+                <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
+            
+                <li><a href="../classes/JSONPRequest.html">JSONPRequest</a></li>
+            
+                <li><a href="../classes/Plugin.html">Plugin</a></li>
+            
+                <li><a href="../classes/YUI~event-drag.html">YUI~event-drag</a></li>
+            
+                <li><a href="../classes/YUI~event-konami.html">YUI~event-konami</a></li>
+            
+                <li><a href="../classes/YUI~toRelativeTime.html">YUI~toRelativeTime</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/dataschema.html">dataschema</a></li>
+            
+                <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
+            
+                <li><a href="../modules/datatable-body.html">datatable-body</a></li>
+            
+                <li><a href="../modules/datatable-core.html">datatable-core</a></li>
+            
+                <li><a href="../modules/datatable-head.html">datatable-head</a></li>
+            
+                <li><a href="../modules/event-drag.html">event-drag</a></li>
+            
+                <li><a href="../modules/event-konami.html">event-konami</a></li>
+            
+                <li><a href="../modules/gallery-jsonp.html">gallery-jsonp</a></li>
+            
+                <li><a href="../modules/gallery-pluginattr.html">gallery-pluginattr</a></li>
+            
+                <li><a href="../modules/gallery-torelativetime.html">gallery-torelativetime</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main" class="content">
+                    <h1>datatable-head Module</h1>
+<div class="box clearfix meta">
+    
+        <div class="foundat">
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1051"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1051</code></a>
+        </div>
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>View class responsible for rendering the <code>&lt;thead&gt;</code> section of a table. Used as
+the default <code>headerView</code> for <code>Y.DataTable.Base</code> and <code>Y.DataTable</code> classes.</p>
+
+<p>Translates the provided array of column configuration objects into a rendered
+<code>&lt;thead&gt;</code> based on the data in those objects.</p>
+
+<p>The structure of the column data is expected to be a single array of objects,
+where each object corresponds to a <code>&lt;th&gt;</code>.  Those objects may contain a
+<code>children</code> property containing a similarly structured array to indicate the
+nested cells should be grouped under the parent column's colspan in a separate
+row of header cells. E.g.</p>
+
+<pre class="code"><code class="prettyprint">
+new Y.DataTable.HeaderView({
+  container: tableNode,
+  columns: [
+    { key: 'id' }, // no nesting
+    { key: 'name', children: [
+      { key: 'firstName', label: 'First' },
+      { key: 'lastName',  label: 'Last' } ] }
+  ]
+}).render();
+</code></pre>
+
+This would translate to the following visualization:
+
+<pre>
+---------------------
+|    |     name     |
+|    |---------------
+| id | First | Last |
+---------------------
+</pre>
+
+<p>Supported properties of the column objects include:</p>
+
+<ul>
+<li><code>label</code>    - The HTML content of the header cell.</li>
+<li><code>key</code>      - If <code>label</code> is not specified, the <code>key</code> is used for content.</li>
+<li><code>children</code> - Array of columns to appear below this column in the next
+             row.</li>
+<li><code>abbr</code>     - The content of the 'abbr' attribute of the <code>&lt;th&gt;</code></li>
+</ul>
+
+<p>Through the life of instantiation and rendering, the column objects will have
+the following properties added to them:</p>
+
+<ul>
+<li><code>colspan</code> - To supply the <code>&lt;th&gt;</code> attribute</li>
+<li><code>rowspan</code> - To supply the <code>&lt;th&gt;</code> attribute</li>
+<li><code>parent</code>  - If the column is a child of another column, this points to
+its parent column</li>
+<li><code>_yuid</code>   - A unique YUI generated id used as the <code>&lt;th&gt;</code>'s 'id' for
+reference in the data <code>&lt;td&gt;</code>'s 'headers' attribute.</li>
+</ul>
+
+<p>The column object is also used to provide values for {placeholder} tokens in the
+instance's <code>CELL_TEMPLATE</code>, so you can modify the template and include other
+column object properties to populate them.</p>
+</div>
+
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        
+            <p>This module provides the following classes:</p>
+
+            <ul class="module-classes">
+            
+                <li class="module-class">
+                    <a href="../classes/DataTable.Core.html">
+                        DataTable.Core
+                    </a>
+                </li>
+            
+            </ul>
+        
+    </div>
+
+    <div class="yui3-u-1-2">
+        
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<!--script src="../assets/js/tabs.js"></script-->
+<script src="../assets/../api.js"></script>
+
+
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

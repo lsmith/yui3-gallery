@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DataTable.BodyView</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <script src="http://yui.yahooapis.com/combo?3.4.0/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            <h1><a href="../index.html"><img src="../assets/css/logo.png">undefined: DataTable.BodyView</a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/DataSchema.html">DataSchema</a></li>
+            
+                <li><a href="../classes/DataTable.BodyView.html">DataTable.BodyView</a></li>
+            
+                <li><a href="../classes/DataTable.Core.html">DataTable.Core</a></li>
+            
+                <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
+            
+                <li><a href="../classes/JSONPRequest.html">JSONPRequest</a></li>
+            
+                <li><a href="../classes/Plugin.html">Plugin</a></li>
+            
+                <li><a href="../classes/YUI~event-drag.html">YUI~event-drag</a></li>
+            
+                <li><a href="../classes/YUI~event-konami.html">YUI~event-konami</a></li>
+            
+                <li><a href="../classes/YUI~toRelativeTime.html">YUI~toRelativeTime</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/dataschema.html">dataschema</a></li>
+            
+                <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
+            
+                <li><a href="../modules/datatable-body.html">datatable-body</a></li>
+            
+                <li><a href="../modules/datatable-core.html">datatable-core</a></li>
+            
+                <li><a href="../modules/datatable-head.html">datatable-head</a></li>
+            
+                <li><a href="../modules/event-drag.html">event-drag</a></li>
+            
+                <li><a href="../modules/event-konami.html">event-konami</a></li>
+            
+                <li><a href="../modules/gallery-jsonp.html">gallery-jsonp</a></li>
+            
+                <li><a href="../modules/gallery-pluginattr.html">gallery-pluginattr</a></li>
+            
+                <li><a href="../modules/gallery-torelativetime.html">gallery-torelativetime</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main" class="content">
+                    <h1>DataTable.BodyView Class</h1>
+<div class="box meta">
+    
+    
+        <div class="uses">
+            Extension For
+            <ul class="inline commas">
+                
+            </ul>
+        </div>
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1526"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1526</code></a>
+        </div>
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>View class responsible for rendering the <code>&lt;tbody&gt;</code> section of a table. Used as
+the default <code>bodyView</code> for <code>Y.DataTable.Base</code> and <code>Y.DataTable</code> classes.</p>
+
+<p>Translates the provided <code>modelList</code> into a rendered <code>&lt;tbody&gt;</code> based on the data
+in the constituent Models, altered or ammended by any special column
+configurations.</p>
+
+<p>The <code>columns</code> configuration, passed to the constructor, determines which
+columns will be rendered.</p>
+
+<p>The rendering process involves constructing an HTML template for a complete row
+of data, built by concatenating a customized copy of the instance's
+<code>CELL_TEMPLATE</code> into the <code>ROW_TEMPLATE</code> once for each column.  This template is
+then populated with values from each Model in the <code>modelList</code>, aggregating a
+complete HTML string of all row and column data.  A <code>&lt;tbody&gt;</code> Node is then created from the markup and any column <code>nodeFormatter</code>s are applied.</p>
+
+<p>Supported properties of the column objects include:</p>
+
+<ul>
+<li><code>key</code> - Used to link a column to an attribute in a Model.</li>
+<li><code>name</code> - Used for columns that don't relate to an attribute in the Model
+(<code>formatter</code> or <code>nodeFormatter</code> only) if the implementer wants a
+predictable name to refer to in their CSS.</li>
+<li><code>formatter</code> - Used to customize or override the content value from the
+Model.  These do not have access to the cell or row Nodes and should
+return string (HTML) content.</li>
+<li><code>nodeFormatter</code> - Used to provide content for a cell as well as perform any
+custom modifications on the cell or row Node that could not be performed by
+<code>formatter</code>s.  Should be used sparingly for better performance.</li>
+<li><code>emptyCellValue</code> - String (HTML) value to use if the Model data for a
+column, or the content generated by a <code>formatter</code>, is the empty string or
+<code>undefined</code>.</li>
+</ul>
+
+<p>Column <code>formatter</code>s are passed an object (<code>o</code>) with the following properties:</p>
+
+<ul>
+<li><code>value</code> - The current value of the column's associated attribute, if any.</li>
+<li><code>data</code> - An object map of Model keys to their current values.</li>
+<li><code>record</code> - The Model instance.</li>
+<li><code>column</code> - The column configuration object for the current column.</li>
+<li><code>classnames</code> - Initially empty string to allow <code>formatter</code>s to add CSS 
+classes to the cell's <code>&lt;td&gt;</code>.</li>
+<li><code>rowindex</code> - The zero-based row number.</li>
+</ul>
+
+<p>They may return a value or update <code>o.value</code> to assign specific HTML content.  A
+returned value has higher precedence.</p>
+
+<p>Column <code>nodeFormatter</code>s are passed an object (<code>o</code>) with the following
+properties:</p>
+
+<ul>
+<li><code>value</code> - The current value of the column's associated attribute, if any.</li>
+<li><code>td</code> - The <code>&lt;td&gt;</code> Node instance.</li>
+<li><code>cell</code> - The <code>&lt;div&gt;</code> liner Node instance if present, otherwise, the <code>&lt;td&gt;</code>.
+When adding content to the cell, prefer appending into this property.</li>
+<li><code>data</code> - An object map of Model keys to their current values.</li>
+<li><code>record</code> - The Model instance.</li>
+<li><code>column</code> - The column configuration object for the current column.</li>
+<li><code>rowindex</code> - The zero-based row number.</li>
+</ul>
+
+<p>They are expected to inject content into the cell's Node directly, including
+any "empty" cell content.  Each <code>nodeFormatter</code> will have access through the
+Node API to all cells and rows in the <code>&lt;tbody&gt;</code>, but not to the <code>&lt;table&gt;</code>, as
+it will not be attached yet.</p>
+
+<p>If a <code>nodeFormatter</code> returns <code>false</code>, the <code>o.td</code> and <code>o.cell</code> Nodes will be
+<code>destroy()</code>ed to remove them from the Node cache and free up memory.  The DOM
+elements will remain as will any content added to them.  <em>It is highly
+advisable to always return <code>false</code> from your <code>nodeFormatter</code>s</em>.</p>
+</div>
+
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterColumnChange">_afterColumnChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterDataChange">_afterDataChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__applyNodeFormatters">_applyNodeFormatters</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__createDataHTML">_createDataHTML</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__createRowHTML">_createRowHTML</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__createRowTemplate">_createRowTemplate</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__parseColumns">_parseColumns</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_bindUI">bindUI</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_destructor">destructor</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getCell">getCell</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getClassName">getClassName</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getRow">getRow</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_initializer">initializer</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_render">render</a>
+
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property protected">
+                                <a href="#property__cssPrefix">_cssPrefix</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property__rowTemplate">_rowTemplate</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_CELL_TEMPLATE">CELL_TEMPLATE</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_CLASS_EVEN">CLASS_EVEN</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_CLASS_ODD">CLASS_ODD</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_ROW_TEMPLATE">ROW_TEMPLATE</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_source">source</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_TBODY_TEMPLATE">TBODY_TEMPLATE</a>
+
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__afterColumnChange" class="method item protected">
+    <h3 class="name"><code>_afterColumnChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1881"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1881</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Handles changes in the source's columns attribute.  Redraws the table data.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>columnsChange</code> event object
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__afterDataChange" class="method item protected">
+    <h3 class="name"><code>_afterDataChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1902"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1902</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Handles modelList changes, including additions, deletions, and updates.</p>
+
+<p>Modifies the existing table DOM accordingly.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>change</code> event from the ModelList
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__applyNodeFormatters" class="method item protected">
+    <h3 class="name"><code>_applyNodeFormatters</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>tbody</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>columns</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1915"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1915</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Iterates the <code>modelList</code>, and calls any <code>nodeFormatter</code>s found in the <code>columns</code> param on the appropriate cell Nodes in the <code>tbody</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">tbody</code>
+                        <span class="type">Node</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>&lt;tbody&gt;</code> Node whose columns to update
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">columns</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column configurations
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__createDataHTML" class="method item protected">
+    <h3 class="name"><code>_createDataHTML</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>columns</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">HTML</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2002"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2002</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Iterates the <code>modelList</code> and applies each Model to the <code>_rowTemplate</code>,
+allowing any column <code>formatter</code> or <code>emptyCellValue</code> to override cell
+content for the appropriate column.  The aggregated HTML string is
+returned.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">columns</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column configurations to customize the
+            generated cell content or class names
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">HTML</span>:
+                    
+                    The markup for all Models in the <code>modelList</code>, each applied
+            to the <code>\_rowTemplate</code>
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__createRowHTML" class="method item protected">
+    <h3 class="name"><code>_createRowHTML</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>model</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>index</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">HTML</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2031"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2031</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Applies the data of a given Model, modified by any column formatters and
+supplemented by other template values to the instance's <code>_rowTemplate</code> (see
+<code>_createRowTemplate</code>).  The generated string is then returned.</p>
+
+<p>The data from Model's attributes is fetched by <code>getAttrs</code> and this data
+object is appended with other properties to supply values to {placeholders}
+in the template.  For a template generated from a Model with 'foo' and 'bar'
+attributes, the data object would end up with the following properties
+before being used to populate the <code>_rowTemplate</code>:</p>
+
+<ul>
+<li><code>clientID</code> - From Model, used the assign the <code>&lt;tr&gt;</code>'s 'id' attribute.</li>
+<li><code>foo</code> - The value to populate the 'foo' column cell content.  This
+value will be the result of the column's <code>formatter</code> if assigned, and
+will default from '' or <code>undefined</code> to the value of the column's
+<code>emptyCellValue</code> if assigned.</li>
+<li><code>bar</code> - Same for the 'bar' column cell content.</li>
+<li><code>foo-classes</code> - String of CSS classes to apply to the <code>&lt;td&gt;</code>.</li>
+<li><code>bar-classes</code> - Same.</li>
+<li><code>rowClasses</code>  - String of CSS classes to apply to the <code>&lt;tr&gt;</code>. This will
+default to the odd/even class per the specified index, but can be
+accessed and ammended by any column formatter via <code>o.data.rowClasses</code>.</li>
+</ul>
+
+<p>Because this object is available to formatters, any additional properties
+can be added to fill in custom {placeholders} in the <code>_rowTemplate</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">model</code>
+                        <span class="type">Model</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The Model instance to apply to the row template
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The index the row will be appearing
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">HTML</span>:
+                    
+                    The markup for the provided Model, less any <code>nodeFormatter</code>s
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__createRowTemplate" class="method item protected">
+    <h3 class="name"><code>_createRowTemplate</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>columns</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2117"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2117</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates a custom HTML template string for use in generating the markup for
+individual table rows with {placeholder}s to capture data from the Models
+in the <code>modelList</code> attribute or from column <code>formatter</code>s.</p>
+
+<p>Assigns the <code>_rowTemplate</code> property.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">columns</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Array of column configuration objects
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__parseColumns" class="method item protected">
+    <h3 class="name"><code>_parseColumns</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>data</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>columns</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2188"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2188</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Flattens an array of potentially nested column configurations into a single
+depth array of data columns.  Columns that have children are disregarded in
+favor of searching their child columns.  The resulting array corresponds 1:1
+with columns that will contain data in the <code>&lt;tbody&gt;</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">data</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Array of unfiltered column configuration objects
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">columns</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Working array of data columns. Used for recursion.
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    Only those columns that will be rendered.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_bindUI" class="method item protected">
+    <h3 class="name"><code>bindUI</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1978"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1978</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Binds event subscriptions from the UI and the source (if assigned).</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_destructor" class="method item">
+    <h3 class="name"><code>destructor</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1687"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1687</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Destroys the instance.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_getCell" class="method item">
+    <h3 class="name"><code>getCell</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>row</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>col</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Node</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1696"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1696</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the <code>&lt;td&gt;</code> Node from the given row and column index.  If there is
+no cell at the given coordinates, <code>null</code> is returned.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">row</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Zero based index of the row with the target cell
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">col</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Zero based index of the column with the target cell
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Node</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getClassName" class="method item">
+    <h3 class="name"><code>getClassName</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>token</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1716"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1716</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Builds a CSS class name from the provided tokens.  If the instance is
+created with <code>cssPrefix</code> or <code>source</code> in the configuration, it will use this
+prefix (the <code>_cssPrefix</code> of the <code>source</code> object) as the base token.  This
+allows class instances to generate markup with class names that correspond
+to the parent class that is consuming them.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">token</code>
+                        <span class="type">String</span>
+                    
+
+                    
+                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
+                    
+
+                    <div class="param-description">
+                        Any number of tokens to include in the class name
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    The generated class name
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getRow" class="method item">
+    <h3 class="name"><code>getRow</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>row</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Node</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1735"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1735</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the <code>&lt;tr&gt;</code> Node from the given row index.  If there is
+no row at the given index, <code>null</code> is returned.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">row</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Zero based index of the row
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Node</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_initializer" class="method item protected">
+    <h3 class="name"><code>initializer</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>config</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2159"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2159</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initializes the instance. Reads the following configuration properties in
+addition to the instance attributes:</p>
+
+<ul>
+<li><code>columns</code> - (REQUIRED) The initial column information</li>
+<li><code>cssPrefix</code> - The base string for classes generated by <code>getClassName</code></li>
+<li><code>source</code> - The object to serve as source of truth for column info</li>
+</ul>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">config</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        Configuration data
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_render" class="method item">
+    <h3 class="name"><code>render</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">BodyView</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1754"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1754</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates the table's <code>&lt;tbody&gt;</code> Node by assembling markup generated by
+populating the <code>TBODY_TEMPLATE</code>, <code>ROW_TEMPLATE</code>, and <code>CELL_TEMPLATE</code>
+templates with content from the <code>columns</code> property and <code>modelList</code>
+attribute.</p>
+
+<p>The rendering process happens in four stages:</p>
+
+<ol>
+<li>A row template is assembled from the <code>columns</code> property (see
+<code>\_createRowTemplate</code>)</li>
+<li>An HTML string is built up by concatening the application of the data in
+each Model in the <code>modelList</code> to the row template. For cells with
+<code>formatter</code>s, the function is called to generate cell content. Cells
+with <code>nodeFormatter</code>s are ignored. For all other cells, the data value
+from the Model attribute for the given column key is used.  The
+accumulated row markup is then inserted into the <code>TBODY_TEMPLATE</code>.</li>
+<li>The <code>&lt;tbody&gt;</code> Node is created from the HTML string.</li>
+<li>If any column is configured with a <code>nodeFormatter</code>, the <code>modelList</code> is
+iterated again to apply the <code>nodeFormatter</code>s.</li>
+</ol>
+
+<p>Supported properties of the column objects include:</p>
+
+<ul>
+<li><code>key</code> - Used to link a column to an attribute in a Model.</li>
+<li><code>name</code> - Used for columns that don't relate to an attribute in the Model
+(<code>formatter</code> or <code>nodeFormatter</code> only) if the implementer wants a
+predictable name to refer to in their CSS.</li>
+<li><code>formatter</code> - Used to customize or override the content value from the
+Model.  These do not have access to the cell or row Nodes and should
+return string (HTML) content.</li>
+<li><code>nodeFormatter</code> - Used to provide content for a cell as well as perform
+any custom modifications on the cell or row Node that could not be
+performed by <code>formatter</code>s.  Should be used sparingly for better
+performance.</li>
+<li><code>emptyCellValue</code> - String (HTML) value to use if the Model data for a
+column, or the content generated by a <code>formatter</code>, is the empty string
+or <code>undefined</code>.</li>
+</ul>
+
+<p>Column <code>formatter</code>s are passed an object (<code>o</code>) with the following
+properties:</p>
+
+<ul>
+<li><code>value</code> - The current value of the column's associated attribute, if
+any.</li>
+<li><code>data</code> - An object map of Model keys to their current values.</li>
+<li><code>record</code> - The Model instance.</li>
+<li><code>column</code> - The column configuration object for the current column.</li>
+<li><code>classnames</code> - Initially empty string to allow <code>formatter</code>s to add CSS 
+classes to the cell's <code>&lt;td&gt;</code>.</li>
+<li><code>rowindex</code> - The zero-based row number.</li>
+</ul>
+
+<p>They may return a value or update <code>o.value</code> to assign specific HTML
+content.  A returned value has higher precedence.</p>
+
+<p>Column <code>nodeFormatter</code>s are passed an object (<code>o</code>) with the following
+properties:</p>
+
+<ul>
+<li><code>value</code> - The current value of the column's associated attribute, if
+any.</li>
+<li><code>td</code> - The <code>&lt;td&gt;</code> Node instance.</li>
+<li><code>cell</code> - The <code>&lt;div&gt;</code> liner Node instance if present, otherwise, the
+<code>&lt;td&gt;</code>.  When adding content to the cell, prefer appending into this
+property.</li>
+<li><code>data</code> - An object map of Model keys to their current values.</li>
+<li><code>record</code> - The Model instance.</li>
+<li><code>column</code> - The column configuration object for the current column.</li>
+<li><code>rowindex</code> - The zero-based row number.</li>
+</ul>
+
+<p>They are expected to inject content into the cell's Node directly, including
+any "empty" cell content.  Each <code>nodeFormatter</code> will have access through the
+Node API to all cells and rows in the <code>&lt;tbody&gt;</code>, but not to the <code>&lt;table&gt;</code>,
+as it will not be attached yet.</p>
+
+<p>If a <code>nodeFormatter</code> returns <code>false</code>, the <code>o.td</code> and <code>o.cell</code> Nodes will be
+<code>destroy()</code>ed to remove them from the Node cache and free up memory.  The
+DOM elements will remain as will any content added to them.  <em>It is highly
+advisable to always return <code>false</code> from your <code>nodeFormatter</code>s</em>.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">BodyView</span>:
+                    
+                    The instance
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__cssPrefix" class="property item protected">
+    <h3 class="name"><code>_cssPrefix</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1992"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1992</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The base token for classes created with the <code>getClassName</code> method.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 'yui3-table'</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property__rowTemplate" class="property item protected">
+    <h3 class="name"><code>_rowTemplate</code></h3>
+    <span class="type">HTML</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2225"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2225</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The HTML template used to create a full row of markup for a single Model in
+the <code>modelList</code> plus any customizations defined in the column
+configurations.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_CELL_TEMPLATE" class="property item">
+    <h3 class="name"><code>CELL_TEMPLATE</code></h3>
+    <span class="type">HTML</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1612"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1612</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>HTML template used to create table cells.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> '&lt;td headers="{headers}" class="{classes}"&gt;
+        '&lt;div class="{linerClass}"&gt;{content}&lt;/div&gt;
+    &lt;/td&gt;'</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_CLASS_EVEN" class="property item">
+    <h3 class="name"><code>CLASS_EVEN</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1629"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1629</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>CSS class applied to even rows.  This is assigned at instantiation after
+setting up the <code>_cssPrefix</code> for the instance.</p>
+
+<p>For DataTable, this will be <code>yui3-datatable-even</code>.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 'yui3-table-even'</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_CLASS_ODD" class="property item">
+    <h3 class="name"><code>CLASS_ODD</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1641"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1641</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>CSS class applied to odd rows.  This is assigned at instantiation after
+setting up the <code>_cssPrefix</code> for the instance.</p>
+
+<p>When used by DataTable instances, this will be <code>yui3-datatable-odd</code>.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 'yui3-table-odd'</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_ROW_TEMPLATE" class="property item">
+    <h3 class="name"><code>ROW_TEMPLATE</code></h3>
+    <span class="type">HTML</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1653"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1653</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>HTML template used to create table rows.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> '&lt;tr id="{clientId}" class="{rowClasses}"&gt;{content}&lt;/tr&gt;'</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_source" class="property item">
+    <h3 class="name"><code>source</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1665"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1665</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The object that serves as the source of truth for column and row data.
+This property is assigned at instantiation from the <code>source</code> property of
+the configuration object passed to the constructor.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_TBODY_TEMPLATE" class="property item">
+    <h3 class="name"><code>TBODY_TEMPLATE</code></h3>
+    <span class="type">HTML</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1677"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1677</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>HTML template used to create table's <code>&lt;tbody&gt;</code>.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> '&lt;tbody class="{classes}"&gt;{content}&lt;/tbody&gt;'</p>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<!--script src="../assets/js/tabs.js"></script-->
+<script src="../assets/../api.js"></script>
+
+
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

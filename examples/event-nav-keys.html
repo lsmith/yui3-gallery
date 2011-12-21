@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <title>Test Page</title>
+    <style type="text/css">
+        div {
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body class="yui-skin-sam">
+<textarea id="k"></textarea>
+<ul id="output"></ul>
+
+<script src="http://yui.yahooapis.com/3.4.1/build/yui/yui.js"></script>
+<script>
+YUI({
+    filter: 'raw'
+}).use('gallery-event-nav-keys', function (Y) {
+
+var output = Y.one('#output'),
+    out    = Y.bind( output.append, output );
+
+Y.one('#k').on({
+    enter    : function (e) { out('<li>enter</li>'); e.preventDefault(); },
+    esc      : function (e) { out('<li>esc</li>'); e.preventDefault(); },
+    backspace: function (e) { out('<li>backspace</li>'); e.preventDefault(); },
+    tab      : function (e) { out('<li>tab</li>'); e.preventDefault(); },
+    pageUp   : function (e) { out('<li>pageUp</li>'); e.preventDefault(); },
+    pageDown : function (e) { out('<li>pageDown</li>'); e.preventDefault(); },
+    arrow    : function (e) { out('<li>'+e.direction+'</li>'); }
+});
+
+});
+</script>
+</body>
+</html>

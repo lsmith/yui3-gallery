@@ -1,0 +1,2339 @@
+{
+    "project": {},
+    "files": {
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "modules": {
+                "datatable-core": 1,
+                "datatable-head": 1,
+                "datatable-body": 1
+            },
+            "classes": {
+                "DataTable.Core": 1,
+                "DataTable.HeaderView": 1,
+                "DataTable.BodyView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "DataTable": 1
+            }
+        },
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "modules": {
+                "gallery-jsonp": 1
+            },
+            "classes": {
+                "JSONPRequest": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-torelativetime/js/torelativetime.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-torelativetime/js/torelativetime.js",
+            "modules": {
+                "gallery-torelativetime": 1
+            },
+            "classes": {
+                "YUI~toRelativeTime": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js",
+            "modules": {
+                "dataschema": 1,
+                "dataschema-class": 1
+            },
+            "classes": {
+                "DataSchema": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js",
+            "modules": {
+                "gallery-pluginattr": 1
+            },
+            "classes": {},
+            "fors": {
+                "Plugin": 1
+            },
+            "namespaces": {}
+        },
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-event-konami/js/konami.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-konami/js/konami.js",
+            "modules": {
+                "event-konami": 1
+            },
+            "classes": {
+                "YUI~event-konami": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js": {
+            "name": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "modules": {
+                "event-drag": 1
+            },
+            "classes": {
+                "YUI~event-drag": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "datatable-core": {
+            "name": "datatable-core",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 2,
+            "description": "The core implementation of the `DataTable` and `DataTable.Base` Widgets.\n\nUse this class extension with Widget or another Base-based superclass to create\nthe basic DataTable API and composing class structure.\n\nNotable about this architecture is that rendering and UI event management for\nthe header, body, and footer of the table are deferred to configurable classes\nin the `headerView`, `bodyView`, and `footerView` attributes.  In this extension\nthey have no default values, requiring implementers to supply their own classes\nto render the table content."
+        },
+        "datatable-head": {
+            "name": "datatable-head",
+            "submodules": {},
+            "classes": {
+                "DataTable.Core": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "DataTable": 1
+            },
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1051,
+            "description": "View class responsible for rendering the `<thead>` section of a table. Used as\nthe default `headerView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided array of column configuration objects into a rendered\n`<thead>` based on the data in those objects.\n    \n\nThe structure of the column data is expected to be a single array of objects,\nwhere each object corresponds to a `<th>`.  Those objects may contain a\n`children` property containing a similarly structured array to indicate the\nnested cells should be grouped under the parent column's colspan in a separate\nrow of header cells. E.g.\n\n<pre><code>\nnew Y.DataTable.HeaderView({\n  container: tableNode,\n  columns: [\n    { key: 'id' }, // no nesting\n    { key: 'name', children: [\n      { key: 'firstName', label: 'First' },\n      { key: 'lastName',  label: 'Last' } ] }\n  ]\n}).render();\n</code></pre>\n\nThis would translate to the following visualization:\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`    - The HTML content of the header cell.\n  * `key`      - If `label` is not specified, the `key` is used for content.\n  * `children` - Array of columns to appear below this column in the next\n                 row.\n  * `abbr`     - The content of the 'abbr' attribute of the `<th>`\n\nThrough the life of instantiation and rendering, the column objects will have\nthe following properties added to them:\n\n  * `colspan` - To supply the `<th>` attribute\n  * `rowspan` - To supply the `<th>` attribute\n  * `parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`   - A unique YUI generated id used as the `<th>`'s 'id' for\n    reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder} tokens in the\ninstance's `CELL_TEMPLATE`, so you can modify the template and include other\ncolumn object properties to populate them.",
+            "extends": "View"
+        },
+        "datatable-body": {
+            "name": "datatable-body",
+            "submodules": {},
+            "classes": {
+                "DataTable.HeaderView": 1,
+                "DataTable.BodyView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "DataTable": 1
+            },
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1526,
+            "description": "View class responsible for rendering the `<tbody>` section of a table. Used as\nthe default `bodyView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided `modelList` into a rendered `<tbody>` based on the data\nin the constituent Models, altered or ammended by any special column\nconfigurations.\n\nThe `columns` configuration, passed to the constructor, determines which\ncolumns will be rendered.\n\nThe rendering process involves constructing an HTML template for a complete row\nof data, built by concatenating a customized copy of the instance's\n`CELL_TEMPLATE` into the `ROW_TEMPLATE` once for each column.  This template is\nthen populated with values from each Model in the `modelList`, aggregating a\ncomplete HTML string of all row and column data.  A `<tbody>` Node is then created from the markup and any column `nodeFormatter`s are applied.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform any\n    custom modifications on the cell or row Node that could not be performed by\n    `formatter`s.  Should be used sparingly for better performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string or\n    `undefined`.\n\nColumn `formatter`s are passed an object (`o`) with the following properties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `classnames` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowindex` - The zero-based row number.\n\nThey may return a value or update `o.value` to assign specific HTML content.  A\nreturned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the `<td>`.\n    When adding content to the cell, prefer appending into this property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowindex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`, as\nit will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The DOM\nelements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_.",
+            "extends": "View"
+        },
+        "gallery-jsonp": {
+            "name": "gallery-jsonp",
+            "submodules": {},
+            "classes": {
+                "JSONPRequest": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 4,
+            "description": "<p>Provides a JSONPRequest class for repeated JSONP calls, and a convenience\nmethod Y.jsonp(url, callback) to instantiate and send a JSONP request.</p>\n\n<p>The callback for the response can be named in the url explicitly or\nprovided in the configuration (second parameter to the constructor).\n\n<p>By default, the query parameter string &quot;callback=???&quot; will be\nsearched for in the url (??? can be anything).  If it's not found, it will\nbe added on.  If the JSONP service uses a different parameter name or url\nformat, you can override this behavior with the <code>format</code> property\nin the callback config.</p>\n\n<p>The second parameter can be a callback function that accepts the JSON\npayload as its argument, or a configuration object supporting the keys:</p>\n<ul>\n  <li>on - map of callback subscribers\n     <ul>\n        <li>success - function handler for successful transmission</li>\n        <li>failure - function handler for failed transmission</li>\n        <li>timeout - function handler for transactions that timeout</li>\n     </ul>\n </li>\n <li>format  - override function for inserting the proxy name in the url</li>\n <li>timeout - the number of milliseconds to wait before giving up</li>\n <li>context - becomes <code>this</code> in the callbacks</li>\n <li>args    - array of subsequent parameters to pass to the callbacks</li>\n</ul>",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "the url of the JSONP service",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "the default callback configuration or\n                                  success handler",
+                    "type": "Object|Function"
+                }
+            ]
+        },
+        "gallery-torelativetime": {
+            "name": "gallery-torelativetime",
+            "submodules": {},
+            "classes": {
+                "YUI~toRelativeTime": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-torelativetime/js/torelativetime.js",
+            "line": 1,
+            "description": "Provides a method Y.toRelativeTime(Date, refDate) to translate a Date\ninstance to a string like \"2 days ago\".  If the second parameter is\nprovided, the time delta is in reference to this date."
+        },
+        "dataschema": {
+            "name": "dataschema",
+            "submodules": {
+                "dataschema-class": 1
+            },
+            "classes": {
+                "DataSchema": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js",
+            "line": 5,
+            "description": "Abstract class encapsulation for any DataSchema implementation.  Pass the\nconstructor configuration an object containing these keys:\n\n<ul>\n  <li><code>type</code> - \"json\", \"JSON\", Y.DataSchema.JSON, a custom\n      implementation object (must provide an apply method), or a custom\n      function used as the apply method.</li>\n  <li><code>schema</code> - the object containing the appropriate schema\n      key:values for the specified type of schema parser.  What you would\n      pass as the first argument to\n      Y.DataSchema.JSON.apply( SCHEMA, data );</li>\n</ul>\n\nThis class constructor replaces the Y.DataSchema object namespace.  All\nloaded schema parser implementations are preserved."
+        },
+        "dataschema-class": {
+            "name": "dataschema-class",
+            "submodules": {},
+            "classes": {
+                "DataSchema": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "dataschema",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js",
+            "line": 5,
+            "description": "Abstract class encapsulation for any DataSchema implementation.  Pass the\nconstructor configuration an object containing these keys:\n\n<ul>\n  <li><code>type</code> - \"json\", \"JSON\", Y.DataSchema.JSON, a custom\n      implementation object (must provide an apply method), or a custom\n      function used as the apply method.</li>\n  <li><code>schema</code> - the object containing the appropriate schema\n      key:values for the specified type of schema parser.  What you would\n      pass as the first argument to\n      Y.DataSchema.JSON.apply( SCHEMA, data );</li>\n</ul>\n\nThis class constructor replaces the Y.DataSchema object namespace.  All\nloaded schema parser implementations are preserved.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "object containing keys \"type\" and \"schema\"",
+                    "type": "Object"
+                }
+            ]
+        },
+        "gallery-pluginattr": {
+            "name": "gallery-pluginattr",
+            "submodules": {},
+            "classes": {
+                "Plugin": 1
+            },
+            "fors": {
+                "Plugin": 1
+            },
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js",
+            "line": 1,
+            "description": "Adds a static method `Y.Plugin.addHostAttr(...)` to allow plugging and\nunplugging to happen via host attribute configuration."
+        },
+        "event-konami": {
+            "name": "event-konami",
+            "submodules": {},
+            "classes": {
+                "YUI~event-konami": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-konami/js/konami.js",
+            "line": 1,
+            "description": "Based on the Konami code (http://en.wikipedia.org/wiki/Konami_Code).\nSubscribers to this event should do something special.  The event will be\nfired only once for each subscriber.  With great power comes great\nresponsibility, after all."
+        },
+        "event-drag": {
+            "name": "event-drag",
+            "submodules": {},
+            "classes": {
+                "YUI~event-drag": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 1,
+            "description": "<p>Provides subscribable drag events from Node or NodeLists.  Subscribing\nto any of the events causes the node to be plugged with Y.Plugin.Drag.  The\nconfig object passed can be used to set Drag instance attributes or add\nadditional Plugins to the Drag instance such as Y.Plugin.DDProxy.</p>\n\nConfig properties are formatted and tested for a corresponding Y.Plugin.* as\n'somePlugin' => Y.Plugin.DDSomePlugin if the property name doesn't already\nstart with \"DD\".  So { proxy: true } and { DDProxy: true } are functionally\nequivalent.  Both add Y.Plugin.DDProxy to the Drag instance.</p>\n\n<pre><code>node.on('drag:start', fn, { proxy: true, data: 123 });</code></pre>\n\n<p>This adds Y.Plugin.DDProxy to the Drag instance and also set's the Drag instance's data attribute.</p>\n\n<p>Passing any value will result in the Plugin being added, but if you pass\nan object literal as the value, it will be sent to the Plugin's\nconstructor.</p>\n\n<pre><code>node.on('drag:end', fn, {\n    constrained: { constrain2node: '#container' }\n});</code></pre>\n\n<p>This adds Y.Plugin.DDConstrained to the Drag instance using the specified\nconfiguration.</p>\n\n<p>A custom detach handle is returned, whose detach method unplugs the\nY.Plugin.Drag from the node(s).</p>\n\n<p>Supported events are:</p>\n<ul>\n  <li>drag or drag:drag</li>\n  <li>drag:start</li>\n  <li>drag:end</li>\n  <li>drag:mouseDown</li>\n  <li>drag:afterMouseDown</li>\n  <li>drag:removeHandle</li>\n  <li>drag:addHandle</li>\n  <li>drag:removeInvalid</li>\n  <li>drag:addInvalid</li>\n  <li>drag:align</li>\n</ul>\n\n<p>Additionally, the default callback context is overridden to the\nsubscribing Node unless otherwise specified during the subscription.\nSo &quot;this&quot; in the callback will refer to the node.  On the\nevent object passed to subscribers, <code>e.currentTarget</code> is also the\nNode regardless of context override.  The Drag instance is available from\nthe Node as <code>node.dd</code>.</p>"
+        }
+    },
+    "classes": {
+        "DataTable.Core": {
+            "name": "DataTable.Core",
+            "shortname": "DataTable.Core",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "datatable-head",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 29,
+            "description": "Class extension providing the core API and structure for the DataTable Widget."
+        },
+        "DataTable.HeaderView": {
+            "name": "DataTable.HeaderView",
+            "shortname": "HeaderView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "datatable-body",
+            "namespace": "DataTable",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1051,
+            "description": "View class responsible for rendering the `<thead>` section of a table. Used as\nthe default `headerView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided array of column configuration objects into a rendered\n`<thead>` based on the data in those objects.\n    \n\nThe structure of the column data is expected to be a single array of objects,\nwhere each object corresponds to a `<th>`.  Those objects may contain a\n`children` property containing a similarly structured array to indicate the\nnested cells should be grouped under the parent column's colspan in a separate\nrow of header cells. E.g.\n\n<pre><code>\nnew Y.DataTable.HeaderView({\n  container: tableNode,\n  columns: [\n    { key: 'id' }, // no nesting\n    { key: 'name', children: [\n      { key: 'firstName', label: 'First' },\n      { key: 'lastName',  label: 'Last' } ] }\n  ]\n}).render();\n</code></pre>\n\nThis would translate to the following visualization:\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`    - The HTML content of the header cell.\n  * `key`      - If `label` is not specified, the `key` is used for content.\n  * `children` - Array of columns to appear below this column in the next\n                 row.\n  * `abbr`     - The content of the 'abbr' attribute of the `<th>`\n\nThrough the life of instantiation and rendering, the column objects will have\nthe following properties added to them:\n\n  * `colspan` - To supply the `<th>` attribute\n  * `rowspan` - To supply the `<th>` attribute\n  * `parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`   - A unique YUI generated id used as the `<th>`'s 'id' for\n    reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder} tokens in the\ninstance's `CELL_TEMPLATE`, so you can modify the template and include other\ncolumn object properties to populate them."
+        },
+        "DataTable.BodyView": {
+            "name": "DataTable.BodyView",
+            "shortname": "BodyView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "datatable-body",
+            "namespace": "DataTable",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1526,
+            "description": "View class responsible for rendering the `<tbody>` section of a table. Used as\nthe default `bodyView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided `modelList` into a rendered `<tbody>` based on the data\nin the constituent Models, altered or ammended by any special column\nconfigurations.\n\nThe `columns` configuration, passed to the constructor, determines which\ncolumns will be rendered.\n\nThe rendering process involves constructing an HTML template for a complete row\nof data, built by concatenating a customized copy of the instance's\n`CELL_TEMPLATE` into the `ROW_TEMPLATE` once for each column.  This template is\nthen populated with values from each Model in the `modelList`, aggregating a\ncomplete HTML string of all row and column data.  A `<tbody>` Node is then created from the markup and any column `nodeFormatter`s are applied.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform any\n    custom modifications on the cell or row Node that could not be performed by\n    `formatter`s.  Should be used sparingly for better performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string or\n    `undefined`.\n\nColumn `formatter`s are passed an object (`o`) with the following properties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `classnames` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowindex` - The zero-based row number.\n\nThey may return a value or update `o.value` to assign specific HTML content.  A\nreturned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the `<td>`.\n    When adding content to the cell, prefer appending into this property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowindex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`, as\nit will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The DOM\nelements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_."
+        },
+        "JSONPRequest": {
+            "name": "JSONPRequest",
+            "shortname": "JSONPRequest",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gallery-jsonp",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 4,
+            "description": "<p>Provides a JSONPRequest class for repeated JSONP calls, and a convenience\nmethod Y.jsonp(url, callback) to instantiate and send a JSONP request.</p>\n\n<p>The callback for the response can be named in the url explicitly or\nprovided in the configuration (second parameter to the constructor).\n\n<p>By default, the query parameter string &quot;callback=???&quot; will be\nsearched for in the url (??? can be anything).  If it's not found, it will\nbe added on.  If the JSONP service uses a different parameter name or url\nformat, you can override this behavior with the <code>format</code> property\nin the callback config.</p>\n\n<p>The second parameter can be a callback function that accepts the JSON\npayload as its argument, or a configuration object supporting the keys:</p>\n<ul>\n  <li>on - map of callback subscribers\n     <ul>\n        <li>success - function handler for successful transmission</li>\n        <li>failure - function handler for failed transmission</li>\n        <li>timeout - function handler for transactions that timeout</li>\n     </ul>\n </li>\n <li>format  - override function for inserting the proxy name in the url</li>\n <li>timeout - the number of milliseconds to wait before giving up</li>\n <li>context - becomes <code>this</code> in the callbacks</li>\n <li>args    - array of subsequent parameters to pass to the callbacks</li>\n</ul>"
+        },
+        "YUI~toRelativeTime": {
+            "name": "YUI~toRelativeTime",
+            "shortname": "YUI~toRelativeTime",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gallery-torelativetime",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-torelativetime/js/torelativetime.js",
+            "line": 1,
+            "description": "Provides a method Y.toRelativeTime(Date, refDate) to translate a Date\ninstance to a string like \"2 days ago\".  If the second parameter is\nprovided, the time delta is in reference to this date."
+        },
+        "DataSchema": {
+            "name": "DataSchema",
+            "shortname": "DataSchema",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "dataschema",
+            "submodule": "dataschema-class",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js",
+            "line": 5,
+            "description": "Abstract class encapsulation for any DataSchema implementation.  Pass the\nconstructor configuration an object containing these keys:\n\n<ul>\n  <li><code>type</code> - \"json\", \"JSON\", Y.DataSchema.JSON, a custom\n      implementation object (must provide an apply method), or a custom\n      function used as the apply method.</li>\n  <li><code>schema</code> - the object containing the appropriate schema\n      key:values for the specified type of schema parser.  What you would\n      pass as the first argument to\n      Y.DataSchema.JSON.apply( SCHEMA, data );</li>\n</ul>\n\nThis class constructor replaces the Y.DataSchema object namespace.  All\nloaded schema parser implementations are preserved."
+        },
+        "Plugin": {
+            "name": "Plugin",
+            "shortname": "Plugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gallery-pluginattr",
+            "namespace": ""
+        },
+        "YUI~event-konami": {
+            "name": "YUI~event-konami",
+            "shortname": "YUI~event-konami",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "event-konami",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-konami/js/konami.js",
+            "line": 1,
+            "description": "Based on the Konami code (http://en.wikipedia.org/wiki/Konami_Code).\nSubscribers to this event should do something special.  The event will be\nfired only once for each subscriber.  With great power comes great\nresponsibility, after all."
+        },
+        "YUI~event-drag": {
+            "name": "YUI~event-drag",
+            "shortname": "YUI~event-drag",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "event-drag",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 1,
+            "description": "<p>Provides subscribable drag events from Node or NodeLists.  Subscribing\nto any of the events causes the node to be plugged with Y.Plugin.Drag.  The\nconfig object passed can be used to set Drag instance attributes or add\nadditional Plugins to the Drag instance such as Y.Plugin.DDProxy.</p>\n\nConfig properties are formatted and tested for a corresponding Y.Plugin.* as\n'somePlugin' => Y.Plugin.DDSomePlugin if the property name doesn't already\nstart with \"DD\".  So { proxy: true } and { DDProxy: true } are functionally\nequivalent.  Both add Y.Plugin.DDProxy to the Drag instance.</p>\n\n<pre><code>node.on('drag:start', fn, { proxy: true, data: 123 });</code></pre>\n\n<p>This adds Y.Plugin.DDProxy to the Drag instance and also set's the Drag instance's data attribute.</p>\n\n<p>Passing any value will result in the Plugin being added, but if you pass\nan object literal as the value, it will be sent to the Plugin's\nconstructor.</p>\n\n<pre><code>node.on('drag:end', fn, {\n    constrained: { constrain2node: '#container' }\n});</code></pre>\n\n<p>This adds Y.Plugin.DDConstrained to the Drag instance using the specified\nconfiguration.</p>\n\n<p>A custom detach handle is returned, whose detach method unplugs the\nY.Plugin.Drag from the node(s).</p>\n\n<p>Supported events are:</p>\n<ul>\n  <li>drag or drag:drag</li>\n  <li>drag:start</li>\n  <li>drag:end</li>\n  <li>drag:mouseDown</li>\n  <li>drag:afterMouseDown</li>\n  <li>drag:removeHandle</li>\n  <li>drag:addHandle</li>\n  <li>drag:removeInvalid</li>\n  <li>drag:addInvalid</li>\n  <li>drag:align</li>\n</ul>\n\n<p>Additionally, the default callback context is overridden to the\nsubscribing Node unless otherwise specified during the subscription.\nSo &quot;this&quot; in the callback will refer to the node.  On the\nevent object passed to subscribers, <code>e.currentTarget</code> is also the\nNode regardless of context override.  The Drag instance is available from\nthe Node as <code>node.dd</code>.</p>"
+        }
+    },
+    "classitems": [
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 37,
+            "description": "Columns to include in the rendered table.\n\nIf omitted, the attributes on the configured `recordType` or the first item\nin the `data` collection will be used as a source.\n\nThis attribute takes an array of strings or objects (mixing the two is\nfine).  Each string or object is considered a column to be rendered.\nStrings are converted to objects, so `columns: ['first', 'last']` becomes\n`columns: [{ key: 'first' }, { key: 'last' }]`.\n\nDataTable.Core only concerns itself with the `key` property of columns.\nAll other properties are for use by the `headerView`, `bodyView`,\n`footerView`, and any class extensions or plugins on the final class or\ninstance. See the descriptions of the view classes and feature class\nextensions and plugins for details on the specific properties they read or\nadd to column definitions.",
+            "itemtype": "attribute",
+            "name": "columns",
+            "type": "{Object[]|String[]}",
+            "default": "(from `recordType` ATTRS or first item in the `data`)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 65,
+            "description": "Model subclass to use as the `model` for the ModelList stored in the `data`\nattribute.\n\nIf not provided, it will try really hard to figure out what to use.  The\nfollowing attempts will be made to set a default value:\n\n1. If the `data` attribute is set with a ModelList instance and its `model`\n   property is set, that will be used.\n2. If the `data` attribute is set with a ModelList instance, and its\n   `model` property is unset, but it is populated, the `ATTRS` of the\n   `constructor of the first item will be used.\n3. If the `data` attribute is set with a non-empty array, a Model subclass\n   will be generated using the keys of the first item as its `ATTRS` (see\n   the `\\_createRecordClass` method).\n4. If the `columns` attribute is set, a Model subclass will be generated\n   using the columns defined with a `key`. This is least desirable because\n   columns can be duplicated or nested in a way that's not parsable.\n5. If neither `data` nor `columns` is set or populated, a change event\n   subscriber will listen for the first to be changed and try all over\n   again.",
+            "itemtype": "attribute",
+            "name": "recordType",
+            "type": "{Function}",
+            "default": "(see description)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 96,
+            "description": "The collection of data records to display.  This attribute is a pass\nthrough to a `data` property, which is a ModelList instance.\n\nIf this attribute is passed a ModelList or subclass, it will be assigned to\nthe property directly.  If an array of objects is passed, a new ModelList\nwill be created using the configured `recordType` as its `model` property\nand seeded with the array.\n\nRetrieving this attribute will return the ModelList stored in the `data`\nproperty.",
+            "itemtype": "attribute",
+            "name": "data",
+            "type": "{ModelList|Object[]}",
+            "default": "`new ModelList()`",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 118,
+            "description": "The class or object to use for rendering the `<thead>` and column headers\nfor the table.  This attribute is responsible for populating the the\ninstance's `head` property.\n\nIf a class constructor (function) is passed, an instance of that clas will\nbe created at `render()` time and assigned to `this.head`.  If an object is\npassed, `head` will be set immediately.\n\nValid objects or classes will have a `render()` method, though it is\nrecommended that they be subclasses of `Y.Base` or `Y.View`.  If the object\nor class supports events, its `addTarget()` method will be called to bubble\nits events to this instance.\n\nThe core implementaion does not define a default `headerView`.  Classes\nbuilt from this extension should define a default.",
+            "itemtype": "attribute",
+            "name": "headerView",
+            "type": "{Function|Object}",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 143,
+            "description": "The class or object to use for rendering the `<tfoot>` and any relevant\ncontent for it.  This attribute is responsible for populating the the\ninstance's `foot` property.\n\nIf a class constructor (function) is passed, an instance of that clas will\nbe created at `render()` time and assigned to `this.foot`.  If an object is\npassed, `foot` will be set immediately.\n\nValid objects or classes will have a `render()` method, though it is\nrecommended that they be subclasses of `Y.Base` or `Y.View`.  If the object\nor class supports events, its `addTarget()` method will be called to bubble\nits events to this instance.\n\nThe core implementaion does not define a default `footerView`.  Classes\nbuilt from this extension should define a default if appropriate.",
+            "itemtype": "attribute",
+            "name": "footerView",
+            "type": "{Function|Object}",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 168,
+            "description": "The class or object to use for rendering the `<tbody>` or `<tbody>`s and\nall data row content for the table.  This attribute is responsible for\npopulating the the instance's `body` property.\n\nIf a class constructor (function) is passed, an instance of that clas will\nbe created at `render()` time and assigned to `this.body`.  If an object is\npassed, `body` will be set immediately.\n\nValid objects or classes will have a `render()` method, though it is\nrecommended that they be subclasses of `Y.Base` or `Y.View`.  If the object\nor class supports events, its `addTarget()` method will be called to bubble\nits events to this instance.\n\nThe core implementaion does not define a default `bodyView`.  Classes\nbuilt from this extension should define a default.",
+            "itemtype": "attribute",
+            "name": "bodyView",
+            "type": "{Function|Object}",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 193,
+            "description": "Content for the `<table summary=\"ATTRIBUTE VALUE HERE\">`.  Values assigned\nto this attribute will be HTML escaped for security.",
+            "itemtype": "attribute",
+            "name": "summary",
+            "type": "{String}",
+            "default": "'' (empty string)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 208,
+            "description": "HTML content of an optional `<caption>` element to appear above the table.\nLeave this config unset or set to a falsy value to remove the caption.",
+            "itemtype": "attribute",
+            "name": "caption",
+            "type": "HTML",
+            "default": "'' (empty string)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 220,
+            "description": "Deprecated as of 3.5.0. Passes through to the `data` attribute.\n\nWARNING: `get('recordset')` will NOT return a Recordset instance as of\n3.5.0.  This is a break in backward compatibility.",
+            "itemtype": "attribute",
+            "name": "recordset",
+            "type": "{Object[]|Recordset}",
+            "deprecated": true,
+            "deprecationMessage": "Use the `data` attribute",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 235,
+            "description": "Deprecated as of 3.5.0. Passes through to the `columns` attribute.\n\nIf a Columnset object is passed, its raw object and array column data will\nbe extracted for use.\n\nWARNING: `get('columnset')` will NOT return a Columnset instance as of\n3.5.0.  This is a break in backward compatibility.",
+            "itemtype": "attribute",
+            "name": "columnset",
+            "type": "{Object[]|Columnset}",
+            "deprecated": true,
+            "deprecationMessage": "Use the `columns` attribute",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 257,
+            "description": "The HTML template used to create the caption Node if the `caption`\nattribute is set.",
+            "itemtype": "property",
+            "name": "CAPTION_TEMPLATE",
+            "type": "{String}",
+            "default": "'<caption></caption>'",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 267,
+            "description": "The HTML template used to create the table Node.",
+            "itemtype": "property",
+            "name": "TABLE_TEMPLATE",
+            "type": "{String}",
+            "default": "'<table></table>'",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 276,
+            "description": "The object or instance of the class assigned to `bodyView` that is\nresponsible for rendering and managing the table's `<tbody>`(s) and its\ncontent.",
+            "itemtype": "property",
+            "name": "body",
+            "type": "{Object}",
+            "default": "undefined (initially unset)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 287,
+            "description": "The object or instance of the class assigned to `footerView` that is\nresponsible for rendering and managing the table's `<tfoot>` and its\ncontent.",
+            "itemtype": "property",
+            "name": "foot",
+            "type": "{Object}",
+            "default": "undefined (initially unset)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 298,
+            "description": "The object or instance of the class assigned to `headerView` that is\nresponsible for rendering and managing the table's `<thead>` and its\ncontent.",
+            "itemtype": "property",
+            "name": "head",
+            "type": "{Object}",
+            "default": "undefined (initially unset)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 309,
+            "description": "The ModelList that manages the table's data.",
+            "itemtype": "property",
+            "name": "data",
+            "type": "{ModelList}",
+            "default": "undefined (initially unset)",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 320,
+            "description": "Returns the Node for a cell at the given coordinates.\n\nTechnically, this only relays to the `bodyView` instance's `getCell` method.\nIf the `bodyView` doesn't have a `getCell` method, `undefined` is returned.",
+            "itemtype": "method",
+            "name": "getCell",
+            "params": [
+                {
+                    "name": "row",
+                    "description": "Index of the cell's containing row",
+                    "type": "Number"
+                },
+                {
+                    "name": "col",
+                    "description": "Index of the cell's containing column",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Node"
+            },
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 335,
+            "description": "Gets the column configuration object for the given key.\n`instance.getColumn('foo')` is an alias for `instance.get('columns.foo')`.",
+            "itemtype": "method",
+            "name": "getColumn",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "the column configuration object",
+                "type": "Object"
+            },
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 347,
+            "description": "Returns the Node for a row at the given index.\n\nTechnically, this only relays to the `bodyView` instance's `getRow` method.\nIf the `bodyView` doesn't have a `getRow` method, `undefined` is returned.",
+            "itemtype": "method",
+            "name": "getRow",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "Index of the row in the data `<tbody>`",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Node"
+            },
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 361,
+            "description": "Builds the table and attaches it to the DOM.  This requires the host class\nto provide a `contentBox` attribute.  This is typically provided by Widget.",
+            "itemtype": "method",
+            "name": "renderUI",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 395,
+            "description": "Subscribes to attribute change events to update the UI.",
+            "itemtype": "method",
+            "name": "bindUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 409,
+            "description": "A map of column key to column configuration objects parsed from the\n`columns` attribute.",
+            "itemtype": "property",
+            "name": "_columnMap",
+            "type": "{Object}",
+            "default": "undefined (initially unset)",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 420,
+            "description": "The Node instance of the table containing the data rows.  This is set when\nthe table is rendered.  It may also be set by progressive enhancement,\nthough this extension does not provide the logic to parse from source.",
+            "itemtype": "property",
+            "name": "_tableNode",
+            "type": "{Node}",
+            "default": "undefined (initially unset)",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 432,
+            "description": "Relays `captionChange` events to `\\_uiUpdateCaption`.",
+            "itemtype": "method",
+            "name": "_afterCaptionChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The `captionChange` event object",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 443,
+            "description": "Updates the `\\_columnMap` property in response to changes in the `columns`\nattribute.",
+            "itemtype": "method",
+            "name": "_afterColumnsChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The `columnsChange` event object",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 455,
+            "description": "Relays `summaryChange` events to `\\_uiUpdateSummary`.",
+            "itemtype": "method",
+            "name": "_afterSummaryChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The `summaryChange` event object",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 466,
+            "description": "Creates a Model subclass from an array of attribute names or an object of\nattribute definitions.  This is used to generate a class suitable to\nrepresent the data passed to the `data` attribute if no `recordType` is\nset.",
+            "itemtype": "method",
+            "name": "_createRecordClass",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "Names assigned to the Model subclass's\n            `ATTRS` or its entire `ATTRS` definition object",
+                    "type": "String[]|Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Model"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 494,
+            "description": "The getter for the `columns` attribute.  Returns the array of column\nconfiguration objects if `instance.get('columns')` is called, or the\nspecific column object if `instance.get('columns.columnKey')` is called.",
+            "itemtype": "method",
+            "name": "_getColumns",
+            "params": [
+                {
+                    "name": "columns",
+                    "description": "The full array of column objects",
+                    "type": "Object[]"
+                },
+                {
+                    "name": "name",
+                    "description": "The attribute name requested\n                     (e.g. 'columns' or 'columns.foo');",
+                    "type": "String"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 513,
+            "description": "Relays the `get()` request for the deprecated `columnset` attribute to the\n`columns` attribute.\n\nTHIS BREAKS BACKWARD COMPATIBILITY.  3.4.1 and prior implementations will\nexpect a Columnset instance returned from `get('columnset')`.",
+            "itemtype": "method",
+            "name": "_getColumnset",
+            "params": [
+                {
+                    "name": "ignored",
+                    "description": "The current value stored in the `columnset` state",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "The attribute name requested\n                     (e.g. 'columnset' or 'columnset.foo');",
+                    "type": "String"
+                }
+            ],
+            "deprecated": true,
+            "deprecationMessage": "This will be removed with the `columnset` attribute in a future\n            version.",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 532,
+            "description": "The getter for the `data` attribute.  Returns the ModelList stored in the\n`data` property.  If the ModelList is not yet set, it returns the current\nraw data (presumably an empty array or `undefined`).",
+            "itemtype": "method",
+            "name": "_getData",
+            "params": [
+                {
+                    "name": "val",
+                    "description": "The current data stored in the attribute",
+                    "type": "Object[]|ModelList"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 545,
+            "description": "Initializes the instance's `\\_columnMap` from the configured `columns`\nattribute.  If `columns` is not set, but `recordType` is, it uses the\n`ATTRS` of that class.  If neither are set, it temporarily falls back to an\nempty array. `\\_initRecordType` will call back into this method if it finds\nthe `columnMap` empty.",
+            "itemtype": "method",
+            "name": "_initColumns",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 571,
+            "description": "Initializes the instance's `data` property from the value of the `data`\nattribute.  If the attribute value is a ModelList, it is assigned directly\nto `this.data`.  If it is an array, a ModelList is created, its `model`\nproperty is set to the configured `recordType` class, and it is seeded with\nthe array data.  This ModelList is then assigned to `this.data`.",
+            "itemtype": "method",
+            "name": "_initData",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 607,
+            "description": "Initializes the columns, `recordType` and data ModelList.",
+            "itemtype": "method",
+            "name": "initializer",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 623,
+            "description": "If the `recordType` attribute is not set, this method attempts to set a\ndefault value.\n\nIt tries the following methods to determine a default:\n\n1. If the `data` attribute is set with a ModelList with a `model` property,\n   that class is used.\n2. If the `data` attribute is set with a non-empty ModelList, the\n   `constructor` of the first item is used.\n3. If the `data` attribute is set with a non-empty array and the first item\n   is a Base subclass, its constructor is used.\n4. If the `data` attribute is set with a non-empty array a custom Model\n   subclass is generated using the keys of the first item as its `ATTRS`.\n5. If the `_columnMap` property has keys, a custom Model subclass is\n   generated using those keys as its `ATTRS`.\n\nOf none of those are successful, it subscribes to the change events for\n`columns`, `recordType`, and `data` to try again.\n\nIf defaulting the `recordType` and the current `\\_columnMap` property is\nempty, it will call `\\_initColumns`.",
+            "itemtype": "method",
+            "name": "_initRecordType",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 714,
+            "description": "Iterates the array of column configurations to capture all columns with a\n`key` property.  Columns that are represented as strings will be replaced\nwith objects with the string assigned as the `key` property.  If a column\nhas a `children` property, it will be iterated, adding any nested column\nkeys to the returned map. There is no limit to the levels of nesting.\n\nThe result is an object map with column keys as the property name and the\ncorresponding column object as the associated value.",
+            "itemtype": "method",
+            "name": "_parseColumns",
+            "params": [
+                {
+                    "name": "columns",
+                    "description": "The array of column names or\n            configuration objects to scan",
+                    "type": "Object[]|String[]"
+                },
+                {
+                    "name": "map",
+                    "description": "The map to add keyed columns to",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 754,
+            "description": "Delegates rendering to the configured `bodyView`.",
+            "itemtype": "method",
+            "name": "_renderBody",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 781,
+            "description": "Delegates rendering to the configured `footerView`.",
+            "itemtype": "method",
+            "name": "_renderFooter",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 806,
+            "description": "Delegates rendering to the configured `headerView`.",
+            "itemtype": "method",
+            "name": "_renderHeader",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 832,
+            "description": "Creates the table and caption and assigns the table's summary attribute.\n\nAssigns the generated table to the `\\_tableNode` property.",
+            "itemtype": "method",
+            "name": "_renderTable",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 853,
+            "description": "Assigns the `\\_columnMap` property with the parsed results of the array of\ncolumn definitions passed.",
+            "itemtype": "method",
+            "name": "_setColumnMap",
+            "params": [
+                {
+                    "name": "columns",
+                    "description": "the raw column configuration objects or\n                                   key names",
+                    "type": "Object[]|String[]"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 866,
+            "description": "Relays attribute assignments of the deprecated `columnset` attribute to the\n`columns` attribute.  If a Columnset is object is passed, its basic object\nstructure is mined.",
+            "itemtype": "method",
+            "name": "_setColumnset",
+            "params": [
+                {
+                    "name": "val",
+                    "description": "The columnset value to relay",
+                    "type": "Array|Columnset"
+                }
+            ],
+            "deprecated": true,
+            "deprecationMessage": "This will be removed with the deprecated `columnset` attribute\n            in a later version.",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 885,
+            "description": "Accepts an object with `each` and `getAttrs` (preferably a ModelList or\nsubclass) or an array of data objects.  If an array is passes, it will\ncreate a ModelList to wrap the data.  In doing so, it will set the created\nModelList's `model` property to the class in the `recordType` attribute,\nwhich will be defaulted if not yet set.\n\nIf the `data` property is already set with a ModelList, passing an array as\nthe value will call the ModelList's `reset()` method with that array rather\nthan replacing the stored ModelList wholesale.\n\nAny non-ModelList-ish and non-array value is invalid.",
+            "itemtype": "method",
+            "name": "_setData",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 932,
+            "description": "Relays the value assigned to the deprecated `recordset` attribute to the\n`data` attribute.  If a Recordset instance is passed, the raw object data\nwill be culled from it.",
+            "itemtype": "method",
+            "name": "_setRecordset",
+            "params": [
+                {
+                    "name": "val",
+                    "description": "The recordset value to relay",
+                    "type": "Object[]|Recordset"
+                }
+            ],
+            "deprecated": true,
+            "deprecationMessage": "This will be removed with the deprecated `recordset` attribute\n            in a later version.",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 957,
+            "description": "Accepts a Base subclass (preferably a Model subclass). Alternately, it will\ngenerate a custom Model subclass from an array of attribute names or an\nobject defining attributes and their respective configurations (it is\nassigned as the `ATTRS` of the new class).\n\nAny other value is invalid.",
+            "itemtype": "method",
+            "name": "_setRecordType",
+            "params": [
+                {
+                    "name": "val",
+                    "description": "The Model subclass, array of\n        attribute names, or the `ATTRS` definition for a custom model\n        subclass",
+                    "type": "Function|String[]|Object"
+                }
+            ],
+            "return": {
+                "description": "A Base/Model subclass",
+                "type": "Function"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 985,
+            "description": "Creates, removes, or updates the table's `<caption>` element per the input\nvalue.  Empty values result in the caption being removed.",
+            "itemtype": "method",
+            "name": "_uiUpdateCaption",
+            "params": [
+                {
+                    "name": "htmlContent",
+                    "description": "The content to populate the table caption",
+                    "type": "HTML"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1028,
+            "description": "Updates the table's `summary` attribute with the input value.",
+            "itemtype": "method",
+            "name": "_uiUpdateSummary",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1038,
+            "description": "Verifies the input value is a function with a `render` method on its\nprototype.",
+            "itemtype": "method",
+            "name": "_validateView",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.Core",
+            "module": "datatable-core"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1125,
+            "description": "Template used to create the table's header cell markup.  Override this to\ncustomize how these cells' markup is created.",
+            "itemtype": "property",
+            "name": "CELL_TEMPLATE",
+            "type": "{HTML}",
+            "default": "'<th id=\"{_yuid}\" abbr=\"{abbr} colspan=\"{colspan}\" rowspan=\"{rowspan}\"><div class=\"{linerClass}\">{content}</div></th>'",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1141,
+            "description": "The data representation of the header rows to render.  This is assigned by\nparsing the `columns` configuration array, and is used by the render()\nmethod.",
+            "itemtype": "property",
+            "name": "columns",
+            "type": "{Array[]}",
+            "default": "(initially unset)",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1153,
+            "description": "The object that serves as the source of truth for column and row data.\nThis property is assigned at instantiation from the `source` property of\nthe configuration object passed to the constructor.",
+            "itemtype": "property",
+            "name": "source",
+            "type": "{Object}",
+            "default": "(initially unset)",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1165,
+            "description": "Template used to create the table's header row markup.  Override this to\ncustomize the row markup.",
+            "itemtype": "property",
+            "name": "ROW_TEMPLATE",
+            "type": "{HTML}",
+            "default": "'<tr>{content}</tr>'",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1176,
+            "description": "Template used to create the table's thead markup.",
+            "itemtype": "property",
+            "name": "THEAD_TEMPLATE",
+            "type": "{HTML}",
+            "default": "'<thead class=\"{classes}\">{content}</thead>'",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1189,
+            "description": "Destroys the instance.",
+            "itemtype": "method",
+            "name": "destructor",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1198,
+            "description": "Builds a CSS class name from the provided tokens.  If the instance is\ncreated with `cssPrefix` or `source` in the configuration, it will use this\nprefix (the `\\_cssPrefix` of the `source` object) as the base token.  This\nallows class instances to generate markup with class names that correspond\nto the parent class that is consuming them.",
+            "itemtype": "method",
+            "name": "getClassName",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "Any number of tokens to include in the class name",
+                    "type": "String",
+                    "multiple": true
+                }
+            ],
+            "return": {
+                "description": "The generated class name",
+                "type": "String"
+            },
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1217,
+            "description": "Creates the `<thead>` Node by assembling markup generated by populating the\n`THEAD\\_TEMPLATE`, `ROW\\_TEMPLATE`, and `CELL\\_TEMPLATE` templates with\ncontent from the `columns` property.",
+            "itemtype": "method",
+            "name": "render",
+            "return": {
+                "description": "The instance",
+                "type": "HeaderView"
+            },
+            "chainable": 1,
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1298,
+            "description": "The base token for classes created with the `getClassName` method.",
+            "itemtype": "property",
+            "name": "_cssPrefix",
+            "type": "{String}",
+            "default": "'yui3-table'",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1308,
+            "description": "Handles changes in the source's columns attribute.  Redraws the headers.",
+            "itemtype": "method",
+            "name": "_afterColumnChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The `columnsChange` event object",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1319,
+            "description": "Binds event subscriptions from the UI and the source (if assigned).",
+            "itemtype": "method",
+            "name": "bindUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1333,
+            "description": "Initializes the instance. Reads the following configuration properties:\n\n  * `columns` - (REQUIRED) The initial column information\n  * `cssPrefix` - The base string for classes generated by `getClassName`\n  * `source` - The object to serve as source of truth for column info",
+            "itemtype": "method",
+            "name": "initializer",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "Configuration data",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1359,
+            "description": "Translate the input column format into a structure useful for rendering a\n`<thead>`, rows, and cells.  The structure of the input is expected to be a\nsingle array of objects, where each object corresponds to a `<th>`.  Those\nobjects may contain a `children` property containing a similarly structured\narray to indicate the nested cells should be grouped under the parent\ncolumn's colspan in a separate row of header cells. E.g.\n\n<pre><code>\n[\n  { key: 'id' }, // no nesting\n  { key: 'name', children: [\n    { key: 'firstName', label: 'First' },\n    { key: 'lastName',  label: 'Last' } ] }\n]\n</code></pre>\n\nwould indicate two header rows with the first column 'id' being assigned a\n`rowspan` of `2`, the 'name' column appearing in the first row with a\n`colspan` of `2`, and the 'firstName' and 'lastName' columns appearing in\nthe second row, below the 'name' column.\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`    - The HTML content of the header cell.\n  * `key`      - If `label` is not specified, the `key` is used for content.\n  * `children` - Array of columns to appear below this column in the next\n                 row.\n  * `abbr`     - The content of the 'abbr' attribute of the `<th>`\n\nThe output structure is basically a simulation of the `<thead>` structure\nwith arrays for rows and objects for cells.  Column objects have the\nfollowing properties added to them:\n\n  * `colspan` - Per the `<th>` attribute\n  * `rowspan` - Per the `<th>` attribute\n  * `parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`   - A unique YUI generated id used as the `<th>`'s 'id' for\n    reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder}\nreplacement in the `CELL_TEMPLATE`, so you can modify the template and\ninclude other column object properties to populate them.",
+            "itemtype": "method",
+            "name": "_parseColumns",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Array of column object data",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "An array of arrays corresponding to the header row\n        structure to render",
+                "type": "Array[]"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.HeaderView",
+            "module": "datatable-head",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1612,
+            "description": "HTML template used to create table cells.",
+            "itemtype": "property",
+            "name": "CELL_TEMPLATE",
+            "type": "{HTML}",
+            "default": "'<td headers=\"{headers}\" class=\"{classes}\">\n        '<div class=\"{linerClass}\">{content}</div>\n    </td>'",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1629,
+            "description": "CSS class applied to even rows.  This is assigned at instantiation after\nsetting up the `\\_cssPrefix` for the instance.\n\nFor DataTable, this will be `yui3-datatable-even`.",
+            "itemtype": "property",
+            "name": "CLASS_EVEN",
+            "type": "{String}",
+            "default": "'yui3-table-even'",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1641,
+            "description": "CSS class applied to odd rows.  This is assigned at instantiation after\nsetting up the `\\_cssPrefix` for the instance.\n\nWhen used by DataTable instances, this will be `yui3-datatable-odd`.",
+            "itemtype": "property",
+            "name": "CLASS_ODD",
+            "type": "{String}",
+            "default": "'yui3-table-odd'",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1653,
+            "description": "HTML template used to create table rows.",
+            "itemtype": "property",
+            "name": "ROW_TEMPLATE",
+            "type": "{HTML}",
+            "default": "'<tr id=\"{clientId}\" class=\"{rowClasses}\">{content}</tr>'",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1665,
+            "description": "The object that serves as the source of truth for column and row data.\nThis property is assigned at instantiation from the `source` property of\nthe configuration object passed to the constructor.",
+            "itemtype": "property",
+            "name": "source",
+            "type": "{Object}",
+            "default": "(initially unset)",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1677,
+            "description": "HTML template used to create table's `<tbody>`.",
+            "itemtype": "property",
+            "name": "TBODY_TEMPLATE",
+            "type": "{HTML}",
+            "default": "'<tbody class=\"{classes}\">{content}</tbody>'",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1687,
+            "description": "Destroys the instance.",
+            "itemtype": "method",
+            "name": "destructor",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1696,
+            "description": "Returns the `<td>` Node from the given row and column index.  If there is\nno cell at the given coordinates, `null` is returned.",
+            "itemtype": "method",
+            "name": "getCell",
+            "params": [
+                {
+                    "name": "row",
+                    "description": "Zero based index of the row with the target cell",
+                    "type": "Number"
+                },
+                {
+                    "name": "col",
+                    "description": "Zero based index of the column with the target cell",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Node"
+            },
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1716,
+            "description": "Builds a CSS class name from the provided tokens.  If the instance is\ncreated with `cssPrefix` or `source` in the configuration, it will use this\nprefix (the `\\_cssPrefix` of the `source` object) as the base token.  This\nallows class instances to generate markup with class names that correspond\nto the parent class that is consuming them.",
+            "itemtype": "method",
+            "name": "getClassName",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "Any number of tokens to include in the class name",
+                    "type": "String",
+                    "multiple": true
+                }
+            ],
+            "return": {
+                "description": "The generated class name",
+                "type": "String"
+            },
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1735,
+            "description": "Returns the `<tr>` Node from the given row index.  If there is\nno row at the given index, `null` is returned.",
+            "itemtype": "method",
+            "name": "getRow",
+            "params": [
+                {
+                    "name": "row",
+                    "description": "Zero based index of the row",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Node"
+            },
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1754,
+            "description": "Creates the table's `<tbody>` Node by assembling markup generated by\npopulating the `TBODY\\_TEMPLATE`, `ROW\\_TEMPLATE`, and `CELL\\_TEMPLATE`\ntemplates with content from the `columns` property and `modelList`\nattribute.\n\nThe rendering process happens in four stages:\n\n1. A row template is assembled from the `columns` property (see\n   `\\_createRowTemplate`)\n\n2. An HTML string is built up by concatening the application of the data in\n   each Model in the `modelList` to the row template. For cells with\n   `formatter`s, the function is called to generate cell content. Cells\n   with `nodeFormatter`s are ignored. For all other cells, the data value\n   from the Model attribute for the given column key is used.  The\n   accumulated row markup is then inserted into the `TBODY_TEMPLATE`.\n\n3. The `<tbody>` Node is created from the HTML string.\n\n4. If any column is configured with a `nodeFormatter`, the `modelList` is\n   iterated again to apply the `nodeFormatter`s.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform\n    any custom modifications on the cell or row Node that could not be\n    performed by `formatter`s.  Should be used sparingly for better\n    performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string\n    or `undefined`.\n\nColumn `formatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if\n    any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `classnames` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowindex` - The zero-based row number.\n\nThey may return a value or update `o.value` to assign specific HTML\ncontent.  A returned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if\n    any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the\n    `<td>`.  When adding content to the cell, prefer appending into this\n    property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowindex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`,\nas it will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The\nDOM elements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_.",
+            "itemtype": "method",
+            "name": "render",
+            "return": {
+                "description": "The instance",
+                "type": "BodyView"
+            },
+            "chainable": 1,
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1881,
+            "description": "Handles changes in the source's columns attribute.  Redraws the table data.",
+            "itemtype": "method",
+            "name": "_afterColumnChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The `columnsChange` event object",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1902,
+            "description": "Handles modelList changes, including additions, deletions, and updates.\n\nModifies the existing table DOM accordingly.",
+            "itemtype": "method",
+            "name": "_afterDataChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The `change` event from the ModelList",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1915,
+            "description": "Iterates the `modelList`, and calls any `nodeFormatter`s found in the `columns` param on the appropriate cell Nodes in the `tbody`.",
+            "itemtype": "method",
+            "name": "_applyNodeFormatters",
+            "params": [
+                {
+                    "name": "tbody",
+                    "description": "The `<tbody>` Node whose columns to update",
+                    "type": "Node"
+                },
+                {
+                    "name": "columns",
+                    "description": "The column configurations",
+                    "type": "Object[]"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1978,
+            "description": "Binds event subscriptions from the UI and the source (if assigned).",
+            "itemtype": "method",
+            "name": "bindUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 1992,
+            "description": "The base token for classes created with the `getClassName` method.",
+            "itemtype": "property",
+            "name": "_cssPrefix",
+            "type": "{String}",
+            "default": "'yui3-table'",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 2002,
+            "description": "Iterates the `modelList` and applies each Model to the `\\_rowTemplate`,\nallowing any column `formatter` or `emptyCellValue` to override cell\ncontent for the appropriate column.  The aggregated HTML string is\nreturned.",
+            "itemtype": "method",
+            "name": "_createDataHTML",
+            "params": [
+                {
+                    "name": "columns",
+                    "description": "The column configurations to customize the\n            generated cell content or class names",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "The markup for all Models in the `modelList`, each applied\n            to the `\\_rowTemplate`",
+                "type": "HTML"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 2031,
+            "description": "Applies the data of a given Model, modified by any column formatters and\nsupplemented by other template values to the instance's `\\_rowTemplate` (see\n`\\_createRowTemplate`).  The generated string is then returned.\n\nThe data from Model's attributes is fetched by `getAttrs` and this data\nobject is appended with other properties to supply values to {placeholders}\nin the template.  For a template generated from a Model with 'foo' and 'bar'\nattributes, the data object would end up with the following properties\nbefore being used to populate the `\\_rowTemplate`:\n\n  * `clientID` - From Model, used the assign the `<tr>`'s 'id' attribute.\n  * `foo` - The value to populate the 'foo' column cell content.  This\n    value will be the result of the column's `formatter` if assigned, and\n    will default from '' or `undefined` to the value of the column's\n    `emptyCellValue` if assigned.\n  * `bar` - Same for the 'bar' column cell content.\n  * `foo-classes` - String of CSS classes to apply to the `<td>`.\n  * `bar-classes` - Same.\n  * `rowClasses`  - String of CSS classes to apply to the `<tr>`. This will\n    default to the odd/even class per the specified index, but can be\n    accessed and ammended by any column formatter via `o.data.rowClasses`.\n\nBecause this object is available to formatters, any additional properties\ncan be added to fill in custom {placeholders} in the `\\_rowTemplate`.",
+            "itemtype": "method",
+            "name": "_createRowHTML",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "The Model instance to apply to the row template",
+                    "type": "Model"
+                },
+                {
+                    "name": "index",
+                    "description": "The index the row will be appearing",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The markup for the provided Model, less any `nodeFormatter`s",
+                "type": "HTML"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 2117,
+            "description": "Creates a custom HTML template string for use in generating the markup for\nindividual table rows with {placeholder}s to capture data from the Models\nin the `modelList` attribute or from column `formatter`s.\n\nAssigns the `\\_rowTemplate` property.",
+            "itemtype": "method",
+            "name": "_createRowTemplate",
+            "params": [
+                {
+                    "name": "columns",
+                    "description": "Array of column configuration objects",
+                    "type": "Object[]"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 2159,
+            "description": "Initializes the instance. Reads the following configuration properties in\naddition to the instance attributes:\n\n  * `columns` - (REQUIRED) The initial column information\n  * `cssPrefix` - The base string for classes generated by `getClassName`\n  * `source` - The object to serve as source of truth for column info",
+            "itemtype": "method",
+            "name": "initializer",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "Configuration data",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 2188,
+            "description": "Flattens an array of potentially nested column configurations into a single\ndepth array of data columns.  Columns that have children are disregarded in\nfavor of searching their child columns.  The resulting array corresponds 1:1\nwith columns that will contain data in the `<tbody>`.",
+            "itemtype": "method",
+            "name": "_parseColumns",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Array of unfiltered column configuration objects",
+                    "type": "Object[]"
+                },
+                {
+                    "name": "columns",
+                    "description": "Working array of data columns. Used for recursion.",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "Only those columns that will be rendered.",
+                "type": "Object[]"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 2225,
+            "description": "The HTML template used to create a full row of markup for a single Model in\nthe `modelList` plus any customizations defined in the column\nconfigurations.",
+            "itemtype": "property",
+            "name": "_rowTemplate",
+            "type": "{HTML}",
+            "default": "(initially unset)",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable.BodyView",
+            "module": "datatable-body",
+            "namespace": "DataTable"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 44,
+            "description": "RegExp used by the default URL formatter to insert the generated callback\nname into the JSONP url.  Looks for a query param callback=.  If a value is\nassigned, it will be clobbered.",
+            "itemtype": "method",
+            "name": "JSONPRequest._pattern",
+            "type": "RegExp",
+            "default": "/\\bcallback=.*?(?=&|$)/i",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "JSONPRequest",
+            "module": "gallery-jsonp"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 57,
+            "description": "Template used by the default URL formatter to add the callback function name\nto the url.",
+            "itemtype": "method",
+            "name": "JSONPRequest._template",
+            "type": "String",
+            "default": "\"callback={callback}\"",
+            "access": "protected",
+            "tagname": "",
+            "static": 1,
+            "class": "JSONPRequest",
+            "module": "gallery-jsonp"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 70,
+            "description": "Set up the success and failure handlers and the regex pattern used\nto insert the temporary callback name in the url.",
+            "itemtype": "method",
+            "name": "_init",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "the url of the JSONP service",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional success callback or config\n                 object containing success and failure functions and\n                 the url regex.",
+                    "type": "Object|Function"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "JSONPRequest",
+            "module": "gallery-jsonp"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 106,
+            "description": "<p>Parses the url for a callback named explicitly in the string.\nOverride this if the target JSONP service uses a different query\nparameter or url format.</p>\n\n<p>If the callback is declared inline, the corresponding function will\nbe returned.  Otherwise null.</p>",
+            "itemtype": "method",
+            "name": "_getCallbackFromUrl",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "the url to search in",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "the callback function if found, or null",
+                "type": "Function"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "JSONPRequest",
+            "module": "gallery-jsonp"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 150,
+            "description": "Issues the JSONP request.",
+            "itemtype": "method",
+            "name": "send",
+            "chainable": 1,
+            "class": "JSONPRequest",
+            "module": "gallery-jsonp"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 188,
+            "description": "Default url formatter.  Looks for callback= in the url and appends it\nif not present.  The supplied proxy name will be assigned to the query\nparam.  Override this method by passing a function as the\n&quot;format&quot; property in the config object to the constructor.",
+            "itemtype": "method",
+            "name": "_format",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "the original url",
+                    "type": "String"
+                },
+                {
+                    "name": "proxy",
+                    "description": "the function name that will be used as a proxy to\n     the configured callback methods.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "fully qualified JSONP url",
+                "type": "String"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "JSONPRequest",
+            "module": "gallery-jsonp"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-jsonp/js/jsonp.js",
+            "line": 220,
+            "itemtype": "method",
+            "name": "Y.jsonp",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "{String} the url of the JSONP service with the \n          placeholder where the callback function name typically goes.",
+                    "type": "Callback"
+                },
+                {
+                    "name": "c",
+                    "description": "Callback function accepting the JSON payload\n          as its argument, or a configuration object (see above).",
+                    "type": "Function|Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "JSONPRequest"
+            },
+            "static": 1,
+            "class": "JSONPRequest",
+            "module": "gallery-jsonp"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-torelativetime/js/torelativetime.js",
+            "line": 11,
+            "itemtype": "method",
+            "name": "toRelativeTime",
+            "params": [
+                {
+                    "name": "d",
+                    "description": "the Date to translate.",
+                    "type": "Date"
+                },
+                {
+                    "name": "from",
+                    "description": "(optional) reference Date. Default is now.",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "the delta between from and d, in human readable form",
+                "type": "String"
+            },
+            "class": "YUI~toRelativeTime",
+            "module": "gallery-torelativetime"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-torelativetime/js/torelativetime.js",
+            "line": 98,
+            "description": "The strings to use for relative times.  Represent Numbers (minutes, hours,\ndays) as X (e.g. \"about X hours ago\"). Keys are now, seconds, minute,\nminutes, hour, hours, day, and days.",
+            "itemtype": "property",
+            "name": "toRelativeTime.strings",
+            "type": "{Object}",
+            "class": "YUI~toRelativeTime",
+            "module": "gallery-torelativetime"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js",
+            "line": 33,
+            "description": "Initialize the instance, resolve the configured schema parser\nimplementation, and add any other properties or custom methods onto this\nobject.  Generally, the \"any other properties\" should be just the\nschema.",
+            "itemtype": "method",
+            "name": "_init",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "object passed in from constructor",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataSchema",
+            "module": "dataschema",
+            "submodule": "dataschema-class"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js",
+            "line": 51,
+            "description": "<p>Resolves the configured type to an implementation object (e.g.\nY.DataSchema.JSON).</p>\n\n<p>Accepts type as a string, object, or function.  Defalts to\nY.DataSchema.Base.</p>\n\n<p>If a string is supplied, an implementation is searched for as a\nstatic property of Y.DataSchema.  If one cannot be found, two more\nattempts are made with the string in upper case and then the string with\nfirst letter capitalized.</p>\n\n<p>If an object that contains a method named \"apply\" is passed, that\nobject is used.</p>\n\n<p>If a function is passed, that function is treated as the \"apply\"\nmethod of a Y.DataSchema.Base implementation.</p>",
+            "itemtype": "method",
+            "name": "_resolve",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "schema parser implemantation, its\n name, or a custom apply function to use over Base implementation",
+                    "type": "Object|String|Function"
+                }
+            ],
+            "return": {
+                "description": "DataSchema parser implementation object",
+                "type": "Object"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "DataSchema",
+            "module": "dataschema",
+            "submodule": "dataschema-class"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-dataschema-class/js/dataschema-class.js",
+            "line": 96,
+            "description": "Pass the data to the schema parser implementation with the configured\nschema.",
+            "itemtype": "method",
+            "name": "apply",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "input data to be parsed by the schema implementation",
+                    "type": "Mixed"
+                }
+            ],
+            "return": {
+                "description": "Schema-parsed data",
+                "type": "Object"
+            },
+            "class": "DataSchema",
+            "module": "dataschema",
+            "submodule": "dataschema-class"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-pluginattr/js/attr.js",
+            "line": 13,
+            "description": "Register a Plugin with an activation attribute on a host class.\nSetting this attribute at construction or at run time will cause the\nPlugin to be plugged into the instance.\n\nBy default, trigger attributes will support values `true` or a configuration\nobject to `plug()` the plugin and `false` to `unplug()` it.\n\nTo support enhancing host instance behavior when the plugin is\n`use()`d after the host instance is instantiated, you can also pass the\ninstance as the second parameter.\n\nTo allow custom values to be passed to the trigger attribute, pass a\npreprocessor function as the fourth parameter. The value assigned to the\nattribute will be translated by this function prior to getting passed to\n`plug()` as the configuration.  Return false from this function to cause\nthe plugin to be unplugged.\n\nThe host class must have a static `ATTRS` collection.",
+            "example": [
+                " Add \"draggable\" triggering attribute to Y.DataTable.Base:\n\n    Y.Plugin.addHostAttr('sortable', Y.DataTable.Base, Y.Plugin.DataTableSort);\n\n    var table = new Y.DataTable({ sortable: true }); // plugs DTSort\n    table.set('sortable', false); // unplugs DTSort",
+                " Add support for custom values passed to the triggering attribute\n\n    // Add a triggering attribute \"filters\" that accepts true|false or\n    // a configuration object (out-of-the-box support), as well as a single\n    // string or string array to pass as the plugin's \"category\" configuration\n    Y.Plugin.addHostAttr('filters', Y.Console, Y.Plugin.ConsoleFilters,\n         function (config) {\n             if (Y.Lang.isString(config) || Y.Lang.isArray(config)) {\n                 config = {\n                     defaultVisibility: false,\n                     category: Y.Array.hash(Y.Array(config))\n                 };\n             }\n\n            return config;\n        }\n    });\n\n    var con = new Y.Console({ filters: ['warn', 'error'] });"
+            ],
+            "itemtype": "method",
+            "name": "Plugin.addHostAttr",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The attribute name to trigger plug and unplug",
+                    "type": "String"
+                },
+                {
+                    "name": "host",
+                    "description": "The class or instance to receive the\n                              triggering attribute",
+                    "type": "Function|Object"
+                },
+                {
+                    "name": "plugin",
+                    "description": "The plugin class",
+                    "type": "Function"
+                },
+                {
+                    "name": "setter",
+                    "description": "Attribute value preprocessor",
+                    "type": "Function",
+                    "optional": true
+                },
+                {
+                    "name": "force",
+                    "description": "Redefine an existing host attribue?",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "static": 1,
+            "class": "Plugin",
+            "module": "gallery-pluginattr"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-konami/js/konami.js",
+            "line": 45,
+            "description": "Provides a subscribable event named &quot;konami&quot;.",
+            "itemtype": "event",
+            "name": "konami",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'konami'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "o",
+                    "description": "optional context object",
+                    "type": "Object"
+                },
+                {
+                    "name": "args",
+                    "description": "0..n additional arguments that should be provided \nto the listener."
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-konami",
+            "module": "event-konami"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 107,
+            "description": "Normalizes the third param of on() to a NodeList.  The resulting list\nmay be empty.",
+            "itemtype": "method",
+            "name": "Y.Node.DOM_EVENTS.drag._getNodes",
+            "params": [
+                {
+                    "name": "el",
+                    "description": "valid context for on()",
+                    "type": "String|Node|NodeList|HTMLElement|Array"
+                }
+            ],
+            "return": {
+                "description": "NodeList"
+            },
+            "access": "protected",
+            "tagname": "",
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 128,
+            "description": "Applies the attribute values from the config object to the Drag instance.\nAlso checks for loaded Plugins by the name of the property to apply.",
+            "itemtype": "method",
+            "name": "Y.Node.DOM_EVENTS.drag._applyConfig",
+            "params": [
+                {
+                    "name": "dd",
+                    "description": "the Drag plugin for the node",
+                    "type": "Y.Plugin.Drag"
+                },
+                {
+                    "name": "conf",
+                    "description": "the attribute configuration",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 167,
+            "description": "Also &quot;drag:drag&quot;.  Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 178,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:start",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:start'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 189,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:end",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:end'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 200,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:mouseDown",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:mouseDown'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 211,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:afterMouseDown",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:afterMouseDown'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 222,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:removeHandle",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:removeHandle'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 233,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:addHandle",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:addHandle'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 244,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:removeInvalid",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:removeInvalid'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 255,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:addInvalid",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:addInvalid'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-event-drag/js/event-drag.js",
+            "line": 266,
+            "description": "Subscribes to the respective event on the generated Drag instance.",
+            "itemtype": "event",
+            "name": "drag:align",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "'drag:align'",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "the callback function",
+                    "type": "Function"
+                },
+                {
+                    "name": "id",
+                    "description": "the element to bind (typically document)",
+                    "type": "String|Node|etc"
+                },
+                {
+                    "name": "conf",
+                    "description": "(optional) configuration to pass to Drag constructor",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the detach handle",
+                "type": "Event.Handle"
+            },
+            "class": "YUI~event-drag",
+            "module": "event-drag"
+        }
+    ]
+}

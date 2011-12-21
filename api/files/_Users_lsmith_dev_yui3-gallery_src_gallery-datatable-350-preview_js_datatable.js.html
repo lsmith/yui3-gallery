@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <script src="http://yui.yahooapis.com/combo?3.4.0/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            <h1><a href="../index.html"><img src="../assets/css/logo.png">undefined: /Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js</a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/DataSchema.html">DataSchema</a></li>
+            
+                <li><a href="../classes/DataTable.BodyView.html">DataTable.BodyView</a></li>
+            
+                <li><a href="../classes/DataTable.Core.html">DataTable.Core</a></li>
+            
+                <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
+            
+                <li><a href="../classes/JSONPRequest.html">JSONPRequest</a></li>
+            
+                <li><a href="../classes/Plugin.html">Plugin</a></li>
+            
+                <li><a href="../classes/YUI~event-drag.html">YUI~event-drag</a></li>
+            
+                <li><a href="../classes/YUI~event-konami.html">YUI~event-konami</a></li>
+            
+                <li><a href="../classes/YUI~toRelativeTime.html">YUI~toRelativeTime</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/dataschema.html">dataschema</a></li>
+            
+                <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
+            
+                <li><a href="../modules/datatable-body.html">datatable-body</a></li>
+            
+                <li><a href="../modules/datatable-core.html">datatable-core</a></li>
+            
+                <li><a href="../modules/datatable-head.html">datatable-head</a></li>
+            
+                <li><a href="../modules/event-drag.html">event-drag</a></li>
+            
+                <li><a href="../modules/event-konami.html">event-konami</a></li>
+            
+                <li><a href="../modules/gallery-jsonp.html">gallery-jsonp</a></li>
+            
+                <li><a href="../modules/gallery-pluginattr.html">gallery-pluginattr</a></li>
+            
+                <li><a href="../modules/gallery-torelativetime.html">gallery-torelativetime</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main" class="content">
+                    <h1 class="file-heading">File: /Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+YUI.add('gallery-datatable-350-preview-core', function (Y) {
+/**
+The core implementation of the <code>DataTable</code> and <code>DataTable.Base</code> Widgets.
+
+Use this class extension with Widget or another Base-based superclass to create
+the basic DataTable API and composing class structure.
+
+Notable about this architecture is that rendering and UI event management for
+the header, body, and footer of the table are deferred to configurable classes
+in the <code>headerView</code>, <code>bodyView</code>, and <code>footerView</code> attributes.  In this extension
+they have no default values, requiring implementers to supply their own classes
+to render the table content.
+
+@module datatable-core
+**/
+
+var INVALID    = Y.Attribute.INVALID_VALUE,
+
+    Lang       = Y.Lang,
+    isFunction = Lang.isFunction,
+    isObject   = Lang.isObject,
+    isArray    = Lang.isArray,
+    isString   = Lang.isString,
+
+    keys       = Y.Object.keys,
+
+    Table;
+    
+/**
+Class extension providing the core API and structure for the DataTable Widget.
+
+@class DataTable.Core
+**/
+Table = Y.namespace('DataTable').Core = function () {};
+
+Table.ATTRS = {
+    /**
+    Columns to include in the rendered table.
+    
+    If omitted, the attributes on the configured <code>recordType</code> or the first item
+    in the <code>data</code> collection will be used as a source.
+
+    This attribute takes an array of strings or objects (mixing the two is
+    fine).  Each string or object is considered a column to be rendered.
+    Strings are converted to objects, so <code>columns: [&#x27;first&#x27;, &#x27;last&#x27;]</code> becomes
+    <code>columns: [{ key: &#x27;first&#x27; }, { key: &#x27;last&#x27; }]</code>.
+
+    DataTable.Core only concerns itself with the <code>key</code> property of columns.
+    All other properties are for use by the <code>headerView</code>, <code>bodyView</code>,
+    <code>footerView</code>, and any class extensions or plugins on the final class or
+    instance. See the descriptions of the view classes and feature class
+    extensions and plugins for details on the specific properties they read or
+    add to column definitions.
+
+    @attribute columns
+    @type {Object[]|String[]}
+    @default (from <code>recordType</code> ATTRS or first item in the <code>data</code>)
+    **/
+    columns: {
+        // TODO: change to setter to coerce Columnset?
+        validator: isArray,
+        getter: '_getColumns'
+    },
+
+    /**
+    Model subclass to use as the <code>model</code> for the ModelList stored in the <code>data</code>
+    attribute.
+
+    If not provided, it will try really hard to figure out what to use.  The
+    following attempts will be made to set a default value:
+    
+    1. If the <code>data</code> attribute is set with a ModelList instance and its <code>model</code>
+       property is set, that will be used.
+    2. If the <code>data</code> attribute is set with a ModelList instance, and its
+       <code>model</code> property is unset, but it is populated, the <code>ATTRS</code> of the
+       `constructor of the first item will be used.
+    3. If the <code>data</code> attribute is set with a non-empty array, a Model subclass
+       will be generated using the keys of the first item as its <code>ATTRS</code> (see
+       the <code>\_createRecordClass</code> method).
+    4. If the <code>columns</code> attribute is set, a Model subclass will be generated
+       using the columns defined with a <code>key</code>. This is least desirable because
+       columns can be duplicated or nested in a way that's not parsable.
+    5. If neither <code>data</code> nor <code>columns</code> is set or populated, a change event
+       subscriber will listen for the first to be changed and try all over
+       again.
+
+    @attribute recordType
+    @type {Function}
+    @default (see description)
+    **/
+    recordType: {
+        setter: '_setRecordType',
+        writeOnce: true
+    },
+
+    /**
+    The collection of data records to display.  This attribute is a pass
+    through to a <code>data</code> property, which is a ModelList instance.
+
+    If this attribute is passed a ModelList or subclass, it will be assigned to
+    the property directly.  If an array of objects is passed, a new ModelList
+    will be created using the configured <code>recordType</code> as its <code>model</code> property
+    and seeded with the array.
+
+    Retrieving this attribute will return the ModelList stored in the <code>data</code>
+    property.
+
+    @attribute data
+    @type {ModelList|Object[]}
+    @default <code>new ModelList()</code>
+    **/
+    data: {
+        value : [],
+        setter: '_setData',
+        getter: '_getData'
+    },
+
+    /**
+    The class or object to use for rendering the <code>&amp;lt;thead&amp;gt;</code> and column headers
+    for the table.  This attribute is responsible for populating the the
+    instance's <code>head</code> property.
+
+    If a class constructor (function) is passed, an instance of that clas will
+    be created at <code>render()</code> time and assigned to <code>this.head</code>.  If an object is
+    passed, <code>head</code> will be set immediately.
+
+    Valid objects or classes will have a <code>render()</code> method, though it is
+    recommended that they be subclasses of <code>Y.Base</code> or <code>Y.View</code>.  If the object
+    or class supports events, its <code>addTarget()</code> method will be called to bubble
+    its events to this instance.
+
+    The core implementaion does not define a default <code>headerView</code>.  Classes
+    built from this extension should define a default.
+
+    @attribute headerView
+    @type {Function|Object}
+    **/
+    headerView: {
+        validator: '_validateView',
+        writeOnce: true
+    },
+
+    /**
+    The class or object to use for rendering the <code>&amp;lt;tfoot&amp;gt;</code> and any relevant
+    content for it.  This attribute is responsible for populating the the
+    instance's <code>foot</code> property.
+
+    If a class constructor (function) is passed, an instance of that clas will
+    be created at <code>render()</code> time and assigned to <code>this.foot</code>.  If an object is
+    passed, <code>foot</code> will be set immediately.
+
+    Valid objects or classes will have a <code>render()</code> method, though it is
+    recommended that they be subclasses of <code>Y.Base</code> or <code>Y.View</code>.  If the object
+    or class supports events, its <code>addTarget()</code> method will be called to bubble
+    its events to this instance.
+
+    The core implementaion does not define a default <code>footerView</code>.  Classes
+    built from this extension should define a default if appropriate.
+
+    @attribute footerView
+    @type {Function|Object}
+    **/
+    footerView: {
+        validator: '_validateView',
+        writeOnce: true
+    },
+
+    /**
+    The class or object to use for rendering the <code>&amp;lt;tbody&amp;gt;</code> or <code>&amp;lt;tbody&amp;gt;</code>s and
+    all data row content for the table.  This attribute is responsible for
+    populating the the instance's <code>body</code> property.
+
+    If a class constructor (function) is passed, an instance of that clas will
+    be created at <code>render()</code> time and assigned to <code>this.body</code>.  If an object is
+    passed, <code>body</code> will be set immediately.
+
+    Valid objects or classes will have a <code>render()</code> method, though it is
+    recommended that they be subclasses of <code>Y.Base</code> or <code>Y.View</code>.  If the object
+    or class supports events, its <code>addTarget()</code> method will be called to bubble
+    its events to this instance.
+
+    The core implementaion does not define a default <code>bodyView</code>.  Classes
+    built from this extension should define a default.
+
+    @attribute bodyView
+    @type {Function|Object}
+    **/
+    bodyView: {
+        validator: '_validateView',
+        writeOnce: true
+    },
+
+    /**
+    Content for the <code>&amp;lt;table summary=&quot;ATTRIBUTE VALUE HERE&quot;&amp;gt;</code>.  Values assigned
+    to this attribute will be HTML escaped for security.
+
+    @attribute summary
+    @type {String}
+    @default '' (empty string)
+    **/
+    summary: {
+        value: '',
+        // For paranoid reasons, the value is escaped on its way in because
+        // rendering can be based on string concatenation.
+        setter: Y.Escape.html
+    },
+
+    /**
+    HTML content of an optional <code>&amp;lt;caption&amp;gt;</code> element to appear above the table.
+    Leave this config unset or set to a falsy value to remove the caption.
+
+    @attribute caption
+    @type HTML
+    @default '' (empty string)
+    **/
+    caption: {
+        value: ''
+    },
+
+    /**
+    Deprecated as of 3.5.0. Passes through to the <code>data</code> attribute.
+
+    WARNING: <code>get(&#x27;recordset&#x27;)</code> will NOT return a Recordset instance as of
+    3.5.0.  This is a break in backward compatibility.
+
+    @attribute recordset
+    @type {Object[]|Recordset}
+    @deprecated Use the <code>data</code> attribute
+    **/
+    recordset: {
+        setter: '_setRecordset',
+        getter: '_getRecordset'
+    },
+
+    /**
+    Deprecated as of 3.5.0. Passes through to the <code>columns</code> attribute.
+
+    If a Columnset object is passed, its raw object and array column data will
+    be extracted for use.
+
+    WARNING: <code>get(&#x27;columnset&#x27;)</code> will NOT return a Columnset instance as of
+    3.5.0.  This is a break in backward compatibility.
+
+    @attribute columnset
+    @type {Object[]|Columnset}
+    @deprecated Use the <code>columns</code> attribute
+    **/
+    columnset: {
+        setter: '_setColumnset',
+        getter: '_getColumnset'
+    }
+};
+
+Y.mix(Table.prototype, {
+    // -- Instance properties -------------------------------------------------
+
+    /**
+    The HTML template used to create the caption Node if the <code>caption</code>
+    attribute is set.
+
+    @property CAPTION_TEMPLATE
+    @type {String}
+    @default '&lt;caption&gt;&lt;/caption&gt;'
+    **/
+    CAPTION_TEMPLATE: '&lt;caption&gt;&lt;/caption&gt;',
+
+    /**
+    The HTML template used to create the table Node.
+
+    @property TABLE_TEMPLATE
+    @type {String}
+    @default '&lt;table&gt;&lt;/table&gt;'
+    **/
+    TABLE_TEMPLATE  : '&lt;table&gt;&lt;/table&gt;',
+
+    /**
+    The object or instance of the class assigned to <code>bodyView</code> that is
+    responsible for rendering and managing the table's <code>&amp;lt;tbody&amp;gt;</code>(s) and its
+    content.
+
+    @property body
+    @type {Object}
+    @default undefined (initially unset)
+    **/
+    //body: null,
+
+    /**
+    The object or instance of the class assigned to <code>footerView</code> that is
+    responsible for rendering and managing the table's <code>&amp;lt;tfoot&amp;gt;</code> and its
+    content.
+
+    @property foot
+    @type {Object}
+    @default undefined (initially unset)
+    **/
+    //foot: null,
+
+    /**
+    The object or instance of the class assigned to <code>headerView</code> that is
+    responsible for rendering and managing the table's <code>&amp;lt;thead&amp;gt;</code> and its
+    content.
+
+    @property head
+    @type {Object}
+    @default undefined (initially unset)
+    **/
+    //head: null,
+
+    /**
+    The ModelList that manages the table's data.
+
+    @property data
+    @type {ModelList}
+    @default undefined (initially unset)
+    **/
+    //data: null,
+
+    // -- Public methods ------------------------------------------------------
+
+    /**
+    Returns the Node for a cell at the given coordinates.
+
+    Technically, this only relays to the <code>bodyView</code> instance's <code>getCell</code> method.
+    If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>undefined</code> is returned.
+
+    @method getCell
+    @param {Number} row Index of the cell's containing row
+    @param {Number} col Index of the cell's containing column
+    @return {Node}
+    **/
+    getCell: function (row, col) {
+        return this.body &amp;&amp; this.body.getCell &amp;&amp; this.body.getCell(row, col);
+    },
+
+    /**
+    Gets the column configuration object for the given key.
+    <code>instance.getColumn(&#x27;foo&#x27;)</code> is an alias for <code>instance.get(&#x27;columns.foo&#x27;)</code>.
+
+    @method getColumn
+    @param {String} key
+    @return {Object} the column configuration object
+    **/
+    getColumn: function (key) {
+        return key ? this.get('columns.' + key) : null;
+    },
+
+    /**
+    Returns the Node for a row at the given index.
+
+    Technically, this only relays to the <code>bodyView</code> instance's <code>getRow</code> method.
+    If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>undefined</code> is returned.
+
+    @method getRow
+    @param {Number} index Index of the row in the data <code>&amp;lt;tbody&amp;gt;</code>
+    @return {Node}
+    **/
+    getRow: function (index) {
+        return this.body &amp;&amp; this.body.getCell &amp;&amp; this.body.getRow(index);
+    },
+
+    /**
+    Builds the table and attaches it to the DOM.  This requires the host class
+    to provide a <code>contentBox</code> attribute.  This is typically provided by Widget.
+
+    @method renderUI
+    **/
+    renderUI: function () {
+        var contentBox = this.get('contentBox'),
+            table;
+
+        if (contentBox) {
+            this._renderTable();
+
+            this._renderHeader();
+
+            this._renderFooter();
+
+            this._renderBody();
+
+            table = this._tableNode;
+
+            if (table) {
+                // off DOM or in an existing node attached to a different parentNode
+                if (!table.inDoc() || !table.ancestor().compareTo(contentBox)) {
+                    contentBox.append(table);
+                }
+            } else { Y.log('Problem rendering DataTable: table not created', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
+            }
+        } else { Y.log('Problem rendering DataTable: contentBox not found', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
+        }
+    },
+
+    // -- Protected and private properties and methods ------------------------
+
+    /**
+    Subscribes to attribute change events to update the UI.
+
+    @method bindUI
+    @protected
+    **/
+    bindUI: function () {
+        // TODO: handle widget attribute changes
+        this.after({
+            captionChange: this._afterCaptionChange,
+            summaryChange: this._afterSummaryChange
+        });
+    },
+
+    /**
+    A map of column key to column configuration objects parsed from the
+    <code>columns</code> attribute.
+
+    @property _columnMap
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_columnMap: null,
+
+    /**
+    The Node instance of the table containing the data rows.  This is set when
+    the table is rendered.  It may also be set by progressive enhancement,
+    though this extension does not provide the logic to parse from source.
+
+    @property _tableNode
+    @type {Node}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_tableNode: null,
+
+    /**
+    Relays <code>captionChange</code> events to <code>\_uiUpdateCaption</code>.
+
+    @method _afterCaptionChange
+    @param {EventFacade} e The <code>captionChange</code> event object
+    @protected
+    **/
+    _afterCaptionChange: function (e) {
+        this._uiUpdateCaption(e.newVal);
+    },
+
+    /**
+    Updates the <code>\_columnMap</code> property in response to changes in the <code>columns</code>
+    attribute.
+
+    @method _afterColumnsChange
+    @param {EventFacade} e The <code>columnsChange</code> event object
+    @protected
+    **/
+    _afterColumnsChange: function (e) {
+        this._setColumnMap(e.newVal);
+    },
+
+    /**
+    Relays <code>summaryChange</code> events to <code>\_uiUpdateSummary</code>.
+
+    @method _afterSummaryChange
+    @param {EventFacade} e The <code>summaryChange</code> event object
+    @protected
+    **/
+    _afterSummaryChange: function (e) {
+        this._uiUpdateSummary(e.newVal);
+    },
+
+    /**
+    Creates a Model subclass from an array of attribute names or an object of
+    attribute definitions.  This is used to generate a class suitable to
+    represent the data passed to the <code>data</code> attribute if no <code>recordType</code> is
+    set.
+
+    @method _createRecordClass
+    @param {String[]|Object} attrs Names assigned to the Model subclass's
+                <code>ATTRS</code> or its entire <code>ATTRS</code> definition object
+    @return {Model}
+    @protected
+    **/
+    _createRecordClass: function (attrs) {
+        var ATTRS, i, len;
+
+        if (isArray(attrs)) {
+            ATTRS = {};
+
+            for (i = 0, len = attrs.length; i &lt; len; ++i) {
+                ATTRS[attrs[i]] = {};
+            }
+        } else if (isObject(attrs)) {
+            ATTRS = attrs;
+        }
+
+        return Y.Base.create('record', Y.Model, [], null, { ATTRS: ATTRS });
+    },
+
+    /**
+    The getter for the <code>columns</code> attribute.  Returns the array of column
+    configuration objects if <code>instance.get(&#x27;columns&#x27;)</code> is called, or the
+    specific column object if <code>instance.get(&#x27;columns.columnKey&#x27;)</code> is called.
+
+    @method _getColumns
+    @param {Object[]} columns The full array of column objects
+    @param {String} name The attribute name requested
+                         (e.g. 'columns' or 'columns.foo');
+    @protected
+    **/
+    _getColumns: function (columns, name) {
+        // name will be 'columns' or 'columns.foo'. Trim to the dot.
+        // TODO: support name as an index or (row,column) index pair
+        name = name.slice(8);
+
+        return (name) ? this._columnMap[name] : columns;
+    },
+
+    /**
+    Relays the <code>get()</code> request for the deprecated <code>columnset</code> attribute to the
+    <code>columns</code> attribute.
+
+    THIS BREAKS BACKWARD COMPATIBILITY.  3.4.1 and prior implementations will
+    expect a Columnset instance returned from <code>get(&#x27;columnset&#x27;)</code>.
+
+    @method _getColumnset
+    @param {Object} ignored The current value stored in the <code>columnset</code> state
+    @param {String} name The attribute name requested
+                         (e.g. 'columnset' or 'columnset.foo');
+    @deprecated This will be removed with the <code>columnset</code> attribute in a future
+                version.
+    @protected
+    **/
+    _getColumnset: function (_, name) {
+        return this.get(name.replace(/^columnset/, 'columns'));
+    },
+
+    /**
+    The getter for the <code>data</code> attribute.  Returns the ModelList stored in the
+    <code>data</code> property.  If the ModelList is not yet set, it returns the current
+    raw data (presumably an empty array or <code>undefined</code>).
+
+    @method _getData
+    @param {Object[]|ModelList} val The current data stored in the attribute
+    @protected
+    **/
+    _getData: function (val) {
+        return this.data || val;
+    },
+
+    /**
+    Initializes the instance's <code>\_columnMap</code> from the configured <code>columns</code>
+    attribute.  If <code>columns</code> is not set, but <code>recordType</code> is, it uses the
+    <code>ATTRS</code> of that class.  If neither are set, it temporarily falls back to an
+    empty array. <code>\_initRecordType</code> will call back into this method if it finds
+    the <code>columnMap</code> empty.
+
+    @method _initColumns
+    @protected
+    **/
+    _initColumns: function () {
+        var columns    = this.get('columns'),
+            recordType = this.get('recordType');
+        
+        // Default column definition from the configured recordType
+        if (!columns) {
+            // TODO: merge superclass attributes up to Model?
+            columns = (recordType &amp;&amp; recordType.ATTRS) ?
+                      keys(recordType.ATTRS) : [];
+
+            this.set('columns', columns, { silent: true });
+        }
+
+        this._setColumnMap(columns);
+    },
+
+    /**
+    Initializes the instance's <code>data</code> property from the value of the <code>data</code>
+    attribute.  If the attribute value is a ModelList, it is assigned directly
+    to <code>this.data</code>.  If it is an array, a ModelList is created, its <code>model</code>
+    property is set to the configured <code>recordType</code> class, and it is seeded with
+    the array data.  This ModelList is then assigned to <code>this.data</code>.
+
+    @method _initData
+    @protected
+    **/
+    _initData: function () {
+        var data = this.get('data'),
+            recordType, values;
+
+        if (isArray(data)) {
+            recordType = this.get('recordType');
+
+            values = data;
+            data = new Y.ModelList();
+
+            // _initRecordType is run before this, so recordType will be set
+            // if the data array had any records.  Otherwise, values is an
+            // empty array, so no need to call reset();
+            if (recordType) {
+                data.model = recordType;
+                data.reset(values, { silent: true });
+            }
+
+            // Make sure the attribute state object contains the ModelList.
+            // TODO: maybe better would be to purge the attribute state value?
+            this.set('data', data, { silent: true });
+        }
+
+        this.data = data;
+    },
+
+    /**
+    Initializes the columns, <code>recordType</code> and data ModelList.
+
+    @method initializer
+    @protected
+    **/
+    initializer: function () {
+        this._initColumns();
+
+        this._initRecordType();
+
+        this._initData();
+
+        this.after('columnsChange', this._afterColumnsChange);
+    },
+
+    /**
+    If the <code>recordType</code> attribute is not set, this method attempts to set a
+    default value.
+
+    It tries the following methods to determine a default:
+
+    1. If the <code>data</code> attribute is set with a ModelList with a <code>model</code> property,
+       that class is used.
+    2. If the <code>data</code> attribute is set with a non-empty ModelList, the
+       <code>constructor</code> of the first item is used.
+    3. If the <code>data</code> attribute is set with a non-empty array and the first item
+       is a Base subclass, its constructor is used.
+    4. If the <code>data</code> attribute is set with a non-empty array a custom Model
+       subclass is generated using the keys of the first item as its <code>ATTRS</code>.
+    5. If the <code>_columnMap</code> property has keys, a custom Model subclass is
+       generated using those keys as its <code>ATTRS</code>.
+
+    Of none of those are successful, it subscribes to the change events for
+    <code>columns</code>, <code>recordType</code>, and <code>data</code> to try again.
+
+    If defaulting the <code>recordType</code> and the current <code>\_columnMap</code> property is
+    empty, it will call <code>\_initColumns</code>.
+
+    @method _initRecordType
+    @protected
+    **/
+    _initRecordType: function () {
+        var data, columns, recordType, handle;
+            
+        if (!this.get('recordType')) {
+            data    = this.get('data');
+            columns = this._columnMap;
+
+            // Use the ModelList's specified Model class
+            if (data.model) {
+                recordType = data.model;
+
+            // Or if not configured, use the construct of the first Model
+            } else if (data.size &amp;&amp; data.size()) {
+                recordType = data.model = data.item(0).constructor;
+
+            // Or if the data is an array, build a class from the first item
+            } else if (isArray(data) &amp;&amp; data.length) {
+                recordType = (data[0].constructor.ATTRS) ?
+                    data[0].constructor :
+                    this._createRecordClass(keys(data[0]));
+
+            // Or if the columns were defined, build a class from the keys
+            } else if (keys(columns).length) {
+                recordType = this._createRecordClass(keys(columns));
+            }
+
+            if (recordType) {
+                this.set('recordType', recordType, { silent: true });
+
+                if (!columns || !columns.length) {
+                    this._initColumns();
+                }
+            } else {
+                // FIXME: Edge case race condition with
+                // new DT({ on/after: { &lt;any of these changes&gt; } }) OR
+                // new DT().on( &lt;any of these changes&gt; )
+                // where there's not enough info to assign this.data.model
+                // at construction. The on/constructor subscriptions will be
+                // executed before this subscription.
+                handle = this.after(
+                    ['columnsChange', 'recordTypeChange','dataChange'],
+                    function (e) {
+                        // manually batch detach rather than manage separate
+                        // subs in case the change was inadequate to populate
+                        // recordType. But subs must be detached because the
+                        // subscriber recurses to _initRecordType, which would
+                        // result in duplicate subs.
+                        handle.detach();
+
+                        if (!this.data.model) {
+                            // FIXME: resubscribing if there's still not enough
+                            // info to populate recordType will place the new
+                            // subs later in the callback queue, opening the
+                            // race condition even more.
+                            this._initRecordType();
+
+                            // If recordType isn't set yet, _initRecordType
+                            // will have recreated this subscription.
+                            this.data.model = this.get('recordType');
+                        }
+                    });
+            }
+        }
+    },
+
+    /**
+    Iterates the array of column configurations to capture all columns with a
+    <code>key</code> property.  Columns that are represented as strings will be replaced
+    with objects with the string assigned as the <code>key</code> property.  If a column
+    has a <code>children</code> property, it will be iterated, adding any nested column
+    keys to the returned map. There is no limit to the levels of nesting.
+
+    The result is an object map with column keys as the property name and the
+    corresponding column object as the associated value.
+
+    @method _parseColumns
+    @param {Object[]|String[]} columns The array of column names or
+                configuration objects to scan
+    @param {Object} [map] The map to add keyed columns to
+    @protected
+    **/
+    _parseColumns: function (columns, map) {
+        var i, len, col;
+
+        map || (map = {});
+        
+        for (i = 0, len = columns.length; i &lt; len; ++i) {
+            col = columns[i];
+
+            if (isString(col)) {
+                // Update the array entry as well, so the attribute state array
+                // contains the same objects.
+                columns[i] = col = { key: col };
+            }
+
+            if (col.key) {
+                map[col.key] = col;
+            } else if (isArray(col.children)) {
+                this._parseColumns(col.children, map);
+            }
+        }
+
+        return map;
+    },
+
+    /**
+    Delegates rendering to the configured <code>bodyView</code>.
+
+    @method _renderBody
+    @protected
+    **/
+    _renderBody: function () {
+        var BodyView = this.get('bodyView');
+
+        // TODO: use a _viewConfig object that can be mixed onto by class
+        // extensions, then pass that to either the view constructor or setAttrs
+        if (BodyView) {
+            this.body = (isFunction(BodyView)) ? 
+                new BodyView({
+                    source   : this,
+                    container: this._tableNode,
+                    columns  : this.get('columns'),
+                    modelList: this.data,
+                    cssPrefix: this._cssPrefix
+                }) :
+                BodyView;
+
+            this.body.addTarget(this);
+            this.body.render();
+        }
+    },
+
+    /**
+    Delegates rendering to the configured <code>footerView</code>.
+
+    @method _renderFooter
+    @protected
+    **/
+    _renderFooter: function (table, data) {
+        var FooterView = this.get('footerView');
+        
+        if (FooterView) {
+            this.foot = (isFunction(FooterView)) ? 
+                new FooterView({
+                    source   : this,
+                    container: this._tableNode,
+                    columns  : this.get('columns'),
+                    modelList: this.data,
+                    cssPrefix: this._cssPrefix
+                }) :
+                FooterView;
+
+            this.foot.addTarget(this);
+            this.foot.render();
+        }
+    },
+
+    /**
+    Delegates rendering to the configured <code>headerView</code>.
+
+    @method _renderHeader
+    @protected
+    **/
+    _renderHeader: function () {
+        var HeaderView = this.get('headerView');
+        
+        if (HeaderView) {
+            this.head = (isFunction(HeaderView)) ? 
+                new HeaderView({
+                    source   : this,
+                    container: this._tableNode,
+                    columns  : this.get('columns'),
+                    modelList: this.data,
+                    cssPrefix: this._cssPrefix
+                }) :
+                HeaderView; // Assume if it's not a function, it's an instance
+
+            this.head.addTarget(this);
+            this.head.render();
+        }
+        // TODO: If there's no HeaderView, should I remove an existing &lt;thead&gt;?
+    },
+
+    /**
+    Creates the table and caption and assigns the table's summary attribute.
+
+    Assigns the generated table to the <code>\_tableNode</code> property.
+
+    @method _renderTable
+    @protected
+    **/
+    _renderTable: function () {
+        var caption = this.get('caption');
+
+        if (!this._tableNode) {
+            this._tableNode = Y.Node.create(this.TABLE_TEMPLATE);
+        }
+        this._tableNode.addClass(this.getClassName('table'));
+
+        this._uiUpdateSummary(this.get('summary'));
+
+        this._uiUpdateCaption(caption);
+    },
+
+    /**
+    Assigns the <code>\_columnMap</code> property with the parsed results of the array of
+    column definitions passed.
+
+    @method _setColumnMap
+    @param {Object[]|String[]} columns the raw column configuration objects or
+                                       key names
+    @protected
+    **/
+    _setColumnMap: function (columns) {
+        this._columnMap = this._parseColumns(columns);
+    },
+
+    /**
+    Relays attribute assignments of the deprecated <code>columnset</code> attribute to the
+    <code>columns</code> attribute.  If a Columnset is object is passed, its basic object
+    structure is mined.
+
+    @method _setColumnset
+    @param {Array|Columnset} val The columnset value to relay
+    @deprecated This will be removed with the deprecated <code>columnset</code> attribute
+                in a later version.
+    @protected
+    **/
+    _setColumnset: function (val) {
+        if (val &amp;&amp; val instanceof Y.Columnset) {
+            val = val.get('definitions');
+        }
+
+        return isArray(val) ? val : INVALID;
+    },
+
+    /**
+    Accepts an object with <code>each</code> and <code>getAttrs</code> (preferably a ModelList or
+    subclass) or an array of data objects.  If an array is passes, it will
+    create a ModelList to wrap the data.  In doing so, it will set the created
+    ModelList's <code>model</code> property to the class in the <code>recordType</code> attribute,
+    which will be defaulted if not yet set.
+
+    If the <code>data</code> property is already set with a ModelList, passing an array as
+    the value will call the ModelList's <code>reset()</code> method with that array rather
+    than replacing the stored ModelList wholesale.
+
+    Any non-ModelList-ish and non-array value is invalid.
+
+    @method _setData
+    @protected
+    **/
+    _setData: function (val) {
+        if (val === null) {
+            val = [];
+        }
+
+        if (isArray(val)) {
+            if (this.data) {
+                if (!this.data.model &amp;&amp; val.length) {
+                    // FIXME: this should happen only once, but this is a side
+                    // effect in the setter.  Bad form, but I need the model set
+                    // before calling reset()
+                    this.set('recordType', keys(val[0]));
+                }
+
+                this.data.reset(val);
+                // TODO: return true to avoid storing the data object both in
+                // the state object underlying the attribute an in the data
+                // property (decrease memory footprint)?
+            }
+            // else pass through the array data, but don't assign this.data
+            // Let the _initData process clean up.
+        } else if (val &amp;&amp; val.each &amp;&amp; val.getAttrs) {
+            this.data = val;
+            // TODO: return true to decrease memory footprint?
+        } else {
+            val = INVALID;
+        }
+
+        return val;
+    },
+
+    /**
+    Relays the value assigned to the deprecated <code>recordset</code> attribute to the
+    <code>data</code> attribute.  If a Recordset instance is passed, the raw object data
+    will be culled from it.
+
+    @method _setRecordset
+    @param {Object[]|Recordset} val The recordset value to relay
+    @deprecated This will be removed with the deprecated <code>recordset</code> attribute
+                in a later version.
+    @protected
+    **/
+    _setRecordset: function (val) {
+        var data;
+
+        if (val &amp;&amp; val instanceof Y.Recordset) {
+            data = [];
+            val.each(function (record) {
+                data.push(record.get('data'));
+            });
+            val = data;
+        }
+
+        return val;
+    },
+
+    /**
+    Accepts a Base subclass (preferably a Model subclass). Alternately, it will
+    generate a custom Model subclass from an array of attribute names or an
+    object defining attributes and their respective configurations (it is
+    assigned as the <code>ATTRS</code> of the new class).
+
+    Any other value is invalid.
+
+    @method _setRecordType
+    @param {Function|String[]|Object} val The Model subclass, array of
+            attribute names, or the <code>ATTRS</code> definition for a custom model
+            subclass
+    @return {Function} A Base/Model subclass
+    @protected
+    **/
+    _setRecordType: function (val) {
+        var modelClass;
+
+        // Duck type based on known/likely consumed APIs
+        if (isFunction(val) &amp;&amp; val.prototype.set &amp;&amp; val.prototype.getAttrs) {
+            modelClass = val;
+        } else if (isObject(val)) {
+            modelClass = this._createRecordClass(val);
+        }
+
+        return modelClass || INVALID;
+    },
+
+    /**
+    Creates, removes, or updates the table's <code>&amp;lt;caption&amp;gt;</code> element per the input
+    value.  Empty values result in the caption being removed.
+
+    @method _uiUpdateCaption
+    @param {HTML} htmlContent The content to populate the table caption
+    @protected
+    **/
+    _uiUpdateCaption: function (htmlContent) {
+        var caption = this._tableNode.one('&gt; caption');
+
+        if (htmlContent) {
+            if (!this._captionNode) {
+                this._captionNode = Y.Node.create(this.CAPTION_TEMPLATE);
+            }
+
+            this._captionNode.setContent(htmlContent);
+
+            if (caption) {
+                if (!caption.compareTo(this._captionNode)) {
+                    caption.replace(this._captionNode);
+                }
+            } else {
+                this._tableNode.prepend(this._captionNode);
+            }
+
+            this._captionNode = caption;
+        } else {
+            if (this._captionNode) {
+                if (caption &amp;&amp; caption.compareTo(this._captionNode)) {
+                    caption = null;
+                }
+
+                this._captionNode.remove(true);
+                delete this._captionNode;
+            }
+
+            if (caption) {
+                caption.remove(true);
+            }
+        }
+    },
+
+    /**
+    Updates the table's <code>summary</code> attribute with the input value.
+
+    @method _uiUpdateSummary
+    @protected
+    **/
+    _uiUpdateSummary: function (summary) {
+        this._tableNode.setAttribute('summary', summary || '');
+    },
+
+    /**
+    Verifies the input value is a function with a <code>render</code> method on its
+    prototype.
+
+    @method _validateView
+    @protected
+    **/
+    _validateView: function (val) {
+        return isFunction(val) &amp;&amp; val.prototype.render;
+    }
+});
+}, '@VERSION@', { requires: ['model-list'] });
+YUI.add('gallery-datatable-350-preview-head', function (Y) {
+/**
+View class responsible for rendering the <code>&amp;lt;thead&amp;gt;</code> section of a table. Used as
+the default <code>headerView</code> for <code>Y.DataTable.Base</code> and <code>Y.DataTable</code> classes.
+
+Translates the provided array of column configuration objects into a rendered
+<code>&amp;lt;thead&amp;gt;</code> based on the data in those objects.
+    
+
+The structure of the column data is expected to be a single array of objects,
+where each object corresponds to a <code>&amp;lt;th&amp;gt;</code>.  Those objects may contain a
+<code>children</code> property containing a similarly structured array to indicate the
+nested cells should be grouped under the parent column's colspan in a separate
+row of header cells. E.g.
+
+&lt;pre&gt;&lt;code&gt;
+new Y.DataTable.HeaderView({
+  container: tableNode,
+  columns: [
+    { key: 'id' }, // no nesting
+    { key: 'name', children: [
+      { key: 'firstName', label: 'First' },
+      { key: 'lastName',  label: 'Last' } ] }
+  ]
+}).render();
+&lt;/code&gt;&lt;/pre&gt;
+
+This would translate to the following visualization:
+
+&lt;pre&gt;
+---------------------
+|    |     name     |
+|    |---------------
+| id | First | Last |
+---------------------
+&lt;/pre&gt;
+
+Supported properties of the column objects include:
+
+  * <code>label</code>    - The HTML content of the header cell.
+  * <code>key</code>      - If <code>label</code> is not specified, the <code>key</code> is used for content.
+  * <code>children</code> - Array of columns to appear below this column in the next
+                 row.
+  * <code>abbr</code>     - The content of the 'abbr' attribute of the <code>&amp;lt;th&amp;gt;</code>
+
+Through the life of instantiation and rendering, the column objects will have
+the following properties added to them:
+
+  * <code>colspan</code> - To supply the <code>&amp;lt;th&amp;gt;</code> attribute
+  * <code>rowspan</code> - To supply the <code>&amp;lt;th&amp;gt;</code> attribute
+  * <code>parent</code>  - If the column is a child of another column, this points to
+    its parent column
+  * <code>_yuid</code>   - A unique YUI generated id used as the <code>&amp;lt;th&amp;gt;</code>'s 'id' for
+    reference in the data <code>&amp;lt;td&amp;gt;</code>'s 'headers' attribute.
+
+The column object is also used to provide values for {placeholder} tokens in the
+instance's <code>CELL_TEMPLATE</code>, so you can modify the template and include other
+column object properties to populate them.
+
+@module datatable-head
+@class HeaderView
+@namespace DataTable
+@extends View
+**/
+var fromTemplate = Y.Lang.sub,
+    Lang = Y.Lang,
+    isArray = Lang.isArray,
+    toArray = Y.Array,
+
+    ClassNameManager = Y.ClassNameManager,
+    _getClassName    = ClassNameManager.getClassName;
+
+Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
+    // -- Instance properties -------------------------------------------------
+
+    /**
+    Template used to create the table's header cell markup.  Override this to
+    customize how these cells' markup is created.
+
+    @property CELL_TEMPLATE
+    @type {HTML}
+    @default '&lt;th id="{_yuid}" abbr="{abbr} colspan="{colspan}" rowspan="{rowspan}"&gt;&lt;div class="{linerClass}"&gt;{content}&lt;/div&gt;&lt;/th&gt;'
+    **/
+    CELL_TEMPLATE :
+        '&lt;th id="{_yuid}" abbr="{abbr}" ' +
+                'colspan="{colspan}" rowspan="{rowspan}"&gt;' +
+            '&lt;div class="{linerClass}"&gt;' +
+                '{content}' +
+            '&lt;/div&gt;' +
+        '&lt;/th&gt;',
+
+    /**
+    The data representation of the header rows to render.  This is assigned by
+    parsing the <code>columns</code> configuration array, and is used by the render()
+    method.
+
+    @property columns
+    @type {Array[]}
+    @default (initially unset)
+    **/
+    //TODO: should this be protected?
+    //columns: null,
+
+    /**
+    The object that serves as the source of truth for column and row data.
+    This property is assigned at instantiation from the <code>source</code> property of
+    the configuration object passed to the constructor.
+
+    @property source
+    @type {Object}
+    @default (initially unset)
+    **/
+    //TODO: should this be protected?
+    //source: null,
+
+    /**
+    Template used to create the table's header row markup.  Override this to
+    customize the row markup.
+
+    @property ROW_TEMPLATE
+    @type {HTML}
+    @default '&lt;tr&gt;{content}&lt;/tr&gt;'
+    **/
+    ROW_TEMPLATE:
+        '&lt;tr&gt;{content}&lt;/tr&gt;',
+
+    /**
+    Template used to create the table's thead markup.
+
+    @property THEAD_TEMPLATE
+    @type {HTML}
+    @default '&lt;thead class="{classes}"&gt;{content}&lt;/thead&gt;'
+    **/
+    THEAD_TEMPLATE:
+        '&lt;thead class="{classes}"&gt;{content}&lt;/thead&gt;',
+
+
+    // -- Public methods ------------------------------------------------------
+
+    /**
+    Destroys the instance.
+
+    @method destructor
+    **/
+    destructor: function () {
+        (new Y.EventHandle(this._eventHandles)).detach();
+    },
+
+    /**
+    Builds a CSS class name from the provided tokens.  If the instance is
+    created with <code>cssPrefix</code> or <code>source</code> in the configuration, it will use this
+    prefix (the <code>\_cssPrefix</code> of the <code>source</code> object) as the base token.  This
+    allows class instances to generate markup with class names that correspond
+    to the parent class that is consuming them.
+
+    @method getClassName
+    @param {String} token* Any number of tokens to include in the class name
+    @return {String} The generated class name
+    **/
+    getClassName: function () {
+        var args = toArray(arguments);
+        args.unshift(this._cssPrefix);
+        args.push(true);
+
+        return _getClassName.apply(ClassNameManager, args);
+    },
+
+    /**
+    Creates the <code>&amp;lt;thead&amp;gt;</code> Node by assembling markup generated by populating the
+    <code>THEAD\_TEMPLATE</code>, <code>ROW\_TEMPLATE</code>, and <code>CELL\_TEMPLATE</code> templates with
+    content from the <code>columns</code> property.
+    
+    @method render
+    @return {HeaderView} The instance
+    @chainable
+    **/
+    render: function () {
+        var table    = this.get('container'),
+            columns  = this.columns,
+            thead    = this.source._theadNode,
+            defaults = {
+                            abbr: '',
+                            colspan: 1,
+                            rowspan: 1,
+                            // TODO: remove dependence on this.source
+                            linerClass: this.getClassName('liner')
+                       },
+            existing, replace, i, len, j, jlen, col, html;
+
+        table = Y.one(table);
+        if (table &amp;&amp; table.get('tagName') !== 'TABLE') {
+            table = table.one('table');
+        }
+
+        if (!table) {
+            Y.log('Could not render thead. Table not provided', 'warn');
+            return this;
+        }
+
+        existing = table.one('&gt; .' + this.getClassName('columns'));
+        replace  = existing &amp;&amp; (!thead || !thead.compareTo(existing));
+
+        if (!thead) {
+            thead = '';
+
+            if (columns.length) {
+                for (i = 0, len = columns.length; i &lt; len; ++i) {
+                    html = '';
+
+                    for (j = 0, jlen = columns[i].length; j &lt; jlen; ++j) {
+                        col = columns[i][j];
+                        html += fromTemplate(this.CELL_TEMPLATE,
+                            Y.merge(
+                                defaults,
+                                col, {
+                                    content: col.label ||
+                                             col.key   ||
+                                             ("Column " + (j + 1))
+                                }
+                            ));
+                    }
+
+                    thead += fromTemplate(this.ROW_TEMPLATE, {
+                        content: html
+                    });
+                }
+            }
+
+            thead = fromTemplate(this.THEAD_TEMPLATE, {
+                classes: this.getClassName('columns'),
+                content: thead
+            });
+        }
+
+        if (existing) {
+            if (replace) {
+                existing.replace(thead);
+            }
+        } else {
+            table.insertBefore(thead, table.one('&gt; tfoot, &gt; tbody'));
+        }
+
+        this.bindUI();
+
+        return this;
+    },
+
+    // -- Protected and private properties and methods ------------------------
+    /**
+    The base token for classes created with the <code>getClassName</code> method.
+
+    @property _cssPrefix
+    @type {String}
+    @default 'yui3-table'
+    @protected
+    **/
+    _cssPrefix: ClassNameManager.getClassName('table'),
+
+    /**
+    Handles changes in the source's columns attribute.  Redraws the headers.
+
+    @method _afterColumnChange
+    @param {EventFacade} e The <code>columnsChange</code> event object
+    @protected
+    **/
+    _afterColumnChange: function (e) {
+        // TODO
+    },
+
+    /**
+    Binds event subscriptions from the UI and the source (if assigned).
+
+    @method bindUI
+    @protected
+    **/
+    bindUI: function () {
+        if (this.source) {
+            // TODO: How best to decouple this?
+            this._eventHandles.push(
+                this.source.after('columnsChange', this._afterColumnsChange));
+        }
+    },
+
+    /**
+    Initializes the instance. Reads the following configuration properties:
+
+      * <code>columns</code> - (REQUIRED) The initial column information
+      * <code>cssPrefix</code> - The base string for classes generated by <code>getClassName</code>
+      * <code>source</code> - The object to serve as source of truth for column info
+
+    @method initializer
+    @param {Object} config Configuration data
+    @protected
+    **/
+    initializer: function (config) {
+        config || (config = {});
+
+        var cssPrefix = config.cssPrefix || (config.source || {}).cssPrefix;
+
+        this.source  = config.source;
+        this.columns = this._parseColumns(config.columns);
+
+        this._eventHandles = [];
+
+        if (cssPrefix) {
+            this._cssPrefix = cssPrefix;
+        }
+    },
+
+    /**
+    Translate the input column format into a structure useful for rendering a
+    <code>&amp;lt;thead&amp;gt;</code>, rows, and cells.  The structure of the input is expected to be a
+    single array of objects, where each object corresponds to a <code>&amp;lt;th&amp;gt;</code>.  Those
+    objects may contain a <code>children</code> property containing a similarly structured
+    array to indicate the nested cells should be grouped under the parent
+    column's colspan in a separate row of header cells. E.g.
+
+    &lt;pre&gt;&lt;code&gt;
+    [
+      { key: 'id' }, // no nesting
+      { key: 'name', children: [
+        { key: 'firstName', label: 'First' },
+        { key: 'lastName',  label: 'Last' } ] }
+    ]
+    &lt;/code&gt;&lt;/pre&gt;
+
+    would indicate two header rows with the first column 'id' being assigned a
+    <code>rowspan</code> of <code>2</code>, the 'name' column appearing in the first row with a
+    <code>colspan</code> of <code>2</code>, and the 'firstName' and 'lastName' columns appearing in
+    the second row, below the 'name' column.
+
+    &lt;pre&gt;
+    ---------------------
+    |    |     name     |
+    |    |---------------
+    | id | First | Last |
+    ---------------------
+    &lt;/pre&gt;
+
+    Supported properties of the column objects include:
+
+      * <code>label</code>    - The HTML content of the header cell.
+      * <code>key</code>      - If <code>label</code> is not specified, the <code>key</code> is used for content.
+      * <code>children</code> - Array of columns to appear below this column in the next
+                     row.
+      * <code>abbr</code>     - The content of the 'abbr' attribute of the <code>&amp;lt;th&amp;gt;</code>
+
+    The output structure is basically a simulation of the <code>&amp;lt;thead&amp;gt;</code> structure
+    with arrays for rows and objects for cells.  Column objects have the
+    following properties added to them:
+    
+      * <code>colspan</code> - Per the <code>&amp;lt;th&amp;gt;</code> attribute
+      * <code>rowspan</code> - Per the <code>&amp;lt;th&amp;gt;</code> attribute
+      * <code>parent</code>  - If the column is a child of another column, this points to
+        its parent column
+      * <code>_yuid</code>   - A unique YUI generated id used as the <code>&amp;lt;th&amp;gt;</code>'s 'id' for
+        reference in the data <code>&amp;lt;td&amp;gt;</code>'s 'headers' attribute.
+
+    The column object is also used to provide values for {placeholder}
+    replacement in the <code>CELL_TEMPLATE</code>, so you can modify the template and
+    include other column object properties to populate them.
+
+    @method _parseColumns
+    @param {Object[]} data Array of column object data
+    @return {Array[]} An array of arrays corresponding to the header row
+            structure to render
+    @protected
+    **/
+    _parseColumns: function (data) {
+        var columns = [],
+            stack = [],
+            rowSpan = 1,
+            entry, row, col, children, parent, i, len, j;
+        
+        if (isArray(data) &amp;&amp; data.length) {
+            // First pass, assign colspans and calculate row count for
+            // non-nested headers' rowspan
+            stack.push([data, -1]);
+
+            while (stack.length) {
+                entry = stack[stack.length - 1];
+                row   = entry[0];
+                i     = entry[1] + 1;
+
+                for (len = row.length; i &lt; len; ++i) {
+                    col = row[i];
+                    children = col.children;
+
+                    Y.stamp(col);
+
+                    if (isArray(children) &amp;&amp; children.length) {
+                        stack.push([children, -1]);
+                        entry[1] = i;
+
+                        rowSpan = Math.max(rowSpan, stack.length);
+
+                        // break to let the while loop process the children
+                        break;
+                    } else {
+                        col.colspan = 1;
+                    }
+                }
+
+                if (i &gt;= len) {
+                    // All columns in this row are processed
+                    if (stack.length &gt; 1) {
+                        entry  = stack[stack.length - 2];
+                        parent = entry[0][entry[1]];
+
+                        parent.colspan = 0;
+
+                        for (i = 0, len = row.length; i &lt; len; ++i) {
+                            // Can't use .length because in 3+ rows, colspan
+                            // needs to aggregate the colspans of children
+                            parent.colspan += row[i].colspan;
+
+                            // Assign the parent column for ease of navigation
+                            row[i].parent = parent;
+                        }
+                    }
+                    stack.pop();
+                }
+            }
+
+            // Second pass, build row arrays and assign rowspan
+            for (i = 0; i &lt; rowSpan; ++i) {
+                columns.push([]);
+            }
+
+            stack.push([data, -1]);
+
+            while (stack.length) {
+                entry = stack[stack.length - 1];
+                row   = entry[0];
+                i     = entry[1] + 1;
+
+                for (len = row.length; i &lt; len; ++i) {
+                    col = row[i];
+                    children = col.children;
+
+                    columns[stack.length - 1].push(col);
+
+                    entry[1] = i;
+
+                    if (children &amp;&amp; children.length) {
+                        // parent cells must assume rowspan 1 (long story)
+
+                        // break to let the while loop process the children
+                        stack.push([children, -1]);
+                        break;
+                    } else {
+                        // collect the IDs of parent cols
+                        col.headers = [col._yuid];
+
+                        for (j = stack.length - 2; j &gt;= 0; --j) {
+                            parent = stack[j][0][stack[j][1]];
+
+                            col.headers.unshift(parent._yuid);
+                        }
+
+                        col.rowspan = rowSpan - stack.length + 1;
+                    }
+                }
+
+                if (i &gt;= len) {
+                    // All columns in this row are processed
+                    stack.pop();
+                }
+            }
+        }
+
+        return columns;
+    }
+});
+}, '@VERSION@', { requires: ['view', 'gallery-datatable-350-preview-core'] });
+YUI.add('gallery-datatable-350-preview-body', function (Y) {
+/**
+View class responsible for rendering the <code>&amp;lt;tbody&amp;gt;</code> section of a table. Used as
+the default <code>bodyView</code> for <code>Y.DataTable.Base</code> and <code>Y.DataTable</code> classes.
+
+Translates the provided <code>modelList</code> into a rendered <code>&amp;lt;tbody&amp;gt;</code> based on the data
+in the constituent Models, altered or ammended by any special column
+configurations.
+
+The <code>columns</code> configuration, passed to the constructor, determines which
+columns will be rendered.
+
+The rendering process involves constructing an HTML template for a complete row
+of data, built by concatenating a customized copy of the instance's
+<code>CELL_TEMPLATE</code> into the <code>ROW_TEMPLATE</code> once for each column.  This template is
+then populated with values from each Model in the <code>modelList</code>, aggregating a
+complete HTML string of all row and column data.  A <code>&amp;lt;tbody&amp;gt;</code> Node is then created from the markup and any column <code>nodeFormatter</code>s are applied.
+
+Supported properties of the column objects include:
+
+  * <code>key</code> - Used to link a column to an attribute in a Model.
+  * <code>name</code> - Used for columns that don't relate to an attribute in the Model
+    (<code>formatter</code> or <code>nodeFormatter</code> only) if the implementer wants a
+    predictable name to refer to in their CSS.
+  * <code>formatter</code> - Used to customize or override the content value from the
+    Model.  These do not have access to the cell or row Nodes and should
+    return string (HTML) content.
+  * <code>nodeFormatter</code> - Used to provide content for a cell as well as perform any
+    custom modifications on the cell or row Node that could not be performed by
+    <code>formatter</code>s.  Should be used sparingly for better performance.
+  * <code>emptyCellValue</code> - String (HTML) value to use if the Model data for a
+    column, or the content generated by a <code>formatter</code>, is the empty string or
+    <code>undefined</code>.
+
+Column <code>formatter</code>s are passed an object (<code>o</code>) with the following properties:
+
+  * <code>value</code> - The current value of the column's associated attribute, if any.
+  * <code>data</code> - An object map of Model keys to their current values.
+  * <code>record</code> - The Model instance.
+  * <code>column</code> - The column configuration object for the current column.
+  * <code>classnames</code> - Initially empty string to allow <code>formatter</code>s to add CSS 
+    classes to the cell's <code>&amp;lt;td&amp;gt;</code>.
+  * <code>rowindex</code> - The zero-based row number.
+
+They may return a value or update <code>o.value</code> to assign specific HTML content.  A
+returned value has higher precedence.
+
+Column <code>nodeFormatter</code>s are passed an object (<code>o</code>) with the following
+properties:
+
+  * <code>value</code> - The current value of the column's associated attribute, if any.
+  * <code>td</code> - The <code>&amp;lt;td&amp;gt;</code> Node instance.
+  * <code>cell</code> - The <code>&amp;lt;div&amp;gt;</code> liner Node instance if present, otherwise, the <code>&amp;lt;td&amp;gt;</code>.
+    When adding content to the cell, prefer appending into this property.
+  * <code>data</code> - An object map of Model keys to their current values.
+  * <code>record</code> - The Model instance.
+  * <code>column</code> - The column configuration object for the current column.
+  * <code>rowindex</code> - The zero-based row number.
+
+They are expected to inject content into the cell's Node directly, including
+any "empty" cell content.  Each <code>nodeFormatter</code> will have access through the
+Node API to all cells and rows in the <code>&amp;lt;tbody&amp;gt;</code>, but not to the <code>&amp;lt;table&amp;gt;</code>, as
+it will not be attached yet.
+
+If a <code>nodeFormatter</code> returns <code>false</code>, the <code>o.td</code> and <code>o.cell</code> Nodes will be
+<code>destroy()</code>ed to remove them from the Node cache and free up memory.  The DOM
+elements will remain as will any content added to them.  _It is highly
+advisable to always return <code>false</code> from your <code>nodeFormatter</code>s_.
+
+@module datatable-body
+@class BodyView
+@namespace DataTable
+@extends View
+**/
+var Lang         = Y.Lang,
+    isArray      = Lang.isArray,
+    // TODO: Use this when generating content unless column.allowHTML
+    //htmlEscape   = Y.Escape.html,
+    fromTemplate = Y.Lang.sub,
+    toArray      = Y.Array,
+
+    ClassNameManager = Y.ClassNameManager,
+    _getClassName    = ClassNameManager.getClassName;
+
+Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
+    // -- Instance properties -------------------------------------------------
+
+    /**
+    HTML template used to create table cells.
+
+    @property CELL_TEMPLATE
+    @type {HTML}
+    @default
+        '&lt;td headers="{headers}" class="{classes}"&gt;
+            '&lt;div class="{linerClass}"&gt;{content}&lt;/div&gt;
+        &lt;/td&gt;'
+    **/
+    CELL_TEMPLATE:
+        '&lt;td headers="{headers}" class="{classes}"&gt;' +
+            '&lt;div class="{linerClass}"&gt;' +
+                '{content}' +
+            '&lt;/div&gt;' +
+        '&lt;/td&gt;',
+
+    /**
+    CSS class applied to even rows.  This is assigned at instantiation after
+    setting up the <code>\_cssPrefix</code> for the instance.
+    
+    For DataTable, this will be <code>yui3-datatable-even</code>.
+
+    @property CLASS_EVEN
+    @type {String}
+    @default 'yui3-table-even'
+    **/
+    //CLASS_EVEN: null
+
+    /**
+    CSS class applied to odd rows.  This is assigned at instantiation after
+    setting up the <code>\_cssPrefix</code> for the instance.
+    
+    When used by DataTable instances, this will be <code>yui3-datatable-odd</code>.
+
+    @property CLASS_ODD
+    @type {String}
+    @default 'yui3-table-odd'
+    **/
+    //CLASS_ODD: null
+
+    /**
+    HTML template used to create table rows.
+
+    @property ROW_TEMPLATE
+    @type {HTML}
+    @default '&lt;tr id="{clientId}" class="{rowClasses}"&gt;{content}&lt;/tr&gt;'
+    **/
+    ROW_TEMPLATE :
+        '&lt;tr id="{clientId}" class="{rowClasses}"&gt;' +
+            '{content}' +
+        '&lt;/tr&gt;',
+
+    /**
+    The object that serves as the source of truth for column and row data.
+    This property is assigned at instantiation from the <code>source</code> property of
+    the configuration object passed to the constructor.
+
+    @property source
+    @type {Object}
+    @default (initially unset)
+    **/
+    //TODO: should this be protected?
+    //source: null,
+
+    /**
+    HTML template used to create table's <code>&amp;lt;tbody&amp;gt;</code>.
+
+    @property TBODY_TEMPLATE
+    @type {HTML}
+    @default '&lt;tbody class="{classes}"&gt;{content}&lt;/tbody&gt;'
+    **/
+    TBODY_TEMPLATE: '&lt;tbody class="{classes}"&gt;{content}&lt;/tbody&gt;',
+
+    // -- Public methods ------------------------------------------------------
+    /**
+    Destroys the instance.
+
+    @method destructor
+    **/
+    destructor: function () {
+        (new Y.EventHandle(this._eventHandles)).detach();
+    },
+
+    /**
+    Returns the <code>&amp;lt;td&amp;gt;</code> Node from the given row and column index.  If there is
+    no cell at the given coordinates, <code>null</code> is returned.
+
+    @method getCell
+    @param {Number} row Zero based index of the row with the target cell
+    @param {Number} col Zero based index of the column with the target cell
+    @return {Node}
+    **/
+    getCell: function (row, col) {
+        var el = null;
+
+        if (this._tbodyNode) {
+            el = this._tbodyNode.getDOMNode().rows[+row];
+            el &amp;&amp; (el = el.cells[+col]);
+        }
+        
+        return Y.one(el);
+    },
+
+    /**
+    Builds a CSS class name from the provided tokens.  If the instance is
+    created with <code>cssPrefix</code> or <code>source</code> in the configuration, it will use this
+    prefix (the <code>\_cssPrefix</code> of the <code>source</code> object) as the base token.  This
+    allows class instances to generate markup with class names that correspond
+    to the parent class that is consuming them.
+
+    @method getClassName
+    @param {String} token* Any number of tokens to include in the class name
+    @return {String} The generated class name
+    **/
+    getClassName: function () {
+        var args = toArray(arguments);
+        args.unshift(this._cssPrefix);
+        args.push(true);
+
+        return _getClassName.apply(ClassNameManager, args);
+    },
+
+    /**
+    Returns the <code>&amp;lt;tr&amp;gt;</code> Node from the given row index.  If there is
+    no row at the given index, <code>null</code> is returned.
+
+    @method getRow
+    @param {Number} row Zero based index of the row
+    @return {Node}
+    **/
+    // TODO: Support index as clientId =&gt; _tbodyNode.one('&gt; #' + index)?
+    getRow: function (index) {
+        var el;
+
+        if (this._tbodyNode) {
+            el = this._tbodyNode.getDOMNode().rows[+index];
+        }
+
+        return Y.one(el);
+    },
+
+    /**
+    Creates the table's <code>&amp;lt;tbody&amp;gt;</code> Node by assembling markup generated by
+    populating the <code>TBODY\_TEMPLATE</code>, <code>ROW\_TEMPLATE</code>, and <code>CELL\_TEMPLATE</code>
+    templates with content from the <code>columns</code> property and <code>modelList</code>
+    attribute.
+
+    The rendering process happens in four stages:
+
+    1. A row template is assembled from the <code>columns</code> property (see
+       <code>\_createRowTemplate</code>)
+
+    2. An HTML string is built up by concatening the application of the data in
+       each Model in the <code>modelList</code> to the row template. For cells with
+       <code>formatter</code>s, the function is called to generate cell content. Cells
+       with <code>nodeFormatter</code>s are ignored. For all other cells, the data value
+       from the Model attribute for the given column key is used.  The
+       accumulated row markup is then inserted into the <code>TBODY_TEMPLATE</code>.
+
+    3. The <code>&amp;lt;tbody&amp;gt;</code> Node is created from the HTML string.
+
+    4. If any column is configured with a <code>nodeFormatter</code>, the <code>modelList</code> is
+       iterated again to apply the <code>nodeFormatter</code>s.
+
+    Supported properties of the column objects include:
+
+      * <code>key</code> - Used to link a column to an attribute in a Model.
+      * <code>name</code> - Used for columns that don't relate to an attribute in the Model
+        (<code>formatter</code> or <code>nodeFormatter</code> only) if the implementer wants a
+        predictable name to refer to in their CSS.
+      * <code>formatter</code> - Used to customize or override the content value from the
+        Model.  These do not have access to the cell or row Nodes and should
+        return string (HTML) content.
+      * <code>nodeFormatter</code> - Used to provide content for a cell as well as perform
+        any custom modifications on the cell or row Node that could not be
+        performed by <code>formatter</code>s.  Should be used sparingly for better
+        performance.
+      * <code>emptyCellValue</code> - String (HTML) value to use if the Model data for a
+        column, or the content generated by a <code>formatter</code>, is the empty string
+        or <code>undefined</code>.
+
+    Column <code>formatter</code>s are passed an object (<code>o</code>) with the following
+    properties:
+
+      * <code>value</code> - The current value of the column's associated attribute, if
+        any.
+      * <code>data</code> - An object map of Model keys to their current values.
+      * <code>record</code> - The Model instance.
+      * <code>column</code> - The column configuration object for the current column.
+      * <code>classnames</code> - Initially empty string to allow <code>formatter</code>s to add CSS 
+        classes to the cell's <code>&amp;lt;td&amp;gt;</code>.
+      * <code>rowindex</code> - The zero-based row number.
+
+    They may return a value or update <code>o.value</code> to assign specific HTML
+    content.  A returned value has higher precedence.
+
+    Column <code>nodeFormatter</code>s are passed an object (<code>o</code>) with the following
+    properties:
+
+      * <code>value</code> - The current value of the column's associated attribute, if
+        any.
+      * <code>td</code> - The <code>&amp;lt;td&amp;gt;</code> Node instance.
+      * <code>cell</code> - The <code>&amp;lt;div&amp;gt;</code> liner Node instance if present, otherwise, the
+        <code>&amp;lt;td&amp;gt;</code>.  When adding content to the cell, prefer appending into this
+        property.
+      * <code>data</code> - An object map of Model keys to their current values.
+      * <code>record</code> - The Model instance.
+      * <code>column</code> - The column configuration object for the current column.
+      * <code>rowindex</code> - The zero-based row number.
+
+    They are expected to inject content into the cell's Node directly, including
+    any "empty" cell content.  Each <code>nodeFormatter</code> will have access through the
+    Node API to all cells and rows in the <code>&amp;lt;tbody&amp;gt;</code>, but not to the <code>&amp;lt;table&amp;gt;</code>,
+    as it will not be attached yet.
+
+    If a <code>nodeFormatter</code> returns <code>false</code>, the <code>o.td</code> and <code>o.cell</code> Nodes will be
+    <code>destroy()</code>ed to remove them from the Node cache and free up memory.  The
+    DOM elements will remain as will any content added to them.  _It is highly
+    advisable to always return <code>false</code> from your <code>nodeFormatter</code>s_.
+
+    @method render
+    @return {BodyView} The instance
+    @chainable
+    **/
+    render: function () {
+        var table    = this.get('container'),
+            data     = this.get('modelList'),
+            columns  = this.columns,
+            tbody    = this._tbodyNode,
+            existing, replace;
+
+        table =  Y.one(table);
+
+        if (table &amp;&amp; table.get('tagName') !== 'TABLE') {
+            table = table.one('table');
+        }
+
+        if (!table) {
+            Y.log('Could not render tbody. Container is not a table', 'warn');
+            return this;
+        }
+
+        existing = table.one('&gt; .' + this.getClassName('data'));
+        replace  = existing &amp;&amp; (!tbody || !tbody.compareTo(existing));
+
+        // Needed for mutation
+        this._createRowTemplate(columns);
+
+        if ((!tbody || replace) &amp;&amp; data) {
+            tbody = Y.Node.create(this._createDataHTML(columns));
+
+            this._applyNodeFormatters(tbody, columns);
+        }
+
+        if (existing) {
+            if (replace) {
+                existing.replace(tbody);
+            }
+        } else {
+            table.append(tbody);
+        }
+
+        this.bindUI();
+
+        return this;
+    },
+
+    // -- Protected and private methods ---------------------------------------
+    /**
+    Handles changes in the source's columns attribute.  Redraws the table data.
+
+    @method _afterColumnChange
+    @param {EventFacade} e The <code>columnsChange</code> event object
+    @protected
+    **/
+    // TODO: Preserve existing DOM
+    // This will involve parsing and comparing the old and new column configs
+    // and reacting to four types of changes:
+    // 1. formatter, nodeFormatter, emptyCellValue changes
+    // 2. column deletions
+    // 3. column additions
+    // 4. column moves (preserve cells)
+    _afterColumnsChange: function (e) {
+        this._parseColumns(e.newVal);
+
+        // FIXME: This will call bindUI() a second time.
+        this.render();
+    },
+    
+    /**
+    Handles modelList changes, including additions, deletions, and updates.
+
+    Modifies the existing table DOM accordingly.
+
+    @method _afterDataChange
+    @param {EventFacade} e The <code>change</code> event from the ModelList
+    @protected
+    **/
+    _afterDataChange: function (e) {
+        // TODO
+    },
+
+    /**
+    Iterates the <code>modelList</code>, and calls any <code>nodeFormatter</code>s found in the <code>columns</code> param on the appropriate cell Nodes in the <code>tbody</code>.
+
+    @method _applyNodeFormatters
+    @param {Node} tbody The <code>&amp;lt;tbody&amp;gt;</code> Node whose columns to update
+    @param {Object[]} columns The column configurations
+    @protected
+    **/
+    _applyNodeFormatters: function (tbody, columns) {
+        var source = this.source,
+            data = this.get('modelList'),
+            formatters = [],
+            tbodyNode  = tbody.getDOMNode(),
+            linerQuery = '.' + this.getClassName('liner'),
+            i, len;
+
+        // Only iterate the ModelList again if there are nodeFormatters
+        for (i = 0, len = columns.length; i &lt; len; ++i) {
+            if (columns[i].nodeFormatter) {
+                formatters.push(i);
+            }
+        }
+
+        if (data &amp;&amp; formatters.length) {
+            data.each(function (record, index) {
+                var formatterData = {
+                        data      : record.getAttrs(),
+                        record    : record,
+                        rowindex  : index
+                    },
+                    row = tbodyNode.rows[index],
+                    i, len, col, key, cell, keep;
+
+
+                if (row) {
+                    for (i = 0, len = formatters.length; i &lt; len; ++i) {
+                        cell = Y.one(row.cells[formatters[i]]);
+
+                        if (cell) {
+                            col = formatterData.column = columns[formatters[i]];
+                            key = col.key || col._yuid;
+
+                            formatterData.value = record.get(key);
+                            formatterData.td    = cell;
+                            formatterData.cell  = cell.one(linerQuery) || cell;
+
+                            keep = col.nodeFormatter.call(source,formatterData);
+
+                            if (keep === false) {
+                                // Remove from the Node cache to reduce
+                                // memory footprint.  This also purges events,
+                                // which you shouldn't be scoping to a cell
+                                // anyway.  You've been warned.  Incidentally,
+                                // you should always return false. Just sayin.
+                                cell.destroy(true);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    },
+
+    /**
+    Binds event subscriptions from the UI and the source (if assigned).
+
+    @method bindUI
+    @protected
+    **/
+    bindUI: function () {
+        this._eventHandles.push(
+            this.source.after('columnChange', this._afterColumnChange),
+            this.get('modelList').after(
+                ['*:change', '*:destroy'],
+                this._afterDataChange, this));
+    },
+
+    /**
+    The base token for classes created with the <code>getClassName</code> method.
+
+    @property _cssPrefix
+    @type {String}
+    @default 'yui3-table'
+    @protected
+    **/
+    _cssPrefix: ClassNameManager.getClassName('table'),
+
+    /**
+    Iterates the <code>modelList</code> and applies each Model to the <code>\_rowTemplate</code>,
+    allowing any column <code>formatter</code> or <code>emptyCellValue</code> to override cell
+    content for the appropriate column.  The aggregated HTML string is
+    returned.
+
+    @method _createDataHTML
+    @param {Object[]} columns The column configurations to customize the
+                generated cell content or class names
+    @return {HTML} The markup for all Models in the <code>modelList</code>, each applied
+                to the <code>\_rowTemplate</code>
+    @protected
+    **/
+    _createDataHTML: function (columns) {
+        var data = this.get('modelList'),
+            html = '';
+
+        if (data) {
+            data.each(function (model, index) {
+                html += this._createRowHTML(model, index);
+            }, this);
+        }
+
+        return fromTemplate(this.TBODY_TEMPLATE, {
+            classes: this.getClassName('data'),
+            content: html
+        });
+    },
+
+    /**
+    Applies the data of a given Model, modified by any column formatters and
+    supplemented by other template values to the instance's <code>\_rowTemplate</code> (see
+    <code>\_createRowTemplate</code>).  The generated string is then returned.
+
+    The data from Model's attributes is fetched by <code>getAttrs</code> and this data
+    object is appended with other properties to supply values to {placeholders}
+    in the template.  For a template generated from a Model with 'foo' and 'bar'
+    attributes, the data object would end up with the following properties
+    before being used to populate the <code>\_rowTemplate</code>:
+
+      * <code>clientID</code> - From Model, used the assign the <code>&amp;lt;tr&amp;gt;</code>'s 'id' attribute.
+      * <code>foo</code> - The value to populate the 'foo' column cell content.  This
+        value will be the result of the column's <code>formatter</code> if assigned, and
+        will default from '' or <code>undefined</code> to the value of the column's
+        <code>emptyCellValue</code> if assigned.
+      * <code>bar</code> - Same for the 'bar' column cell content.
+      * <code>foo-classes</code> - String of CSS classes to apply to the <code>&amp;lt;td&amp;gt;</code>.
+      * <code>bar-classes</code> - Same.
+      * <code>rowClasses</code>  - String of CSS classes to apply to the <code>&amp;lt;tr&amp;gt;</code>. This will
+        default to the odd/even class per the specified index, but can be
+        accessed and ammended by any column formatter via <code>o.data.rowClasses</code>.
+
+    Because this object is available to formatters, any additional properties
+    can be added to fill in custom {placeholders} in the <code>\_rowTemplate</code>.
+
+    @method _createRowHTML
+    @param {Model} model The Model instance to apply to the row template
+    @param {Number} index The index the row will be appearing
+    @return {HTML} The markup for the provided Model, less any <code>nodeFormatter</code>s
+    @protected
+    **/
+    _createRowHTML: function (model, index) {
+        var data    = model.getAttrs(),
+            source  = this.source || this,
+            columns = this.columns,
+            i, len, col, key, value, formatterData;
+
+        // TODO: Be consistent and change to row-classes? This could be
+        // clobbered by a column named 'row'.
+        data.rowClasses = (index % 2) ? this.CLASS_ODD : this.CLASS_EVEN;
+
+        for (i = 0, len = columns.length; i &lt; len; ++i) {
+            col   = columns[i];
+            key   = col.key || col._yuid;
+            value = data[key];
+
+            data[key + '-classes'] = '';
+
+            if (col.formatter) {
+                formatterData = {
+                    value     : value,
+                    data      : data,
+                    column    : col,
+                    record    : model,
+                    classnames: '',
+                    rowindex  : index
+                };
+
+                if (typeof col.formatter === 'string') {
+                    // TODO: look for known formatters by string name
+                    value = fromTemplate(col.formatter, formatterData);
+                } else {
+                    // Formatters can either return a value
+                    value = col.formatter.call(source, formatterData);
+
+                    // or update the value property of the data obj passed
+                    if (value === undefined) {
+                        value = formatterData.value;
+                    }
+
+                    data[key + '-classes'] = formatterData.classnames;
+                }
+            }
+
+            if ((value === undefined || value === '') &amp;&amp;
+                col.emptyCellValue) {
+                value = col.emptyCellValue;
+            }
+
+            data[key] = value;
+        }
+
+        return fromTemplate(this._rowTemplate, data);
+    },
+
+    /**
+    Creates a custom HTML template string for use in generating the markup for
+    individual table rows with {placeholder}s to capture data from the Models
+    in the <code>modelList</code> attribute or from column <code>formatter</code>s.
+
+    Assigns the <code>\_rowTemplate</code> property.
+
+    @method _createRowTemplate
+    @param {Object[]} columns Array of column configuration objects
+    @protected
+    **/
+    _createRowTemplate: function (columns) {
+        var html         = '',
+            cellTemplate = this.CELL_TEMPLATE,
+            linerClass   = this.getClassName('liner'),
+            i, len, col, key, tokenValues;
+
+        for (i = 0, len = columns.length; i &lt; len; ++i) {
+            col = columns[i];
+
+            key = col.key || col.name || col._yuid;
+            tokenValues = {
+                content   : '{' + key + '}',
+                headers   : col.headers.join(' '),
+                linerClass: linerClass,
+                classes   : this.getClassName(key) + ' {' + key + '-classes}'
+            };
+
+            if (col.nodeFormatter) {
+                // Defer all node decoration to the formatter
+                tokenValues.content    = '';
+                tokenValues.classes    = '';
+            }
+
+            html += fromTemplate(cellTemplate, tokenValues);
+        }
+
+        this._rowTemplate = fromTemplate(this.ROW_TEMPLATE, {
+            content: html
+        });
+    },
+
+    /**
+    Initializes the instance. Reads the following configuration properties in
+    addition to the instance attributes:
+
+      * <code>columns</code> - (REQUIRED) The initial column information
+      * <code>cssPrefix</code> - The base string for classes generated by <code>getClassName</code>
+      * <code>source</code> - The object to serve as source of truth for column info
+
+    @method initializer
+    @param {Object} config Configuration data
+    @protected
+    **/
+    initializer: function (config) {
+        var cssPrefix = config.cssPrefix || (config.source || {}).cssPrefix;
+
+        this.source  = config.source;
+        this.columns = this._parseColumns(config.columns);
+        this._tbodyNode = config.tbodyNode;
+
+        this._eventHandles = [];
+
+        if (cssPrefix) {
+            this._cssPrefix = cssPrefix;
+        }
+
+        this.CLASS_ODD  = this.getClassName('odd');
+        this.CLASS_EVEN = this.getClassName('even');
+    },
+
+    /**
+    Flattens an array of potentially nested column configurations into a single
+    depth array of data columns.  Columns that have children are disregarded in
+    favor of searching their child columns.  The resulting array corresponds 1:1
+    with columns that will contain data in the <code>&amp;lt;tbody&amp;gt;</code>.
+
+    @method _parseColumns
+    @param {Object[]} data Array of unfiltered column configuration objects
+    @param {Object[]} columns Working array of data columns. Used for recursion.
+    @return {Object[]} Only those columns that will be rendered.
+    @protected
+    **/
+    _parseColumns: function (data, columns) {
+        var col, i, len;
+        
+        columns || (columns = []);
+
+        if (isArray(data) &amp;&amp; data.length) {
+            for (i = 0, len = data.length; i &lt; len; ++i) {
+                col = data[i];
+
+                if (typeof col === 'string') {
+                    col = { key: col };
+                }
+
+                if (col.key || col.formatter || col.nodeFormatter) {
+                    col.index = columns.length;
+                    columns.push(col);
+                } else if (col.children) {
+                    this._parseColumns(col.children, columns);
+                }
+            }
+        }
+
+        return columns;
+    }
+
+    /**
+    The HTML template used to create a full row of markup for a single Model in
+    the <code>modelList</code> plus any customizations defined in the column
+    configurations.
+
+    @property _rowTemplate
+    @type {HTML}
+    @default (initially unset)
+    @protected
+    **/
+    //_rowTemplate: null
+});
+}, '@VERSION@', { requires: ['view', 'gallery-datatable-350-preview-core'] });
+Y.use('gallery-datatable-350-preview-core', 'gallery-datatable-350-preview-head', 'gallery-datatable-350-preview-body');
+// Base, featureless implementation
+Y.DataTable.Base = Y.Base.create('datatable', Y.Widget, [Y.DataTable.Core],
+    null, {
+        ATTRS: {
+            // Default head and body views
+            headerView: { value: Y.DataTable.HeaderView },
+            bodyView  : { value: Y.DataTable.BodyView }
+        }
+    });
+
+// Mutable implementation, derived initially from DataTable.Base
+Y.DataTable = Y.mix(
+    Y.Base.create('datatable', Y.DataTable.Base, []), // Create the class
+    Y.DataTable); // Migrate static and namespaced classes
+
+    </pre>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<!--script src="../assets/js/tabs.js"></script-->
+<script src="../assets/../api.js"></script>
+
+
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
