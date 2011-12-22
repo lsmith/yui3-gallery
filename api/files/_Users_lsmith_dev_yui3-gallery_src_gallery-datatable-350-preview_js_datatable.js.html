@@ -40,13 +40,13 @@
             
                 <li><a href="../classes/DataSchema.html">DataSchema</a></li>
             
+                <li><a href="../classes/DataTable.html">DataTable</a></li>
+            
                 <li><a href="../classes/DataTable.Base.html">DataTable.Base</a></li>
             
                 <li><a href="../classes/DataTable.BodyView.html">DataTable.BodyView</a></li>
             
                 <li><a href="../classes/DataTable.Core.html">DataTable.Core</a></li>
-            
-                <li><a href="../classes/DataTable.DataTable.html">DataTable.DataTable</a></li>
             
                 <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
             
@@ -479,53 +479,20 @@ Y.mix(Table.prototype, {
         return this.body &amp;&amp; this.body.getCell &amp;&amp; this.body.getRow(index);
     },
 
-    /**
-    Builds the table and attaches it to the DOM.  This requires the host class
-    to provide a <code>contentBox</code> attribute.  This is typically provided by Widget.
-
-    @method renderUI
-    **/
-    renderUI: function () {
-        var contentBox = this.get('contentBox'),
-            table;
-
-        if (contentBox) {
-            this._renderTable();
-
-            this._renderHeader();
-
-            this._renderFooter();
-
-            this._renderBody();
-
-            table = this._tableNode;
-
-            if (table) {
-                // off DOM or in an existing node attached to a different parentNode
-                if (!table.inDoc() || !table.ancestor().compareTo(contentBox)) {
-                    contentBox.append(table);
-                }
-            } else { Y.log('Problem rendering DataTable: table not created', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
-            }
-        } else { Y.log('Problem rendering DataTable: contentBox not found', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
-        }
-    },
-
     // -- Protected and private properties and methods ------------------------
 
     /**
-    Subscribes to attribute change events to update the UI.
+    Configuration object passed to the class constructor in <code>bodyView</code> during
+    render.
 
-    @method bindUI
+    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+
+    @property _bodyConfig
+    @type {Object}
+    @default undefined (initially unset)
     @protected
     **/
-    bindUI: function () {
-        // TODO: handle widget attribute changes
-        this.after({
-            captionChange: this._afterCaptionChange,
-            summaryChange: this._afterSummaryChange
-        });
-    },
+    //_bodyConfig: null,
 
     /**
     A map of column key to column configuration objects parsed from the
@@ -539,6 +506,32 @@ Y.mix(Table.prototype, {
     //_columnMap: null,
 
     /**
+    Configuration object passed to the class constructor in <code>footerView</code> during
+    render.
+
+    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+
+    @property _footerConfig
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_footerConfig: null,
+
+    /**
+    Configuration object passed to the class constructor in <code>headerView</code> during
+    render.
+
+    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+
+    @property _headerConfig
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_headerConfig: null,
+
+    /**
     The Node instance of the table containing the data rows.  This is set when
     the table is rendered.  It may also be set by progressive enhancement,
     though this extension does not provide the logic to parse from source.
@@ -549,6 +542,20 @@ Y.mix(Table.prototype, {
     @protected
     **/
     //_tableNode: null,
+
+    /**
+    Configuration object used as the prototype of <code>\_headerConfig</code>,
+    <code>\_bodyConfig</code>, and <code>\_footerConfig</code>. Add properties to this object if you
+    want them in all three of the other config objects.
+
+    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+
+    @property _viewConfig
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_viewConfig: null,
 
     /**
     Relays <code>captionChange</code> events to <code>\_uiUpdateCaption</code>.
@@ -582,6 +589,20 @@ Y.mix(Table.prototype, {
     **/
     _afterSummaryChange: function (e) {
         this._uiUpdateSummary(e.newVal);
+    },
+
+    /**
+    Subscribes to attribute change events to update the UI.
+
+    @method bindUI
+    @protected
+    **/
+    bindUI: function () {
+        // TODO: handle widget attribute changes
+        this.after({
+            captionChange: this._afterCaptionChange,
+            summaryChange: this._afterSummaryChange
+        });
     },
 
     /**
@@ -738,6 +759,8 @@ Y.mix(Table.prototype, {
 
         this._initData();
 
+        this._initViewConfig();
+
         this.after('columnsChange', this._afterColumnsChange);
     },
 
@@ -833,6 +856,32 @@ Y.mix(Table.prototype, {
     },
 
     /**
+    Initializes the <code>\_viewConfig</code>, <code>\_headerConfig</code>, <code>\_bodyConfig</code>, and
+    <code>\_footerConfig</code> properties with the configuration objects that will be
+    passed to the constructors of the <code>headerView</code>, <code>bodyView</code>, and
+    <code>footerView</code>.
+    
+    Extensions can add to the config objects to deliver custom parameters at
+    view instantiation.  <code>\_viewConfig</code> is used as the prototype of the other
+    three config objects, so properties added here will be inherited by all
+    configs.
+
+    @method _initViewConfig
+    @protected
+    **/
+    _initViewConfig: function () {
+        this._viewConfig = {
+            source   : this,
+            cssPrefix: this._cssPrefix
+        };
+
+        // Use prototypal inheritance to share common configs from _viewConfig
+        this._headerConfig = Y.Object(this._viewConfig);
+        this._bodyConfig   = Y.Object(this._viewConfig);
+        this._footerConfig = Y.Object(this._viewConfig);
+    },
+
+    /**
     Iterates the array of column configurations to capture all columns with a
     <code>key</code> property.  Columns that are represented as strings will be replaced
     with objects with the string assigned as the <code>key</code> property.  If a column
@@ -873,7 +922,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Delegates rendering to the configured <code>bodyView</code>.
+    Delegates rendering the table <code>&amp;lt;tbody&amp;gt;</code> to the configured <code>bodyView</code>.
 
     @method _renderBody
     @protected
@@ -884,15 +933,15 @@ Y.mix(Table.prototype, {
         // TODO: use a _viewConfig object that can be mixed onto by class
         // extensions, then pass that to either the view constructor or setAttrs
         if (BodyView) {
-            this.body = (isFunction(BodyView)) ? 
-                new BodyView({
-                    source   : this,
-                    container: this._tableNode,
-                    columns  : this.get('columns'),
-                    modelList: this.data,
-                    cssPrefix: this._cssPrefix
-                }) :
-                BodyView;
+            // Can't use merge because it doesn't iterate prototype properties,
+            // so would miss the configs from _viewConfig.
+            Y.mix(this._bodyConfig, {
+                container: this._tableNode,
+                columns  : this.get('columns'),
+                modelList: this.data
+            }, true);
+
+            this.body = new BodyView(this._bodyConfig);
 
             this.body.addTarget(this);
             this.body.render();
@@ -900,7 +949,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Delegates rendering to the configured <code>footerView</code>.
+    Delegates rendering the table <code>&amp;lt;tfoot&amp;gt;</code> to the configured <code>footerView</code>.
 
     @method _renderFooter
     @protected
@@ -909,15 +958,15 @@ Y.mix(Table.prototype, {
         var FooterView = this.get('footerView');
         
         if (FooterView) {
-            this.foot = (isFunction(FooterView)) ? 
-                new FooterView({
-                    source   : this,
-                    container: this._tableNode,
-                    columns  : this.get('columns'),
-                    modelList: this.data,
-                    cssPrefix: this._cssPrefix
-                }) :
-                FooterView;
+            // Can't use merge because it doesn't iterate prototype properties,
+            // so would miss the configs from _viewConfig.
+            Y.mix(this._footerConfig, {
+                container: this._tableNode,
+                columns  : this.get('columns'),
+                modelList: this.data
+            }, true);
+
+            this.foot = new FooterView(this._footerConfig);
 
             this.foot.addTarget(this);
             this.foot.render();
@@ -925,7 +974,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Delegates rendering to the configured <code>headerView</code>.
+    Delegates rendering the table <code>&amp;lt;thead&amp;gt;</code> to the configured <code>headerView</code>.
 
     @method _renderHeader
     @protected
@@ -934,15 +983,15 @@ Y.mix(Table.prototype, {
         var HeaderView = this.get('headerView');
         
         if (HeaderView) {
-            this.head = (isFunction(HeaderView)) ? 
-                new HeaderView({
-                    source   : this,
-                    container: this._tableNode,
-                    columns  : this.get('columns'),
-                    modelList: this.data,
-                    cssPrefix: this._cssPrefix
-                }) :
-                HeaderView; // Assume if it's not a function, it's an instance
+            // Can't use merge because it doesn't iterate prototype properties,
+            // so would miss the configs from _viewConfig.
+            Y.mix(this._headerConfig, {
+                container: this._tableNode,
+                columns  : this.get('columns'),
+                modelList: this.data
+            }, true);
+
+            this.head = new HeaderView(this._headerConfig);
 
             this.head.addTarget(this);
             this.head.render();
@@ -969,6 +1018,39 @@ Y.mix(Table.prototype, {
         this._uiUpdateSummary(this.get('summary'));
 
         this._uiUpdateCaption(caption);
+    },
+
+    /**
+    Builds the table and attaches it to the DOM.  This requires the host class
+    to provide a <code>contentBox</code> attribute.  This is typically provided by Widget.
+
+    @method renderUI
+    @protected
+    **/
+    renderUI: function () {
+        var contentBox = this.get('contentBox'),
+            table;
+
+        if (contentBox) {
+            this._renderTable();
+
+            this._renderHeader();
+
+            this._renderFooter();
+
+            this._renderBody();
+
+            table = this._tableNode;
+
+            if (table) {
+                // off DOM or in an existing node attached to a different parentNode
+                if (!table.inDoc() || !table.ancestor().compareTo(contentBox)) {
+                    contentBox.append(table);
+                }
+            } else { Y.log('Problem rendering DataTable: table not created', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
+            }
+        } else { Y.log('Problem rendering DataTable: contentBox not found', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
+        }
     },
 
     /**
@@ -1158,13 +1240,14 @@ Y.mix(Table.prototype, {
 
     /**
     Verifies the input value is a function with a <code>render</code> method on its
-    prototype.
+    prototype.  <code>null</code> is also accepted to remove the default View.
 
     @method _validateView
     @protected
     **/
     _validateView: function (val) {
-        return isFunction(val) &amp;&amp; val.prototype.render;
+        // TODO support View instances?
+        return val === null || (isFunction(val) &amp;&amp; val.prototype.render);
     }
 });
 }, '@VERSION@', { requires: ['model-list'] });
@@ -2522,30 +2605,7 @@ those classes for more details about how they operate.
 @main
 **/
 
-/**
-The baseline implementation of a DataTable.  This class should be used
-primarily as a superclass for a custom DataTable with a specific set of
-features.  Because features can be composed onto <code>Y.DataTable</code>, custom
-subclasses of DataTable.Base will remain unmodified when new feature modules
-are loaded.
-
-DataTable.Base is built from DataTable.Core, and sets the default <code>headerView</code>
-to <code>Y.DataTable.HeaderView</code> and default <code>bodyView</code> to <code>Y.DataTable.BodyView</code>.
-
-@class Base
-@extends Widget
-@uses DataTable.Core
-@namespace DataTable
-**/
-Y.DataTable.Base = Y.Base.create('datatable', Y.Widget, [Y.DataTable.Core],
-    null, {
-        ATTRS: {
-            // Default head and body views
-            headerView: { value: Y.DataTable.HeaderView },
-            bodyView  : { value: Y.DataTable.BodyView }
-        }
-    });
-
+// DataTable API docs included before DataTable.Base to make yuidoc work
 /**
 A Widget for displaying tabular data.  Before feature modules are <code>use()</code>d,
 this class is functionally equivalent to DataTable.Base.  However, feature
@@ -2610,6 +2670,33 @@ var table = new Y.DataTable({
 @class DataTable
 @extends DataTable.Base
 **/
+
+// DataTable API docs included before DataTable.Base to make yuidoc work
+/**
+The baseline implementation of a DataTable.  This class should be used
+primarily as a superclass for a custom DataTable with a specific set of
+features.  Because features can be composed onto <code>Y.DataTable</code>, custom
+subclasses of DataTable.Base will remain unmodified when new feature modules
+are loaded.
+
+DataTable.Base is built from DataTable.Core, and sets the default <code>headerView</code>
+to <code>Y.DataTable.HeaderView</code> and default <code>bodyView</code> to <code>Y.DataTable.BodyView</code>.
+
+@class Base
+@extends Widget
+@uses DataTable.Core
+@namespace DataTable
+**/
+Y.DataTable.Base = Y.Base.create('datatable', Y.Widget, [Y.DataTable.Core],
+    null, {
+        ATTRS: {
+            // Default head and body views
+            headerView: { value: Y.DataTable.HeaderView },
+            bodyView  : { value: Y.DataTable.BodyView }
+        }
+    });
+
+// The DataTable API docs are above DataTable.Base docs.
 Y.DataTable = Y.mix(
     Y.Base.create('datatable', Y.DataTable.Base, []), // Create the class
     Y.DataTable); // Migrate static and namespaced classes
