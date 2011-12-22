@@ -358,53 +358,20 @@ Y.mix(Table.prototype, {
         return this.body && this.body.getCell && this.body.getRow(index);
     },
 
-    /**
-    Builds the table and attaches it to the DOM.  This requires the host class
-    to provide a `contentBox` attribute.  This is typically provided by Widget.
-
-    @method renderUI
-    **/
-    renderUI: function () {
-        var contentBox = this.get('contentBox'),
-            table;
-
-        if (contentBox) {
-            this._renderTable();
-
-            this._renderHeader();
-
-            this._renderFooter();
-
-            this._renderBody();
-
-            table = this._tableNode;
-
-            if (table) {
-                // off DOM or in an existing node attached to a different parentNode
-                if (!table.inDoc() || !table.ancestor().compareTo(contentBox)) {
-                    contentBox.append(table);
-                }
-            } else { Y.log('Problem rendering DataTable: table not created', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
-            }
-        } else { Y.log('Problem rendering DataTable: contentBox not found', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
-        }
-    },
-
     // -- Protected and private properties and methods ------------------------
 
     /**
-    Subscribes to attribute change events to update the UI.
+    Configuration object passed to the class constructor in `bodyView` during
+    render.
 
-    @method bindUI
+    This property is set by the `\_initViewConfig` method at instantiation.
+
+    @property _bodyConfig
+    @type {Object}
+    @default undefined (initially unset)
     @protected
     **/
-    bindUI: function () {
-        // TODO: handle widget attribute changes
-        this.after({
-            captionChange: this._afterCaptionChange,
-            summaryChange: this._afterSummaryChange
-        });
-    },
+    //_bodyConfig: null,
 
     /**
     A map of column key to column configuration objects parsed from the
@@ -418,6 +385,32 @@ Y.mix(Table.prototype, {
     //_columnMap: null,
 
     /**
+    Configuration object passed to the class constructor in `footerView` during
+    render.
+
+    This property is set by the `\_initViewConfig` method at instantiation.
+
+    @property _footerConfig
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_footerConfig: null,
+
+    /**
+    Configuration object passed to the class constructor in `headerView` during
+    render.
+
+    This property is set by the `\_initViewConfig` method at instantiation.
+
+    @property _headerConfig
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_headerConfig: null,
+
+    /**
     The Node instance of the table containing the data rows.  This is set when
     the table is rendered.  It may also be set by progressive enhancement,
     though this extension does not provide the logic to parse from source.
@@ -428,6 +421,20 @@ Y.mix(Table.prototype, {
     @protected
     **/
     //_tableNode: null,
+
+    /**
+    Configuration object used as the prototype of `\_headerConfig`,
+    `\_bodyConfig`, and `\_footerConfig`. Add properties to this object if you
+    want them in all three of the other config objects.
+
+    This property is set by the `\_initViewConfig` method at instantiation.
+
+    @property _viewConfig
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_viewConfig: null,
 
     /**
     Relays `captionChange` events to `\_uiUpdateCaption`.
@@ -461,6 +468,20 @@ Y.mix(Table.prototype, {
     **/
     _afterSummaryChange: function (e) {
         this._uiUpdateSummary(e.newVal);
+    },
+
+    /**
+    Subscribes to attribute change events to update the UI.
+
+    @method bindUI
+    @protected
+    **/
+    bindUI: function () {
+        // TODO: handle widget attribute changes
+        this.after({
+            captionChange: this._afterCaptionChange,
+            summaryChange: this._afterSummaryChange
+        });
     },
 
     /**
@@ -617,6 +638,8 @@ Y.mix(Table.prototype, {
 
         this._initData();
 
+        this._initViewConfig();
+
         this.after('columnsChange', this._afterColumnsChange);
     },
 
@@ -712,6 +735,32 @@ Y.mix(Table.prototype, {
     },
 
     /**
+    Initializes the `\_viewConfig`, `\_headerConfig`, `\_bodyConfig`, and
+    `\_footerConfig` properties with the configuration objects that will be
+    passed to the constructors of the `headerView`, `bodyView`, and
+    `footerView`.
+    
+    Extensions can add to the config objects to deliver custom parameters at
+    view instantiation.  `\_viewConfig` is used as the prototype of the other
+    three config objects, so properties added here will be inherited by all
+    configs.
+
+    @method _initViewConfig
+    @protected
+    **/
+    _initViewConfig: function () {
+        this._viewConfig = {
+            source   : this,
+            cssPrefix: this._cssPrefix
+        };
+
+        // Use prototypal inheritance to share common configs from _viewConfig
+        this._headerConfig = Y.Object(this._viewConfig);
+        this._bodyConfig   = Y.Object(this._viewConfig);
+        this._footerConfig = Y.Object(this._viewConfig);
+    },
+
+    /**
     Iterates the array of column configurations to capture all columns with a
     `key` property.  Columns that are represented as strings will be replaced
     with objects with the string assigned as the `key` property.  If a column
@@ -752,7 +801,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Delegates rendering to the configured `bodyView`.
+    Delegates rendering the table `<tbody>` to the configured `bodyView`.
 
     @method _renderBody
     @protected
@@ -763,15 +812,15 @@ Y.mix(Table.prototype, {
         // TODO: use a _viewConfig object that can be mixed onto by class
         // extensions, then pass that to either the view constructor or setAttrs
         if (BodyView) {
-            this.body = (isFunction(BodyView)) ? 
-                new BodyView({
-                    source   : this,
-                    container: this._tableNode,
-                    columns  : this.get('columns'),
-                    modelList: this.data,
-                    cssPrefix: this._cssPrefix
-                }) :
-                BodyView;
+            // Can't use merge because it doesn't iterate prototype properties,
+            // so would miss the configs from _viewConfig.
+            Y.mix(this._bodyConfig, {
+                container: this._tableNode,
+                columns  : this.get('columns'),
+                modelList: this.data
+            }, true);
+
+            this.body = new BodyView(this._bodyConfig);
 
             this.body.addTarget(this);
             this.body.render();
@@ -779,7 +828,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Delegates rendering to the configured `footerView`.
+    Delegates rendering the table `<tfoot>` to the configured `footerView`.
 
     @method _renderFooter
     @protected
@@ -788,15 +837,15 @@ Y.mix(Table.prototype, {
         var FooterView = this.get('footerView');
         
         if (FooterView) {
-            this.foot = (isFunction(FooterView)) ? 
-                new FooterView({
-                    source   : this,
-                    container: this._tableNode,
-                    columns  : this.get('columns'),
-                    modelList: this.data,
-                    cssPrefix: this._cssPrefix
-                }) :
-                FooterView;
+            // Can't use merge because it doesn't iterate prototype properties,
+            // so would miss the configs from _viewConfig.
+            Y.mix(this._footerConfig, {
+                container: this._tableNode,
+                columns  : this.get('columns'),
+                modelList: this.data
+            }, true);
+
+            this.foot = new FooterView(this._footerConfig);
 
             this.foot.addTarget(this);
             this.foot.render();
@@ -804,7 +853,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Delegates rendering to the configured `headerView`.
+    Delegates rendering the table `<thead>` to the configured `headerView`.
 
     @method _renderHeader
     @protected
@@ -813,15 +862,15 @@ Y.mix(Table.prototype, {
         var HeaderView = this.get('headerView');
         
         if (HeaderView) {
-            this.head = (isFunction(HeaderView)) ? 
-                new HeaderView({
-                    source   : this,
-                    container: this._tableNode,
-                    columns  : this.get('columns'),
-                    modelList: this.data,
-                    cssPrefix: this._cssPrefix
-                }) :
-                HeaderView; // Assume if it's not a function, it's an instance
+            // Can't use merge because it doesn't iterate prototype properties,
+            // so would miss the configs from _viewConfig.
+            Y.mix(this._headerConfig, {
+                container: this._tableNode,
+                columns  : this.get('columns'),
+                modelList: this.data
+            }, true);
+
+            this.head = new HeaderView(this._headerConfig);
 
             this.head.addTarget(this);
             this.head.render();
@@ -848,6 +897,39 @@ Y.mix(Table.prototype, {
         this._uiUpdateSummary(this.get('summary'));
 
         this._uiUpdateCaption(caption);
+    },
+
+    /**
+    Builds the table and attaches it to the DOM.  This requires the host class
+    to provide a `contentBox` attribute.  This is typically provided by Widget.
+
+    @method renderUI
+    @protected
+    **/
+    renderUI: function () {
+        var contentBox = this.get('contentBox'),
+            table;
+
+        if (contentBox) {
+            this._renderTable();
+
+            this._renderHeader();
+
+            this._renderFooter();
+
+            this._renderBody();
+
+            table = this._tableNode;
+
+            if (table) {
+                // off DOM or in an existing node attached to a different parentNode
+                if (!table.inDoc() || !table.ancestor().compareTo(contentBox)) {
+                    contentBox.append(table);
+                }
+            } else { Y.log('Problem rendering DataTable: table not created', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
+            }
+        } else { Y.log('Problem rendering DataTable: contentBox not found', 'warn', 'datatable'); // On the same line to allow builder to strip the else clause
+        }
     },
 
     /**
@@ -1037,13 +1119,14 @@ Y.mix(Table.prototype, {
 
     /**
     Verifies the input value is a function with a `render` method on its
-    prototype.
+    prototype.  `null` is also accepted to remove the default View.
 
     @method _validateView
     @protected
     **/
     _validateView: function (val) {
-        return isFunction(val) && val.prototype.render;
+        // TODO support View instances?
+        return val === null || (isFunction(val) && val.prototype.render);
     }
 });
 }, '@VERSION@', { requires: ['model-list'] });
@@ -2236,7 +2319,253 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
 });
 }, '@VERSION@', { requires: ['view', 'gallery-datatable-350-preview-core'] });
 Y.use('gallery-datatable-350-preview-core', 'gallery-datatable-350-preview-head', 'gallery-datatable-350-preview-body');
-// Base, featureless implementation
+/**
+A Widget for displaying tabular data.  The base implementation of DataTable
+provides the ability to dynamically generate an HTML table from a set of column
+configurations and row data.
+
+Two classes are included in the `datatable-base` module:
+
+1. `Y.DataTable` - Main instantiable class, has all loaded features available
+2. `Y.DataTable.Base` - Featureless version for use primarily as a superclass.
+
+Example usage might look like this:
+
+<pre><code>
+// Featureless table, usually used as a subclass, but can be instantiated
+var table = new Y.DataTable.Base({
+    columns: ['firstName', 'lastName', 'age'],
+    data: [
+        { firstName: 'Frank', lastName: 'Zappa', age: 71 },
+        { firstName: 'Frank', lastName: 'Lloyd Wright', age: 144 },
+        { firstName: 'Albert', lastName: 'Einstein', age: 132 },
+        ...
+    ]
+});
+
+table.render('#in-here');
+
+// Table with all loaded features available (not .Base)
+// The functionality of this table would require additional modules be use()d,
+// but the feature APIs are aggregated onto Y.DataTable.
+// (Snippet is for illustration. Not all features are available today.)
+var table = new Y.DataTable({
+    columns: [
+        { type: 'checkbox', defaultChecked: true },
+        { key: 'firstName', sortable: true, resizable: true },
+        { key: 'lastName', sortable: true },
+        { key: 'role', formatter: toRoleName }
+    ],
+    data: {
+        source: 'http://myserver.com/service/json',
+        type: 'json',
+        schema: {
+            resultListLocator: 'results.users',
+            fields: [
+                'username',
+                'firstName',
+                'lastName',
+                { key: 'role', type: 'number' }
+            ]
+        }
+    },
+    recordType: UserModel,
+    pagedData: {
+        location: 'footer',
+        pageSizes: [20, 50, 'all'],
+        rowsPerPage: 20,
+        pageLinks: 5
+    },
+    editable: true,
+    filterable: true
+});
+</code></pre>
+
+### Column Configuration
+
+The column configurations are set in the form of an array of objects, where
+each object corresponds to a column.  For columns populated directly from the
+row data, a 'key' property is required to bind the column to that property or
+attribute in the row data.
+
+Not all columns need to relate to row data, nor do all properties or attributes
+of the row data need to have a corresponding column.  However, only those
+columns included in the `columns` configuration attribute will be rendered.
+
+Other column configuration properties are supported by the configured
+`headerView`, `bodyView`, `footerView` classes as well as any features added by
+plugins or class extensions.  See the description of DataTable.HeaderView,
+DataTable.BodyView, and other DataTable feature classes to see what column
+properties they support.
+
+Some examples of column configurations would be:
+
+<pre><code>
+// Basic
+var columns = [{ key: 'firstName' }, { key: 'lastName' }, { key: 'age' }];
+
+// For columns without any additional configuration, strings can be used
+var columns = ['firstName', 'lastName', 'age'];
+
+// Multi-row column headers (see DataTable.HeaderView for details)
+var columns = [
+    {
+        label: 'Name',
+        children: [
+            { key: 'firstName' },
+            { key: 'lastName' }
+        ]
+    },
+    'age' // mixing and matching objects and strings is ok
+];
+
+// Including columns that are not related 1:1 to row data fields/attributes
+// (See DataTable.BodyView for details)
+var columns = [
+    {
+        label: 'Name', // Needed for the column header
+        formatter: function (o) {
+            // Fill the column cells with data from firstName and lastName
+            if (o.data.age > 55) {
+                o.classnames += ' senior';
+            }
+            return o.data.lastName + ', ' + o.data.firstName;
+        }
+    },
+    'age'
+];
+
+// Columns that include feature configurations (for illustration; not all
+// features are available today).
+var columns = [
+    { type: 'checkbox', defaultChecked: true },
+    { key: 'firstName', sortable: true, resizable: true, min-width: '300px' },
+    { key: 'lastName', sortable: true, resizable: true, min-width: '300px' },
+    { key: 'age', emptyCellValue: '<em>unknown</em>' }
+];
+</code></pre>
+
+### Row Data Configuration
+
+The `data` configuration attribute is responsible for housing the data objects that will be rendered as rows.  You can provide this information in two ways by default:
+
+1. An array of simple objects with key:value pairs
+2. A ModelList of Base-based class instances (presumably Model subclass
+   instances)
+
+If an array of objects is passed, it will be translated into a ModelList filled
+with instances of the class provided to the `recordType` attribute.  This
+attribute can also create a custom Model subclass from an array of field names
+or an object of attribute configurations.  If no `recordType` is provided, one
+will be created for you from available information (see `_initRecordType`).
+Providing either your own ModelList instance for `data`, or at least Model
+class for `recordType`, is the best way to control client-server
+synchronization when modifying data on the client side.
+
+The ModelList instance that manages the table's data is available in the `data`
+property on the DataTable instance.
+
+
+### Rendering
+
+Table rendering is a collaborative process between the DataTable and its
+configured `headerView`, `bodyView`, and `footerView`.  The DataTable renders
+the `<table>` and `<caption>`, but the contents of the table are delegated to
+instances of the classes provided to the `headerView`, `bodyView`, and
+`footerView` attributes. If any of these attributes is unset, that portion of
+the table won't be rendered.
+
+DataTable.Base assigns the default `headerView` to `Y.DataTable.HeaderView` and
+the default `bodyView` to `Y.DataTable.BodyView`, though either can be
+overridden for custom rendering.  No default `footerView` is assigned. See
+those classes for more details about how they operate.
+
+@module datatable-base
+@main
+**/
+
+// DataTable API docs included before DataTable.Base to make yuidoc work
+/**
+A Widget for displaying tabular data.  Before feature modules are `use()`d,
+this class is functionally equivalent to DataTable.Base.  However, feature
+modules can modify this class in non-destructive ways, expanding the API and
+functionality.
+
+This is the primary DataTable class.  Out of the box, it provides the ability
+to dynamically generate an HTML table from a set of column configurations and
+row data.  But feature module inclusion can add table sorting, pagintaion,
+highlighting, selection, and more.
+
+<pre><code>
+// Basic use
+var table = new Y.DataTable({
+    columns: ['firstName', 'lastName', 'age'],
+    data: [
+        { firstName: 'Frank', lastName: 'Zappa', age: 71 },
+        { firstName: 'Frank', lastName: 'Lloyd Wright', age: 144 },
+        { firstName: 'Albert', lastName: 'Einstein', age: 132 },
+        ...
+    ]
+});
+
+table.render('#in-here');
+
+// Table with loaded features.
+// The functionality of this table would require additional modules be use()d,
+// but the feature APIs are aggregated onto Y.DataTable.
+// (Snippet is for illustration. Not all features are available today.)
+var table = new Y.DataTable({
+    columns: [
+        { type: 'checkbox', defaultChecked: true },
+        { key: 'firstName', sortable: true, resizable: true },
+        { key: 'lastName', sortable: true },
+        { key: 'role', formatter: toRoleName }
+    ],
+    data: {
+        source: 'http://myserver.com/service/json',
+        type: 'json',
+        schema: {
+            resultListLocator: 'results.users',
+            fields: [
+                'username',
+                'firstName',
+                'lastName',
+                { key: 'role', type: 'number' }
+            ]
+        }
+    },
+    recordType: UserModel,
+    pagedData: {
+        location: 'footer',
+        pageSizes: [20, 50, 'all'],
+        rowsPerPage: 20,
+        pageLinks: 5
+    },
+    editable: true,
+    filterable: true
+});
+</code></pre>
+
+@class DataTable
+@extends DataTable.Base
+**/
+
+// DataTable API docs included before DataTable.Base to make yuidoc work
+/**
+The baseline implementation of a DataTable.  This class should be used
+primarily as a superclass for a custom DataTable with a specific set of
+features.  Because features can be composed onto `Y.DataTable`, custom
+subclasses of DataTable.Base will remain unmodified when new feature modules
+are loaded.
+
+DataTable.Base is built from DataTable.Core, and sets the default `headerView`
+to `Y.DataTable.HeaderView` and default `bodyView` to `Y.DataTable.BodyView`.
+
+@class Base
+@extends Widget
+@uses DataTable.Core
+@namespace DataTable
+**/
 Y.DataTable.Base = Y.Base.create('datatable', Y.Widget, [Y.DataTable.Core],
     null, {
         ATTRS: {
@@ -2246,7 +2575,7 @@ Y.DataTable.Base = Y.Base.create('datatable', Y.Widget, [Y.DataTable.Core],
         }
     });
 
-// Mutable implementation, derived initially from DataTable.Base
+// The DataTable API docs are above DataTable.Base docs.
 Y.DataTable = Y.mix(
     Y.Base.create('datatable', Y.DataTable.Base, []), // Create the class
     Y.DataTable); // Migrate static and namespaced classes
