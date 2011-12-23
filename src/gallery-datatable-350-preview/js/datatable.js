@@ -1270,15 +1270,6 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
     // -- Public methods ------------------------------------------------------
 
     /**
-    Destroys the instance.
-
-    @method destructor
-    **/
-    destructor: function () {
-        (new Y.EventHandle(this._eventHandles)).detach();
-    },
-
-    /**
     Builds a CSS class name from the provided tokens.  If the instance is
     created with `cssPrefix` or `source` in the configuration, it will use this
     prefix (the `\_cssPrefix` of the `source` object) as the base token.  This
@@ -1317,9 +1308,10 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
                             // TODO: remove dependence on this.source
                             linerClass: this.getClassName('liner')
                        },
-            existing, replace, i, len, j, jlen, col, html;
+            existing, i, len, j, jlen, col, html;
 
         table = Y.one(table);
+
         if (table && table.get('tagName') !== 'TABLE') {
             table = table.one('table');
         }
@@ -1329,10 +1321,17 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
             return this;
         }
 
-        existing = table.one('> .' + this.getClassName('columns'));
-        replace  = existing && (!thead || !thead.compareTo(existing));
+        // TODO: limit to correctly classed thead?  Then I would need to
+        // replace a found thead without the class.
+        existing = table.one('> thead');
 
-        if (!thead) {
+        if (existing) {
+            if (!existing.compareTo(thead)) {
+                existing.replace(thead);
+            } else {
+                this._theadNode = existing;
+            }
+        } else {
             thead = '';
 
             if (columns.length) {
@@ -1358,17 +1357,12 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
                 }
             }
 
-            thead = fromTemplate(this.THEAD_TEMPLATE, {
-                classes: this.getClassName('columns'),
-                content: thead
-            });
-        }
-
-        if (existing) {
-            if (replace) {
-                existing.replace(thead);
-            }
-        } else {
+            this._theadNode = thead = Y.Node.create(
+                fromTemplate(this.THEAD_TEMPLATE, {
+                    classes: this.getClassName('columns'),
+                    content: thead
+                }));
+            
             table.insertBefore(thead, table.one('> tfoot, > tbody'));
         }
 
@@ -1391,12 +1385,19 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
     /**
     Handles changes in the source's columns attribute.  Redraws the headers.
 
-    @method _afterColumnChange
+    @method _afterColumnsChange
     @param {EventFacade} e The `columnsChange` event object
     @protected
     **/
-    _afterColumnChange: function (e) {
-        // TODO
+    _afterColumnsChange: function (e) {
+        this.columns = this._parseColumns(e.newVal);
+
+        if (this._theadNode) {
+            this._theadNode.remove().destroy(true);
+            delete this._theadNode;
+        }
+
+        this.render();
     },
 
     /**
@@ -1406,12 +1407,34 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
     @protected
     **/
     bindUI: function () {
-        if (this.source) {
+        if (this.source && !this._eventHandles.columnsChange) {
             // TODO: How best to decouple this?
-            this._eventHandles.push(
-                this.source.after('columnsChange', this._afterColumnsChange));
+            this._eventHandles.columnsChange =
+                this.source.after('columnsChange',
+                    Y.bind('_afterColumnsChange', this));
         }
     },
+
+    /**
+    Destroys the instance.
+
+    @method destructor
+    @protected
+    **/
+    destructor: function () {
+        (new Y.EventHandle(Y.Object.values(this._eventHandles))).detach();
+    },
+
+    /**
+    Holds the event subscriptions needing to be detached when the instance is
+    `destroy()`ed.
+
+    @property _eventHandles
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_eventHandles: null,
 
     /**
     Initializes the instance. Reads the following configuration properties:
@@ -1681,10 +1704,11 @@ advisable to always return `false` from your `nodeFormatter`s_.
 **/
 var Lang         = Y.Lang,
     isArray      = Lang.isArray,
-    // TODO: Use this when generating content unless column.allowHTML
-    //htmlEscape   = Y.Escape.html,
+    htmlEscape   = Y.Escape.html,
     fromTemplate = Y.Lang.sub,
     toArray      = Y.Array,
+    bind         = Y.bind,
+    YObject      = Y.Object,
 
     ClassNameManager = Y.ClassNameManager,
     _getClassName    = ClassNameManager.getClassName;
@@ -1767,14 +1791,6 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     TBODY_TEMPLATE: '<tbody class="{classes}">{content}</tbody>',
 
     // -- Public methods ------------------------------------------------------
-    /**
-    Destroys the instance.
-
-    @method destructor
-    **/
-    destructor: function () {
-        (new Y.EventHandle(this._eventHandles)).detach();
-    },
 
     /**
     Returns the `<td>` Node from the given row and column index.  If there is
@@ -1922,7 +1938,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
             data     = this.get('modelList'),
             columns  = this.columns,
             tbody    = this._tbodyNode,
-            existing, replace;
+            existing;
 
         table =  Y.one(table);
 
@@ -1936,26 +1952,31 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         }
 
         existing = table.one('> .' + this.getClassName('data'));
-        replace  = existing && (!tbody || !tbody.compareTo(existing));
 
         // Needed for mutation
         this._createRowTemplate(columns);
 
-        if ((!tbody || replace) && data) {
+        if (existing) {
+            if (tbody) {
+                if (!existing.compareTo(tbody)) {
+                    existing.replace(tbody);
+                }
+            } else {
+                this._tbodyNode = existing;
+            }
+        } else if (data) {
             tbody = Y.Node.create(this._createDataHTML(columns));
 
             this._applyNodeFormatters(tbody, columns);
-        }
 
-        if (existing) {
-            if (replace) {
-                existing.replace(tbody);
-            }
-        } else {
             table.append(tbody);
+
+            this._tbodyNode = tbody;
         }
 
-        this.bindUI();
+        if (this._tbodyNode) {
+            this.bindUI();
+        }
 
         return this;
     },
@@ -1976,9 +1997,13 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     // 3. column additions
     // 4. column moves (preserve cells)
     _afterColumnsChange: function (e) {
-        this._parseColumns(e.newVal);
+        this.columns = this._parseColumns(e.newVal);
 
-        // FIXME: This will call bindUI() a second time.
+        if (this._tbodyNode) {
+            this._tbodyNode.remove().destroy(true);
+            delete this._tbodyNode;
+        }
+
         this.render();
     },
     
@@ -1992,11 +2017,18 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     @protected
     **/
     _afterDataChange: function (e) {
-        // TODO
+        // Baseline view will just rerender the tbody entirely
+        if (this._tbodyNode) {
+            this._tbodyNode.remove().destroy(true);
+            delete this._tbodyNode;
+        }
+
+        this.render();
     },
 
     /**
-    Iterates the `modelList`, and calls any `nodeFormatter`s found in the `columns` param on the appropriate cell Nodes in the `tbody`.
+    Iterates the `modelList`, and calls any `nodeFormatter`s found in the
+    `columns` param on the appropriate cell Nodes in the `tbody`.
 
     @method _applyNodeFormatters
     @param {Node} tbody The `<tbody>` Node whose columns to update
@@ -2065,11 +2097,20 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     @protected
     **/
     bindUI: function () {
-        this._eventHandles.push(
-            this.source.after('columnChange', this._afterColumnChange),
-            this.get('modelList').after(
-                ['*:change', '*:destroy'],
-                this._afterDataChange, this));
+        var handles = this._eventHandles,
+            data    = this.get('modelList');
+
+        if (this.source && !handles.columnsChange) {
+            handles.columnsChange =
+                this.source.after('columnsChange',
+                    bind('_afterColumnsChange', this));
+        }
+
+        if (!handles.dataChange) {
+            handles.dataChange = 
+                data.after(['*:change', '*:add', '*:remove', '*:destroy', '*:reset'],
+                    bind('_afterDataChange', this));
+        }
     },
 
     /**
@@ -2145,20 +2186,23 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     **/
     _createRowHTML: function (model, index) {
         var data    = model.getAttrs(),
+            // To prevent formatters from leaking changes when more than one
+            // column refer to the same key
+            values  = YObject(data),
             source  = this.source || this,
             columns = this.columns,
-            i, len, col, key, value, formatterData;
+            i, len, col, token, value, formatterData;
 
         // TODO: Be consistent and change to row-classes? This could be
         // clobbered by a column named 'row'.
-        data.rowClasses = (index % 2) ? this.CLASS_ODD : this.CLASS_EVEN;
+        values.rowClasses = (index % 2) ? this.CLASS_ODD : this.CLASS_EVEN;
 
         for (i = 0, len = columns.length; i < len; ++i) {
             col   = columns[i];
-            key   = col.key || col._yuid;
-            value = data[key];
+            value = data[col.key];
+            token = col._renderToken || col.key || col._yuid;
 
-            data[key + '-classes'] = '';
+            values[token + '-classes'] = '';
 
             if (col.formatter) {
                 formatterData = {
@@ -2182,7 +2226,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
                         value = formatterData.value;
                     }
 
-                    data[key + '-classes'] = formatterData.classnames;
+                    values[token + '-classes'] = formatterData.classnames;
                 }
             }
 
@@ -2191,10 +2235,10 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
                 value = col.emptyCellValue;
             }
 
-            data[key] = value;
+            values[token] = col.allowHTML ? value : htmlEscape(value);
         }
 
-        return fromTemplate(this._rowTemplate, data);
+        return fromTemplate(this._rowTemplate, values);
     },
 
     /**
@@ -2212,17 +2256,31 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         var html         = '',
             cellTemplate = this.CELL_TEMPLATE,
             linerClass   = this.getClassName('liner'),
-            i, len, col, key, tokenValues;
+            tokens       = {},
+            i, len, col, key, token, tokenValues;
 
         for (i = 0, len = columns.length; i < len; ++i) {
             col = columns[i];
+            key = col.key;
 
-            key = col.key || col.name || col._yuid;
+            if (key) {
+                if (tokens[key]) {
+                    token = key + (tokens[key]++);
+                    col._renderToken = token;
+                } else {
+                    token = key;
+                    tokens[key] = 1;
+                }
+            } else {
+                token = col.name || col._yuid;
+            }
+
             tokenValues = {
-                content   : '{' + key + '}',
+                content   : '{' + token + '}',
                 headers   : col.headers.join(' '),
                 linerClass: linerClass,
-                classes   : this.getClassName(key) + ' {' + key + '-classes}'
+                // TODO: should this be getClassName(token)? Both?
+                classes   : this.getClassName(key) + ' {' + token + '-classes}'
             };
 
             if (col.nodeFormatter) {
@@ -2238,6 +2296,27 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
             content: html
         });
     },
+
+    /**
+    Destroys the instance.
+
+    @method destructor
+    @protected
+    **/
+    destructor: function () {
+        (new Y.EventHandle(YObject.values(this._eventHandles))).detach();
+    },
+
+    /**
+    Holds the event subscriptions needing to be detached when the instance is
+    `destroy()`ed.
+
+    @property _eventHandles
+    @type {Object}
+    @default undefined (initially unset)
+    @protected
+    **/
+    //_eventHandles: null,
 
     /**
     Initializes the instance. Reads the following configuration properties in
@@ -2258,7 +2337,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         this.columns = this._parseColumns(config.columns);
         this._tbodyNode = config.tbodyNode;
 
-        this._eventHandles = [];
+        this._eventHandles = {};
 
         if (cssPrefix) {
             this._cssPrefix = cssPrefix;
