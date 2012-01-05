@@ -50,6 +50,8 @@
             
                 <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
             
+                <li><a href="../classes/DataTable.Mutable.html">DataTable.Mutable</a></li>
+            
                 <li><a href="../classes/JSONPRequest.html">JSONPRequest</a></li>
             
                 <li><a href="../classes/Plugin.html">Plugin</a></li>
@@ -75,6 +77,8 @@
                 <li><a href="../modules/datatable-core.html">datatable-core</a></li>
             
                 <li><a href="../modules/datatable-head.html">datatable-head</a></li>
+            
+                <li><a href="../modules/datatable-mutable.html">datatable-mutable</a></li>
             
                 <li><a href="../modules/event-drag.html">event-drag</a></li>
             
@@ -135,7 +139,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2567"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2567</code></a>
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2630"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2630</code></a>
         </div>
     
 
@@ -222,6 +226,8 @@ var table = new Y.DataTable({
             <li class="api-class-tab attrs"><a href="#attrs">Attributes</a></li>
         
         
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
+        
     </ul>
 
     <div>
@@ -254,6 +260,30 @@ var table = new Y.DataTable({
                         
                             <li class="index-item method protected inherited">
                                 <a href="#method__createRecordClass">_createRecordClass</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__defAddColumnFn">_defAddColumnFn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__defModifyColumnFn">_defModifyColumnFn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__defMoveColumnFn">_defMoveColumnFn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__defRemoveColumnFn">_defRemoveColumnFn</a>
 
                                 
                             </li>
@@ -378,6 +408,24 @@ var table = new Y.DataTable({
                                 
                             </li>
                         
+                            <li class="index-item method">
+                                <a href="#method_addColumn">addColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_addRow">addRow</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_addRows">addRows</a>
+
+                                
+                            </li>
+                        
                             <li class="index-item method protected inherited">
                                 <a href="#method_bindUI">bindUI</a>
 
@@ -404,6 +452,36 @@ var table = new Y.DataTable({
                         
                             <li class="index-item method protected inherited">
                                 <a href="#method_initializer">initializer</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_modifyColumn">modifyColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_modifyRow">modifyRow</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_moveColumn">moveColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_removeColumn">removeColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_removeRow">removeRow</a>
 
                                 
                             </li>
@@ -551,6 +629,38 @@ var table = new Y.DataTable({
             
 
             
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events">
+                        
+                            <li class="index-item event">
+                                <a href="#event_addColumn">addColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_modifyColumn">modifyColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_moveColumn">moveColumn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_removeColumn">removeColumn</a>
+
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
         </div>
 
         
@@ -596,7 +706,7 @@ var table = new Y.DataTable({
                 <a href="DataTable.Core.html#method__afterCaptionChange">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l439"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:439</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l500"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:500</code></a></p>
 
         
 
@@ -676,7 +786,7 @@ var table = new Y.DataTable({
                 <a href="DataTable.Core.html#method__afterColumnsChange">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l450"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:450</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l511"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:511</code></a></p>
 
         
 
@@ -757,7 +867,7 @@ attribute.</p>
                 <a href="DataTable.Core.html#method__afterSummaryChange">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l462"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:462</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l523"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:523</code></a></p>
 
         
 
@@ -841,7 +951,7 @@ attribute.</p>
                 <a href="DataTable.Core.html#method__createRecordClass">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l487"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:487</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l548"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:548</code></a></p>
 
         
 
@@ -899,6 +1009,436 @@ set.</p>
 </div>
 
                 
+                    <div id="method__defAddColumnFn" class="method item protected">
+    <h3 class="name"><code>_defAddColumnFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2977"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2977</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default function for the <code>addColumn</code> event.</p>
+
+<p>Inserts the specified column at the provided index.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>addColumn</code> event
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                <code class="param-name">column</code>
+                                <span class="type">Object</span>
+
+                                <div class="param-description">
+                                    The new column definition object
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                <code class="param-name">index</code>
+                                <span class="type">Number | Number</span>
+
+                                <div class="param-description">
+                                    The array index to insert the new column
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__defModifyColumnFn" class="method item protected">
+    <h3 class="name"><code>_defModifyColumnFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3006"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3006</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default function for the <code>modifyColumn</code> event.</p>
+
+<p>Mixes the new column properties into the specified column definition.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>modifyColumn</code> event
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                <code class="param-name">column</code>
+                                <span class="type">Object | String | Number | Number</span>
+
+                                <div class="param-description">
+                                    The column definition object or identifier
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                <code class="param-name">newColumnDef</code>
+                                <span class="type">Object</span>
+
+                                <div class="param-description">
+                                    The properties to assign to the column
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__defMoveColumnFn" class="method item protected">
+    <h3 class="name"><code>_defMoveColumnFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3029"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3029</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default function for the <code>moveColumn</code> event.</p>
+
+<p>Removes the specified column from its current location and inserts it at the
+specified array index (may be an array of indexes for nested headers).</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>moveColumn</code> event
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                <code class="param-name">column</code>
+                                <span class="type">Object | String | Number | Number</span>
+
+                                <div class="param-description">
+                                    The column definition object or identifier
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                <code class="param-name">index</code>
+                                <span class="type">Object</span>
+
+                                <div class="param-description">
+                                    The destination index to move to
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__defRemoveColumnFn" class="method item protected">
+    <h3 class="name"><code>_defRemoveColumnFn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3070"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3070</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Default function for the <code>removeColumn</code> event.</p>
+
+<p>Splices the specified column from its containing columns array.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The <code>removeColumn</code> event
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                <code class="param-name">column</code>
+                                <span class="type">Object | String | Number | Number</span>
+
+                                <div class="param-description">
+                                    The column definition object or identifier
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method__getColumns" class="method item protected inherited">
     <h3 class="name"><code>_getColumns</code></h3>
 
@@ -943,7 +1483,7 @@ set.</p>
                 <a href="DataTable.Core.html#method__getColumns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l515"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:515</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l576"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:576</code></a></p>
 
         
 
@@ -1050,7 +1590,7 @@ specific column object if <code>instance.get('columns.columnKey')</code> is call
                 <a href="DataTable.Core.html#method__getColumnset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l534"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:534</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l594"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:594</code></a></p>
 
         
             <p>Deprecated: This will be removed with the <code>columnset</code> attribute in a future
@@ -1153,7 +1693,7 @@ expect a Columnset instance returned from <code>get('columnset')</code>.</p>
                 <a href="DataTable.Core.html#method__getData">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l553"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:553</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l613"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:613</code></a></p>
 
         
 
@@ -1225,7 +1765,7 @@ raw data (presumably an empty array or <code>undefined</code>).</p>
                 <a href="DataTable.Core.html#method__initColumns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l566"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:566</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l626"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:626</code></a></p>
 
         
 
@@ -1276,7 +1816,7 @@ the <code>columnMap</code> empty.</p>
                 <a href="DataTable.Core.html#method__initData">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l592"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:592</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l652"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:652</code></a></p>
 
         
 
@@ -1327,7 +1867,7 @@ the array data.  This ModelList is then assigned to <code>this.data</code>.</p>
                 <a href="DataTable.Core.html#method__initRecordType">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l646"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:646</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l706"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:706</code></a></p>
 
         
 
@@ -1396,7 +1936,7 @@ empty, it will call <code></em>initColumns</code>.</p>
                 <a href="DataTable.Core.html#method__initViewConfig">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l737"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:737</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l797"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:797</code></a></p>
 
         
 
@@ -1467,7 +2007,7 @@ configs.</p>
                 <a href="DataTable.Core.html#method__parseColumns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l763"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:763</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l823"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:823</code></a></p>
 
         
 
@@ -1561,7 +2101,7 @@ corresponding column object as the associated value.</p>
                 <a href="DataTable.Core.html#method__renderBody">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l803"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:803</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l863"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:863</code></a></p>
 
         
 
@@ -1608,7 +2148,7 @@ corresponding column object as the associated value.</p>
                 <a href="DataTable.Core.html#method__renderFooter">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l830"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:830</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l890"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:890</code></a></p>
 
         
 
@@ -1655,7 +2195,7 @@ corresponding column object as the associated value.</p>
                 <a href="DataTable.Core.html#method__renderHeader">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l855"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:855</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l915"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:915</code></a></p>
 
         
 
@@ -1702,7 +2242,7 @@ corresponding column object as the associated value.</p>
                 <a href="DataTable.Core.html#method__renderTable">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l881"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:881</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l941"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:941</code></a></p>
 
         
 
@@ -1761,7 +2301,7 @@ corresponding column object as the associated value.</p>
                 <a href="DataTable.Core.html#method__setColumnMap">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l935"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:935</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l995"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:995</code></a></p>
 
         
 
@@ -1846,7 +2386,7 @@ column definitions passed.</p>
                 <a href="DataTable.Core.html#method__setColumnset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l948"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:948</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1008"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1008</code></a></p>
 
         
             <p>Deprecated: This will be removed with the deprecated <code>columnset</code> attribute
@@ -1921,7 +2461,7 @@ structure is mined.</p>
                 <a href="DataTable.Core.html#method__setData">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l967"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:967</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1027"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1027</code></a></p>
 
         
 
@@ -1991,7 +2531,7 @@ than replacing the stored ModelList wholesale.</p>
                 <a href="DataTable.Core.html#method__setRecordset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1014"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1014</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1074"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1074</code></a></p>
 
         
             <p>Deprecated: This will be removed with the deprecated <code>recordset</code> attribute
@@ -2080,7 +2620,7 @@ will be culled from it.</p>
                 <a href="DataTable.Core.html#method__setRecordType">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1039"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1039</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1099"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1099</code></a></p>
 
         
 
@@ -2180,7 +2720,7 @@ assigned as the <code>ATTRS</code> of the new class).</p>
                 <a href="DataTable.Core.html#method__uiUpdateCaption">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1067"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1067</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1127"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1127</code></a></p>
 
         
 
@@ -2251,7 +2791,7 @@ value.  Empty values result in the caption being removed.</p>
                 <a href="DataTable.Core.html#method__uiUpdateSummary">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1110"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1110</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1170"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1170</code></a></p>
 
         
 
@@ -2298,7 +2838,7 @@ value.  Empty values result in the caption being removed.</p>
                 <a href="DataTable.Core.html#method__validateView">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1120"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1120</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1180"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1180</code></a></p>
 
         
 
@@ -2312,6 +2852,362 @@ prototype.  <code>null</code> is also accepted to remove the default View.</p>
 
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_addColumn" class="method item">
+    <h3 class="name"><code>addColumn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>config</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[index]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2757"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2757</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds the column configuration to the DataTable's <code>columns</code> configuration.
+If the <code>index</code> parameter is supplied, it is injected at that index.  If the
+table has nested headers, inject a subcolumn by passing an array of indexes
+to identify the new column's final location.</p>
+
+<p>The <code>index</code> parameter is required if adding a nested column.</p>
+
+<p>This method is a convienience method for fetching the DataTable's <code>columns</code>
+attribute, updating it, and calling 
+<code>table.set('columns', <em>updatedColumnsDefs</em>)</code></p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">config</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The new column configuration object
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[index]</code>
+                        <span class="type">Number | Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        the insertion index
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>// Becomes last column
+table.addColumn('name');</p>
+
+<p>// Inserted after the current second column, moving the current third column
+// to index 4
+table.addColumn({ key: 'price', formatter: currencyFormatter }, 2 );</p>
+
+<p>// Insert a new column in a set of headers three rows deep.  The index array
+// translates to
+// [ 2, --  in the third column's children
+//   1, --  in the second child's children
+//   3 ] -- as the fourth child column
+table.addColumn({ key: 'age', sortable: true }, [ 2, 1, 3 ]);</p>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_addRow" class="method item">
+    <h3 class="name"><code>addRow</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>data</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2887"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2887</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds a new record to the DataTable's <code>data</code> ModelList.  Record data can be
+an object of field values or an instance of the DataTable's configured
+<code>recordType</code> class.</p>
+
+<p>This relays all parameters to the <code>data</code> ModelList's <code>add</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">data</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The data or Model instance for the new record
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_addRows" class="method item">
+    <h3 class="name"><code>addRows</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>data</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3119"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3119</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds an array of new records to the DataTable's <code>data</code> ModelList.  Record data
+can be an array of objects containing field values or an array of instance of
+the DataTable's configured <code>recordType</code> class.</p>
+
+<p>This relays all parameters to the <code>data</code> ModelList's <code>add</code> method.</p>
+
+<p>Technically, this is an alias to <code>addRow</code>, but please use the appropriately
+named method for readability.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">data</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The data or Model instances to add
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -2346,7 +3242,7 @@ prototype.  <code>null</code> is also accepted to remove the default View.</p>
                 <a href="DataTable.Core.html#method_bindUI">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l473"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:473</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l534"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:534</code></a></p>
 
         
 
@@ -2411,7 +3307,7 @@ prototype.  <code>null</code> is also accepted to remove the default View.</p>
                 <a href="DataTable.Core.html#method_getCell">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l320"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:320</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l323"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:323</code></a></p>
 
         
 
@@ -2492,7 +3388,7 @@ If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>u
             
                 <li class="arg">
                     
-                        <code>key</code>
+                        <code>name</code>
                     
                 </li>
             
@@ -2523,7 +3419,7 @@ If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>u
                 <a href="DataTable.Core.html#method_getColumn">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l335"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:335</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l338"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:338</code></a></p>
 
         
 
@@ -2531,8 +3427,14 @@ If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>u
     </div>
 
     <div class="description">
-        <p>Gets the column configuration object for the given key.
-<code>instance.getColumn('foo')</code> is an alias for <code>instance.get('columns.foo')</code>.</p>
+        <p>Gets the column configuration object for the given key, name, or index.  For
+nested columns, <code>name</code> can be an array of indexes, each identifying the index
+of that column in the respective parent's "children" array.</p>
+
+<p>If you pass a column object, it will be returned.</p>
+
+<p>For columns with keys, you can also fetch the column with
+<code>instance.get('columns.foo')</code>.</p>
     </div>
 
     
@@ -2543,14 +3445,15 @@ If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>u
             
                 <li class="param">
                     
-                        <code class="param-name">key</code>
-                        <span class="type">String</span>
+                        <code class="param-name">name</code>
+                        <span class="type">String | Number | Number</span>
                     
 
                     
 
                     <div class="param-description">
-                        
+                        Key, "name", index, or index array to
+            identify the column
                     </div>
 
                     
@@ -2619,7 +3522,7 @@ If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>u
                 <a href="DataTable.Core.html#method_getRow">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l347"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:347</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l408"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:408</code></a></p>
 
         
 
@@ -2699,12 +3602,13 @@ If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>un
 
     <div class="meta">
         
-            
-                <p>Inherited from
-                <a href="DataTable.Core.html#method_initializer">DataTable.Core</a>:
-            
+            <p>Inherited from
+            <a href="DataTable.Core.html#method_initializer">
+                DataTable.Core
+            </a>
+            but overwritten in
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l628"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:628</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3098"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3098</code></a></p>
 
         
 
@@ -2712,11 +3616,582 @@ If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>un
     </div>
 
     <div class="description">
-        <p>Initializes the columns, <code>recordType</code> and data ModelList.</p>
+        <p>Publishes the events used by the mutation methods:</p>
+
+<ul>
+<li>addColumn</li>
+<li>removeColumn</li>
+<li>modifyColumn</li>
+<li>moveColumn</li>
+</ul>
     </div>
 
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_modifyColumn" class="method item">
+    <h3 class="name"><code>modifyColumn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>name</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>config</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2808"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2808</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Updates an existing column definition. Fires the <code>modifyColumn</code> event.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">name</code>
+                        <span class="type">String | Number | Number | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column key, name, index, or
+            current configuration object
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">config</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The new column configuration properties
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>// Add a formatter to the existing 'price' column definition
+table.modifyColumn('price', { formatter: currencyFormatter });</p>
+
+<p>// Change the label on a header cell in a set of nested headers three rows
+// deep.  The index array translates to
+// [ 2,  -- in the third column's children
+//   1,  -- the second child
+//   3 ] -- the fourth child column
+table.modifyColumn([2, 1, 3], { label: 'Experience' });</p>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_modifyRow" class="method item">
+    <h3 class="name"><code>modifyRow</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>id</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2941"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2941</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Updates an existing record in the DataTable's <code>data</code> ModelList.  The record
+can be provided explicitly or targeted by it's <code>id</code> (see ModelList's
+<code>getById</code> method), <code>clientId</code>, or index in the ModelList.</p>
+
+<p>After locating the target Model, this relays the all other passed
+arguments to the Model's <code>setAttrs</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">id</code>
+                        <span class="type">Object | String | Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The Model instance or identifier
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_moveColumn" class="method item">
+    <h3 class="name"><code>moveColumn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>name</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>index</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2844"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2844</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Moves an existing column to a new location. Fires the <code>moveColumn</code> event.</p>
+
+<p>The destination index can be a number or array of numbers to place a column
+header in a nested header row.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">name</code>
+                        <span class="type">String | Number | Number | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column key, name, index, or
+            current configuration object
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">index</code>
+                        <span class="type">Number | Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The destination index of the column
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeColumn" class="method item">
+    <h3 class="name"><code>removeColumn</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>name</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2868"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2868</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes an existing column. Fires the <code>removeColumn</code> event.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">name</code>
+                        <span class="type">String | Number | Number | Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column key, name, index, or
+            current configuration object
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeRow" class="method item">
+    <h3 class="name"><code>removeRow</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>id</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2907"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2907</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes a record from the DataTable's <code>data</code> ModelList.  The record can be
+provided explicitly or targeted by it's <code>id</code> (see ModelList's <code>getById</code>
+method), <code>clientId</code>, or index in the ModelList.</p>
+
+<p>After locating the target Model, this relays the Model and all other passed
+arguments to the <code>data</code> ModelList's <code>remove</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">id</code>
+                        <span class="type">Object | String | Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The Model instance or identifier
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -2751,7 +4226,7 @@ If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>un
                 <a href="DataTable.Core.html#method_renderUI">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l902"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:902</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l962"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:962</code></a></p>
 
         
 
@@ -2800,7 +4275,7 @@ to provide a <code>contentBox</code> attribute.  This is typically provided by W
                 <a href="DataTable.Core.html#property__bodyConfig">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l363"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:363</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l424"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:424</code></a></p>
 
         
 
@@ -2843,7 +4318,7 @@ render.</p>
                 <a href="DataTable.Core.html#property__columnMap">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l376"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:376</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l437"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:437</code></a></p>
 
         
 
@@ -2884,7 +4359,7 @@ render.</p>
                 <a href="DataTable.Core.html#property__footerConfig">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l387"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:387</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l448"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:448</code></a></p>
 
         
 
@@ -2927,7 +4402,7 @@ render.</p>
                 <a href="DataTable.Core.html#property__headerConfig">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l400"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:400</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l461"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:461</code></a></p>
 
         
 
@@ -2970,7 +4445,7 @@ render.</p>
                 <a href="DataTable.Core.html#property__tableNode">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l413"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:413</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l474"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:474</code></a></p>
 
         
 
@@ -3012,7 +4487,7 @@ though this extension does not provide the logic to parse from source.</p>
                 <a href="DataTable.Core.html#property__viewConfig">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l425"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:425</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l486"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:486</code></a></p>
 
         
 
@@ -3054,7 +4529,7 @@ want them in all three of the other config objects.</p>
                 <a href="DataTable.Core.html#property_body">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l276"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:276</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l279"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:279</code></a></p>
 
         
 
@@ -3094,7 +4569,7 @@ content.</p>
                 <a href="DataTable.Core.html#property_CAPTION_TEMPLATE">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l257"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:257</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l260"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:260</code></a></p>
 
         
 
@@ -3133,7 +4608,7 @@ attribute is set.</p>
                 <a href="DataTable.Core.html#property_data">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l309"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:309</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l312"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:312</code></a></p>
 
         
 
@@ -3171,7 +4646,7 @@ attribute is set.</p>
                 <a href="DataTable.Core.html#property_foot">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l287"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:287</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l290"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:290</code></a></p>
 
         
 
@@ -3211,7 +4686,7 @@ content.</p>
                 <a href="DataTable.Core.html#property_head">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l298"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:298</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l301"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:301</code></a></p>
 
         
 
@@ -3251,7 +4726,7 @@ content.</p>
                 <a href="DataTable.Core.html#property_TABLE_TEMPLATE">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l267"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:267</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l270"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:270</code></a></p>
 
         
 
@@ -3298,7 +4773,7 @@ content.</p>
                 <a href="DataTable.Core.html#attr_bodyView">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l168"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:168</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l171"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:171</code></a></p>
 
         
 
@@ -3351,7 +4826,7 @@ built from this extension should define a default.</p>
                 <a href="DataTable.Core.html#attr_caption">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l208"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:208</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l211"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:211</code></a></p>
 
         
 
@@ -3393,7 +4868,7 @@ Leave this config unset or set to a falsy value to remove the caption.</p>
                 <a href="DataTable.Core.html#attr_columns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l37"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:37</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l40"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:40</code></a></p>
 
         
 
@@ -3451,7 +4926,7 @@ add to column definitions.</p>
                 <a href="DataTable.Core.html#attr_columnset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l235"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:235</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l238"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:238</code></a></p>
 
         
             <p>Deprecated: Use the <code>columns</code> attribute</p>
@@ -3498,7 +4973,7 @@ be extracted for use.</p>
                 <a href="DataTable.Core.html#attr_data">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l96"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:96</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l99"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:99</code></a></p>
 
         
 
@@ -3548,7 +5023,7 @@ property.</p>
                 <a href="DataTable.Core.html#attr_footerView">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l143"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:143</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l146"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:146</code></a></p>
 
         
 
@@ -3601,7 +5076,7 @@ built from this extension should define a default if appropriate.</p>
                 <a href="DataTable.Core.html#attr_headerView">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l118"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:118</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l121"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:121</code></a></p>
 
         
 
@@ -3656,7 +5131,7 @@ built from this extension should define a default.</p>
                 <a href="DataTable.Core.html#attr_recordset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l220"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:220</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l223"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:223</code></a></p>
 
         
             <p>Deprecated: Use the <code>data</code> attribute</p>
@@ -3700,7 +5175,7 @@ built from this extension should define a default.</p>
                 <a href="DataTable.Core.html#attr_recordType">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l65"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:65</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l68"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:68</code></a></p>
 
         
 
@@ -3762,7 +5237,7 @@ again.</li>
                 <a href="DataTable.Core.html#attr_summary">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l193"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:193</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l196"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:196</code></a></p>
 
         
 
@@ -3787,6 +5262,305 @@ to this attribute will be HTML escaped for security.</p>
             </div>
         
 
+        
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_addColumn" class="events item">
+    <h3 class="name"><code>addColumn</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3139"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3139</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired by the <code>addColumn</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">column</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The new column definition object
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">index</code>
+                        <span class="type">Number | Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The array index to insert the new column
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_modifyColumn" class="events item">
+    <h3 class="name"><code>modifyColumn</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3156"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3156</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired by the <code>modifyColumn</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">column</code>
+                        <span class="type">Object | String | Number | Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column definition object or identifier
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">newColumnDef</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The properties to assign to the column
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_moveColumn" class="events item">
+    <h3 class="name"><code>moveColumn</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3165"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3165</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired by the <code>moveColumn</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">column</code>
+                        <span class="type">Object | String | Number | Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column definition object or identifier
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">index</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The destination index to move to
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_removeColumn" class="events item">
+    <h3 class="name"><code>removeColumn</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-mutable.html">datatable-mutable</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3148"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3148</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired by the <code>removeColumn</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">column</code>
+                        <span class="type">Object | String | Number | Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        The column definition object or identifier
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+            </div>
         
     </div>
 </div>
