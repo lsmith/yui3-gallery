@@ -226,7 +226,7 @@ Table.ATTRS = {
        `constructor of the first item will be used.
     3. If the <code>data</code> attribute is set with a non-empty array, a Model subclass
        will be generated using the keys of the first item as its <code>ATTRS</code> (see
-       the <code>\_createRecordClass</code> method).
+       the <code>_createRecordClass</code> method).
     4. If the <code>columns</code> attribute is set, a Model subclass will be generated
        using the columns defined with a <code>key</code>. This is least desirable because
        columns can be duplicated or nested in a way that's not parsable.
@@ -614,7 +614,7 @@ Y.mix(Table.prototype, {
     Configuration object passed to the class constructor in <code>bodyView</code> during
     render.
 
-    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+    This property is set by the <code>_initViewConfig</code> method at instantiation.
 
     @property _bodyConfig
     @type {Object}
@@ -638,7 +638,7 @@ Y.mix(Table.prototype, {
     Configuration object passed to the class constructor in <code>footerView</code> during
     render.
 
-    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+    This property is set by the <code>_initViewConfig</code> method at instantiation.
 
     @property _footerConfig
     @type {Object}
@@ -651,7 +651,7 @@ Y.mix(Table.prototype, {
     Configuration object passed to the class constructor in <code>headerView</code> during
     render.
 
-    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+    This property is set by the <code>_initViewConfig</code> method at instantiation.
 
     @property _headerConfig
     @type {Object}
@@ -673,11 +673,11 @@ Y.mix(Table.prototype, {
     //_tableNode: null,
 
     /**
-    Configuration object used as the prototype of <code>\_headerConfig</code>,
-    <code>\_bodyConfig</code>, and <code>\_footerConfig</code>. Add properties to this object if you
+    Configuration object used as the prototype of <code>_headerConfig</code>,
+    <code>_bodyConfig</code>, and <code>_footerConfig</code>. Add properties to this object if you
     want them in all three of the other config objects.
 
-    This property is set by the <code>\_initViewConfig</code> method at instantiation.
+    This property is set by the <code>_initViewConfig</code> method at instantiation.
 
     @property _viewConfig
     @type {Object}
@@ -687,7 +687,7 @@ Y.mix(Table.prototype, {
     //_viewConfig: null,
 
     /**
-    Relays <code>captionChange</code> events to <code>\_uiSetCaption</code>.
+    Relays <code>captionChange</code> events to <code>_uiSetCaption</code>.
 
     @method _afterCaptionChange
     @param {EventFacade} e The <code>captionChange</code> event object
@@ -698,7 +698,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Updates the <code>\_columnMap</code> property in response to changes in the <code>columns</code>
+    Updates the <code>_columnMap</code> property in response to changes in the <code>columns</code>
     attribute.
 
     @method _afterColumnsChange
@@ -711,7 +711,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Relays <code>summaryChange</code> events to <code>\_uiSetSummary</code>.
+    Relays <code>summaryChange</code> events to <code>_uiSetSummary</code>.
 
     @method _afterSummaryChange
     @param {EventFacade} e The <code>summaryChange</code> event object
@@ -877,7 +877,7 @@ Y.mix(Table.prototype, {
     /**
     Renders the <code>&amp;lt;table&amp;gt;</code>, <code>&amp;lt;caption&amp;gt;</code>, and <code>&amp;lt;colgroup&amp;gt;</code>.
 
-    Assigns the generated table to the <code>\_tableNode</code> property.
+    Assigns the generated table to the <code>_tableNode</code> property.
 
     @method _defRenderTableFn
     @param {EventFacade} e The renderTable event
@@ -921,7 +921,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Contains column configuration objects for those columns believed to be intended for display in the <code>&amp;lt;tbody&amp;gt;</code>. Populated by <code>\_setDisplayColumns</code>.
+    Contains column configuration objects for those columns believed to be intended for display in the <code>&amp;lt;tbody&amp;gt;</code>. Populated by <code>_setDisplayColumns</code>.
 
     @property _displayColumns
     @type {Object[]}
@@ -980,10 +980,10 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Initializes the instance's <code>\_columnMap</code> from the configured <code>columns</code>
+    Initializes the <code>_columnMap</code> property from the configured <code>columns</code>
     attribute.  If <code>columns</code> is not set, but <code>recordType</code> is, it uses the
     <code>ATTRS</code> of that class.  If neither are set, it temporarily falls back to an
-    empty array. <code>\_initRecordType</code> will call back into this method if it finds
+    empty array. <code>_initRecordType</code> will call back into this method if it finds
     the <code>columnMap</code> empty.
 
     @method _initColumns
@@ -1113,8 +1113,8 @@ Y.mix(Table.prototype, {
     Of none of those are successful, it subscribes to the change events for
     <code>columns</code>, <code>recordType</code>, and <code>data</code> to try again.
 
-    If defaulting the <code>recordType</code> and the current <code>\_columnMap</code> property is
-    empty, it will call <code>\_initColumns</code>.
+    If defaulting the <code>recordType</code> and the current <code>_columnMap</code> property is
+    empty, it will call <code>_initColumns</code>.
 
     @method _initRecordType
     @protected
@@ -1185,13 +1185,13 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Initializes the <code>\_viewConfig</code>, <code>\_headerConfig</code>, <code>\_bodyConfig</code>, and
-    <code>\_footerConfig</code> properties with the configuration objects that will be
+    Initializes the <code>_viewConfig</code>, <code>_headerConfig</code>, <code>_bodyConfig</code>, and
+    <code>_footerConfig</code> properties with the configuration objects that will be
     passed to the constructors of the <code>headerView</code>, <code>bodyView</code>, and
     <code>footerView</code>.
     
     Extensions can add to the config objects to deliver custom parameters at
-    view instantiation.  <code>\_viewConfig</code> is used as the prototype of the other
+    view instantiation.  <code>_viewConfig</code> is used as the prototype of the other
     three config objects, so properties added here will be inherited by all
     configs.
 
@@ -1291,7 +1291,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Assigns the <code>\_columnMap</code> property with the parsed results of the array of
+    Assigns the <code>_columnMap</code> property with the parsed results of the array of
     column definitions passed.
 
     @method _setColumnMap
@@ -1370,7 +1370,7 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Stores an array of columns intended for display in the <code>\_displayColumns</code>
+    Stores an array of columns intended for display in the <code>_displayColumns</code>
     property.  This method assumes that if a column configuration object does
     not have children, it is a display column.
 
@@ -1665,7 +1665,7 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
     /**
     Builds a CSS class name from the provided tokens.  If the instance is
     created with <code>cssPrefix</code> or <code>source</code> in the configuration, it will use this
-    prefix (the <code>\_cssPrefix</code> of the <code>source</code> object) as the base token.  This
+    prefix (the <code>_cssPrefix</code> of the <code>source</code> object) as the base token.  This
     allows class instances to generate markup with class names that correspond
     to the parent class that is consuming them.
 
@@ -1683,7 +1683,7 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
 
     /**
     Creates the <code>&amp;lt;thead&amp;gt;</code> Node content by assembling markup generated by
-    populating the <code>ROW\_TEMPLATE</code> and <code>CELL\_TEMPLATE</code> templates with content
+    populating the <code>ROW_TEMPLATE</code> and <code>CELL_TEMPLATE</code> templates with content
     from the <code>columns</code> property.
     
     @method render
@@ -2020,6 +2020,9 @@ Supported properties of the column objects include:
   * <code>emptyCellValue</code> - String (HTML) value to use if the Model data for a
     column, or the content generated by a <code>formatter</code>, is the empty string or
     <code>undefined</code>.
+  * <code>allowHTML</code> - Set to <code>true</code> if a column value, <code>formatter</code>, or
+    <code>emptyCellValue</code> can contain HTML.  This defaults to <code>false</code> to protect
+    against XSS.
 
 Column <code>formatter</code>s are passed an object (<code>o</code>) with the following properties:
 
@@ -2086,7 +2089,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
 
     /**
     CSS class applied to even rows.  This is assigned at instantiation after
-    setting up the <code>\_cssPrefix</code> for the instance.
+    setting up the <code>_cssPrefix</code> for the instance.
     
     For DataTable, this will be <code>yui3-datatable-even</code>.
 
@@ -2098,7 +2101,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
 
     /**
     CSS class applied to odd rows.  This is assigned at instantiation after
-    setting up the <code>\_cssPrefix</code> for the instance.
+    setting up the <code>_cssPrefix</code> for the instance.
     
     When used by DataTable instances, this will be <code>yui3-datatable-odd</code>.
 
@@ -2158,7 +2161,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     /**
     Builds a CSS class name from the provided tokens.  If the instance is
     created with <code>cssPrefix</code> or <code>source</code> in the configuration, it will use this
-    prefix (the <code>\_cssPrefix</code> of the <code>source</code> object) as the base token.  This
+    prefix (the <code>_cssPrefix</code> of the <code>source</code> object) as the base token.  This
     allows class instances to generate markup with class names that correspond
     to the parent class that is consuming them.
 
@@ -2197,7 +2200,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     The rendering process happens in three stages:
 
     1. A row template is assembled from the <code>columns</code> property (see
-       <code>\_createRowTemplate</code>)
+       <code>_createRowTemplate</code>)
 
     2. An HTML string is built up by concatening the application of the data in
        each Model in the <code>modelList</code> to the row template. For cells with
@@ -2421,7 +2424,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     _cssPrefix: ClassNameManager.getClassName('table'),
 
     /**
-    Iterates the <code>modelList</code> and applies each Model to the <code>\_rowTemplate</code>,
+    Iterates the <code>modelList</code> and applies each Model to the <code>_rowTemplate</code>,
     allowing any column <code>formatter</code> or <code>emptyCellValue</code> to override cell
     content for the appropriate column.  The aggregated HTML string is
     returned.
@@ -2430,7 +2433,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     @param {Object[]} columns The column configurations to customize the
                 generated cell content or class names
     @return {HTML} The markup for all Models in the <code>modelList</code>, each applied
-                to the <code>\_rowTemplate</code>
+                to the <code>_rowTemplate</code>
     @protected
     **/
     _createDataHTML: function (columns) {
@@ -2448,14 +2451,14 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
 
     /**
     Applies the data of a given Model, modified by any column formatters and
-    supplemented by other template values to the instance's <code>\_rowTemplate</code> (see
-    <code>\_createRowTemplate</code>).  The generated string is then returned.
+    supplemented by other template values to the instance's <code>_rowTemplate</code> (see
+    <code>_createRowTemplate</code>).  The generated string is then returned.
 
     The data from Model's attributes is fetched by <code>getAttrs</code> and this data
     object is appended with other properties to supply values to {placeholders}
     in the template.  For a template generated from a Model with 'foo' and 'bar'
     attributes, the data object would end up with the following properties
-    before being used to populate the <code>\_rowTemplate</code>:
+    before being used to populate the <code>_rowTemplate</code>:
 
       * <code>clientID</code> - From Model, used the assign the <code>&amp;lt;tr&amp;gt;</code>'s 'id' attribute.
       * <code>foo</code> - The value to populate the 'foo' column cell content.  This
@@ -2470,7 +2473,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         accessed and ammended by any column formatter via <code>o.data.rowClasses</code>.
 
     Because this object is available to formatters, any additional properties
-    can be added to fill in custom {placeholders} in the <code>\_rowTemplate</code>.
+    can be added to fill in custom {placeholders} in the <code>_rowTemplate</code>.
 
     @method _createRowHTML
     @param {Model} model The Model instance to apply to the row template
@@ -2538,7 +2541,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     individual table rows with {placeholder}s to capture data from the Models
     in the <code>modelList</code> attribute or from column <code>formatter</code>s.
 
-    Assigns the <code>\_rowTemplate</code> property.
+    Assigns the <code>_rowTemplate</code> property.
 
     @method _createRowTemplate
     @param {Object[]} columns Array of column configuration objects
@@ -3423,16 +3426,16 @@ either add a column <code>formatter</code> or update the table's <code>bodyView<
 your CSS.  For example, to give the column "foo" an absolute width, add this to
 your site CSS:
 
-<code>&#x60;</code>
+&lt;pre&gt;&lt;code&gt;
 .yui3-datatable .yui3-datatable-foo .yui3-datatable-liner {
     overflow: hidden;
     width: 125px;
 }
-<code>&#x60;</code>
+&lt;/pre&gt;&lt;/code&gt;
 
 and assign a <code>formatter</code> for the "foo" column in your JavaScript:
 
-<code>&#x60;</code>
+&lt;pre&gt;&lt;code&gt;
 var table = new Y.DataTable({
     columns: [
         {
@@ -3444,24 +3447,26 @@ var table = new Y.DataTable({
     ],
     ...
 });
-<code>&#x60;</code>
+&lt;/code&gt;&lt;/pre&gt;
 
 To add a liner to all columns, either provide a custom <code>bodyView</code> to the
 DataTable constructor or update the default <code>bodyView</code>'s <code>CELL_TEMPLATE</code> like
 so:
 
-<code>&#x60;</code>
+&lt;pre&gt;&lt;code&gt;
 table.on('renderBody', function (e) {
     e.view.CELL_TEMPLATE = e.view.CELL_TEMPLATE.replace(/\{content\}/,
             '&lt;div class="yui3-datatable-liner"&gt;{content}&lt;/div&gt;');
 });
-<code>&#x60;</code>
+&lt;/code&gt;&lt;/pre&gt;
 
 Keep in mind that DataTable skins apply cell <code>padding</code>, so assign your CSS
 <code>width</code>s accordingly or override the <code>padding</code> style for that column's <code>&amp;lt;td&amp;gt;</code>s
 to 0, and add <code>padding</code> to the liner <code>&amp;lt;div&amp;gt;</code>'s styles.
 
 @module datatable-column-widths
+@class DataTable.ColumnWidths
+@for DataTable
 **/
 var isNumber = Y.Lang.isNumber,
     arrayIndex = Y.Array.indexOf;
@@ -3499,11 +3504,6 @@ Y.Features.add('table', 'badColWidth', {
     }
 });
 
-/**
-Class extension for DataTable to add support for assigning column widths.
-
-@class DataTable.ColumnWidths
-**/
 function ColumnWidths() {}
 
 Y.mix(ColumnWidths.prototype, {
@@ -3536,7 +3536,7 @@ Y.mix(ColumnWidths.prototype, {
 
     @method setColumnWidth
     @param {Number|String|Object} id The column config object or key, name, or
-            index of a column in the host's <code>\_displayColumns</code> array.
+            index of a column in the host's <code>_displayColumns</code> array.
     @param {Number|String} width CSS width value. Numbers are treated as pixels
     **/
     setColumnWidth: function (id, width) {
@@ -3559,7 +3559,7 @@ Y.mix(ColumnWidths.prototype, {
     //----------------------------------------------------------------------------
 
     /**
-    Renders the table's <code>&amp;lt;colgroup&amp;gt;</code> and populates the <code>\_colgroupNode</code> property.
+    Renders the table's <code>&amp;lt;colgroup&amp;gt;</code> and populates the <code>_colgroupNode</code> property.
 
     @method _createColumnGroup
     @protected
@@ -3800,8 +3800,8 @@ Y.mix(Scrollable.prototype, {
     },
 
     /**
-    Reacts to changes in the <code>scrollable</code> attribute by updating the <code>\_xScroll</code>
-    and <code>\_yScroll</code> properties and syncing the scrolling structure accordingly.
+    Reacts to changes in the <code>scrollable</code> attribute by updating the <code>_xScroll</code>
+    and <code>_yScroll</code> properties and syncing the scrolling structure accordingly.
 
     @method _afterScrollableChange
     @param {EventFacade} e The relevant change event (ignored)
@@ -3826,7 +3826,7 @@ Y.mix(Scrollable.prototype, {
     /**
     Attaches internal subscriptions to keep the scrolling structure up to date
     with changes in the table's <code>data</code>, <code>columns</code>, <code>caption</code>, or <code>height</code>.  The
-    `width is taken care of already.
+    <code>width</code> is taken care of already.
 
     This executes after the table's native <code>bindUI</code> method.
 
@@ -3865,8 +3865,8 @@ Y.mix(Scrollable.prototype, {
     },
 
     /**
-    Populates the <code>\_yScrollNode</code> property by creating the <code>&amp;lt;div&amp;gt;</code> Node described
-    by the <code>SCROLLING_CONTAINER_TEMPLATE</code>.
+    Populates the <code>_yScrollNode</code> property by creating the <code>&amp;lt;div&amp;gt;</code> Node described
+    by the <code>SCROLLING\_CONTAINER_TEMPLATE</code>.
 
     @method _createYScrollNode
     @protected
@@ -4055,7 +4055,7 @@ Y.mix(Scrollable.prototype, {
     },
 
     /**
-    Assigns the <code>\_xScroll</code> and <code>\_yScroll</code> properties to true if an
+    Assigns the <code>_xScroll</code> and <code>_yScroll</code> properties to true if an
     appropriate value is set in the <code>scrollable</code> attribute and the <code>height</code>
     and/or <code>width</code> is set.
 
@@ -4072,10 +4072,10 @@ Y.mix(Scrollable.prototype, {
     },
 
     /**
-    Clones the fixed (see <code>\_fixColumnWidths</code> method) <code>&amp;lt;colgroup&amp;gt;</code> for use by the
+    Clones the fixed (see <code>_fixColumnWidths</code> method) <code>&amp;lt;colgroup&amp;gt;</code> for use by the
     table in the vertical scrolling container.  The last column's width is reduced
     by the width of the scrollbar (which is offset by additional padding on the
-    last header cell(s) in the header table - see <code>\_setHeaderScrollPadding</code>).
+    last header cell(s) in the header table - see <code>_setHeaderScrollPadding</code>).
 
     @method _setYScrollColWidths
     @protected
@@ -4157,7 +4157,7 @@ Y.mix(Scrollable.prototype, {
     },
 
     /**
-    Calls <code>\_mergeYScrollContent</code> or <code>\_splitYScrollContent</code> depending on the
+    Calls <code>_mergeYScrollContent</code> or <code>_splitYScrollContent</code> depending on the
     current widget state, accounting for current state.  That is, if the table
     needs to be split, but is already, nothing happens.
 
@@ -4193,7 +4193,7 @@ Y.mix(Scrollable.prototype, {
     },
 
     /**
-    Overrides the default Widget <code>\_uiSetWidth</code> to assign the width to either
+    Overrides the default Widget <code>_uiSetWidth</code> to assign the width to either
     the table or the <code>contentBox</code> (for horizontal scrolling) in addition to the
     native behavior of setting the width of the <code>boundingBox</code>.
 

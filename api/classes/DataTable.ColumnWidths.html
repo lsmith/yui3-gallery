@@ -143,7 +143,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3369"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3369</code></a>
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3277"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3277</code></a>
         </div>
     
 
@@ -153,7 +153,61 @@
 
 
 <div class="box intro">
-    <p>Class extension for DataTable to add support for assigning column widths.</p>
+    <p>Adds basic, programmatic column width support to DataTable. Note, this does not
+add support for truncated columns.  Due to the way HTML tables render, column
+width is more like <code>min-width</code>.  Column content wider than the assigned width
+will cause the column to expand, though if a table width is set, the overall
+width will be respected by reducing the width of other columns if possible.</p>
+
+<p>To set a column width, either add a <code>width</code> value to the column configuration
+or call the <code>setColumnWidth(id, width)</code> method.</p>
+
+<p>Note, assigning column widths is possible without this module, as each cell is
+decorated with a class appropriate for that column which you can statically
+target in your site's CSS.  To achieve forced column widths with truncation,
+either add a column <code>formatter</code> or update the table's <code>bodyView</code>'s
+<code>CELL_TEMPLATE</code> to include a <code>&lt;div&gt;</code> liner (by convention, assigned a classname
+"yui3-datatable-liner"), then set the width and overflow for those <code>&lt;div&gt;</code>s in
+your CSS.  For example, to give the column "foo" an absolute width, add this to
+your site CSS:</p>
+
+<pre class="code"><code class="prettyprint">
+.yui3-datatable .yui3-datatable-foo .yui3-datatable-liner {
+    overflow: hidden;
+    width: 125px;
+}
+</pre></code>
+
+and assign a <code>formatter</code> for the "foo" column in your JavaScript:
+
+<pre class="code"><code class="prettyprint">
+var table = new Y.DataTable({
+    columns: [
+        {
+            key: 'foo',
+            formatter: '&lt;div class="yui3-datatable-liner">{value}&lt;/div>',
+            allowHTML: true
+        },
+        ...
+    ],
+    ...
+});
+</code></pre>
+
+<p>To add a liner to all columns, either provide a custom <code>bodyView</code> to the
+DataTable constructor or update the default <code>bodyView</code>'s <code>CELL_TEMPLATE</code> like
+so:</p>
+
+<pre class="code"><code class="prettyprint">
+table.on('renderBody', function (e) {
+    e.view.CELL_TEMPLATE = e.view.CELL_TEMPLATE.replace(/\{content\}/,
+            '&lt;div class="yui3-datatable-liner">{content}&lt;/div>');
+});
+</code></pre>
+
+<p>Keep in mind that DataTable skins apply cell <code>padding</code>, so assign your CSS
+<code>width</code>s accordingly or override the <code>padding</code> style for that column's <code>&lt;td&gt;</code>s
+to 0, and add <code>padding</code> to the liner <code>&lt;div&gt;</code>'s styles.</p>
 </div>
 
 
@@ -163,10 +217,6 @@
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
         
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-        
-        
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
         
         
@@ -177,65 +227,7 @@
             <h2 class="off-left">Item Index</h2>
 
             
-                <div class="index-section methods">
-                    <h3>Methods</h3>
 
-                    <ul class="index-list methods">
-                        
-                            <li class="index-item method protected">
-                                <a href="#method__createColumnGroup">_createColumnGroup</a>
-
-                                
-                            </li>
-                        
-                            <li class="index-item method protected">
-                                <a href="#method__setColumnWidth">_setColumnWidth</a>
-
-                                
-                            </li>
-                        
-                            <li class="index-item method protected">
-                                <a href="#method__uiSetColumns">_uiSetColumns</a>
-
-                                
-                            </li>
-                        
-                            <li class="index-item method protected">
-                                <a href="#method_initializer">initializer</a>
-
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_setColumnWidth">setColumnWidth</a>
-
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties">
-                        
-                            <li class="index-item property">
-                                <a href="#property_COL_TEMPLATE">COL_TEMPLATE</a>
-
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_COLGROUP_TEMPLATE">COLGROUP_TEMPLATE</a>
-
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
             
 
             
@@ -244,466 +236,7 @@
         </div>
 
         
-            <div id="methods" class="api-class-tabpanel">
-                <h2 class="off-left">Methods</h2>
 
-                
-                    <div id="method__createColumnGroup" class="method item protected">
-    <h3 class="name"><code>_createColumnGroup</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag protected">protected</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
-                
-                <p>Defined in
-            
-        
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3428"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3428</code></a></p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Renders the table's <code>&lt;colgroup&gt;</code> and populates the <code>_colgroupNode</code> property.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__setColumnWidth" class="method item protected">
-    <h3 class="name"><code>_setColumnWidth</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>colIndex</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>width</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag protected">protected</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
-                
-                <p>Defined in
-            
-        
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3453"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3453</code></a></p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Sets a columns's <code>&lt;col&gt;</code> element width style. This is needed to get around
-browser rendering differences.</p>
-
-<p>The colIndex corresponds to the item index of the <code>&lt;col&gt;</code> in the table's
-<code>&lt;colgroup&gt;</code>.</p>
-
-<p>To unset the width, pass a falsy value for the <code>width</code>.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">colIndex</code>
-                        <span class="type">Number</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        The display column index
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">width</code>
-                        <span class="type">Number | String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        The desired width
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__uiSetColumns" class="method item protected">
-    <h3 class="name"><code>_uiSetColumns</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag protected">protected</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
-                
-                <p>Defined in
-            
-        
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3509"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3509</code></a></p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Populates the table's <code>&lt;colgroup&gt;</code> with a <code>&lt;col&gt;</code> per item in the <code>columns</code>
-attribute without children.  It is assumed that these are the columns that
-have data cells renderered for them.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_initializer" class="method item protected">
-    <h3 class="name"><code>initializer</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag protected">protected</span>
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
-                
-                <p>Defined in
-            
-        
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3438"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3438</code></a></p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Hooks up to the rendering lifecycle to also render the <code>&lt;colgroup&gt;</code> and
-subscribe to <code>columnChange</code> events.</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_setColumnWidth" class="method item">
-    <h3 class="name"><code>setColumnWidth</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>id</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>width</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
-                
-                <p>Defined in
-            
-        
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3395"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3395</code></a></p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Assigns the style width of the <code>&lt;col&gt;</code> representing the column identifed by
-<code>id</code> and updates the column configuration.</p>
-
-<p>Pass the empty string for <code>width</code> to return a column to auto sizing.</p>
-
-<p>This does not trigger a <code>columnsChange</code> event today, but I can be convinced
-that it should.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">id</code>
-                        <span class="type">Number | String | Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        The column config object or key, name, or
-        index of a column in the host's <code>\_displayColumns</code> array.
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">width</code>
-                        <span class="type">Number | String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        CSS width value. Numbers are treated as pixels
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-            </div>
-        
-
-        
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
-
-                
-                    <div id="property_COL_TEMPLATE" class="property item">
-    <h3 class="name"><code>COL_TEMPLATE</code></h3>
-    <span class="type">HTML</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
-                
-                <p>Defined in
-            
-        
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3377"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3377</code></a></p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The HTML template used to create the table's <code>&lt;col&gt;</code>s.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> '&lt;col/&gt;'</p>
-    
-
-    
-</div>
-
-                
-                    <div id="property_COLGROUP_TEMPLATE" class="property item">
-    <h3 class="name"><code>COLGROUP_TEMPLATE</code></h3>
-    <span class="type">HTML</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
-                
-                <p>Defined in
-            
-        
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3386"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3386</code></a></p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The HTML template used to create the table's <code>&lt;colgroup&gt;</code>.</p>
-    </div>
-
-    
-        <p><strong>Default:</strong> '&lt;colgroup/&gt;'</p>
-    
-
-    
-</div>
-
-                
-            </div>
         
 
         

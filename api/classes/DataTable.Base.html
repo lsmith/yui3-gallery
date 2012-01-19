@@ -156,7 +156,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2791"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2791</code></a>
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2794"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2794</code></a>
         </div>
     
 
@@ -664,7 +664,7 @@ to <code>Y.DataTable.HeaderView</code> and default <code>bodyView</code> to <cod
                     
 
                     <div class="param-description">
-                        The <code>captionChange</code> event object
+                        <p>The <code>captionChange</code> event object</p>
                     </div>
 
                     
@@ -745,7 +745,7 @@ attribute.</p>
                     
 
                     <div class="param-description">
-                        The <code>columnsChange</code> event object
+                        <p>The <code>columnsChange</code> event object</p>
                     </div>
 
                     
@@ -825,7 +825,7 @@ attribute.</p>
                     
 
                     <div class="param-description">
-                        The <code>summaryChange</code> event object
+                        <p>The <code>summaryChange</code> event object</p>
                     </div>
 
                     
@@ -912,8 +912,8 @@ set.</p>
                     
 
                     <div class="param-description">
-                        Names assigned to the Model subclass's
-            <code>ATTRS</code> or its entire <code>ATTRS</code> definition object
+                        <p>Names assigned to the Model subclass's
+            <code>ATTRS</code> or its entire <code>ATTRS</code> definition object</p>
                     </div>
 
                     
@@ -1214,7 +1214,7 @@ from the view's <code>container</code> attribute.</p>
                     
 
                     <div class="param-description">
-                        The renderBody event
+                        <p>The renderBody event</p>
                     </div>
 
                     
@@ -1298,7 +1298,7 @@ from the view's <code>container</code> attribute.</p>
                     
 
                     <div class="param-description">
-                        The renderFooter event
+                        <p>The renderFooter event</p>
                     </div>
 
                     
@@ -1382,7 +1382,7 @@ from the view's <code>container</code> attribute.</p>
                     
 
                     <div class="param-description">
-                        The renderHeader event
+                        <p>The renderHeader event</p>
                     </div>
 
                     
@@ -1464,7 +1464,7 @@ from the view's <code>container</code> attribute.</p>
                     
 
                     <div class="param-description">
-                        The renderTable event
+                        <p>The renderTable event</p>
                     </div>
 
                     
@@ -1552,7 +1552,7 @@ specific column object if <code>instance.get('columns.columnKey')</code> is call
                     
 
                     <div class="param-description">
-                        The full array of column objects
+                        <p>The full array of column objects</p>
                     </div>
 
                     
@@ -1567,8 +1567,8 @@ specific column object if <code>instance.get('columns.columnKey')</code> is call
                     
 
                     <div class="param-description">
-                        The attribute name requested
-                     (e.g. 'columns' or 'columns.foo');
+                        <p>The attribute name requested
+                     (e.g. 'columns' or 'columns.foo');</p>
                     </div>
 
                     
@@ -1664,7 +1664,7 @@ expect a Columnset instance returned from <code>get('columnset')</code>.</p>
                     
 
                     <div class="param-description">
-                        The current value stored in the <code>columnset</code> state
+                        <p>The current value stored in the <code>columnset</code> state</p>
                     </div>
 
                     
@@ -1679,8 +1679,8 @@ expect a Columnset instance returned from <code>get('columnset')</code>.</p>
                     
 
                     <div class="param-description">
-                        The attribute name requested
-                     (e.g. 'columnset' or 'columnset.foo');
+                        <p>The attribute name requested
+                     (e.g. 'columnset' or 'columnset.foo');</p>
                     </div>
 
                     
@@ -1762,7 +1762,7 @@ raw data (presumably an empty array or <code>undefined</code>).</p>
                     
 
                     <div class="param-description">
-                        The current data stored in the attribute
+                        <p>The current data stored in the attribute</p>
                     </div>
 
                     
@@ -1814,10 +1814,10 @@ raw data (presumably an empty array or <code>undefined</code>).</p>
     </div>
 
     <div class="description">
-        <p>Initializes the instance's <code><em>columnMap</code> from the configured <code>columns</code>
+        <p>Initializes the <code>_columnMap</code> property from the configured <code>columns</code>
 attribute.  If <code>columns</code> is not set, but <code>recordType</code> is, it uses the
 <code>ATTRS</code> of that class.  If neither are set, it temporarily falls back to an
-empty array. <code></em>initRecordType</code> will call back into this method if it finds
+empty array. <code>_initRecordType</code> will call back into this method if it finds
 the <code>columnMap</code> empty.</p>
     </div>
 
@@ -1984,8 +1984,8 @@ generated using those keys as its <code>ATTRS</code>.</li>
 <p>Of none of those are successful, it subscribes to the change events for
 <code>columns</code>, <code>recordType</code>, and <code>data</code> to try again.</p>
 
-<p>If defaulting the <code>recordType</code> and the current <code><em>columnMap</code> property is
-empty, it will call <code></em>initColumns</code>.</p>
+<p>If defaulting the <code>recordType</code> and the current <code>_columnMap</code> property is
+empty, it will call <code>_initColumns</code>.</p>
     </div>
 
     
@@ -2032,8 +2032,8 @@ empty, it will call <code></em>initColumns</code>.</p>
     </div>
 
     <div class="description">
-        <p>Initializes the <code><em>viewConfig</code>, <code></em>headerConfig</code>, <code><em>bodyConfig</code>, and
-<code></em>footerConfig</code> properties with the configuration objects that will be
+        <p>Initializes the <code>_viewConfig</code>, <code>_headerConfig</code>, <code>_bodyConfig</code>, and
+<code>_footerConfig</code> properties with the configuration objects that will be
 passed to the constructors of the <code>headerView</code>, <code>bodyView</code>, and
 <code>footerView</code>.</p>
 
@@ -2128,8 +2128,8 @@ corresponding column object as the associated value.</p>
                     
 
                     <div class="param-description">
-                        The array of column names or
-            configuration objects to scan
+                        <p>The array of column names or
+            configuration objects to scan</p>
                     </div>
 
                     
@@ -2145,7 +2145,7 @@ corresponding column object as the associated value.</p>
                     
 
                     <div class="param-description">
-                        The map to add keyed columns to
+                        <p>The map to add keyed columns to</p>
                     </div>
 
                     
@@ -2226,8 +2226,8 @@ column definitions passed.</p>
                     
 
                     <div class="param-description">
-                        the raw column configuration objects or
-                                   key names
+                        <p>the raw column configuration objects or
+                                   key names</p>
                     </div>
 
                     
@@ -2315,7 +2315,7 @@ structure is mined.</p>
                     
 
                     <div class="param-description">
-                        The columnset value to relay
+                        <p>The columnset value to relay</p>
                     </div>
 
                     
@@ -2454,7 +2454,7 @@ not have children, it is a display column.</p>
                     
 
                     <div class="param-description">
-                        Column config array to extract display columns from
+                        <p>Column config array to extract display columns from</p>
                     </div>
 
                     
@@ -2542,7 +2542,7 @@ will be culled from it.</p>
                     
 
                     <div class="param-description">
-                        The recordset value to relay
+                        <p>The recordset value to relay</p>
                     </div>
 
                     
@@ -2631,9 +2631,9 @@ assigned as the <code>ATTRS</code> of the new class).</p>
                     
 
                     <div class="param-description">
-                        The Model subclass, array of
+                        <p>The Model subclass, array of
         attribute names, or the <code>ATTRS</code> definition for a custom model
-        subclass
+        subclass</p>
                     </div>
 
                     
@@ -2727,7 +2727,7 @@ value.  Empty values result in the caption being removed.</p>
                     
 
                     <div class="param-description">
-                        The content to populate the table caption
+                        <p>The content to populate the table caption</p>
                     </div>
 
                     
@@ -2854,7 +2854,7 @@ value.  Empty values result in the caption being removed.</p>
                     
 
                     <div class="param-description">
-                        The width to make the table
+                        <p>The width to make the table</p>
                     </div>
 
                     
@@ -3040,7 +3040,7 @@ If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>u
                     
 
                     <div class="param-description">
-                        Index of the cell's containing row
+                        <p>Index of the cell's containing row</p>
                     </div>
 
                     
@@ -3055,7 +3055,7 @@ If the <code>bodyView</code> doesn't have a <code>getCell</code> method, <code>u
                     
 
                     <div class="param-description">
-                        Index of the cell's containing column
+                        <p>Index of the cell's containing column</p>
                     </div>
 
                     
@@ -3156,8 +3156,8 @@ of that column in the respective parent's "children" array.</p>
                     
 
                     <div class="param-description">
-                        Key, "name", index, or index array to
-            identify the column
+                        <p>Key, "name", index, or index array to
+            identify the column</p>
                     </div>
 
                     
@@ -3255,7 +3255,7 @@ If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>un
                     
 
                     <div class="param-description">
-                        Index of the row in the data <code>&lt;tbody&gt;</code>
+                        <p>Index of the row in the data <code>&lt;tbody&gt;</code></p>
                     </div>
 
                     
@@ -3708,8 +3708,8 @@ though this extension does not provide the logic to parse from source.</p>
     </div>
 
     <div class="description">
-        <p>Configuration object used as the prototype of <code><em>headerConfig</code>,
-<code></em>bodyConfig</code>, and <code>_footerConfig</code>. Add properties to this object if you
+        <p>Configuration object used as the prototype of <code>_headerConfig</code>,
+<code>_bodyConfig</code>, and <code>_footerConfig</code>. Add properties to this object if you
 want them in all three of the other config objects.</p>
 
 <p>This property is set by the <code>_initViewConfig</code> method at instantiation.</p>
@@ -4527,7 +4527,7 @@ property is set, that will be used.</li>
 `constructor of the first item will be used.</li>
 <li>If the <code>data</code> attribute is set with a non-empty array, a Model subclass
 will be generated using the keys of the first item as its <code>ATTRS</code> (see
-the <code>\_createRecordClass</code> method).</li>
+the <code>_createRecordClass</code> method).</li>
 <li>If the <code>columns</code> attribute is set, a Model subclass will be generated
 using the columns defined with a <code>key</code>. This is least desirable because
 columns can be duplicated or nested in a way that's not parsable.</li>

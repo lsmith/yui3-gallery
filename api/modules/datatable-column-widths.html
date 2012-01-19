@@ -131,7 +131,7 @@
 <div class="box clearfix meta">
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3274"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3274</code></a>
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3277"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3277</code></a>
         </div>
     
 
@@ -159,39 +159,39 @@ either add a column <code>formatter</code> or update the table's <code>bodyView<
 your CSS.  For example, to give the column "foo" an absolute width, add this to
 your site CSS:</p>
 
-<p><code>
+<pre class="code"><code class="prettyprint">
 .yui3-datatable .yui3-datatable-foo .yui3-datatable-liner {
     overflow: hidden;
     width: 125px;
 }
-</code></p>
+</pre></code>
 
-<p>and assign a <code>formatter</code> for the "foo" column in your JavaScript:</p>
+and assign a <code>formatter</code> for the "foo" column in your JavaScript:
 
-<p><code>
+<pre class="code"><code class="prettyprint">
 var table = new Y.DataTable({
     columns: [
         {
             key: 'foo',
-            formatter: '&lt;div class="yui3-datatable-liner"&gt;{value}&lt;/div&gt;',
+            formatter: '&lt;div class="yui3-datatable-liner">{value}&lt;/div>',
             allowHTML: true
         },
         ...
     ],
     ...
 });
-</code></p>
+</code></pre>
 
 <p>To add a liner to all columns, either provide a custom <code>bodyView</code> to the
 DataTable constructor or update the default <code>bodyView</code>'s <code>CELL_TEMPLATE</code> like
 so:</p>
 
-<p><code>
+<pre class="code"><code class="prettyprint">
 table.on('renderBody', function (e) {
     e.view.CELL_TEMPLATE = e.view.CELL_TEMPLATE.replace(/\{content\}/,
-            '&lt;div class="yui3-datatable-liner"&gt;{content}&lt;/div&gt;');
+            '&lt;div class="yui3-datatable-liner">{content}&lt;/div>');
 });
-</code></p>
+</code></pre>
 
 <p>Keep in mind that DataTable skins apply cell <code>padding</code>, so assign your CSS
 <code>width</code>s accordingly or override the <code>padding</code> style for that column's <code>&lt;td&gt;</code>s
@@ -206,8 +206,8 @@ to 0, and add <code>padding</code> to the liner <code>&lt;div&gt;</code>'s style
             <ul class="module-classes">
             
                 <li class="module-class">
-                    <a href="../classes/DataTable.html">
-                        DataTable
+                    <a href="../classes/DataTable.ColumnWidths.html">
+                        DataTable.ColumnWidths
                     </a>
                 </li>
             
