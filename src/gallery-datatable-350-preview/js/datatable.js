@@ -277,18 +277,18 @@ Y.mix(Table.prototype, {
 
     @property CAPTION_TEMPLATE
     @type {HTML}
-    @default '<caption/>'
+    @default '<caption class="{className}"/>'
     **/
-    CAPTION_TEMPLATE: '<caption/>',
+    CAPTION_TEMPLATE: '<caption class="{className}"/>',
 
     /**
     The HTML template used to create the table Node.
 
     @property TABLE_TEMPLATE
     @type {HTML}
-    @default '<table/>'
+    @default '<table class="{className}"/>'
     **/
-    TABLE_TEMPLATE  : '<table class="{classes}"/>',
+    TABLE_TEMPLATE  : '<table role="presentation" class="{className}"/>',
 
     /**
     HTML template used to create table's `<tbody>` if configured with a
@@ -296,9 +296,9 @@ Y.mix(Table.prototype, {
 
     @property TBODY_TEMPLATE
     @type {HTML}
-    @default '<tbody class="{classes}"/>'
+    @default '<tbody class="{className}"/>'
     **/
-    TBODY_TEMPLATE: '<tbody class="{classes}"/>',
+    TBODY_TEMPLATE: '<tbody class="{className}"/>',
 
     /**
     Template used to create the table's `<tfoot>` if configured with a
@@ -306,10 +306,10 @@ Y.mix(Table.prototype, {
 
     @property TFOOT_TEMPLATE
     @type {HTML}
-    @default '<tfoot class="{classes}"/>'
+    @default '<tfoot class="{className}"/>'
     **/
     TFOOT_TEMPLATE:
-        '<tfoot class="{classes}"/',
+        '<tfoot class="{className}"/>',
 
     /**
     Template used to create the table's `<thead>` if configured with a
@@ -317,10 +317,10 @@ Y.mix(Table.prototype, {
 
     @property THEAD_TEMPLATE
     @type {HTML}
-    @default '<thead class="{classes}"/>'
+    @default '<thead class="{className}"/>'
     **/
     THEAD_TEMPLATE:
-        '<thead class="{classes}"/>',
+        '<thead class="{className}"/>',
 
     /**
     The object or instance of the class assigned to `bodyView` that is
@@ -365,6 +365,25 @@ Y.mix(Table.prototype, {
     //data: null,
 
     // -- Public methods ------------------------------------------------------
+    /**
+    Pass through to `delegate()` called from the `contentBox`.
+
+    @method delegate
+    @param type {String} the event type to delegate
+    @param fn {Function} the callback function to execute.  This function
+                 will be provided the event object for the delegated event.
+    @param spec {String|Function} a selector that must match the target of the
+                 event or a function to test target and its parents for a match
+    @param context {Object} optional argument that specifies what 'this' refers to
+    @param args* {any} 0..n additional arguments to pass on to the callback
+                 function.  These arguments will be added after the event object.
+    @return {EventHandle} the detach handle
+    **/
+    delegate: function () {
+        var contentBox = this.get('contentBox');
+
+        return contentBox.delegate.apply(contentBox, arguments);
+    },
 
     /**
     Returns the Node for a cell at the given coordinates.
@@ -462,7 +481,7 @@ Y.mix(Table.prototype, {
     @return {Node}
     **/
     getRow: function (index) {
-        return this.body && this.body.getCell && this.body.getRow(index);
+        return this.body && this.body.getRow && this.body.getRow(index);
     },
 
     /**
@@ -554,17 +573,6 @@ Y.mix(Table.prototype, {
     //_viewConfig: null,
 
     /**
-    Relays `captionChange` events to `_uiSetCaption`.
-
-    @method _afterCaptionChange
-    @param {EventFacade} e The `captionChange` event object
-    @protected
-    **/
-    _afterCaptionChange: function (e) {
-        this._uiSetCaption(e.newVal);
-    },
-
-    /**
     Updates the `_columnMap` property in response to changes in the `columns`
     attribute.
 
@@ -578,17 +586,6 @@ Y.mix(Table.prototype, {
     },
 
     /**
-    Relays `summaryChange` events to `_uiSetSummary`.
-
-    @method _afterSummaryChange
-    @param {EventFacade} e The `summaryChange` event object
-    @protected
-    **/
-    _afterSummaryChange: function (e) {
-        this._uiSetSummary(e.newVal);
-    },
-
-    /**
     Subscribes to attribute change events to update the UI.
 
     @method bindUI
@@ -596,10 +593,6 @@ Y.mix(Table.prototype, {
     **/
     bindUI: function () {
         // TODO: handle widget attribute changes
-        this.after({
-            captionChange: this._afterCaptionChange,
-            summaryChange: this._afterSummaryChange
-        });
     },
 
     /**
@@ -639,7 +632,7 @@ Y.mix(Table.prototype, {
     **/
     _createTable: function () {
         return Y.Node.create(fromTemplate(this.TABLE_TEMPLATE, {
-            classes: this.getClassName('table')
+            className: this.getClassName('table')
         }));
     },
 
@@ -651,7 +644,7 @@ Y.mix(Table.prototype, {
     **/
     _createTBody: function () {
         return Y.Node.create(fromTemplate(this.TBODY_TEMPLATE, {
-            classes: this.getClassName('data')
+            className: this.getClassName('data')
         }));
     },
 
@@ -663,7 +656,7 @@ Y.mix(Table.prototype, {
     **/
     _createTFoot: function () {
         return Y.Node.create(fromTemplate(this.TFOOT_TEMPLATE, {
-            classes: this.getClassName('footer')
+            className: this.getClassName('footer')
         }));
     },
 
@@ -675,7 +668,7 @@ Y.mix(Table.prototype, {
     **/
     _createTHead: function () {
         return Y.Node.create(fromTemplate(this.THEAD_TEMPLATE, {
-            classes: this.getClassName('columns')
+            className: this.getClassName('columns')
         }));
     },
 
@@ -793,6 +786,7 @@ Y.mix(Table.prototype, {
     @property _displayColumns
     @type {Object[]}
     @value undefined (initially not set)
+    @protected
     **/
     //_displayColumns: null,
 
@@ -958,6 +952,12 @@ Y.mix(Table.prototype, {
         this._initEvents();
 
         this.after('columnsChange', this._afterColumnsChange);
+
+        // FIXME: this needs to be added to Widget._buildCfg.custom
+        this._UI_ATTRS = {
+            BIND: this._UI_ATTRS.BIND.concat(['caption', 'summary']),
+            SYNC: this._UI_ATTRS.SYNC.concat(['caption', 'summary'])
+        };
     },
 
     /**
@@ -1090,29 +1090,55 @@ Y.mix(Table.prototype, {
     @method _parseColumns
     @param {Object[]|String[]} columns The array of column names or
                 configuration objects to scan
-    @param {Object} [map] The map to add keyed columns to
     @protected
     **/
-    _parseColumns: function (columns, map) {
-        var i, len, col;
-
-        map || (map = {});
+    _parseColumns: function (columns) {
+        var map  = {},
+            keys = {};
         
-        for (i = 0, len = columns.length; i < len; ++i) {
-            col = columns[i];
+        function process(cols) {
+            var i, len, col, key, yuid, id;
 
-            if (isString(col)) {
-                // Update the array entry as well, so the attribute state array
-                // contains the same objects.
-                columns[i] = col = { key: col };
-            }
+            for (i = 0, len = cols.length; i < len; ++i) {
+                col = cols[i];
 
-            if (col.key) {
-                map[col.key] = col;
-            } else if (isArray(col.children)) {
-                this._parseColumns(col.children, map);
+                if (isString(col)) {
+                    // Update the array entry as well, so the attribute state array
+                    // contains the same objects.
+                    cols[i] = col = { key: col };
+                }
+
+                yuid = Y.stamp(col);
+
+                if (isArray(col.children)) {
+                    process(col.children);
+                } else {
+                    key = col.key;
+
+                    if (key) {
+                        map[col.key] = col;
+                    }
+
+                    // Unique id based on the column's configured name or key,
+                    // falling back to the yuid.  Duplicates will have a counter
+                    // added to the end.
+                    id = col.name || col.key || col._yuid;
+
+                    if (keys[id]) {
+                        id += (keys[id]++);
+                    } else {
+                        keys[id] = 1;
+                    }
+
+                    col._id = id;
+
+                    //TODO: named columns can conflict with keyed columns
+                    map[id] = col;
+                }
             }
         }
+
+        process(columns);
 
         return map;
     },
@@ -1132,6 +1158,8 @@ Y.mix(Table.prototype, {
             // _viewConfig is the prototype for _headerConfig et al.
             this._viewConfig.columns   = this.get('columns');
             this._viewConfig.modelList = this.data;
+
+            contentBox.setAttribute('role', 'grid');
 
             this.fire('renderTable', {
                 headerView  : this.get('headerView'),
@@ -1220,9 +1248,11 @@ Y.mix(Table.prototype, {
                 }
 
                 this.data.reset(val);
-                // TODO: return true to avoid storing the data object both in
-                // the state object underlying the attribute an in the data
-                // property (decrease memory footprint)?
+
+                // Return true to avoid storing the data both in the state
+                // object underlying the attribute and in the data property.
+                // Decreases memory consumption.
+                val = true;
             }
             // else pass through the array data, but don't assign this.data
             // Let the _initData process clean up.
@@ -1332,7 +1362,10 @@ Y.mix(Table.prototype, {
 
         if (htmlContent) {
             if (!this._captionNode) {
-                this._captionNode = Y.Node.create(this.CAPTION_TEMPLATE);
+                this._captionNode = Y.Node.create(
+                    fromTemplate(this.CAPTION_TEMPLATE, {
+                        className: this.getClassName('caption')
+                    }));
             }
 
             this._captionNode.setContent(htmlContent);
@@ -1486,10 +1519,10 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
 
     @property CELL_TEMPLATE
     @type {HTML}
-    @default '<th id="{_yuid}" abbr="{abbr} colspan="{colspan}" rowspan="{rowspan}">{content}</th>'
+    @default '<th id="{_yuid}" abbr="{abbr} colspan="{colspan}" rowspan="{rowspan}" class="{className}" {headers}>{content}</th>'
     **/
     CELL_TEMPLATE :
-        '<th id="{_yuid}" abbr="{abbr}" colspan="{colspan}" rowspan="{rowspan}">{content}</th>',
+        '<th id="{_yuid}" abbr="{abbr}" colspan="{colspan}" rowspan="{rowspan}" class="{className}" scope="col" role="columnheader" {headers}>{content}</th>',
 
     /**
     The data representation of the header rows to render.  This is assigned by
@@ -1524,7 +1557,7 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
     @default '<tr>{content}</tr>'
     **/
     ROW_TEMPLATE:
-        '<tr>{content}</tr>',
+        '<tr role="row">{content}</tr>',
 
 
     // -- Public methods ------------------------------------------------------
@@ -1565,7 +1598,7 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
                 colspan: 1,
                 rowspan: 1
             },
-            i, len, j, jlen, col, html, content;
+            i, len, j, jlen, col, className, html, content, values;
 
         if (thead && columns) {
             html = '';
@@ -1576,15 +1609,28 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
 
                     for (j = 0, jlen = columns[i].length; j < jlen; ++j) {
                         col = columns[i][j];
-                        content += fromTemplate(this.CELL_TEMPLATE,
-                            Y.merge(
-                                defaults,
-                                col, {
-                                    content: col.label ||
-                                             col.key   ||
-                                             ("Column " + (j + 1))
-                                }
-                            ));
+                        className = this.getClassName('header');
+                        values = Y.merge(
+                            defaults,
+                            col, {
+                                className: className,
+                                content  : col.label || col.key ||
+                                           ("Column " + (j + 1)),
+                                headers  : ''
+                            }
+                        );
+
+                        if (col._id) {
+                            values.className +=
+                                ' ' + this.getClassName('col', col._id);
+                        }
+
+                        if (col.parent) {
+                            values.headers =
+                                'headers="' + col.parent.headers.join(' ') + '"';
+                        }
+
+                        content += fromTemplate(this.CELL_TEMPLATE, values);
                     }
 
                     html += fromTemplate(this.ROW_TEMPLATE, {
@@ -1822,6 +1868,15 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
 
                     entry[1] = i;
 
+                    // collect the IDs of parent cols
+                    col.headers = [col._yuid];
+
+                    for (j = stack.length - 2; j >= 0; --j) {
+                        parent = stack[j][0][stack[j][1]];
+
+                        col.headers.unshift(parent._yuid);
+                    }
+
                     if (children && children.length) {
                         // parent cells must assume rowspan 1 (long story)
 
@@ -1829,15 +1884,6 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
                         stack.push([children, -1]);
                         break;
                     } else {
-                        // collect the IDs of parent cols
-                        col.headers = [col._yuid];
-
-                        for (j = stack.length - 2; j >= 0; --j) {
-                            parent = stack[j][0][stack[j][1]];
-
-                            col.headers.unshift(parent._yuid);
-                        }
-
                         col.rowspan = rowSpan - stack.length + 1;
                     }
                 }
@@ -1897,7 +1943,7 @@ Column `formatter`s are passed an object (`o`) with the following properties:
   * `data` - An object map of Model keys to their current values.
   * `record` - The Model instance.
   * `column` - The column configuration object for the current column.
-  * `classnames` - Initially empty string to allow `formatter`s to add CSS 
+  * `className` - Initially empty string to allow `formatter`s to add CSS 
     classes to the cell's `<td>`.
   * `rowindex` - The zero-based row number.
 
@@ -1950,9 +1996,9 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
 
     @property CELL_TEMPLATE
     @type {HTML}
-    @default '<td headers="{headers}" class="{classes}">{content}</td>'
+    @default '<td headers="{headers}" class="{className}">{content}</td>'
     **/
-    CELL_TEMPLATE: '<td headers="{headers}" class="{classes}">{content}</td>',
+    CELL_TEMPLATE: '<td role="gridcell" headers="{headers}" class="{className}">{content}</td>',
 
     /**
     CSS class applied to even rows.  This is assigned at instantiation after
@@ -2014,8 +2060,8 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     @return {Node}
     **/
     getCell: function (row, col) {
-        var el    = null,
-            tbody = this.get('container');
+        var tbody = this.get('container'),
+            el;
 
         if (tbody) {
             el = tbody.getDOMNode().rows[+row];
@@ -2104,7 +2150,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
       * `data` - An object map of Model keys to their current values.
       * `record` - The Model instance.
       * `column` - The column configuration object for the current column.
-      * `classnames` - Initially empty string to allow `formatter`s to add CSS 
+      * `className` - Initially empty string to allow `formatter`s to add CSS 
         classes to the cell's `<td>`.
       * `rowindex` - The zero-based row number.
 
@@ -2220,7 +2266,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         if (data && formatters.length) {
             data.each(function (record, index) {
                 var formatterData = {
-                        data      : record.getAttrs(),
+                        data      : record.toJSON(),
                         record    : record,
                         rowindex  : index
                     },
@@ -2333,8 +2379,8 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         will default from '' or `undefined` to the value of the column's
         `emptyCellValue` if assigned.
       * `bar` - Same for the 'bar' column cell content.
-      * `foo-classes` - String of CSS classes to apply to the `<td>`.
-      * `bar-classes` - Same.
+      * `foo-className` - String of CSS classes to apply to the `<td>`.
+      * `bar-className` - Same.
       * `rowClasses`  - String of CSS classes to apply to the `<tr>`. This will
         default to the odd/even class per the specified index, but can be
         accessed and ammended by any column formatter via `o.data.rowClasses`.
@@ -2349,11 +2395,9 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     @protected
     **/
     _createRowHTML: function (model, index) {
-        var data    = model.getAttrs(),
+        var data    = model.toJSON(),
             values  = {
-                rowId: data.clientId,
-                // TODO: Be consistent and change to row-classes? This could be
-                // clobbered by a column named 'row'.
+                rowId: model.get('clientId'),
                 rowClasses: (index % 2) ? this.CLASS_ODD : this.CLASS_EVEN
             },
             source  = this.source || this,
@@ -2363,18 +2407,18 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         for (i = 0, len = columns.length; i < len; ++i) {
             col   = columns[i];
             value = data[col.key];
-            token = col._renderToken || col.key || col._yuid;
+            token = col._id;
 
-            values[token + '-classes'] = '';
+            values[token + '-className'] = '';
 
             if (col.formatter) {
                 formatterData = {
-                    value     : value,
-                    data      : data,
-                    column    : col,
-                    record    : model,
-                    classnames: '',
-                    rowindex  : index
+                    value    : value,
+                    data     : data,
+                    column   : col,
+                    record   : model,
+                    className: '',
+                    rowindex : index
                 };
 
                 if (typeof col.formatter === 'string') {
@@ -2389,11 +2433,11 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
                         value = formatterData.value;
                     }
 
-                    values[token + '-classes'] = formatterData.classnames;
+                    values[token + '-className'] = formatterData.className;
                 }
             }
 
-            if ((value === undefined || value === '')) {
+            if (value === undefined || value === '') {
                 value = col.emptyCellValue || '';
             }
 
@@ -2417,37 +2461,24 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     _createRowTemplate: function (columns) {
         var html         = '',
             cellTemplate = this.CELL_TEMPLATE,
-            tokens       = {},
             i, len, col, key, token, tokenValues;
 
         for (i = 0, len = columns.length; i < len; ++i) {
-            col = columns[i];
-            key = col.key;
-
-            if (key) {
-                if (tokens[key]) {
-                    token = key + (tokens[key]++);
-                } else {
-                    token = key;
-                    tokens[key] = 1;
-                }
-            } else {
-                token = col.name || col._yuid;
-            }
-
-            col._renderToken = token;
+            col   = columns[i];
+            key   = col.key;
+            token = col._id;
 
             tokenValues = {
-                content   : '{' + token + '}',
-                headers   : col.headers.join(' '),
-                // TODO: should this be getClassName(token)? Both?
-                classes   : this.getClassName(key) + ' {' + token + '-classes}'
+                content  : '{' + token + '}',
+                headers  : col.headers.join(' '),
+                className: this.getClassName('col', token) + ' ' +
+                           this.getClassName('cell') +
+                           ' {' + token + '-className}'
             };
 
             if (col.nodeFormatter) {
                 // Defer all node decoration to the formatter
-                tokenValues.content    = '';
-                tokenValues.classes    = '';
+                tokenValues.content   = '';
             }
 
             html += fromTemplate(cellTemplate, tokenValues);
@@ -3614,9 +3645,9 @@ Y.mix(Scrollable.prototype, {
 
     @property SCROLLING_CONTAINER_TEMPLATE
     @type {HTML}
-    @value '<div class="{classes}"><table></table></div>'
+    @value '<div class="{className}"><table class="{tableClassName}"></table></div>'
     **/
-    SCROLLING_CONTAINER_TEMPLATE: '<div class="{classes}"><table></table></div>',
+    SCROLLING_CONTAINER_TEMPLATE: '<div class="{className}"><table class="{tableClassName}"></table></div>',
 
     /**
     Scrolls a given row or cell into view if the table is scrolling.  Pass the
@@ -3742,7 +3773,8 @@ Y.mix(Scrollable.prototype, {
         if (!this._yScrollNode) {
             this._yScrollNode = Y.Node.create(
                 Y.Lang.sub(this.SCROLLING_CONTAINER_TEMPLATE, {
-                    classes: this.getClassName('data','container')
+                    className: this.getClassName('y','scroller'),
+                    tableClassName: this.getClassName('y', 'scroll', 'table')
                 }));
         }
     },
@@ -4016,7 +4048,7 @@ Y.mix(Scrollable.prototype, {
                 width : (width - 2) + 'px'
             });
 
-            scrollTable.setStyle('width', (width - scrollbar - 1) + 'px');
+            scrollTable.setStyle('width', scrollNode.get('clientWidth') + 'px');
             this._setARIARoles();
         }
 
