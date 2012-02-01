@@ -56,6 +56,8 @@
             
                 <li><a href="../classes/DataTable.Scrollable.html">DataTable.Scrollable</a></li>
             
+                <li><a href="../classes/DataTable.Sortable.html">DataTable.Sortable</a></li>
+            
                 <li><a href="../classes/JSONPRequest.html">JSONPRequest</a></li>
             
                 <li><a href="../classes/Plugin.html">Plugin</a></li>
@@ -87,6 +89,8 @@
                 <li><a href="../modules/datatable-head.html">datatable-head</a></li>
             
                 <li><a href="../modules/datatable-mutable.html">datatable-mutable</a></li>
+            
+                <li><a href="../modules/datatable-sort.html">datatable-sort</a></li>
             
                 <li><a href="../modules/event-drag.html">event-drag</a></li>
             
@@ -131,7 +135,7 @@
 <div class="box clearfix meta">
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1442"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1442</code></a>
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1425"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1425</code></a>
         </div>
     
 
@@ -178,23 +182,24 @@ This would translate to the following visualization:
 <p>Supported properties of the column objects include:</p>
 
 <ul>
-<li><code>label</code>    - The HTML content of the header cell.</li>
-<li><code>key</code>      - If <code>label</code> is not specified, the <code>key</code> is used for content.</li>
-<li><code>children</code> - Array of columns to appear below this column in the next
-             row.</li>
-<li><code>abbr</code>     - The content of the 'abbr' attribute of the <code>&lt;th&gt;</code></li>
+<li><code>label</code>     - The HTML content of the header cell.</li>
+<li><code>key</code>       - If <code>label</code> is not specified, the <code>key</code> is used for content.</li>
+<li><code>children</code>  - Array of columns to appear below this column in the next
+              row.</li>
+<li><code>abbr</code>      - The content of the 'abbr' attribute of the <code>&lt;th&gt;</code></li>
+<li><code>className</code> - Adds this string of CSS classes to the column header</li>
 </ul>
 
 <p>Through the life of instantiation and rendering, the column objects will have
 the following properties added to them:</p>
 
 <ul>
-<li><code>colspan</code> - To supply the <code>&lt;th&gt;</code> attribute</li>
-<li><code>rowspan</code> - To supply the <code>&lt;th&gt;</code> attribute</li>
-<li><code>parent</code>  - If the column is a child of another column, this points to
+<li><code>_colspan</code> - To supply the <code>&lt;th&gt;</code> attribute</li>
+<li><code>_rowspan</code> - To supply the <code>&lt;th&gt;</code> attribute</li>
+<li><code>_parent</code>  - If the column is a child of another column, this points to
 its parent column</li>
-<li><code>_yuid</code>   - A unique YUI generated id used as the <code>&lt;th&gt;</code>'s 'id' for
-reference in the data <code>&lt;td&gt;</code>'s 'headers' attribute.</li>
+<li><code>_yuid</code>    - (Added by DataTable) A unique YUI generated id used as the
+<code>&lt;th&gt;</code>'s 'id' for reference in the data <code>&lt;td&gt;</code>'s 'headers' attribute.</li>
 </ul>
 
 <p>The column object is also used to provide values for {placeholder} tokens in the
