@@ -1,0 +1,116 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Test Page</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <div id="x">
+        <button id="btn3">Button 3</button>
+        <button id="btn4">Button 4</button>
+    </div>
+
+    <script src="http://yui.yahooapis.com/3.5.0pr2/build/yui/yui.js"></script>
+    <script>
+    YUI({ filter: 'raw' }).use('node', function (Y) {
+
+        var isObject = Y.Lang.isObject,
+            isString = Y.Lang.isString,
+            sub      = Y.Lang.sub;
+        
+        Y.Button = Y.extend(function (el) {
+            this._initButton(el);
+        },
+        Y.Node, {
+            DEFAULT_LABEL: "OK",
+
+            setState: function (state) {
+                var disabled = (state === 'disabled');
+
+                this[disabled ? 'setAttribute' : 'removeAttribute']('aria-disabled', true);
+                this[disabled ? 'addClass' : 'removeClass']('yui3-disabled');
+
+                this.set('disabled', disabled);
+            },
+
+            TEMPLATE: '<button>{label}</button>',
+
+            _createButton: function (values) {
+                return Y.DOM.create(sub(this.TEMPLATE, values));
+            },
+
+            _initButton: function (el) {
+                var config = isObject(el) && el,
+                    node, uid;
+
+                if (config) {
+                    el = config.srcNode;
+                }
+
+                if (!el || Y.Node.call(this, el) === null) {
+                    Y.Node.call(this, this._createButton(
+                        config ||
+                        { label: el || this.DEFAULT_LABEL }));
+
+                }
+
+                if (!this._node) {
+                    // Dunno how this would happen
+                    return null;
+                }
+
+                if (config) {
+                    // Maybe a bad idea
+                    this.setAttrs(config);
+
+                    if (isObject(config.on)) {
+                        this.on.call(this, config.on);
+                    }
+                }
+
+                // TODO: evaluate current node for proper ARIA role/states
+
+                if (!config || !config.noCache) {
+                    Y.Node._instances[this._node._yuid] = this;
+                }
+
+            }
+        });
+
+        var button = new Y.Button();
+
+        var button2 = new Y.Button("Some text");
+
+        var button3 = new Y.Button('#btn3');
+
+        var button4 = new Y.Button({ srcNode: '#btn4' });
+
+        var button5 = new Y.Button({
+                label: "Click here",
+                on: {
+                    click: function (e) {
+                        console.log('Button 5!');
+                    }
+                }
+            });
+
+        button.on('click', function (e) {
+            console.log('Button 1');
+        });
+        
+        button4.setState('disabled');
+
+        Y.one('#x').prepend(button).prepend(button2);
+
+        button5.appendTo('#x');
+
+        console.log('Y.one("#bt3") instanceof Y.Button? ',
+            Y.one('#btn3') instanceof Y.Button);
+
+        console.log('Button 4 disabled? ', button4.get('disabled'));
+    });
+    </script>
+</body>
+</html>
