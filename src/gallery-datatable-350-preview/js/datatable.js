@@ -3456,6 +3456,22 @@ Fired by the `moveColumn` method.
 
 }, '@VERSION@', { requires: ['gallery-datatable-350-preview-base'] });
 
+YUI.add('lang/gallery-datatable-350-preview-message', function (Y) {
+Y.Intl.add('datatable-message', '', 
+{
+    emptyMessage: "No data to display",
+    loadingMessage: "Loading..."
+}
+);}, '@VERSION@');
+
+YUI.add('lang/gallery-datatable-350-preview-message_en', function (Y) {
+Y.Intl.add('datatable-message', 'en', 
+{
+    emptyMessage: "No data to display",
+    loadingMessage: "Loading..."
+}
+);}, '@VERSION@');
+
 YUI.add('gallery-datatable-350-preview-message', function (Y) {
 /**
 Adds support for a message container to appear in the table.  This can be used
@@ -3466,7 +3482,7 @@ Features added to `Y.DataTable`, and made available for custom classes at
 `Y.DataTable.Message`.
 
 @module datatable-message
-@class DataTable.Sortable
+@class DataTable.Message
 @for DataTable
 **/
 var Message;
@@ -4766,6 +4782,26 @@ Y.mix(Scrollable.prototype, {
 Y.Base.mix(Y.DataTable, [Scrollable]);
 }, '@VERSION@', { requires: ['gallery-datatable-350-preview-base', 'gallery-datatable-350-preview-column-widths', 'dom-screen'] });
 
+YUI.add('lang/gallery-datatable-350-preview-sort', function (Y) {
+Y.Intl.add('datatable-sort', '', 
+{
+    asc: "Ascending",
+    desc: "Descending",
+    sortBy: "Sort by {column}",
+    reverseSortBy: "Reverse sort by {column}"
+}
+);}, '@VERSION@');
+
+YUI.add('lang/gallery-datatable-350-preview-sort_en', function (Y) {
+Y.Intl.add('datatable-sort', 'en', 
+{
+    asc: "Ascending",
+    desc: "Descending",
+    sortBy: "Sort by {column}",
+    reverseSortBy: "Reverse sort by {column}"
+}
+);}, '@VERSION@');
+
 YUI.add('gallery-datatable-350-preview-sort', function (Y) {
 /**
 Adds support for sorting the table data by API methods `table.sort(...)` or
@@ -5574,7 +5610,11 @@ Y.use('gallery-datatable-350-preview-core',
       'gallery-datatable-350-preview-body', 
       'gallery-datatable-350-preview-base', 
       'gallery-datatable-350-preview-mutable',
+      'lang/gallery-datatable-350-preview-message',
+      'lang/gallery-datatable-350-preview-message_en',
       'gallery-datatable-350-preview-message',
       'gallery-datatable-350-preview-column-widths', 
       'gallery-datatable-350-preview-scroll',
-      'gallery-datatable-350-preview-sort');
+      'gallery-datatable-350-preview-sort',
+      'lang/gallery-datatable-350-preview-sort',
+      'lang/gallery-datatable-350-preview-sort_en');
