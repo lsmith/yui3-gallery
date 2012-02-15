@@ -9,8 +9,9 @@
                 "datatable-body": 1,
                 "datatable-base": 1,
                 "datatable-mutable": 1,
+                "datatable-message": 1,
                 "datatable-column-widths": 1,
-                "@datatable-scroll": 1,
+                "datatable-scroll": 1,
                 "datatable-sort": 1
             },
             "classes": {
@@ -20,6 +21,7 @@
                 "DataTable": 1,
                 "DataTable.Base": 1,
                 "DataTable.Mutable": 1,
+                "DataTable.Message": 1,
                 "DataTable.ColumnWidths": 1,
                 "DataTable.Scrollable": 1,
                 "DataTable.Sortable": 1
@@ -123,8 +125,8 @@
             },
             "tag": "module",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1425,
-            "description": "View class responsible for rendering the `<thead>` section of a table. Used as\nthe default `headerView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided array of column configuration objects into a rendered\n`<thead>` based on the data in those objects.\n    \n\nThe structure of the column data is expected to be a single array of objects,\nwhere each object corresponds to a `<th>`.  Those objects may contain a\n`children` property containing a similarly structured array to indicate the\nnested cells should be grouped under the parent column's colspan in a separate\nrow of header cells. E.g.\n\n<pre><code>\nnew Y.DataTable.HeaderView({\n  container: tableNode,\n  columns: [\n    { key: 'id' }, // no nesting\n    { key: 'name', children: [\n      { key: 'firstName', label: 'First' },\n      { key: 'lastName',  label: 'Last' } ] }\n  ]\n}).render();\n</code></pre>\n\nThis would translate to the following visualization:\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`     - The HTML content of the header cell.\n  * `key`       - If `label` is not specified, the `key` is used for content.\n  * `children`  - Array of columns to appear below this column in the next\n                  row.\n  * `abbr`      - The content of the 'abbr' attribute of the `<th>`\n  * `className` - Adds this string of CSS classes to the column header\n\nThrough the life of instantiation and rendering, the column objects will have\nthe following properties added to them:\n\n  * `_colspan` - To supply the `<th>` attribute\n  * `_rowspan` - To supply the `<th>` attribute\n  * `_parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`    - (Added by DataTable) A unique YUI generated id used as the\n    `<th>`'s 'id' for reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder} tokens in the\ninstance's `CELL_TEMPLATE`, so you can modify the template and include other\ncolumn object properties to populate them.",
+            "line": 1424,
+            "description": "View class responsible for rendering the `<thead>` section of a table. Used as\nthe default `headerView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided array of column configuration objects into a rendered\n`<thead>` based on the data in those objects.\n    \n\nThe structure of the column data is expected to be a single array of objects,\nwhere each object corresponds to a `<th>`.  Those objects may contain a\n`children` property containing a similarly structured array to indicate the\nnested cells should be grouped under the parent column's colspan in a separate\nrow of header cells. E.g.\n\n<pre><code>\nnew Y.DataTable.HeaderView({\n  container: tableNode,\n  columns: [\n    { key: 'id' }, // no nesting\n    { key: 'name', children: [\n      { key: 'firstName', label: 'First' },\n      { key: 'lastName',  label: 'Last' } ] }\n  ]\n}).render();\n</code></pre>\n\nThis would translate to the following visualization:\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`     - The HTML content of the header cell.\n  * `key`       - If `label` is not specified, the `key` is used for content.\n  * `children`  - Array of columns to appear below this column in the next\n                  row.\n  * `headerTemplate` - Overrides the instance's `CELL_TEMPLATE` for cells in this\n    column only.\n  * `abbr`      - The content of the 'abbr' attribute of the `<th>`\n  * `className` - Adds this string of CSS classes to the column header\n\nThrough the life of instantiation and rendering, the column objects will have\nthe following properties added to them:\n\n  * `_colspan` - To supply the `<th>` attribute\n  * `_rowspan` - To supply the `<th>` attribute\n  * `_parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`    - (Added by DataTable) A unique YUI generated id used as the\n    `<th>`'s 'id' for reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder} tokens in the\ninstance's `CELL_TEMPLATE`, so you can modify the template and include other\ncolumn object properties to populate them.",
             "extends": "View"
         },
         "datatable-body": {
@@ -139,8 +141,8 @@
             },
             "tag": "module",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1891,
-            "description": "View class responsible for rendering the `<tbody>` section of a table. Used as\nthe default `bodyView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided `modelList` into a rendered `<tbody>` based on the data\nin the constituent Models, altered or ammended by any special column\nconfigurations.\n\nThe `columns` configuration, passed to the constructor, determines which\ncolumns will be rendered.\n\nThe rendering process involves constructing an HTML template for a complete row\nof data, built by concatenating a customized copy of the instance's\n`CELL_TEMPLATE` into the `ROW_TEMPLATE` once for each column.  This template is\nthen populated with values from each Model in the `modelList`, aggregating a\ncomplete HTML string of all row and column data.  A `<tbody>` Node is then created from the markup and any column `nodeFormatter`s are applied.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform any\n    custom modifications on the cell or row Node that could not be performed by\n    `formatter`s.  Should be used sparingly for better performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string or\n    `undefined`.\n  * `allowHTML` - Set to `true` if a column value, `formatter`, or\n    `emptyCellValue` can contain HTML.  This defaults to `false` to protect\n    against XSS.\n  * `className` - Space delimited CSS classes to add to all `<td>`s in a column.\n\nColumn `formatter`s are passed an object (`o`) with the following properties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `className` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowindex` - The zero-based row number.\n  * `rowClass` - Initially empty string to allow `formatter`s to add CSS\n    classes to the cell's containing row `<tr>`.\n\nThey may return a value or update `o.value` to assign specific HTML content.  A\nreturned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the `<td>`.\n    When adding content to the cell, prefer appending into this property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowindex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`, as\nit will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The DOM\nelements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_.",
+            "line": 1893,
+            "description": "View class responsible for rendering the `<tbody>` section of a table. Used as\nthe default `bodyView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided `modelList` into a rendered `<tbody>` based on the data\nin the constituent Models, altered or ammended by any special column\nconfigurations.\n\nThe `columns` configuration, passed to the constructor, determines which\ncolumns will be rendered.\n\nThe rendering process involves constructing an HTML template for a complete row\nof data, built by concatenating a customized copy of the instance's\n`CELL_TEMPLATE` into the `ROW_TEMPLATE` once for each column.  This template is\nthen populated with values from each Model in the `modelList`, aggregating a\ncomplete HTML string of all row and column data.  A `<tbody>` Node is then created from the markup and any column `nodeFormatter`s are applied.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `cellTemplate` - Overrides the instance's `CELL_TEMPLATE` for cells in this\n    column only.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform any\n    custom modifications on the cell or row Node that could not be performed by\n    `formatter`s.  Should be used sparingly for better performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string,\n    `null`, or `undefined`.\n  * `allowHTML` - Set to `true` if a column value, `formatter`, or\n    `emptyCellValue` can contain HTML.  This defaults to `false` to protect\n    against XSS.\n  * `className` - Space delimited CSS classes to add to all `<td>`s in a column.\n\nColumn `formatter`s are passed an object (`o`) with the following properties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `className` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowIndex` - The zero-based row number.\n  * `rowClass` - Initially empty string to allow `formatter`s to add CSS\n    classes to the cell's containing row `<tr>`.\n\nThey may return a value or update `o.value` to assign specific HTML content.  A\nreturned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the `<td>`.\n    When adding content to the cell, prefer appending into this property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowIndex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`, as\nit will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The DOM\nelements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_.",
             "extends": "View"
         },
         "datatable-base": {
@@ -155,7 +157,7 @@
             },
             "tag": "module",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2598,
+            "line": 2604,
             "description": "A Widget for displaying tabular data.  The base implementation of DataTable\nprovides the ability to dynamically generate an HTML table from a set of column\nconfigurations and row data.\n\nTwo classes are included in the `datatable-base` module:\n\n1. `Y.DataTable` - Main instantiable class, has all loaded features available\n2. `Y.DataTable.Base` - Featureless version for use primarily as a superclass.\n\nExample usage might look like this:\n\n<pre><code>\n// Featureless table, usually used as a subclass, but can be instantiated\nvar table = new Y.DataTable.Base({\n    columns: ['firstName', 'lastName', 'age'],\n    data: [\n        { firstName: 'Frank', lastName: 'Zappa', age: 71 },\n        { firstName: 'Frank', lastName: 'Lloyd Wright', age: 144 },\n        { firstName: 'Albert', lastName: 'Einstein', age: 132 },\n        ...\n    ]\n});\n\ntable.render('#in-here');\n\n// Table with all loaded features available (not .Base)\n// The functionality of this table would require additional modules be use()d,\n// but the feature APIs are aggregated onto Y.DataTable.\n// (Snippet is for illustration. Not all features are available today.)\nvar table = new Y.DataTable({\n    columns: [\n        { type: 'checkbox', defaultChecked: true },\n        { key: 'firstName', sortable: true, resizable: true },\n        { key: 'lastName', sortable: true },\n        { key: 'role', formatter: toRoleName }\n    ],\n    data: {\n        source: 'http://myserver.com/service/json',\n        type: 'json',\n        schema: {\n            resultListLocator: 'results.users',\n            fields: [\n                'username',\n                'firstName',\n                'lastName',\n                { key: 'role', type: 'number' }\n            ]\n        }\n    },\n    recordType: UserModel,\n    pagedData: {\n        location: 'footer',\n        pageSizes: [20, 50, 'all'],\n        rowsPerPage: 20,\n        pageLinks: 5\n    },\n    editable: true,\n    filterable: true\n});\n</code></pre>\n\n### Column Configuration\n\nThe column configurations are set in the form of an array of objects, where\neach object corresponds to a column.  For columns populated directly from the\nrow data, a 'key' property is required to bind the column to that property or\nattribute in the row data.\n\nNot all columns need to relate to row data, nor do all properties or attributes\nof the row data need to have a corresponding column.  However, only those\ncolumns included in the `columns` configuration attribute will be rendered.\n\nOther column configuration properties are supported by the configured\n`headerView`, `bodyView`, `footerView` classes as well as any features added by\nplugins or class extensions.  See the description of DataTable.HeaderView,\nDataTable.BodyView, and other DataTable feature classes to see what column\nproperties they support.\n\nSome examples of column configurations would be:\n\n<pre><code>\n// Basic\nvar columns = [{ key: 'firstName' }, { key: 'lastName' }, { key: 'age' }];\n\n// For columns without any additional configuration, strings can be used\nvar columns = ['firstName', 'lastName', 'age'];\n\n// Multi-row column headers (see DataTable.HeaderView for details)\nvar columns = [\n    {\n        label: 'Name',\n        children: [\n            { key: 'firstName' },\n            { key: 'lastName' }\n        ]\n    },\n    'age' // mixing and matching objects and strings is ok\n];\n\n// Including columns that are not related 1:1 to row data fields/attributes\n// (See DataTable.BodyView for details)\nvar columns = [\n    {\n        label: 'Name', // Needed for the column header\n        formatter: function (o) {\n            // Fill the column cells with data from firstName and lastName\n            if (o.data.age > 55) {\n                o.classnames += ' senior';\n            }\n            return o.data.lastName + ', ' + o.data.firstName;\n        }\n    },\n    'age'\n];\n\n// Columns that include feature configurations (for illustration; not all\n// features are available today).\nvar columns = [\n    { type: 'checkbox', defaultChecked: true },\n    { key: 'firstName', sortable: true, resizable: true, min-width: '300px' },\n    { key: 'lastName', sortable: true, resizable: true, min-width: '300px' },\n    { key: 'age', emptyCellValue: '<em>unknown</em>' }\n];\n</code></pre>\n\n### Row Data Configuration\n\nThe `data` configuration attribute is responsible for housing the data objects that will be rendered as rows.  You can provide this information in two ways by default:\n\n1. An array of simple objects with key:value pairs\n2. A ModelList of Base-based class instances (presumably Model subclass\n   instances)\n\nIf an array of objects is passed, it will be translated into a ModelList filled\nwith instances of the class provided to the `recordType` attribute.  This\nattribute can also create a custom Model subclass from an array of field names\nor an object of attribute configurations.  If no `recordType` is provided, one\nwill be created for you from available information (see `_initRecordType`).\nProviding either your own ModelList instance for `data`, or at least Model\nclass for `recordType`, is the best way to control client-server\nsynchronization when modifying data on the client side.\n\nThe ModelList instance that manages the table's data is available in the `data`\nproperty on the DataTable instance.\n\n\n### Rendering\n\nTable rendering is a collaborative process between the DataTable and its\nconfigured `headerView`, `bodyView`, and `footerView`.  The DataTable renders\nthe `<table>` and `<caption>`, but the contents of the table are delegated to\ninstances of the classes provided to the `headerView`, `bodyView`, and\n`footerView` attributes. If any of these attributes is unset, that portion of\nthe table won't be rendered.\n\nDataTable.Base assigns the default `headerView` to `Y.DataTable.HeaderView` and\nthe default `bodyView` to `Y.DataTable.BodyView`, though either can be\noverridden for custom rendering.  No default `footerView` is assigned. See\nthose classes for more details about how they operate.",
             "itemtype": "main"
         },
@@ -172,8 +174,23 @@
             "namespaces": {},
             "tag": "module",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2870,
+            "line": 2876,
             "description": "Adds mutation convenience methods to `Y.DataTable` (or other built class).\n\nColumn mutation methods are paired with new custom events:\n\n * addColumn\n * removeColumn\n * modifyColumn\n * moveColumn\n\nRow mutation events are bubbled from the DataTable's `data` ModelList through\nthe DataTable instance."
+        },
+        "datatable-message": {
+            "name": "datatable-message",
+            "submodules": {},
+            "classes": {
+                "DataTable.Message": 1
+            },
+            "fors": {
+                "DataTable": 1
+            },
+            "namespaces": {},
+            "tag": "module",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3478,
+            "description": "Adds support for a message container to appear in the table.  This can be used\nto indicate loading progress, lack of records, or any other communication\nneeded.\n\nFeatures added to `Y.DataTable`, and made available for custom classes at\n`Y.DataTable.Message`."
         },
         "datatable-column-widths": {
             "name": "datatable-column-widths",
@@ -187,11 +204,11 @@
             "namespaces": {},
             "tag": "module",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3446,
+            "line": 3739,
             "description": "Adds basic, programmatic column width support to DataTable. Note, this does not\nadd support for truncated columns.  Due to the way HTML tables render, column\nwidth is more like `min-width`.  Column content wider than the assigned width\nwill cause the column to expand, though if a table width is set, the overall\nwidth will be respected by reducing the width of other columns if possible.\n\nTo set a column width, either add a `width` value to the column configuration\nor call the `setColumnWidth(id, width)` method.\n\nNote, assigning column widths is possible without this module, as each cell is\ndecorated with a class appropriate for that column which you can statically\ntarget in your site's CSS.  To achieve forced column widths with truncation,\neither add a column `formatter` or update the table's `bodyView`'s\n`CELL_TEMPLATE` to include a `<div>` liner (by convention, assigned a classname\n\"yui3-datatable-liner\"), then set the width and overflow for those `<div>`s in\nyour CSS.  For example, to give the column \"foo\" an absolute width, add this to\nyour site CSS:\n\n<pre><code>\n.yui3-datatable .yui3-datatable-foo .yui3-datatable-liner {\n    overflow: hidden;\n    width: 125px;\n}\n</pre></code>\n\nand assign a `formatter` for the \"foo\" column in your JavaScript:\n\n<pre><code>\nvar table = new Y.DataTable({\n    columns: [\n        {\n            key: 'foo',\n            formatter: '&lt;div class=\"yui3-datatable-liner\">{value}&lt;/div>',\n            allowHTML: true\n        },\n        ...\n    ],\n    ...\n});\n</code></pre>\n\nTo add a liner to all columns, either provide a custom `bodyView` to the\nDataTable constructor or update the default `bodyView`'s `CELL_TEMPLATE` like\nso:\n\n<pre><code>\ntable.on('renderBody', function (e) {\n    e.view.CELL_TEMPLATE = e.view.CELL_TEMPLATE.replace(/\\{content\\}/,\n            '&lt;div class=\"yui3-datatable-liner\">{content}&lt;/div>');\n});\n</code></pre>\n\nKeep in mind that DataTable skins apply cell `padding`, so assign your CSS\n`width`s accordingly or override the `padding` style for that column's `<td>`s\nto 0, and add `padding` to the liner `<div>`'s styles."
         },
-        "@datatable-scroll": {
-            "name": "@datatable-scroll",
+        "datatable-scroll": {
+            "name": "datatable-scroll",
             "submodules": {},
             "classes": {
                 "DataTable.Scrollable": 1
@@ -202,7 +219,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3721,
+            "line": 4014,
             "description": "Adds the ability to make the table rows scrollable while preserving the header\nplacement.\n\nThere are two types of scrolling, horizontal (x) and vertical (y).  Horizontal\nscrolling is achieved by wrapping the entire table in a scrollable container.\nVertical scrolling is achieved by splitting the table headers and data into two\nseparate tables, the latter of which is wrapped in a vertically scrolling\ncontainer.  In this case, column widths of header cells and data cells are kept\nin sync programmatically.\n\nSince the split table synchronization can be costly at runtime, the split is only done if the data in the table stretches beyond the configured `height` value.\n\nTo activate or deactivate scrolling, set the `scrollable` attribute to one of\nthe following values:\n\n * `false` - (default) Scrolling is disabled.\n * `true` or 'xy' - If `height` is set, vertical scrolling will be activated, if\n            `width` is set, horizontal scrolling will be activated.\n * 'x' - Activate horizontal scrolling only. Requires the `width` attribute is\n         also set.\n * 'y' - Activate vertical scrolling only. Requires the `height` attribute is\n         also set."
         },
         "datatable-sort": {
@@ -218,7 +235,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4486,
+            "line": 4808,
             "description": "Adds support for sorting the table data by API methods `table.sort(...)` or\n`table.toggleSort(...)` or by clicking on column headers in the rendered UI.\n\nSorting by the API is enabled automatically when this module is `use()`d.  To\nenable UI triggered sorting, set the DataTable's `sortable` attribute to\n`true`.\n\n<pre><code>\nvar table = new Y.DataTable({\n    columns: [ 'id', 'username', 'name', 'birthdate' ],\n    data: [ ... ],\n    sortable: true\n});\n\ntable.render('#table');\n</code></pre>\n\nSetting `sortable` to `true` will enable UI sorting for all columns.  To enable\nUI sorting for certain columns only, set `sortable` to an array of column keys,\nor just add `sortable: true` to the respective column configuration objects.\nThis uses the default setting of `sortable: auto` for the DataTable instance.\n\n<pre><code>\nvar table = new Y.DataTable({\n    columns: [\n        'id',\n        { key: 'username',  sortable: true },\n        { key: 'name',      sortable: true },\n        { key: 'birthdate', sortable: true }\n    ],\n    data: [ ... ]\n    // sortable: 'auto' is the default\n});\n\n// OR\nvar table = new Y.DataTable({\n    columns: [ 'id', 'username', 'name', 'birthdate' ],\n    data: [ ... ],\n    sortable: [ 'username', 'name', 'birthdate' ]\n});\n</code></pre>\n\nTo disable UI sorting for all columns, set `sortable` to `false`.  This still\npermits sorting via the API methods.\n\nAs new records are inserted into the table's `data` ModelList, they will be inserted at the correct index to preserve the sort order.\n\nThe current sort order is stored in the `sortBy` attribute.  Assigning this value at instantiation will automatically sort your data.\n\nSorting is done by a simple value comparison using &lt; and &gt; on the field\nvalue.  If you need custom sorting, add a sort function in the column's\n`sortFn` property.  Columns whose content is generated by formatters, but don't\nrelate to a single `key`, require a `sortFn` to be sortable.\n\n<pre><code>\nfunction nameSort(a, b) {\n    var aa = a.get('lastName'),\n        bb = a.get('lastName');\n\n    if (aa === bb) {\n        aa = a.get('firstName');\n        bb = b.get('firstName');\n    }\n\n    return (aa > bb) ? 1 : (aa < bb) ? -1 : 0;\n}\n\nvar table = new Y.DataTable({\n    columns: [ 'id', 'username', { key: name, sortFn: nameSort }, 'birthdate' ],\n    data: [ ... ],\n    sortable: [ 'username', 'name', 'birthdate' ]\n});\n</code></pre>\n\nSee the user guide for more details."
         },
         "gallery-jsonp": {
@@ -368,8 +385,8 @@
             "module": "datatable-body",
             "namespace": "DataTable",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1425,
-            "description": "View class responsible for rendering the `<thead>` section of a table. Used as\nthe default `headerView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided array of column configuration objects into a rendered\n`<thead>` based on the data in those objects.\n    \n\nThe structure of the column data is expected to be a single array of objects,\nwhere each object corresponds to a `<th>`.  Those objects may contain a\n`children` property containing a similarly structured array to indicate the\nnested cells should be grouped under the parent column's colspan in a separate\nrow of header cells. E.g.\n\n<pre><code>\nnew Y.DataTable.HeaderView({\n  container: tableNode,\n  columns: [\n    { key: 'id' }, // no nesting\n    { key: 'name', children: [\n      { key: 'firstName', label: 'First' },\n      { key: 'lastName',  label: 'Last' } ] }\n  ]\n}).render();\n</code></pre>\n\nThis would translate to the following visualization:\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`     - The HTML content of the header cell.\n  * `key`       - If `label` is not specified, the `key` is used for content.\n  * `children`  - Array of columns to appear below this column in the next\n                  row.\n  * `abbr`      - The content of the 'abbr' attribute of the `<th>`\n  * `className` - Adds this string of CSS classes to the column header\n\nThrough the life of instantiation and rendering, the column objects will have\nthe following properties added to them:\n\n  * `_colspan` - To supply the `<th>` attribute\n  * `_rowspan` - To supply the `<th>` attribute\n  * `_parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`    - (Added by DataTable) A unique YUI generated id used as the\n    `<th>`'s 'id' for reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder} tokens in the\ninstance's `CELL_TEMPLATE`, so you can modify the template and include other\ncolumn object properties to populate them."
+            "line": 1424,
+            "description": "View class responsible for rendering the `<thead>` section of a table. Used as\nthe default `headerView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided array of column configuration objects into a rendered\n`<thead>` based on the data in those objects.\n    \n\nThe structure of the column data is expected to be a single array of objects,\nwhere each object corresponds to a `<th>`.  Those objects may contain a\n`children` property containing a similarly structured array to indicate the\nnested cells should be grouped under the parent column's colspan in a separate\nrow of header cells. E.g.\n\n<pre><code>\nnew Y.DataTable.HeaderView({\n  container: tableNode,\n  columns: [\n    { key: 'id' }, // no nesting\n    { key: 'name', children: [\n      { key: 'firstName', label: 'First' },\n      { key: 'lastName',  label: 'Last' } ] }\n  ]\n}).render();\n</code></pre>\n\nThis would translate to the following visualization:\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`     - The HTML content of the header cell.\n  * `key`       - If `label` is not specified, the `key` is used for content.\n  * `children`  - Array of columns to appear below this column in the next\n                  row.\n  * `headerTemplate` - Overrides the instance's `CELL_TEMPLATE` for cells in this\n    column only.\n  * `abbr`      - The content of the 'abbr' attribute of the `<th>`\n  * `className` - Adds this string of CSS classes to the column header\n\nThrough the life of instantiation and rendering, the column objects will have\nthe following properties added to them:\n\n  * `_colspan` - To supply the `<th>` attribute\n  * `_rowspan` - To supply the `<th>` attribute\n  * `_parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`    - (Added by DataTable) A unique YUI generated id used as the\n    `<th>`'s 'id' for reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder} tokens in the\ninstance's `CELL_TEMPLATE`, so you can modify the template and include other\ncolumn object properties to populate them."
         },
         "DataTable.BodyView": {
             "name": "DataTable.BodyView",
@@ -382,8 +399,8 @@
             "module": "datatable-base",
             "namespace": "DataTable",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1891,
-            "description": "View class responsible for rendering the `<tbody>` section of a table. Used as\nthe default `bodyView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided `modelList` into a rendered `<tbody>` based on the data\nin the constituent Models, altered or ammended by any special column\nconfigurations.\n\nThe `columns` configuration, passed to the constructor, determines which\ncolumns will be rendered.\n\nThe rendering process involves constructing an HTML template for a complete row\nof data, built by concatenating a customized copy of the instance's\n`CELL_TEMPLATE` into the `ROW_TEMPLATE` once for each column.  This template is\nthen populated with values from each Model in the `modelList`, aggregating a\ncomplete HTML string of all row and column data.  A `<tbody>` Node is then created from the markup and any column `nodeFormatter`s are applied.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform any\n    custom modifications on the cell or row Node that could not be performed by\n    `formatter`s.  Should be used sparingly for better performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string or\n    `undefined`.\n  * `allowHTML` - Set to `true` if a column value, `formatter`, or\n    `emptyCellValue` can contain HTML.  This defaults to `false` to protect\n    against XSS.\n  * `className` - Space delimited CSS classes to add to all `<td>`s in a column.\n\nColumn `formatter`s are passed an object (`o`) with the following properties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `className` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowindex` - The zero-based row number.\n  * `rowClass` - Initially empty string to allow `formatter`s to add CSS\n    classes to the cell's containing row `<tr>`.\n\nThey may return a value or update `o.value` to assign specific HTML content.  A\nreturned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the `<td>`.\n    When adding content to the cell, prefer appending into this property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowindex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`, as\nit will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The DOM\nelements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_."
+            "line": 1893,
+            "description": "View class responsible for rendering the `<tbody>` section of a table. Used as\nthe default `bodyView` for `Y.DataTable.Base` and `Y.DataTable` classes.\n\nTranslates the provided `modelList` into a rendered `<tbody>` based on the data\nin the constituent Models, altered or ammended by any special column\nconfigurations.\n\nThe `columns` configuration, passed to the constructor, determines which\ncolumns will be rendered.\n\nThe rendering process involves constructing an HTML template for a complete row\nof data, built by concatenating a customized copy of the instance's\n`CELL_TEMPLATE` into the `ROW_TEMPLATE` once for each column.  This template is\nthen populated with values from each Model in the `modelList`, aggregating a\ncomplete HTML string of all row and column data.  A `<tbody>` Node is then created from the markup and any column `nodeFormatter`s are applied.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `cellTemplate` - Overrides the instance's `CELL_TEMPLATE` for cells in this\n    column only.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform any\n    custom modifications on the cell or row Node that could not be performed by\n    `formatter`s.  Should be used sparingly for better performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string,\n    `null`, or `undefined`.\n  * `allowHTML` - Set to `true` if a column value, `formatter`, or\n    `emptyCellValue` can contain HTML.  This defaults to `false` to protect\n    against XSS.\n  * `className` - Space delimited CSS classes to add to all `<td>`s in a column.\n\nColumn `formatter`s are passed an object (`o`) with the following properties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `className` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowIndex` - The zero-based row number.\n  * `rowClass` - Initially empty string to allow `formatter`s to add CSS\n    classes to the cell's containing row `<tr>`.\n\nThey may return a value or update `o.value` to assign specific HTML content.  A\nreturned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the `<td>`.\n    When adding content to the cell, prefer appending into this property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowIndex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`, as\nit will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The DOM\nelements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_."
         },
         "DataTable": {
             "name": "DataTable",
@@ -396,7 +413,7 @@
             "module": "datatable-sort",
             "namespace": "",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2764,
+            "line": 2770,
             "description": "A Widget for displaying tabular data.  Before feature modules are `use()`d,\nthis class is functionally equivalent to DataTable.Base.  However, feature\nmodules can modify this class in non-destructive ways, expanding the API and\nfunctionality.\n\nThis is the primary DataTable class.  Out of the box, it provides the ability\nto dynamically generate an HTML table from a set of column configurations and\nrow data.  But feature module inclusion can add table sorting, pagintaion,\nhighlighting, selection, and more.\n\n<pre><code>\n// Basic use\nvar table = new Y.DataTable({\n    columns: ['firstName', 'lastName', 'age'],\n    data: [\n        { firstName: 'Frank', lastName: 'Zappa', age: 71 },\n        { firstName: 'Frank', lastName: 'Lloyd Wright', age: 144 },\n        { firstName: 'Albert', lastName: 'Einstein', age: 132 },\n        ...\n    ]\n});\n\ntable.render('#in-here');\n\n// Table with loaded features.\n// The functionality of this table would require additional modules be use()d,\n// but the feature APIs are aggregated onto Y.DataTable.\n// (Snippet is for illustration. Not all features are available today.)\nvar table = new Y.DataTable({\n    columns: [\n        { type: 'checkbox', defaultChecked: true },\n        { key: 'firstName', sortable: true, resizable: true },\n        { key: 'lastName', sortable: true },\n        { key: 'role', formatter: toRoleName }\n    ],\n    data: {\n        source: 'http://myserver.com/service/json',\n        type: 'json',\n        schema: {\n            resultListLocator: 'results.users',\n            fields: [\n                'username',\n                'firstName',\n                'lastName',\n                { key: 'role', type: 'number' }\n            ]\n        }\n    },\n    recordType: UserModel,\n    pagedData: {\n        location: 'footer',\n        pageSizes: [20, 50, 'all'],\n        rowsPerPage: 20,\n        pageLinks: 5\n    },\n    editable: true,\n    filterable: true\n});\n</code></pre>",
             "extends": "DataTable.Base"
         },
@@ -411,7 +428,7 @@
             "module": "datatable-mutable",
             "namespace": "DataTable",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2830,
+            "line": 2836,
             "description": "The baseline implementation of a DataTable.  This class should be used\nprimarily as a superclass for a custom DataTable with a specific set of\nfeatures.  Because features can be composed onto `Y.DataTable`, custom\nsubclasses of DataTable.Base will remain unmodified when new feature modules\nare loaded.\n\nDataTable.Base is built from DataTable.Core, and sets the default `headerView`\nto `Y.DataTable.HeaderView` and default `bodyView` to `Y.DataTable.BodyView`.",
             "extends": "Widget",
             "uses": [
@@ -429,8 +446,22 @@
             "module": "datatable-mutable",
             "namespace": "",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2870,
+            "line": 2876,
             "description": "Adds mutation convenience methods to `Y.DataTable` (or other built class).\n\nColumn mutation methods are paired with new custom events:\n\n * addColumn\n * removeColumn\n * modifyColumn\n * moveColumn\n\nRow mutation events are bubbled from the DataTable's `data` ModelList through\nthe DataTable instance."
+        },
+        "DataTable.Message": {
+            "name": "DataTable.Message",
+            "shortname": "DataTable.Message",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "datatable-message",
+            "namespace": "",
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3478,
+            "description": "Adds support for a message container to appear in the table.  This can be used\nto indicate loading progress, lack of records, or any other communication\nneeded.\n\nFeatures added to `Y.DataTable`, and made available for custom classes at\n`Y.DataTable.Message`."
         },
         "DataTable.ColumnWidths": {
             "name": "DataTable.ColumnWidths",
@@ -443,7 +474,7 @@
             "module": "datatable-column-widths",
             "namespace": "",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3446,
+            "line": 3739,
             "description": "Adds basic, programmatic column width support to DataTable. Note, this does not\nadd support for truncated columns.  Due to the way HTML tables render, column\nwidth is more like `min-width`.  Column content wider than the assigned width\nwill cause the column to expand, though if a table width is set, the overall\nwidth will be respected by reducing the width of other columns if possible.\n\nTo set a column width, either add a `width` value to the column configuration\nor call the `setColumnWidth(id, width)` method.\n\nNote, assigning column widths is possible without this module, as each cell is\ndecorated with a class appropriate for that column which you can statically\ntarget in your site's CSS.  To achieve forced column widths with truncation,\neither add a column `formatter` or update the table's `bodyView`'s\n`CELL_TEMPLATE` to include a `<div>` liner (by convention, assigned a classname\n\"yui3-datatable-liner\"), then set the width and overflow for those `<div>`s in\nyour CSS.  For example, to give the column \"foo\" an absolute width, add this to\nyour site CSS:\n\n<pre><code>\n.yui3-datatable .yui3-datatable-foo .yui3-datatable-liner {\n    overflow: hidden;\n    width: 125px;\n}\n</pre></code>\n\nand assign a `formatter` for the \"foo\" column in your JavaScript:\n\n<pre><code>\nvar table = new Y.DataTable({\n    columns: [\n        {\n            key: 'foo',\n            formatter: '&lt;div class=\"yui3-datatable-liner\">{value}&lt;/div>',\n            allowHTML: true\n        },\n        ...\n    ],\n    ...\n});\n</code></pre>\n\nTo add a liner to all columns, either provide a custom `bodyView` to the\nDataTable constructor or update the default `bodyView`'s `CELL_TEMPLATE` like\nso:\n\n<pre><code>\ntable.on('renderBody', function (e) {\n    e.view.CELL_TEMPLATE = e.view.CELL_TEMPLATE.replace(/\\{content\\}/,\n            '&lt;div class=\"yui3-datatable-liner\">{content}&lt;/div>');\n});\n</code></pre>\n\nKeep in mind that DataTable skins apply cell `padding`, so assign your CSS\n`width`s accordingly or override the `padding` style for that column's `<td>`s\nto 0, and add `padding` to the liner `<div>`'s styles."
         },
         "DataTable.Scrollable": {
@@ -454,10 +485,10 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "@datatable-scroll",
+            "module": "datatable-scroll",
             "namespace": "",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3721,
+            "line": 4014,
             "description": "Adds the ability to make the table rows scrollable while preserving the header\nplacement.\n\nThere are two types of scrolling, horizontal (x) and vertical (y).  Horizontal\nscrolling is achieved by wrapping the entire table in a scrollable container.\nVertical scrolling is achieved by splitting the table headers and data into two\nseparate tables, the latter of which is wrapped in a vertically scrolling\ncontainer.  In this case, column widths of header cells and data cells are kept\nin sync programmatically.\n\nSince the split table synchronization can be costly at runtime, the split is only done if the data in the table stretches beyond the configured `height` value.\n\nTo activate or deactivate scrolling, set the `scrollable` attribute to one of\nthe following values:\n\n * `false` - (default) Scrolling is disabled.\n * `true` or 'xy' - If `height` is set, vertical scrolling will be activated, if\n            `width` is set, horizontal scrolling will be activated.\n * 'x' - Activate horizontal scrolling only. Requires the `width` attribute is\n         also set.\n * 'y' - Activate vertical scrolling only. Requires the `height` attribute is\n         also set."
         },
         "DataTable.Sortable": {
@@ -471,7 +502,7 @@
             "module": "datatable-sort",
             "namespace": "",
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4486,
+            "line": 4808,
             "description": "Adds support for sorting the table data by API methods `table.sort(...)` or\n`table.toggleSort(...)` or by clicking on column headers in the rendered UI.\n\nSorting by the API is enabled automatically when this module is `use()`d.  To\nenable UI triggered sorting, set the DataTable's `sortable` attribute to\n`true`.\n\n<pre><code>\nvar table = new Y.DataTable({\n    columns: [ 'id', 'username', 'name', 'birthdate' ],\n    data: [ ... ],\n    sortable: true\n});\n\ntable.render('#table');\n</code></pre>\n\nSetting `sortable` to `true` will enable UI sorting for all columns.  To enable\nUI sorting for certain columns only, set `sortable` to an array of column keys,\nor just add `sortable: true` to the respective column configuration objects.\nThis uses the default setting of `sortable: auto` for the DataTable instance.\n\n<pre><code>\nvar table = new Y.DataTable({\n    columns: [\n        'id',\n        { key: 'username',  sortable: true },\n        { key: 'name',      sortable: true },\n        { key: 'birthdate', sortable: true }\n    ],\n    data: [ ... ]\n    // sortable: 'auto' is the default\n});\n\n// OR\nvar table = new Y.DataTable({\n    columns: [ 'id', 'username', 'name', 'birthdate' ],\n    data: [ ... ],\n    sortable: [ 'username', 'name', 'birthdate' ]\n});\n</code></pre>\n\nTo disable UI sorting for all columns, set `sortable` to `false`.  This still\npermits sorting via the API methods.\n\nAs new records are inserted into the table's `data` ModelList, they will be inserted at the correct index to preserve the sort order.\n\nThe current sort order is stored in the `sortBy` attribute.  Assigning this value at instantiation will automatically sort your data.\n\nSorting is done by a simple value comparison using &lt; and &gt; on the field\nvalue.  If you need custom sorting, add a sort function in the column's\n`sortFn` property.  Columns whose content is generated by formatters, but don't\nrelate to a single `key`, require a `sortFn` to be sortable.\n\n<pre><code>\nfunction nameSort(a, b) {\n    var aa = a.get('lastName'),\n        bb = a.get('lastName');\n\n    if (aa === bb) {\n        aa = a.get('firstName');\n        bb = b.get('firstName');\n    }\n\n    return (aa > bb) ? 1 : (aa < bb) ? -1 : 0;\n}\n\nvar table = new Y.DataTable({\n    columns: [ 'id', 'username', { key: name, sortFn: nameSort }, 'birthdate' ],\n    data: [ ... ],\n    sortable: [ 'username', 'name', 'birthdate' ]\n});\n</code></pre>\n\nSee the user guide for more details."
         },
         "JSONPRequest": {
@@ -1266,7 +1297,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1032,
+            "line": 1036,
             "description": "Initializes the `_viewConfig`, `_headerConfig`, `_bodyConfig`, and\n`_footerConfig` properties with the configuration objects that will be\npassed to the constructors of the `headerView`, `bodyView`, and\n`footerView`.\n\nExtensions can add to the config objects to deliver custom parameters at\nview instantiation.  `_viewConfig` is used as the prototype of the other\nthree config objects, so properties added here will be inherited by all\nconfigs.",
             "itemtype": "method",
             "name": "_initViewConfig",
@@ -1277,8 +1308,8 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1058,
-            "description": "Iterates the array of column configurations to capture all columns with a\n`key` property.  Columns that are represented as strings will be replaced\nwith objects with the string assigned as the `key` property.  If a column\nhas a `children` property, it will be iterated, adding any nested column\nkeys to the returned map. There is no limit to the levels of nesting.\n\nAll columns are assigned a `_yuid` stamp and `_id` property corresponding\nto the column's configured `name` or `key` property.  If the same `name` or\n`key` appears in multiple columns, subsequent appearances will have their\n`_id` appended with an incrementing number (e.g. if column \"foo\" is\nincluded in the `columns` attribute twice, the first will get `_id` of\n\"foo\", and the second an `_id` of \"foo1\").\n\nThe result is an object map with column keys as the property name and the\ncorresponding column object as the associated value.",
+            "line": 1062,
+            "description": "Iterates the array of column configurations to capture all columns with a\n`key` property.  Columns that are represented as strings will be replaced\nwith objects with the string assigned as the `key` property.  If a column\nhas a `children` property, it will be iterated, adding any nested column\nkeys to the returned map. There is no limit to the levels of nesting.\n\nAll columns are assigned a `_yuid` stamp and `_id` property corresponding\nto the column's configured `name` or `key` property with any spaces\nreplaced with dashes.  If the same `name` or `key` appears in multiple\ncolumns, subsequent appearances will have their `_id` appended with an\nincrementing number (e.g. if column \"foo\" is included in the `columns`\nattribute twice, the first will get `_id` of \"foo\", and the second an `_id`\nof \"foo1\").\n\nThe result is an object map with column keys as the property name and the\ncorresponding column object as the associated value.",
             "itemtype": "method",
             "name": "_parseColumns",
             "params": [
@@ -1295,7 +1326,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1131,
+            "line": 1140,
             "description": "Builds the table and attaches it to the DOM.  This requires the host class\nto provide a `contentBox` attribute.  This is typically provided by Widget.",
             "itemtype": "method",
             "name": "renderUI",
@@ -1306,7 +1337,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1177,
+            "line": 1180,
             "description": "Assigns the `_columnMap` property with the parsed results of the array of\ncolumn definitions passed.",
             "itemtype": "method",
             "name": "_setColumnMap",
@@ -1324,7 +1355,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1190,
+            "line": 1193,
             "description": "Relays attribute assignments of the deprecated `columnset` attribute to the\n`columns` attribute.  If a Columnset is object is passed, its basic object\nstructure is mined.",
             "itemtype": "method",
             "name": "_setColumnset",
@@ -1344,7 +1375,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1209,
+            "line": 1212,
             "description": "Accepts an object with `each` and `getAttrs` (preferably a ModelList or\nsubclass) or an array of data objects.  If an array is passes, it will\ncreate a ModelList to wrap the data.  In doing so, it will set the created\nModelList's `model` property to the class in the `recordType` attribute,\nwhich will be defaulted if not yet set.\n\nIf the `data` property is already set with a ModelList, passing an array as\nthe value will call the ModelList's `reset()` method with that array rather\nthan replacing the stored ModelList wholesale.\n\nAny non-ModelList-ish and non-array value is invalid.",
             "itemtype": "method",
             "name": "_setData",
@@ -1355,7 +1386,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1258,
+            "line": 1261,
             "description": "Stores an array of columns intended for display in the `_displayColumns`\nproperty.  This method assumes that if a column configuration object does\nnot have children, it is a display column.",
             "itemtype": "method",
             "name": "_setDisplayColumns",
@@ -1373,7 +1404,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1288,
+            "line": 1291,
             "description": "Relays the value assigned to the deprecated `recordset` attribute to the\n`data` attribute.  If a Recordset instance is passed, the raw object data\nwill be culled from it.",
             "itemtype": "method",
             "name": "_setRecordset",
@@ -1393,7 +1424,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1313,
+            "line": 1316,
             "description": "Accepts a Base subclass (preferably a Model subclass). Alternately, it will\ngenerate a custom Model subclass from an array of attribute names or an\nobject defining attributes and their respective configurations (it is\nassigned as the `ATTRS` of the new class).\n\nAny other value is invalid.",
             "itemtype": "method",
             "name": "_setRecordType",
@@ -1415,7 +1446,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1341,
+            "line": 1344,
             "description": "Creates, removes, or updates the table's `<caption>` element per the input\nvalue.  Empty values result in the caption being removed.",
             "itemtype": "method",
             "name": "_uiSetCaption",
@@ -1433,7 +1464,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1381,
+            "line": 1376,
             "description": "Updates the table's `summary` attribute with the input value.",
             "itemtype": "method",
             "name": "_uiSetSummary",
@@ -1444,7 +1475,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1391,
+            "line": 1390,
             "description": "Sets the `boundingBox` and table width per the input value.",
             "itemtype": "method",
             "name": "_uiSetWidth",
@@ -1462,7 +1493,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1410,
+            "line": 1409,
             "description": "Verifies the input value is a function with a `render` method on its\nprototype.  `null` is also accepted to remove the default View.",
             "itemtype": "method",
             "name": "_validateView",
@@ -1473,19 +1504,19 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1500,
+            "line": 1501,
             "description": "Template used to create the table's header cell markup.  Override this to\ncustomize how these cells' markup is created.",
             "itemtype": "property",
             "name": "CELL_TEMPLATE",
             "type": "{HTML}",
-            "default": "'<th id=\"{_yuid}\" abbr=\"{abbr} colspan=\"{_colspan}\" rowspan=\"{_rowspan}\" class=\"{className}\" role=\"columnheader\" {_headers}>{content}</th>'",
+            "default": "'<th id=\"{_yuid}\" {abbr} colspan=\"{_colspan}\" rowspan=\"{_rowspan}\" class=\"{className}\">{content}</th>'",
             "class": "DataTable.HeaderView",
             "module": "datatable-head",
             "namespace": "DataTable"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1511,
+            "line": 1512,
             "description": "The data representation of the header rows to render.  This is assigned by\nparsing the `columns` configuration array, and is used by the render()\nmethod.",
             "itemtype": "property",
             "name": "columns",
@@ -1497,7 +1528,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1523,
+            "line": 1524,
             "description": "The object that serves as the source of truth for column and row data.\nThis property is assigned at instantiation from the `source` property of\nthe configuration object passed to the constructor.",
             "itemtype": "property",
             "name": "source",
@@ -1509,7 +1540,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1535,
+            "line": 1536,
             "description": "Template used to create the table's header row markup.  Override this to\ncustomize the row markup.",
             "itemtype": "property",
             "name": "ROW_TEMPLATE",
@@ -1521,7 +1552,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1549,
+            "line": 1550,
             "description": "Builds a CSS class name from the provided tokens.  If the instance is\ncreated with `cssPrefix` or `source` in the configuration, it will use this\nprefix (the `_cssPrefix` of the `source` object) as the base token.  This\nallows class instances to generate markup with class names that correspond\nto the parent class that is consuming them.",
             "itemtype": "method",
             "name": "getClassName",
@@ -1543,7 +1574,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1568,
+            "line": 1569,
             "description": "Creates the `<thead>` Node content by assembling markup generated by\npopulating the `ROW_TEMPLATE` and `CELL_TEMPLATE` templates with content\nfrom the `columns` property.",
             "itemtype": "method",
             "name": "render",
@@ -1649,7 +1680,7 @@
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
             "line": 1723,
-            "description": "Translate the input column format into a structure useful for rendering a\n`<thead>`, rows, and cells.  The structure of the input is expected to be a\nsingle array of objects, where each object corresponds to a `<th>`.  Those\nobjects may contain a `children` property containing a similarly structured\narray to indicate the nested cells should be grouped under the parent\ncolumn's colspan in a separate row of header cells. E.g.\n\n<pre><code>\n[\n  { key: 'id' }, // no nesting\n  { key: 'name', children: [\n    { key: 'firstName', label: 'First' },\n    { key: 'lastName',  label: 'Last' } ] }\n]\n</code></pre>\n\nwould indicate two header rows with the first column 'id' being assigned a\n`rowspan` of `2`, the 'name' column appearing in the first row with a\n`colspan` of `2`, and the 'firstName' and 'lastName' columns appearing in\nthe second row, below the 'name' column.\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`    - The HTML content of the header cell.\n  * `key`      - If `label` is not specified, the `key` is used for content.\n  * `children` - Array of columns to appear below this column in the next\n                 row.\n  * `abbr`     - The content of the 'abbr' attribute of the `<th>`\n\nThe output structure is basically a simulation of the `<thead>` structure\nwith arrays for rows and objects for cells.  Column objects have the\nfollowing properties added to them:\n\n  * `colspan` - Per the `<th>` attribute\n  * `rowspan` - Per the `<th>` attribute\n  * `parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`   - A unique YUI generated id used as the `<th>`'s 'id' for\n    reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder}\nreplacement in the `CELL_TEMPLATE`, so you can modify the template and\ninclude other column object properties to populate them.",
+            "description": "Translate the input column format into a structure useful for rendering a\n`<thead>`, rows, and cells.  The structure of the input is expected to be a\nsingle array of objects, where each object corresponds to a `<th>`.  Those\nobjects may contain a `children` property containing a similarly structured\narray to indicate the nested cells should be grouped under the parent\ncolumn's colspan in a separate row of header cells. E.g.\n\n<pre><code>\n[\n  { key: 'id' }, // no nesting\n  { key: 'name', children: [\n    { key: 'firstName', label: 'First' },\n    { key: 'lastName',  label: 'Last' } ] }\n]\n</code></pre>\n\nwould indicate two header rows with the first column 'id' being assigned a\n`rowspan` of `2`, the 'name' column appearing in the first row with a\n`colspan` of `2`, and the 'firstName' and 'lastName' columns appearing in\nthe second row, below the 'name' column.\n\n<pre>\n---------------------\n|    |     name     |\n|    |---------------\n| id | First | Last |\n---------------------\n</pre>\n\nSupported properties of the column objects include:\n\n  * `label`    - The HTML content of the header cell.\n  * `key`      - If `label` is not specified, the `key` is used for content.\n  * `children` - Array of columns to appear below this column in the next\n                 row.\n  * `abbr`     - The content of the 'abbr' attribute of the `<th>`\n  * `headerTemplate` - Overrides the instance's `CELL_TEMPLATE` for cells\n    in this column only.\n\nThe output structure is basically a simulation of the `<thead>` structure\nwith arrays for rows and objects for cells.  Column objects have the\nfollowing properties added to them:\n\n  * `colspan` - Per the `<th>` attribute\n  * `rowspan` - Per the `<th>` attribute\n  * `parent`  - If the column is a child of another column, this points to\n    its parent column\n  * `_yuid`   - A unique YUI generated id used as the `<th>`'s 'id' for\n    reference in the data `<td>`'s 'headers' attribute.\n\nThe column object is also used to provide values for {placeholder}\nreplacement in the `CELL_TEMPLATE`, so you can modify the template and\ninclude other column object properties to populate them.",
             "itemtype": "method",
             "name": "_parseColumns",
             "params": [
@@ -1671,19 +1702,19 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1984,
+            "line": 1988,
             "description": "HTML template used to create table cells.",
             "itemtype": "property",
             "name": "CELL_TEMPLATE",
             "type": "{HTML}",
-            "default": "'<td headers=\"{headers}\" class=\"{className}\">{content}</td>'",
+            "default": "'<td {headers} class=\"{className}\">{content}</td>'",
             "class": "DataTable.BodyView",
             "module": "datatable-body",
             "namespace": "DataTable"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 1993,
+            "line": 1997,
             "description": "CSS class applied to even rows.  This is assigned at instantiation after\nsetting up the `_cssPrefix` for the instance.\n\nFor DataTable, this will be `yui3-datatable-even`.",
             "itemtype": "property",
             "name": "CLASS_EVEN",
@@ -1695,7 +1726,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2005,
+            "line": 2009,
             "description": "CSS class applied to odd rows.  This is assigned at instantiation after\nsetting up the `_cssPrefix` for the instance.\n\nWhen used by DataTable instances, this will be `yui3-datatable-odd`.",
             "itemtype": "property",
             "name": "CLASS_ODD",
@@ -1707,19 +1738,19 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2017,
+            "line": 2021,
             "description": "HTML template used to create table rows.",
             "itemtype": "property",
             "name": "ROW_TEMPLATE",
             "type": "{HTML}",
-            "default": "'<tr id=\"{clientId}\" class=\"{rowClass}\">{content}</tr>'",
+            "default": "'<tr id=\"{rowId}\" class=\"{rowClass}\">{content}</tr>'",
             "class": "DataTable.BodyView",
             "module": "datatable-body",
             "namespace": "DataTable"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2029,
+            "line": 2030,
             "description": "The object that serves as the source of truth for column and row data.\nThis property is assigned at instantiation from the `source` property of\nthe configuration object passed to the constructor.",
             "itemtype": "property",
             "name": "source",
@@ -1731,7 +1762,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2043,
+            "line": 2044,
             "description": "Returns the `<td>` Node from the given row and column index.  If there is\nno cell at the given coordinates, `null` is returned.",
             "itemtype": "method",
             "name": "getCell",
@@ -1757,7 +1788,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2064,
+            "line": 2065,
             "description": "Builds a CSS class name from the provided tokens.  If the instance is\ncreated with `cssPrefix` or `source` in the configuration, it will use this\nprefix (the `_cssPrefix` of the `source` object) as the base token.  This\nallows class instances to generate markup with class names that correspond\nto the parent class that is consuming them.",
             "itemtype": "method",
             "name": "getClassName",
@@ -1779,7 +1810,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2083,
+            "line": 2084,
             "description": "Returns the `<tr>` Node from the given row index.  If there is\nno row at the given index, `null` is returned.",
             "itemtype": "method",
             "name": "getRow",
@@ -1800,8 +1831,8 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2098,
-            "description": "Creates the table's `<tbody>` content by assembling markup generated by\npopulating the `ROW\\_TEMPLATE`, and `CELL\\_TEMPLATE` templates with content\nfrom the `columns` property and `modelList` attribute.\n\nThe rendering process happens in three stages:\n\n1. A row template is assembled from the `columns` property (see\n   `_createRowTemplate`)\n\n2. An HTML string is built up by concatening the application of the data in\n   each Model in the `modelList` to the row template. For cells with\n   `formatter`s, the function is called to generate cell content. Cells\n   with `nodeFormatter`s are ignored. For all other cells, the data value\n   from the Model attribute for the given column key is used.  The\n   accumulated row markup is then inserted into the container.\n\n3. If any column is configured with a `nodeFormatter`, the `modelList` is\n   iterated again to apply the `nodeFormatter`s.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform\n    any custom modifications on the cell or row Node that could not be\n    performed by `formatter`s.  Should be used sparingly for better\n    performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string\n    or `undefined`.\n  * `allowHTML` - Set to `true` if a column value, `formatter`, or\n    `emptyCellValue` can contain HTML.  This defaults to `false` to protect\n    against XSS.\n  * `className` - Space delimited CSS classes to add to all `<td>`s in a\n    column.\n\nColumn `formatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if\n    any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `className` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowindex` - The zero-based row number.\n  * `rowClass` - Initially empty string to allow `formatter`s to add CSS\n    classes to the cell's containing row `<tr>`.\n\nThey may return a value or update `o.value` to assign specific HTML\ncontent.  A returned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if\n    any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the\n    `<td>`.  When adding content to the cell, prefer appending into this\n    property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowindex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`,\nas it will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The\nDOM elements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_.",
+            "line": 2099,
+            "description": "Creates the table's `<tbody>` content by assembling markup generated by\npopulating the `ROW\\_TEMPLATE`, and `CELL\\_TEMPLATE` templates with content\nfrom the `columns` property and `modelList` attribute.\n\nThe rendering process happens in three stages:\n\n1. A row template is assembled from the `columns` property (see\n   `_createRowTemplate`)\n\n2. An HTML string is built up by concatening the application of the data in\n   each Model in the `modelList` to the row template. For cells with\n   `formatter`s, the function is called to generate cell content. Cells\n   with `nodeFormatter`s are ignored. For all other cells, the data value\n   from the Model attribute for the given column key is used.  The\n   accumulated row markup is then inserted into the container.\n\n3. If any column is configured with a `nodeFormatter`, the `modelList` is\n   iterated again to apply the `nodeFormatter`s.\n\nSupported properties of the column objects include:\n\n  * `key` - Used to link a column to an attribute in a Model.\n  * `name` - Used for columns that don't relate to an attribute in the Model\n    (`formatter` or `nodeFormatter` only) if the implementer wants a\n    predictable name to refer to in their CSS.\n  * `cellTemplate` - Overrides the instance's `CELL_TEMPLATE` for cells in\n    this column only.\n  * `formatter` - Used to customize or override the content value from the\n    Model.  These do not have access to the cell or row Nodes and should\n    return string (HTML) content.\n  * `nodeFormatter` - Used to provide content for a cell as well as perform\n    any custom modifications on the cell or row Node that could not be\n    performed by `formatter`s.  Should be used sparingly for better\n    performance.\n  * `emptyCellValue` - String (HTML) value to use if the Model data for a\n    column, or the content generated by a `formatter`, is the empty string,\n    `null`, or `undefined`.\n  * `allowHTML` - Set to `true` if a column value, `formatter`, or\n    `emptyCellValue` can contain HTML.  This defaults to `false` to protect\n    against XSS.\n  * `className` - Space delimited CSS classes to add to all `<td>`s in a\n    column.\n\nColumn `formatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if\n    any.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `className` - Initially empty string to allow `formatter`s to add CSS \n    classes to the cell's `<td>`.\n  * `rowIndex` - The zero-based row number.\n  * `rowClass` - Initially empty string to allow `formatter`s to add CSS\n    classes to the cell's containing row `<tr>`.\n\nThey may return a value or update `o.value` to assign specific HTML\ncontent.  A returned value has higher precedence.\n\nColumn `nodeFormatter`s are passed an object (`o`) with the following\nproperties:\n\n  * `value` - The current value of the column's associated attribute, if\n    any.\n  * `td` - The `<td>` Node instance.\n  * `cell` - The `<div>` liner Node instance if present, otherwise, the\n    `<td>`.  When adding content to the cell, prefer appending into this\n    property.\n  * `data` - An object map of Model keys to their current values.\n  * `record` - The Model instance.\n  * `column` - The column configuration object for the current column.\n  * `rowIndex` - The zero-based row number.\n\nThey are expected to inject content into the cell's Node directly, including\nany \"empty\" cell content.  Each `nodeFormatter` will have access through the\nNode API to all cells and rows in the `<tbody>`, but not to the `<table>`,\nas it will not be attached yet.\n\nIf a `nodeFormatter` returns `false`, the `o.td` and `o.cell` Nodes will be\n`destroy()`ed to remove them from the Node cache and free up memory.  The\nDOM elements will remain as will any content added to them.  _It is highly\nadvisable to always return `false` from your `nodeFormatter`s_.",
             "itemtype": "method",
             "name": "render",
             "return": {
@@ -1815,7 +1846,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2205,
+            "line": 2208,
             "description": "Handles changes in the source's columns attribute.  Redraws the table data.",
             "itemtype": "method",
             "name": "_afterColumnChange",
@@ -1834,7 +1865,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2225,
+            "line": 2228,
             "description": "Handles modelList changes, including additions, deletions, and updates.\n\nModifies the existing table DOM accordingly.",
             "itemtype": "method",
             "name": "_afterDataChange",
@@ -1853,7 +1884,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2239,
+            "line": 2242,
             "description": "Iterates the `modelList`, and calls any `nodeFormatter`s found in the\n`columns` param on the appropriate cell Nodes in the `tbody`.",
             "itemtype": "method",
             "name": "_applyNodeFormatters",
@@ -1877,7 +1908,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2303,
+            "line": 2306,
             "description": "Binds event subscriptions from the UI and the source (if assigned).",
             "itemtype": "method",
             "name": "bindUI",
@@ -1889,7 +1920,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2326,
+            "line": 2329,
             "description": "The base token for classes created with the `getClassName` method.",
             "itemtype": "property",
             "name": "_cssPrefix",
@@ -1903,7 +1934,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2336,
+            "line": 2339,
             "description": "Iterates the `modelList` and applies each Model to the `_rowTemplate`,\nallowing any column `formatter` or `emptyCellValue` to override cell\ncontent for the appropriate column.  The aggregated HTML string is\nreturned.",
             "itemtype": "method",
             "name": "_createDataHTML",
@@ -1926,8 +1957,8 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2362,
-            "description": "Applies the data of a given Model, modified by any column formatters and\nsupplemented by other template values to the instance's `_rowTemplate` (see\n`_createRowTemplate`).  The generated string is then returned.\n\nThe data from Model's attributes is fetched by `toJSON` and this data\nobject is appended with other properties to supply values to {placeholders}\nin the template.  For a template generated from a Model with 'foo' and 'bar'\nattributes, the data object would end up with the following properties\nbefore being used to populate the `_rowTemplate`:\n\n  * `clientID` - From Model, used the assign the `<tr>`'s 'id' attribute.\n  * `foo` - The value to populate the 'foo' column cell content.  This\n    value will be the value stored in the Model's `foo` attribute, or the\n    result of the column's `formatter` if assigned.  If the value is '' or\n    `undefined`, and the column's `emptyCellValue` is assigned, that value\n    will be used.\n  * `bar` - Same for the 'bar' column cell content.\n  * `foo-className` - String of CSS classes to apply to the `<td>`.\n  * `bar-className` - Same.\n  * `rowClass`      - String of CSS classes to apply to the `<tr>`. This\n    will be the odd/even class per the specified index plus any additional\n    classes assigned by column formatters (via `o.rowClass`).\n\nBecause this object is available to formatters, any additional properties\ncan be added to fill in custom {placeholders} in the `_rowTemplate`.",
+            "line": 2365,
+            "description": "Applies the data of a given Model, modified by any column formatters and\nsupplemented by other template values to the instance's `_rowTemplate` (see\n`_createRowTemplate`).  The generated string is then returned.\n\nThe data from Model's attributes is fetched by `toJSON` and this data\nobject is appended with other properties to supply values to {placeholders}\nin the template.  For a template generated from a Model with 'foo' and 'bar'\nattributes, the data object would end up with the following properties\nbefore being used to populate the `_rowTemplate`:\n\n  * `clientID` - From Model, used the assign the `<tr>`'s 'id' attribute.\n  * `foo` - The value to populate the 'foo' column cell content.  This\n    value will be the value stored in the Model's `foo` attribute, or the\n    result of the column's `formatter` if assigned.  If the value is '', \n    `null`, or `undefined`, and the column's `emptyCellValue` is assigned,\n    that value will be used.\n  * `bar` - Same for the 'bar' column cell content.\n  * `foo-className` - String of CSS classes to apply to the `<td>`.\n  * `bar-className` - Same.\n  * `rowClass`      - String of CSS classes to apply to the `<tr>`. This\n    will be the odd/even class per the specified index plus any additional\n    classes assigned by column formatters (via `o.rowClass`).\n\nBecause this object is available to formatters, any additional properties\ncan be added to fill in custom {placeholders} in the `_rowTemplate`.",
             "itemtype": "method",
             "name": "_createRowHTML",
             "params": [
@@ -1954,7 +1985,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2454,
+            "line": 2457,
             "description": "Creates a custom HTML template string for use in generating the markup for\nindividual table rows with {placeholder}s to capture data from the Models\nin the `modelList` attribute or from column `formatter`s.\n\nAssigns the `_rowTemplate` property.",
             "itemtype": "method",
             "name": "_createRowTemplate",
@@ -1973,7 +2004,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2497,
+            "line": 2503,
             "description": "Destroys the instance.",
             "itemtype": "method",
             "name": "destructor",
@@ -1985,7 +2016,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2507,
+            "line": 2513,
             "description": "Holds the event subscriptions needing to be detached when the instance is\n`destroy()`ed.",
             "itemtype": "property",
             "name": "_eventHandles",
@@ -1999,7 +2030,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2518,
+            "line": 2524,
             "description": "Initializes the instance. Reads the following configuration properties in\naddition to the instance attributes:\n\n  * `columns` - (REQUIRED) The initial column information\n  * `cssPrefix` - The base string for classes generated by `getClassName`\n  * `source` - The object to serve as source of truth for column info",
             "itemtype": "method",
             "name": "initializer",
@@ -2018,7 +2049,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2546,
+            "line": 2552,
             "description": "Flattens an array of potentially nested column configurations into a single\ndepth array of data columns.  Columns that have children are disregarded in\nfavor of searching their child columns.  The resulting array corresponds 1:1\nwith columns that will contain data in the `<tbody>`.",
             "itemtype": "method",
             "name": "_parseColumns",
@@ -2046,7 +2077,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2583,
+            "line": 2589,
             "description": "The HTML template used to create a full row of markup for a single Model in\nthe `modelList` plus any customizations defined in the column\nconfigurations.",
             "itemtype": "property",
             "name": "_rowTemplate",
@@ -2060,7 +2091,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2890,
+            "line": 2896,
             "description": "Controls whether `addRow`, `removeRow`, and `modifyRow` should trigger the\nunderlying Model's sync layer by default.\n\nWhen `true`, it is unnecessary to pass the \"sync\" configuration property to\nthose methods to trigger per-operation sync.",
             "itemtype": "attribute",
             "name": "autoSync",
@@ -2071,7 +2102,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2907,
+            "line": 2916,
             "description": "Adds the column configuration to the DataTable's `columns` configuration.\nIf the `index` parameter is supplied, it is injected at that index.  If the\ntable has nested headers, inject a subcolumn by passing an array of indexes\nto identify the new column's final location.\n\nThe `index` parameter is required if adding a nested column.\n\nThis method is a convienience method for fetching the DataTable's `columns`\nattribute, updating it, and calling \n`table.set('columns', _updatedColumnsDefs_)`\n\nFor example:\n\n<pre><code>// Becomes last column\ntable.addColumn('name');\n\n// Inserted after the current second column, moving the current third column\n// to index 4\ntable.addColumn({ key: 'price', formatter: currencyFormatter }, 2 );\n\n// Insert a new column in a set of headers three rows deep.  The index array\n// translates to\n// [ 2, --  in the third column's children\n//   1, --  in the second child's children\n//   3 ] -- as the fourth child column\ntable.addColumn({ key: 'age', sortable: true }, [ 2, 1, 3 ]);\n</code></pre>",
             "itemtype": "method",
             "name": "addColumn",
@@ -2098,7 +2129,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2960,
+            "line": 2969,
             "description": "Updates an existing column definition. Fires the `modifyColumn` event.\n\nFor example:\n\n<pre><code>// Add a formatter to the existing 'price' column definition\ntable.modifyColumn('price', { formatter: currencyFormatter });\n\n// Change the label on a header cell in a set of nested headers three rows\n// deep.  The index array translates to\n// [ 2,  -- in the third column's children\n//   1,  -- the second child\n//   3 ] -- the fourth child column\ntable.modifyColumn([2, 1, 3], { label: 'Experience' });\n</code></pre>",
             "itemtype": "method",
             "name": "modifyColumn",
@@ -2124,7 +2155,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 2998,
+            "line": 3007,
             "description": "Moves an existing column to a new location. Fires the `moveColumn` event.\n\nThe destination index can be a number or array of numbers to place a column\nheader in a nested header row.",
             "itemtype": "method",
             "name": "moveColumn",
@@ -2150,7 +2181,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3022,
+            "line": 3031,
             "description": "Removes an existing column. Fires the `removeColumn` event.",
             "itemtype": "method",
             "name": "removeColumn",
@@ -2171,7 +2202,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3041,
+            "line": 3050,
             "description": "Adds a new record to the DataTable's `data` ModelList.  Record data can be\nan object of field values or an instance of the DataTable's configured\n`recordType` class.\n\nThis relays all parameters to the `data` ModelList's `add` method.\n\nIf a configuration object is passed as a second argument, and that object\nhas `sync: true` set, the underlying Model will be `save()`d.\n\nIf the DataTable's `autoSync` attribute is set to `true`, the additional\nargument is not needed.\n\nIf syncing and the last argument is a function, that function will be used\nas a callback to the Model's `save()` method.",
             "itemtype": "method",
             "name": "addRow",
@@ -2185,8 +2216,7 @@
                     "name": "config",
                     "description": "Configuration to pass along",
                     "type": "Object",
-                    "optional": true,
-                    "multiple": true
+                    "optional": true
                 },
                 {
                     "name": "callback",
@@ -2217,7 +2247,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3092,
+            "line": 3106,
             "description": "Removes a record from the DataTable's `data` ModelList.  The record can be\nprovided explicitly or targeted by it's `id` (see ModelList's `getById`\nmethod), `clientId`, or index in the ModelList.\n\nAfter locating the target Model, this relays the Model and all other passed\narguments to the `data` ModelList's `remove` method.\n\nIf a configuration object is passed as a second argument, and that object\nhas `sync: true` set, the underlying Model will be destroyed, passing\n`{ delete: true }` to trigger calling the Model's sync layer.\n\nIf the DataTable's `autoSync` attribute is set to `true`, the additional\nargument is not needed.\n\nIf syncing and the last argument is a function, that function will be used\nas a callback to the Model's `destroy()` method.",
             "itemtype": "method",
             "name": "removeRow",
@@ -2231,8 +2261,7 @@
                     "name": "config",
                     "description": "Configuration to pass along",
                     "type": "Object",
-                    "optional": true,
-                    "multiple": true
+                    "optional": true
                 },
                 {
                     "name": "callback",
@@ -2263,7 +2292,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3164,
+            "line": 3179,
             "description": "Updates an existing record in the DataTable's `data` ModelList.  The record\ncan be provided explicitly or targeted by it's `id` (see ModelList's\n`getById` method), `clientId`, or index in the ModelList.\n\nAfter locating the target Model, this relays the all other passed\narguments to the Model's `setAttrs` method.\n\nIf a configuration object is passed as a second argument, and that object\nhas `sync: true` set, the underlying Model will be `save()`d.\n\nIf the DataTable's `autoSync` attribute is set to `true`, the additional\nargument is not needed.\n\nIf syncing and the last argument is a function, that function will be used\nas a callback to the Model's `save()` method.",
             "itemtype": "method",
             "name": "modifyRow",
@@ -2282,8 +2311,7 @@
                     "name": "config",
                     "description": "Configuration to pass along to `setAttrs()`",
                     "type": "Object",
-                    "optional": true,
-                    "multiple": true
+                    "optional": true
                 },
                 {
                     "name": "callback",
@@ -2314,7 +2342,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3227,
+            "line": 3243,
             "description": "Default function for the `addColumn` event.\n\nInserts the specified column at the provided index.",
             "itemtype": "method",
             "name": "_defAddColumnFn",
@@ -2344,7 +2372,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3256,
+            "line": 3272,
             "description": "Default function for the `modifyColumn` event.\n\nMixes the new column properties into the specified column definition.",
             "itemtype": "method",
             "name": "_defModifyColumnFn",
@@ -2374,7 +2402,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3279,
+            "line": 3295,
             "description": "Default function for the `moveColumn` event.\n\nRemoves the specified column from its current location and inserts it at the\nspecified array index (may be an array of indexes for nested headers).",
             "itemtype": "method",
             "name": "_defMoveColumnFn",
@@ -2404,7 +2432,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3320,
+            "line": 3336,
             "description": "Default function for the `removeColumn` event.\n\nSplices the specified column from its containing columns array.",
             "itemtype": "method",
             "name": "_defRemoveColumnFn",
@@ -2429,7 +2457,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3348,
+            "line": 3364,
             "description": "Publishes the events used by the mutation methods:\n\n * addColumn\n * removeColumn\n * modifyColumn\n * moveColumn",
             "itemtype": "method",
             "name": "initializer",
@@ -2440,7 +2468,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3369,
+            "line": 3385,
             "description": "Adds an array of new records to the DataTable's `data` ModelList.  Record data\ncan be an array of objects containing field values or an array of instance of\nthe DataTable's configured `recordType` class.\n\nThis relays all parameters to the `data` ModelList's `add` method.\n\nTechnically, this is an alias to `addRow`, but please use the appropriately\nnamed method for readability.\n\nIf a configuration object is passed as a second argument, and that object\nhas `sync: true` set, the underlying Models will be `save()`d.\n\nIf the DataTable's `autoSync` attribute is set to `true`, the additional\nargument is not needed.\n\nIf syncing and the last argument is a function, that function will be used\nas a callback to each Model's `save()` method.",
             "itemtype": "method",
             "name": "addRows",
@@ -2454,8 +2482,7 @@
                     "name": "config",
                     "description": "Configuration to pass along",
                     "type": "Object",
-                    "optional": true,
-                    "multiple": true
+                    "optional": true
                 },
                 {
                     "name": "callback",
@@ -2486,7 +2513,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3408,
+            "line": 3424,
             "description": "Fired by the `addColumn` method.",
             "itemtype": "event",
             "name": "addColumn",
@@ -2508,7 +2535,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3417,
+            "line": 3433,
             "description": "Fired by the `removeColumn` method.",
             "itemtype": "event",
             "name": "removeColumn",
@@ -2525,7 +2552,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3425,
+            "line": 3441,
             "description": "Fired by the `modifyColumn` method.",
             "itemtype": "event",
             "name": "modifyColumn",
@@ -2547,7 +2574,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3434,
+            "line": 3450,
             "description": "Fired by the `moveColumn` method.",
             "itemtype": "event",
             "name": "moveColumn",
@@ -2569,7 +2596,202 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3546,
+            "line": 3495,
+            "description": "Enables the display of messages in the table.  Setting this to false will\nprevent the message Node from being created and `showMessage` from doing\nanything.",
+            "itemtype": "attribute",
+            "name": "showMessages",
+            "type": "{Boolean}",
+            "default": "true",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3511,
+            "description": "Template used to generate the node that will be used to report messages.",
+            "itemtype": "property",
+            "name": "MESSAGE_TEMPLATE",
+            "type": "{HTML}",
+            "default": "<tbody class=\"{className}\"><td class=\"{contentClass}\" colspan=\"{colspan}\"></td></tbody>",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3520,
+            "description": "Hides the message node.",
+            "itemtype": "method",
+            "name": "hideMessage",
+            "return": {
+                "description": "",
+                "type": "DataTable"
+            },
+            "chainable": 1,
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3534,
+            "description": "Display the message node and set its content to `message`.  If there is a\nlocalized `strings` entry for the value of `message`, that string will be\nused.",
+            "itemtype": "method",
+            "name": "showMessage",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message name or message itself to display",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "DataTable"
+            },
+            "chainable": 1,
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3572,
+            "description": "Updates the colspan of the `<td>` used to display the messages.",
+            "itemtype": "method",
+            "name": "_afterMessageColumnsChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The columnsChange event",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3592,
+            "description": "Relays to `_uiSetMessage` to hide or show the message node.",
+            "itemtype": "method",
+            "name": "_afterMessageDataChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The dataChange event",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3603,
+            "description": "Removes the message node if `showMessages` is `false`, or relays to\n`_uiSetMessage` if `true`.",
+            "itemtype": "method",
+            "name": "_afterShowMessagesChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The showMessagesChange event",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3623,
+            "description": "Binds the events necessary to keep the message node in sync with the current\ntable and configuration state.",
+            "itemtype": "method",
+            "name": "_bindMessageUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3640,
+            "description": "Merges in the message related strings and hooks into the rendering cycle to\nalso render and bind the message node.",
+            "itemtype": "method",
+            "name": "initializer",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3658,
+            "description": "Creates the `_messageNode` property from the configured `MESSAGE_TEMPLATE`\nand inserts it before the `<table>`'s `<tbody>` node.",
+            "itemtype": "method",
+            "name": "_initMessageNode",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3678,
+            "description": "Add the messaging related strings to the `strings` map.",
+            "itemtype": "method",
+            "name": "_initMessageStrings",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3690,
+            "description": "Node used to display messages from `showMessage`.",
+            "itemtype": "property",
+            "name": "_messageNode",
+            "type": "{Node}",
+            "value": "`undefined` (not initially set)",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3699,
+            "description": "Synchronizes the message UI with the table state.",
+            "itemtype": "method",
+            "name": "_syncMessageUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3709,
+            "description": "Calls `hideMessage` or `showMessage` as appropriate based on the presence of\nrecords in the `data` ModelList.\n\nThis is called when `data` is reset or records are added or removed.  Also,\nif the `showMessages` attribute is updated.  In either case, if the\ntriggering event has a `message` property on the EventFacade, it will be\npassed to `showMessage` (if appropriate).  If no such property is on the\nfacade, the `emptyMessage` will be used (see the strings).",
+            "itemtype": "method",
+            "name": "_uiSetMessage",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The columnsChange event",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-message"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 3839,
             "description": "The HTML template used to create the table's `<col>`s.",
             "itemtype": "property",
             "name": "COL_TEMPLATE",
@@ -2580,7 +2802,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3555,
+            "line": 3848,
             "description": "The HTML template used to create the table's `<colgroup>`.",
             "itemtype": "property",
             "name": "COLGROUP_TEMPLATE",
@@ -2591,7 +2813,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3564,
+            "line": 3857,
             "description": "Assigns the style width of the `<col>` representing the column identifed by\n`id` and updates the column configuration.\n\nPass the empty string for `width` to return a column to auto sizing.\n\nThis does not trigger a `columnsChange` event today, but I can be convinced\nthat it should.",
             "itemtype": "method",
             "name": "setColumnWidth",
@@ -2617,7 +2839,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3601,
+            "line": 3894,
             "description": "Renders the table's `<colgroup>` and populates the `_colgroupNode` property.",
             "itemtype": "method",
             "name": "_createColumnGroup",
@@ -2628,7 +2850,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3611,
+            "line": 3904,
             "description": "Hooks up to the rendering lifecycle to also render the `<colgroup>` and\nsubscribe to `columnChange` events.",
             "itemtype": "method",
             "name": "initializer",
@@ -2639,7 +2861,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3626,
+            "line": 3919,
             "description": "Sets a columns's `<col>` element width style. This is needed to get around\nbrowser rendering differences.\n\nThe colIndex corresponds to the item index of the `<col>` in the table's\n`<colgroup>`.\n\nTo unset the width, pass a falsy value for the `width`.",
             "itemtype": "method",
             "name": "_setColumnWidth",
@@ -2662,7 +2884,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3682,
+            "line": 3975,
             "description": "Populates the table's `<colgroup>` with a `<col>` per item in the `columns`\nattribute without children.  It is assumed that these are the columns that\nhave data cells renderered for them.",
             "itemtype": "method",
             "name": "_uiSetColumns",
@@ -2673,18 +2895,18 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3759,
+            "line": 4052,
             "description": "Activates or deactivates scrolling in the table.  Acceptable values are:\n\n * `false` - (default) Scrolling is disabled.\n * `true` or 'xy' - If `height` is set, vertical scrolling will be activated, if\n            `width` is set, horizontal scrolling will be activated.\n * 'x' - Activate horizontal scrolling only. Requires the `width` attribute is\n         also set.\n * 'y' - Activate vertical scrolling only. Requires the `height` attribute is\n         also set.",
             "itemtype": "attribute",
             "name": "scrollable",
             "type": "{String|Boolean}",
             "value": "false",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3782,
+            "line": 4075,
             "description": "Scrolls a given row or cell into view if the table is scrolling.  Pass the\n`clientId` of a Model from the DataTable's `data` ModelList or its row\nindex to scroll to a row or a [row index, column index] array to scroll to\na cell.  Alternately, to scroll to any element contained within the table's\nscrolling areas, pass its ID, or the Node itself (though you could just as\nwell call `node.scrollIntoView()` yourself, but hey, whatever).",
             "itemtype": "method",
             "name": "scrollTo",
@@ -2701,11 +2923,11 @@
             },
             "chainable": 1,
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3822,
+            "line": 4115,
             "description": "Template for the `<table>` that is used to fix the caption in place when\nthe table is horizontally scrolling.",
             "itemtype": "property",
             "name": "_CAPTION_TABLE_TEMPLATE",
@@ -2714,11 +2936,11 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3833,
+            "line": 4126,
             "description": "Template for the virtual scrollbar needed in \"xy\" scrolling setups.",
             "itemtype": "property",
             "name": "_SCROLLBAR_TEMPLATE",
@@ -2727,11 +2949,11 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3843,
+            "line": 4136,
             "description": "Template for the `<div>` that is used to contain the table when the table is\nhorizontally scrolling.",
             "itemtype": "property",
             "name": "_X_SCROLLER_TEMPLATE",
@@ -2740,11 +2962,11 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3854,
+            "line": 4147,
             "description": "Template for the `<div>` that is used to contain the rows when the table is\nvertically scrolling.",
             "itemtype": "property",
             "name": "_Y_SCROLLER_TEMPLATE",
@@ -2753,22 +2975,22 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3864,
+            "line": 4157,
             "description": "Creates a vertical scrollbar absolutely positioned over the right edge of the \n`_xScrollNode` to relay scrolling to the `_xScrollNode` (masked) below.\nWithout this, the `_yScrollNode`'s scrollbar would not be visible until the\n`_xScrollNode` was scrolled to the far right.",
             "itemtype": "method",
             "name": "_addVirtualScrollbar",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3900,
+            "line": 4193,
             "description": "Relays changes in the table structure or content to trigger a reflow of the\nscrolling setup.",
             "itemtype": "method",
             "name": "_afterContentChange",
@@ -2782,11 +3004,11 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3916,
+            "line": 4209,
             "description": "Reacts to changes in the `scrollable` attribute by updating the `_xScroll`\nand `_yScroll` properties and syncing the scrolling structure accordingly.",
             "itemtype": "method",
             "name": "_afterScrollableChange",
@@ -2800,11 +3022,11 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3929,
+            "line": 4222,
             "description": "Syncs the scrolling structure if the table is configured to scroll vertically.",
             "itemtype": "method",
             "name": "_afterScrollHeightChange",
@@ -2818,66 +3040,66 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3940,
+            "line": 4233,
             "description": "Attaches internal subscriptions to keep the scrolling structure up to date\nwith changes in the table's `data`, `columns`, `caption`, or `height`.  The\n`width` is taken care of already.\n\nThis executes after the table's native `bindUI` method.",
             "itemtype": "method",
             "name": "_bindScrollUI",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3963,
+            "line": 4256,
             "description": "Calculates the height of the div containing the vertically scrolling rows.\nThe height is produced by subtracting the `offsetHeight` of the scrolling\n`<div>` from the `clientHeight` of the `contentBox`.",
             "itemtype": "method",
             "name": "_calcScrollHeight",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3981,
+            "line": 4274,
             "description": "Populates the `_xScrollNode` property by creating the `<div>` Node described\nby the `_X_SCROLLER_TEMPLATE`.",
             "itemtype": "method",
             "name": "_createXScrollNode",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 3997,
+            "line": 4290,
             "description": "Populates the `_yScrollNode` property by creating the `<div>` Node described\nby the `_Y_SCROLLER_TEMPLATE`.",
             "itemtype": "method",
             "name": "_createYScrollNode",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4014,
+            "line": 4307,
             "description": "Assigns style widths to all columns based on their current `offsetWidth`s.\nThis faciliates creating a clone of the `<colgroup>` so column widths are\nthe same after the table is split in to header and data tables.",
             "itemtype": "method",
             "name": "_fixColumnWidths",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4060,
+            "line": 4353,
             "description": "Sets up event handlers and AOP advice methods to bind the DataTable's natural\nbehaviors with the scrolling APIs and state.",
             "itemtype": "method",
             "name": "initializer",
@@ -2891,55 +3113,55 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4078,
+            "line": 4371,
             "description": "Merges the caption and content tables back into one table if they are split.",
             "itemtype": "method",
             "name": "_mergeXScrollContent",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4118,
+            "line": 4411,
             "description": "Merges the header and data tables back into one table if they are split.",
             "itemtype": "method",
             "name": "_mergeYScrollContent",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4139,
+            "line": 4432,
             "description": "Removes the additional padding added to the last cells in each header row to\nallow the scrollbar to fit below.",
             "itemtype": "method",
             "name": "_removeHeaderScrollPadding",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4157,
+            "line": 4450,
             "description": "Adds additional padding to the current amount of right padding on each row's\nlast cell to account for the width of the scrollbar below.",
             "itemtype": "method",
             "name": "_setHeaderScrollPadding",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4180,
+            "line": 4473,
             "description": "Accepts (case insensitive) values \"x\", \"y\", \"xy\", `true`, and `false`.\n`true` is translated to \"xy\" and upper case values are converted to lower\ncase.  All other values are invalid.",
             "itemtype": "method",
             "name": "_setScrollable",
@@ -2957,66 +3179,66 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4204,
+            "line": 4497,
             "description": "Assigns the `_xScroll` and `_yScroll` properties to true if an\nappropriate value is set in the `scrollable` attribute and the `height`\nand/or `width` is set.",
             "itemtype": "method",
             "name": "_setScrollProperties",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4221,
+            "line": 4514,
             "description": "Clones the fixed (see `_fixColumnWidths` method) `<colgroup>` for use by the\ntable in the vertical scrolling container.  The last column's width is reduced\nby the width of the scrollbar (which is offset by additional padding on the\nlast header cell(s) in the header table - see `_setHeaderScrollPadding`).",
             "itemtype": "method",
             "name": "_setYScrollColWidths",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4256,
+            "line": 4549,
             "description": "Splits the data table from its caption if it has one and wraps the table in\na horizontally scrollable container `<div>`.",
             "itemtype": "method",
             "name": "_splitXScrollContent",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4288,
+            "line": 4581,
             "description": "Splits the unified table with headers and data into two tables, the latter\ncontained within a vertically scrollable container `<div>`.",
             "itemtype": "method",
             "name": "_splitYScrollContent",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4336,
+            "line": 4629,
             "description": "Splits or merges the table for X and Y scrolling depending on the current\nwidget state.  If the table needs to be split, but is already, does nothing.",
             "itemtype": "method",
             "name": "_syncScrollUI",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4390,
+            "line": 4683,
             "description": "Keeps the `_yScrollNode` scroll position in sync with the `_scrollbarNode`\nin an \"xy\" scroll configuration.",
             "itemtype": "method",
             "name": "_syncVirtualScroll",
@@ -3035,11 +3257,11 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4407,
+            "line": 4700,
             "description": "Overrides the default Widget `_uiSetWidth` to assign the width to either\nthe table or the `contentBox` (for horizontal scrolling) in addition to the\nnative behavior of setting the width of the `boundingBox`.",
             "itemtype": "method",
             "name": "_uiSetWidth",
@@ -3053,22 +3275,22 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4433,
+            "line": 4726,
             "description": "Assigns the appropriate class to the `boundingBox` to identify the DataTable\nas horizontally scrolling, vertically scrolling, or both (adds both classes).\n\nClasses added are \"yui3-datatable-scrollable-x\" or \"...-y\"",
             "itemtype": "method",
             "name": "_uiSetScrollable",
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4449,
+            "line": 4742,
             "description": "Indicates horizontal table scrolling is enabled.",
             "itemtype": "property",
             "name": "_xScroll",
@@ -3077,11 +3299,11 @@
             "access": "private",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4459,
+            "line": 4752,
             "description": "Indicates vertical table scrolling is enabled.",
             "itemtype": "property",
             "name": "_yScroll",
@@ -3090,11 +3312,11 @@
             "access": "private",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4469,
+            "line": 4762,
             "description": "Overflow Node used to contain the data rows in a vertically scrolling table.",
             "itemtype": "property",
             "name": "_yScrollNode",
@@ -3103,11 +3325,24 @@
             "access": "protected",
             "tagname": "",
             "class": "DataTable",
-            "module": "@datatable-scroll"
+            "module": "datatable-scroll"
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4589,
+            "line": 4772,
+            "description": "Overflow Node used to contain the table headers and data in a horizontally\nscrolling table.",
+            "itemtype": "property",
+            "name": "_xScrollNode",
+            "type": "{Node}",
+            "default": "undefined (not initially set)",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-scroll"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 4912,
             "description": "Controls which column headers can trigger sorting by user clicks.\n\nAcceptable values are:\n\n * \"auto\" - (default) looks for `sortable: true` in the column configurations\n * `true` - all columns are enabled\n * `false - no UI sortable is enabled\n * {String[]} - array of key names to give sortable headers",
             "itemtype": "attribute",
             "name": "sortable",
@@ -3118,7 +3353,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4608,
+            "line": 4931,
             "description": "The current sort configuration to maintain in the data.\n\nAccepts column `key` strings or objects with a single property, the column\n`key`, with a value of 1, -1, \"asc\", or \"desc\".  E.g. `{ username: 'asc'\n}`.  String values are assumed to be ascending.\n\nExample values would be:\n\n * `\"username\"` - sort by the data's `username` field or the `key`\n   associated to a column with that `name`.\n * `{ username: \"desc\" }` - sort by `username` in descending order.\n   Alternately, use values \"asc\", 1 (same as \"asc\"), or -1 (same as \"desc\").\n * `[\"lastName\", \"firstName\"]` - ascending sort by `lastName`, but for\n   records with the same `lastName`, ascending subsort by `firstName`.\n   Array can have as many items as you want.\n * `[{ lastName: -1 }, \"firstName\"]` - descending sort by `lastName`,\n   ascending subsort by `firstName`. Mixed types are ok.",
             "itemtype": "attribute",
             "name": "sortBy",
@@ -3128,7 +3363,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4635,
+            "line": 4958,
             "description": "Strings containing language for sorting tooltips.",
             "itemtype": "attribute",
             "name": "strings",
@@ -3139,7 +3374,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4651,
+            "line": 4970,
             "description": "Sort the data in the `data` ModelList and refresh the table with the new\norder.\n\nAcceptable values for `fields` are `key` strings or objects with a single\nproperty, the column `key`, with a value of 1, -1, \"asc\", or \"desc\".  E.g.\n`{ username: 'asc' }`.  String values are assumed to be ascending.\n\nExample values would be:\n\n * `\"username\"` - sort by the data's `username` field or the `key`\n   associated to a column with that `name`.\n * `{ username: \"desc\" }` - sort by `username` in descending order.\n   Alternately, use values \"asc\", 1 (same as \"asc\"), or -1 (same as \"desc\").\n * `[\"lastName\", \"firstName\"]` - ascending sort by `lastName`, but for\n   records with the same `lastName`, ascending subsort by `firstName`.\n   Array can have as many items as you want.\n * `[{ lastName: -1 }, \"firstName\"]` - descending sort by `lastName`,\n   ascending subsort by `firstName`. Mixed types are ok.",
             "itemtype": "method",
             "name": "sort",
@@ -3166,7 +3401,18 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4683,
+            "line": 5002,
+            "description": "Template for the node that will wrap the header content for sortable\ncolumns.",
+            "itemtype": "property",
+            "name": "SORTABLE_HEADER_TEMPLATE",
+            "type": "{HTML}",
+            "value": "'<div class=\"{className}\" title=\"{title}\" role=\"button\"></div>'",
+            "class": "DataTable",
+            "module": "datatable-sort"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 5012,
             "description": "Reverse the current sort direction of one or more fields currently being\nsorted by.\n\nPass the `key` of the column or columns you want the sort order reversed\nfor.",
             "itemtype": "method",
             "name": "toggleSort",
@@ -3193,25 +3439,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4741,
-            "description": "Applies the sorting logic to the new ModelList if the `newVal` is a new\nModelList.",
-            "itemtype": "method",
-            "name": "_afterDataChange",
-            "params": [
-                {
-                    "name": "e",
-                    "description": "the `dataChange` event",
-                    "type": "EventFacade"
-                }
-            ],
-            "access": "protected",
-            "tagname": "",
-            "class": "DataTable",
-            "module": "datatable-sort"
-        },
-        {
-            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4759,
+            "line": 5070,
             "description": "Sorts the `data` ModelList based on the new `sortBy` configuration.",
             "itemtype": "method",
             "name": "_afterSortByChange",
@@ -3229,7 +3457,43 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4783,
+            "line": 5094,
+            "description": "Applies the sorting logic to the new ModelList if the `newVal` is a new\nModelList.",
+            "itemtype": "method",
+            "name": "_afterSortDataChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "the `dataChange` event",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-sort"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 5112,
+            "description": "Checks if any of the fields in the modified record are fields that are\ncurrently being sorted by, and if so, resorts the `data` ModelList.",
+            "itemtype": "method",
+            "name": "_afterSortRecordChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The Model's `change` event",
+                    "type": "EventFacade"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-sort"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 5131,
             "description": "Subscribes to state changes that warrant updating the UI, and adds the\nclick handler for triggering the sort operation from the UI.",
             "itemtype": "method",
             "name": "_bindSortUI",
@@ -3240,7 +3504,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4801,
+            "line": 5149,
             "description": "Sets the `sortBy` attribute from the `sort` event's `e.sortBy` value.",
             "itemtype": "method",
             "name": "_defSortFn",
@@ -3258,7 +3522,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4812,
+            "line": 5160,
             "description": "Removes the click subscription from the header for sorting.",
             "itemtype": "method",
             "name": "destructor",
@@ -3269,7 +3533,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4824,
+            "line": 5172,
             "description": "Getter for the `sortBy` attribute.\n\nSupports the special subattribute \"sortBy.state\" to get a normalized JSON\nversion of the current sort state.  Otherwise, returns the last assigned\nvalue.\n\nFor example:\n\n<pre><code>var table = new Y.DataTable({\n    columns: [ ... ],\n    data: [ ... ],\n    sortBy: 'username'\n});\n\ntable.get('sortBy'); // 'username'\ntable.get('sortBy.state'); // { key: 'username', dir: 1 }\n\ntable.sort(['lastName', { firstName: \"desc\" }]);\ntable.get('sortBy'); // ['lastName', { firstName: \"desc\" }]\ntable.get('sortBy.state'); // [{ key: \"lastName\", dir: 1 }, { key: \"firstName\", dir: -1 }]\n</code></pre>",
             "itemtype": "method",
             "name": "_getSortBy",
@@ -3292,7 +3556,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4877,
+            "line": 5225,
             "description": "Sets up the initial sort state and instance properties.  Publishes events\nand subscribes to attribute change events to maintain internal state.",
             "itemtype": "method",
             "name": "initializer",
@@ -3303,7 +3567,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4906,
+            "line": 5257,
             "description": "Creates a `_compare` function for the `data` ModelList to allow custom\nsorting by multiple fields.",
             "itemtype": "method",
             "name": "_initSortFn",
@@ -3314,7 +3578,18 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4956,
+            "line": 5307,
+            "description": "Add the sort related strings to the `strings` map.",
+            "itemtype": "method",
+            "name": "_initSortStrings",
+            "access": "protected",
+            "tagname": "",
+            "class": "DataTable",
+            "module": "datatable-sort"
+        },
+        {
+            "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
+            "line": 5319,
             "description": "Fires the `sort` event in response to user clicks on sortable column\nheaders.",
             "itemtype": "method",
             "name": "_onUITriggerSort",
@@ -3332,7 +3607,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 4993,
+            "line": 5356,
             "description": "Normalizes the possible input values for the `sortable` attribute, storing\nthe results in the `_sortable` property.",
             "itemtype": "method",
             "name": "_parseSortable",
@@ -3343,7 +3618,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5034,
+            "line": 5397,
             "description": "Initial application of the sortable UI.",
             "itemtype": "method",
             "name": "_renderSortable",
@@ -3354,7 +3629,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5046,
+            "line": 5409,
             "description": "Parses the current `sortBy` attribute into a normalized structure for the\n`data` ModelList's `_compare` method.  Also updates the column\nconfigurations' `sortDir` properties.",
             "itemtype": "method",
             "name": "_setSortBy",
@@ -3365,7 +3640,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5113,
+            "line": 5476,
             "description": "Array of column configuration objects of those columns that need UI setup\nfor user interaction.",
             "itemtype": "property",
             "name": "_sortable",
@@ -3377,7 +3652,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5123,
+            "line": 5486,
             "description": "Array of column configuration objects for those columns that are currently\nbeing used to sort the data.  Fake column objects are used for fields that\nare not rendered as columns.",
             "itemtype": "property",
             "name": "_sortBy",
@@ -3389,7 +3664,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5134,
+            "line": 5497,
             "description": "Replacement `comparator` for the `data` ModelList that defers sorting logic\nto the `_compare` method.  The deferral is accomplished by returning `this`.",
             "itemtype": "method",
             "name": "_sortComparator",
@@ -3411,7 +3686,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5148,
+            "line": 5511,
             "description": "Applies the appropriate classes to the `boundingBox` and column headers to\nindicate sort state and sortability.\n\nAlso currently wraps the header content of sortable columns in a `<div>`\nliner to give a CSS anchor for sort indicators.",
             "itemtype": "method",
             "name": "_uiSetSortable",
@@ -3422,7 +3697,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5204,
+            "line": 5576,
             "description": "Allows values `true`, `false`, \"auto\", or arrays of column names through.",
             "itemtype": "method",
             "name": "_validateSortable",
@@ -3444,7 +3719,7 @@
         },
         {
             "file": "/Users/lsmith/dev/yui3-gallery/src/gallery-datatable-350-preview/js/datatable.js",
-            "line": 5216,
+            "line": 5588,
             "description": "Allows strings, arrays of strings, objects, or arrays of objects.",
             "itemtype": "method",
             "name": "_validateSortBy",

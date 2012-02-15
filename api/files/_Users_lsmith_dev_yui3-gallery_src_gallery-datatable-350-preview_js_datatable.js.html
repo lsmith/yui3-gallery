@@ -52,6 +52,8 @@
             
                 <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
             
+                <li><a href="../classes/DataTable.Message.html">DataTable.Message</a></li>
+            
                 <li><a href="../classes/DataTable.Mutable.html">DataTable.Mutable</a></li>
             
                 <li><a href="../classes/DataTable.Scrollable.html">DataTable.Scrollable</a></li>
@@ -72,8 +74,6 @@
 
             <ul id="api-modules" class="apis modules">
             
-                <li><a href="../modules/@datatable-scroll.html">@datatable-scroll</a></li>
-            
                 <li><a href="../modules/dataschema.html">dataschema</a></li>
             
                 <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
@@ -88,7 +88,11 @@
             
                 <li><a href="../modules/datatable-head.html">datatable-head</a></li>
             
+                <li><a href="../modules/datatable-message.html">datatable-message</a></li>
+            
                 <li><a href="../modules/datatable-mutable.html">datatable-mutable</a></li>
+            
+                <li><a href="../modules/datatable-scroll.html">datatable-scroll</a></li>
             
                 <li><a href="../modules/datatable-sort.html">datatable-sort</a></li>
             
@@ -425,7 +429,7 @@ Y.mix(Table.prototype, {
     @type {HTML}
     @default '&lt;table class="{className}"/&gt;'
     **/
-    TABLE_TEMPLATE  : '&lt;table role="presentation" class="{className}"/&gt;',
+    TABLE_TEMPLATE  : '&lt;table class="{className}"/&gt;',
 
     /**
     HTML template used to create table's <code>&amp;lt;tbody&amp;gt;</code> if configured with a
@@ -1102,7 +1106,7 @@ Y.mix(Table.prototype, {
     @protected
     **/
     _initRecordType: function () {
-        var data, columns, recordType, handle;
+        var data, columns, recordType, handle, columnKeys;
             
         if (!this.get('recordType')) {
             data    = this.get('data');
@@ -1123,8 +1127,12 @@ Y.mix(Table.prototype, {
                     this._createRecordClass(keys(data[0]));
 
             // Or if the columns were defined, build a class from the keys
-            } else if (keys(columns).length) {
-                recordType = this._createRecordClass(keys(columns));
+            } else {
+                columnKeys = keys(columns);
+                
+                if (columnKeys.length) {
+                    recordType = this._createRecordClass(columnKeys);
+                }
             }
 
             if (recordType) {
@@ -1200,11 +1208,12 @@ Y.mix(Table.prototype, {
     keys to the returned map. There is no limit to the levels of nesting.
 
     All columns are assigned a <code>_yuid</code> stamp and <code>_id</code> property corresponding
-    to the column's configured <code>name</code> or <code>key</code> property.  If the same <code>name</code> or
-    <code>key</code> appears in multiple columns, subsequent appearances will have their
-    <code>_id</code> appended with an incrementing number (e.g. if column "foo" is
-    included in the <code>columns</code> attribute twice, the first will get <code>_id</code> of
-    "foo", and the second an <code>_id</code> of "foo1").
+    to the column's configured <code>name</code> or <code>key</code> property with any spaces
+    replaced with dashes.  If the same <code>name</code> or <code>key</code> appears in multiple
+    columns, subsequent appearances will have their <code>_id</code> appended with an
+    incrementing number (e.g. if column "foo" is included in the <code>columns</code>
+    attribute twice, the first will get <code>_id</code> of "foo", and the second an <code>_id</code>
+    of "foo1").
 
     The result is an object map with column keys as the property name and the
     corresponding column object as the associated value.
@@ -1246,6 +1255,10 @@ Y.mix(Table.prototype, {
                     // added to the end.
                     id = col.name || col.key || col._yuid;
 
+                    // Sanitize the _id for use in generated CSS classes.
+                    // TODO: is there more to do for other uses of _id?
+                    id = id.replace(/\s+/, '-');
+
                     if (keys[id]) {
                         id += (keys[id]++);
                     } else {
@@ -1280,12 +1293,6 @@ Y.mix(Table.prototype, {
             // _viewConfig is the prototype for _headerConfig et al.
             this._viewConfig.columns   = this.get('columns');
             this._viewConfig.modelList = this.data;
-
-            contentBox.setAttrs({
-                'role'         : 'grid',
-                'aria-readonly': true // until further notice
-            });
-
 
             this.fire('renderTable', {
                 headerView  : this.get('headerView'),
@@ -1495,13 +1502,7 @@ Y.mix(Table.prototype, {
                         className: this.getClassName('caption')
                     }));
 
-                captionId = Y.stamp(caption);
-
-                caption.set('id', captionId);
-
                 table.prepend(this._captionNode);
-
-                table.setAttribute('aria-describedby', captionId);
             }
 
             caption.setContent(htmlContent);
@@ -1510,8 +1511,6 @@ Y.mix(Table.prototype, {
             caption.remove(true);
 
             delete this._captionNode;
-
-            table.removeAttribute('aria-describedby');
         }
     },
 
@@ -1522,7 +1521,11 @@ Y.mix(Table.prototype, {
     @protected
     **/
     _uiSetSummary: function (summary) {
-        this._tableNode.setAttribute('summary', summary || '');
+        if (summary) {
+            this._tableNode.setAttribute('summary', summary);
+        } else {
+            this._tableNode.removeAttribute('summary');
+        }
     },
 
     /**
@@ -1601,6 +1604,8 @@ Supported properties of the column objects include:
   * <code>key</code>       - If <code>label</code> is not specified, the <code>key</code> is used for content.
   * <code>children</code>  - Array of columns to appear below this column in the next
                   row.
+  * <code>headerTemplate</code> - Overrides the instance's <code>CELL_TEMPLATE</code> for cells in this
+    column only.
   * <code>abbr</code>      - The content of the 'abbr' attribute of the <code>&amp;lt;th&amp;gt;</code>
   * <code>className</code> - Adds this string of CSS classes to the column header
 
@@ -1640,10 +1645,10 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
 
     @property CELL_TEMPLATE
     @type {HTML}
-    @default '&lt;th id="{_yuid}" abbr="{abbr} colspan="{_colspan}" rowspan="{_rowspan}" class="{className}" role="columnheader" {_headers}&gt;{content}&lt;/th&gt;'
+    @default '&lt;th id="{_yuid}" {abbr} colspan="{_colspan}" rowspan="{_rowspan}" class="{className}"&gt;{content}&lt;/th&gt;'
     **/
     CELL_TEMPLATE :
-        '&lt;th id="{_yuid}" abbr="{abbr}" colspan="{_colspan}" rowspan="{_rowspan}" class="{className}" role="columnheader" {_headers}&gt;{content}&lt;/th&gt;',
+        '&lt;th id="{_yuid}" {abbr} colspan="{_colspan}" rowspan="{_rowspan}" class="{className}"&gt;{content}&lt;/th&gt;',
 
     /**
     The data representation of the header rows to render.  This is assigned by
@@ -1678,7 +1683,7 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
     @default '&lt;tr&gt;{content}&lt;/tr&gt;'
     **/
     ROW_TEMPLATE:
-        '&lt;tr role="row"&gt;{content}&lt;/tr&gt;',
+        '&lt;tr&gt;{content}&lt;/tr&gt;',
 
 
     // -- Public methods ------------------------------------------------------
@@ -1715,9 +1720,9 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
         var thead    = this.get('container'),
             columns  = this.columns,
             defaults = {
-                abbr: '',
                 _colspan: 1,
-                _rowspan: 1
+                _rowspan: 1,
+                abbr: ''
             },
             i, len, j, jlen, col, html, content, values;
 
@@ -1735,10 +1740,13 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
                             col, {
                                 className: this.getClassName('header'),
                                 content  : col.label || col.key ||
-                                           ("Column " + (j + 1)),
-                                headers  : ''
+                                           ("Column " + (j + 1))
                             }
                         );
+
+                        if (col.abbr) {
+                            values.abbr = 'abbr="' + col.abbr + '"';
+                        }
 
                         if (col.className) {
                             values.className += ' ' + col.className;
@@ -1749,12 +1757,8 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
                                 ' ' + this.getClassName('col', col._id);
                         }
 
-                        if (col._parent) {
-                            values._headers =
-                                'headers="' + col._parent._headers.join(' ') + '"';
-                        }
-
-                        content += fromTemplate(this.CELL_TEMPLATE, values);
+                        content += fromTemplate(
+                            col.headerTemplate || this.CELL_TEMPLATE, values);
                     }
 
                     html += fromTemplate(this.ROW_TEMPLATE, {
@@ -1894,6 +1898,8 @@ Y.namespace('DataTable').HeaderView = Y.Base.create('tableHeader', Y.View, [], {
       * <code>children</code> - Array of columns to appear below this column in the next
                      row.
       * <code>abbr</code>     - The content of the 'abbr' attribute of the <code>&amp;lt;th&amp;gt;</code>
+      * <code>headerTemplate</code> - Overrides the instance's <code>CELL_TEMPLATE</code> for cells
+        in this column only.
 
     The output structure is basically a simulation of the <code>&amp;lt;thead&amp;gt;</code> structure
     with arrays for rows and objects for cells.  Column objects have the
@@ -2048,6 +2054,8 @@ Supported properties of the column objects include:
   * <code>name</code> - Used for columns that don't relate to an attribute in the Model
     (<code>formatter</code> or <code>nodeFormatter</code> only) if the implementer wants a
     predictable name to refer to in their CSS.
+  * <code>cellTemplate</code> - Overrides the instance's <code>CELL_TEMPLATE</code> for cells in this
+    column only.
   * <code>formatter</code> - Used to customize or override the content value from the
     Model.  These do not have access to the cell or row Nodes and should
     return string (HTML) content.
@@ -2055,8 +2063,8 @@ Supported properties of the column objects include:
     custom modifications on the cell or row Node that could not be performed by
     <code>formatter</code>s.  Should be used sparingly for better performance.
   * <code>emptyCellValue</code> - String (HTML) value to use if the Model data for a
-    column, or the content generated by a <code>formatter</code>, is the empty string or
-    <code>undefined</code>.
+    column, or the content generated by a <code>formatter</code>, is the empty string,
+    <code>null</code>, or <code>undefined</code>.
   * <code>allowHTML</code> - Set to <code>true</code> if a column value, <code>formatter</code>, or
     <code>emptyCellValue</code> can contain HTML.  This defaults to <code>false</code> to protect
     against XSS.
@@ -2070,7 +2078,7 @@ Column <code>formatter</code>s are passed an object (<code>o</code>) with the fo
   * <code>column</code> - The column configuration object for the current column.
   * <code>className</code> - Initially empty string to allow <code>formatter</code>s to add CSS 
     classes to the cell's <code>&amp;lt;td&amp;gt;</code>.
-  * <code>rowindex</code> - The zero-based row number.
+  * <code>rowIndex</code> - The zero-based row number.
   * <code>rowClass</code> - Initially empty string to allow <code>formatter</code>s to add CSS
     classes to the cell's containing row <code>&amp;lt;tr&amp;gt;</code>.
 
@@ -2087,7 +2095,7 @@ properties:
   * <code>data</code> - An object map of Model keys to their current values.
   * <code>record</code> - The Model instance.
   * <code>column</code> - The column configuration object for the current column.
-  * <code>rowindex</code> - The zero-based row number.
+  * <code>rowIndex</code> - The zero-based row number.
 
 They are expected to inject content into the cell's Node directly, including
 any "empty" cell content.  Each <code>nodeFormatter</code> will have access through the
@@ -2123,9 +2131,9 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
 
     @property CELL_TEMPLATE
     @type {HTML}
-    @default '&lt;td headers="{headers}" class="{className}"&gt;{content}&lt;/td&gt;'
+    @default '&lt;td {headers} class="{className}"&gt;{content}&lt;/td&gt;'
     **/
-    CELL_TEMPLATE: '&lt;td role="gridcell" headers="{headers}" class="{className}"&gt;{content}&lt;/td&gt;',
+    CELL_TEMPLATE: '&lt;td {headers} class="{className}"&gt;{content}&lt;/td&gt;',
 
     /**
     CSS class applied to even rows.  This is assigned at instantiation after
@@ -2156,12 +2164,9 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
 
     @property ROW_TEMPLATE
     @type {HTML}
-    @default '&lt;tr id="{clientId}" class="{rowClass}"&gt;{content}&lt;/tr&gt;'
+    @default '&lt;tr id="{rowId}" class="{rowClass}"&gt;{content}&lt;/tr&gt;'
     **/
-    ROW_TEMPLATE :
-        '&lt;tr role="row" id="{rowId}" class="{rowClass}"&gt;' +
-            '{content}' +
-        '&lt;/tr&gt;',
+    ROW_TEMPLATE : '&lt;tr id="{rowId}" class="{rowClass}"&gt;{content}&lt;/tr&gt;',
 
     /**
     The object that serves as the source of truth for column and row data.
@@ -2258,6 +2263,8 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
       * <code>name</code> - Used for columns that don't relate to an attribute in the Model
         (<code>formatter</code> or <code>nodeFormatter</code> only) if the implementer wants a
         predictable name to refer to in their CSS.
+      * <code>cellTemplate</code> - Overrides the instance's <code>CELL_TEMPLATE</code> for cells in
+        this column only.
       * <code>formatter</code> - Used to customize or override the content value from the
         Model.  These do not have access to the cell or row Nodes and should
         return string (HTML) content.
@@ -2266,8 +2273,8 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
         performed by <code>formatter</code>s.  Should be used sparingly for better
         performance.
       * <code>emptyCellValue</code> - String (HTML) value to use if the Model data for a
-        column, or the content generated by a <code>formatter</code>, is the empty string
-        or <code>undefined</code>.
+        column, or the content generated by a <code>formatter</code>, is the empty string,
+        <code>null</code>, or <code>undefined</code>.
       * <code>allowHTML</code> - Set to <code>true</code> if a column value, <code>formatter</code>, or
         <code>emptyCellValue</code> can contain HTML.  This defaults to <code>false</code> to protect
         against XSS.
@@ -2284,7 +2291,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
       * <code>column</code> - The column configuration object for the current column.
       * <code>className</code> - Initially empty string to allow <code>formatter</code>s to add CSS 
         classes to the cell's <code>&amp;lt;td&amp;gt;</code>.
-      * <code>rowindex</code> - The zero-based row number.
+      * <code>rowIndex</code> - The zero-based row number.
       * <code>rowClass</code> - Initially empty string to allow <code>formatter</code>s to add CSS
         classes to the cell's containing row <code>&amp;lt;tr&amp;gt;</code>.
 
@@ -2303,7 +2310,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
       * <code>data</code> - An object map of Model keys to their current values.
       * <code>record</code> - The Model instance.
       * <code>column</code> - The column configuration object for the current column.
-      * <code>rowindex</code> - The zero-based row number.
+      * <code>rowIndex</code> - The zero-based row number.
 
     They are expected to inject content into the cell's Node directly, including
     any "empty" cell content.  Each <code>nodeFormatter</code> will have access through the
@@ -2402,7 +2409,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
                 var formatterData = {
                         data      : record.toJSON(),
                         record    : record,
-                        rowindex  : index
+                        rowIndex  : index
                     },
                     row = tbodyNode.rows[index],
                     i, len, col, key, cell, keep;
@@ -2510,9 +2517,9 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
       * <code>clientID</code> - From Model, used the assign the <code>&amp;lt;tr&amp;gt;</code>'s 'id' attribute.
       * <code>foo</code> - The value to populate the 'foo' column cell content.  This
         value will be the value stored in the Model's <code>foo</code> attribute, or the
-        result of the column's <code>formatter</code> if assigned.  If the value is '' or
-        <code>undefined</code>, and the column's <code>emptyCellValue</code> is assigned, that value
-        will be used.
+        result of the column's <code>formatter</code> if assigned.  If the value is '', 
+        <code>null</code>, or <code>undefined</code>, and the column's <code>emptyCellValue</code> is assigned,
+        that value will be used.
       * <code>bar</code> - Same for the 'bar' column cell content.
       * <code>foo-className</code> - String of CSS classes to apply to the <code>&amp;lt;td&amp;gt;</code>.
       * <code>bar-className</code> - Same.
@@ -2554,7 +2561,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
                     record   : model,
                     className: '',
                     rowClass : '',
-                    rowindex : index
+                    rowIndex : index
                 };
 
                 if (typeof col.formatter === 'string') {
@@ -2576,7 +2583,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
                 }
             }
 
-            if (value === undefined || value === '') {
+            if (value === undefined || value === null || value === '') {
                 value = col.emptyCellValue || '';
             }
 
@@ -2602,16 +2609,19 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
     _createRowTemplate: function (columns) {
         var html         = '',
             cellTemplate = this.CELL_TEMPLATE,
-            i, len, col, key, token, tokenValues;
+            i, len, col, key, token, headers, tokenValues;
 
         for (i = 0, len = columns.length; i &lt; len; ++i) {
-            col   = columns[i];
-            key   = col.key;
-            token = col._id;
+            col     = columns[i];
+            key     = col.key;
+            token   = col._id;
+            // Only include headers if there are more than one
+            headers = (col._headers || []).length &gt; 1 ?
+                        'headers="' + col._headers.join(' ') + '"' : '';
 
             tokenValues = {
                 content  : '{' + token + '}',
-                headers  : (col._headers || []).join(' '),
+                headers  : headers,
                 className: this.getClassName('col', token) + ' ' +
                            (col.className || '') + ' ' +
                            this.getClassName('cell') +
@@ -2623,7 +2633,7 @@ Y.namespace('DataTable').BodyView = Y.Base.create('tableBody', Y.View, [], {
                 tokenValues.content = '';
             }
 
-            html += fromTemplate(cellTemplate, tokenValues);
+            html += fromTemplate(col.cellTemplate || cellTemplate, tokenValues);
         }
 
         this._rowTemplate = fromTemplate(this.ROW_TEMPLATE, {
@@ -3037,7 +3047,10 @@ those methods to trigger per-operation sync.
 @default <code>false</code>
 **/
 Mutable.ATTRS = {
-    autoSync: {}
+    autoSync: {
+        value: false,
+        validator: YLang.isBoolean
+    }
 };
 
 Y.mix(Mutable.prototype, {
@@ -3193,7 +3206,7 @@ Y.mix(Mutable.prototype, {
 
     @method addRow
     @param {Object} data The data or Model instance for the new record
-    @param {Object} [config]* Configuration to pass along
+    @param {Object} [config] Configuration to pass along
     @param {Function} [callback] Callback function for Model's <code>save()</code>
       @param {Error|null} callback.err If an error occurred or validation
         failed, this parameter will contain the error. If the sync operation
@@ -3205,10 +3218,11 @@ Y.mix(Mutable.prototype, {
     @chainable
     **/
     addRow: function (data, config) {
+        // Allow autoSync: true + addRow({ data }, { sync: false })
         var sync = (config &amp;&amp; ('sync' in config)) ?
                 config.sync :
                 this.get('autoSync'),
-            models, i, len, args;
+            models, model, i, len, args;
 
         if (this.data) {
             models = this.data.add.apply(this.data, arguments);
@@ -3218,7 +3232,11 @@ Y.mix(Mutable.prototype, {
                 args   = toArray(arguments, 1, true);
 
                 for (i = 0, len = models.length; i &lt; len; ++i) {
-                    models[i].save.apply(models[i], args);
+                    model = models[i];
+
+                    if (model.isNew()) {
+                        models[i].save.apply(models[i], args);
+                    }
                 }
             }
         }
@@ -3246,7 +3264,7 @@ Y.mix(Mutable.prototype, {
 
     @method removeRow
     @param {Object|String|Number} id The Model instance or identifier 
-    @param {Object} [config]* Configuration to pass along
+    @param {Object} [config] Configuration to pass along
     @param {Function} [callback] Callback function for Model's <code>save()</code>
       @param {Error|null} callback.err If an error occurred or validation
         failed, this parameter will contain the error. If the sync operation
@@ -3259,6 +3277,7 @@ Y.mix(Mutable.prototype, {
     **/
     removeRow: function (id, config) {
         var modelList = this.data,
+            // Allow autoSync: true + addRow({ data }, { sync: false })
             sync      = (config &amp;&amp; ('sync' in config)) ?
                             config.sync :
                             this.get('autoSync'),
@@ -3318,7 +3337,7 @@ Y.mix(Mutable.prototype, {
     @method modifyRow
     @param {Object|String|Number} id The Model instance or identifier 
     @param {Object} data New data values for the Model
-    @param {Object} [config]* Configuration to pass along to <code>setAttrs()</code>
+    @param {Object} [config] Configuration to pass along to <code>setAttrs()</code>
     @param {Function} [callback] Callback function for Model's <code>save()</code>
       @param {Error|null} callback.err If an error occurred or validation
         failed, this parameter will contain the error. If the sync operation
@@ -3331,6 +3350,7 @@ Y.mix(Mutable.prototype, {
     **/
     modifyRow: function (id, data, config) {
         var modelList = this.data,
+            // Allow autoSync: true + addRow({ data }, { sync: false })
             sync      = (config &amp;&amp; ('sync' in config)) ?
                             config.sync :
                             this.get('autoSync'),
@@ -3349,7 +3369,7 @@ Y.mix(Mutable.prototype, {
 
             model.setAttrs.apply(model, args);
 
-            if (sync) {
+            if (sync &amp;&amp; !model.isNew()) {
                 model.save.apply(model, args);
             }
         }
@@ -3432,7 +3452,7 @@ Y.mix(Mutable.prototype, {
             fromCols, fromIndex, toCols, i, len;
 
         if (column) {
-            fromCols  = column.parent ? column.parent.children : columns;
+            fromCols  = column._parent ? column._parent.children : columns;
             fromIndex = arrayIndex(fromCols, column);
 
             if (fromIndex &gt; -1) {
@@ -3470,7 +3490,7 @@ Y.mix(Mutable.prototype, {
             cols, index;
 
         if (column) {
-            cols = column.parent ? column.parent.children : columns;
+            cols = column._parent ? column._parent.children : columns;
             index = Y.Array.indexOf(cols, column);
 
             if (index &gt; -1) {
@@ -3524,7 +3544,7 @@ as a callback to each Model's <code>save()</code> method.
 
 @method addRows
 @param {Object[]} data The data or Model instances to add
-@param {Object} [config]* Configuration to pass along
+@param {Object} [config] Configuration to pass along
 @param {Function} [callback] Callback function for each Model's <code>save()</code>
   @param {Error|null} callback.err If an error occurred or validation
     failed, this parameter will contain the error. If the sync operation
@@ -3577,6 +3597,283 @@ Fired by the <code>moveColumn</code> method.
 @param {Object} index The destination index to move to
 **/
 
+}, '@VERSION@', { requires: ['gallery-datatable-350-preview-base'] });
+
+YUI.add('lang/gallery-datatable-350-preview-message', function (Y) {
+Y.Intl.add('datatable-message', '', 
+{
+    emptyMessage: "No data to display",
+    loadingMessage: "Loading..."
+}
+);}, '@VERSION@');
+
+YUI.add('lang/gallery-datatable-350-preview-message_en', function (Y) {
+Y.Intl.add('datatable-message', 'en', 
+{
+    emptyMessage: "No data to display",
+    loadingMessage: "Loading..."
+}
+);}, '@VERSION@');
+
+YUI.add('gallery-datatable-350-preview-message', function (Y) {
+/**
+Adds support for a message container to appear in the table.  This can be used
+to indicate loading progress, lack of records, or any other communication
+needed.
+
+Features added to <code>Y.DataTable</code>, and made available for custom classes at
+<code>Y.DataTable.Message</code>.
+
+@module datatable-message
+@class DataTable.Message
+@for DataTable
+**/
+var Message;
+
+Y.namespace('DataTable').Message = Message = function () {};
+
+Message.ATTRS = {
+    /**
+    Enables the display of messages in the table.  Setting this to false will
+    prevent the message Node from being created and <code>showMessage</code> from doing
+    anything.
+
+    @attribute showMessages
+    @type {Boolean}
+    @default true
+    **/
+    showMessages: {
+        value: true,
+        validator: Y.Lang.isBoolean
+    }
+};
+
+Y.mix(Message.prototype, {
+    /**
+    Template used to generate the node that will be used to report messages.
+
+    @property MESSAGE_TEMPLATE
+    @type {HTML}
+    @default &lt;tbody class="{className}"&gt;&lt;td class="{contentClass}" colspan="{colspan}"&gt;&lt;/td&gt;&lt;/tbody&gt;
+    **/
+    MESSAGE_TEMPLATE: '&lt;tbody class="{className}"&gt;&lt;tr&gt;&lt;td class="{contentClass}" colspan="{colspan}"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;',
+
+    /**
+    Hides the message node.
+
+    @method hideMessage
+    @return {DataTable}
+    @chainable
+    **/
+    hideMessage: function () {
+        this.get('boundingBox').removeClass(
+            this.getClassName('message', 'visible'));
+
+        return this;
+    },
+
+    /**
+    Display the message node and set its content to <code>message</code>.  If there is a
+    localized <code>strings</code> entry for the value of <code>message</code>, that string will be
+    used.
+
+    @method showMessage
+    @param {String} message The message name or message itself to display
+    @return {DataTable}
+    @chainable
+    **/
+    showMessage: function (message) {
+        var content = this.getString(message) || message;
+
+        if (!this._messageNode) {
+            this._initMessageNode();
+        }
+
+        if (this.get('showMessages')) {
+            if (content) {
+                this._messageNode.one(
+                    '.' + this.getClassName('message', 'content'))
+                    .setContent(content);
+
+                this.get('boundingBox').addClass(
+                    this.getClassName('message','visible'));
+            } else {
+                // TODO: is this right?
+                // If no message provided, remove the message node.
+                this.hideMessage();
+            }
+        }
+
+        return this;
+    },
+
+    //--------------------------------------------------------------------------
+    // Protected methods
+    //--------------------------------------------------------------------------
+    /**
+    Updates the colspan of the <code>&amp;lt;td&amp;gt;</code> used to display the messages.
+
+    @method _afterMessageColumnsChange
+    @param {EventFacade} e The columnsChange event
+    @protected
+    **/
+    _afterMessageColumnsChange: function (e) {
+        var contentNode;
+
+        if (this._messageNode) {
+            contentNode = this._messageNode.one(
+                '.' + this.getClassName('message', 'content'));
+
+            if (contentNode) {
+                contentNode.set('colSpan', this._displayColumns.length);
+            }
+        }
+    },
+
+    /**
+    Relays to <code>_uiSetMessage</code> to hide or show the message node.
+
+    @method _afterMessageDataChange
+    @param {EventFacade} e The dataChange event
+    @protected
+    **/
+    _afterMessageDataChange: function (e) {
+        this._uiSetMessage();
+    },
+
+    /**
+    Removes the message node if <code>showMessages</code> is <code>false</code>, or relays to
+    <code>_uiSetMessage</code> if <code>true</code>.
+
+    @method _afterShowMessagesChange
+    @param {EventFacade} e The showMessagesChange event
+    @protected
+    **/
+    _afterShowMessagesChange: function (e) {
+        if (e.newVal) {
+            this._uiSetMessage(e);
+        } else if (this._messageNode) {
+            this.get('boundingBox').removeClass(
+                this.getClassName('message', 'visible'));
+
+            this._messageNode.remove().destroy(true);
+            this._messageNode = null;
+        }
+    },
+
+    /**
+    Binds the events necessary to keep the message node in sync with the current
+    table and configuration state.
+
+    @method _bindMessageUI
+    @protected
+    **/
+    _bindMessageUI: function () {
+        this.after(['dataChange', '*:add', '*:remove', '*:reset'],
+            Y.bind('_afterMessageDataChange', this));
+
+        this.after('columnsChange', Y.bind('_afterMessageColumnsChange', this));
+
+        this.after('showMessagesChange',
+            Y.bind('_afterShowMessagesChange', this));
+    },
+
+    /**
+    Merges in the message related strings and hooks into the rendering cycle to
+    also render and bind the message node.
+
+    @method initializer
+    @protected
+    **/
+    initializer: function () {
+        this._initMessageStrings();
+
+        if (this.get('showMessages')) {
+            this.after('renderBody', Y.bind('_initMessageNode', this));
+        }
+
+        this.after(Y.bind('_bindMessageUI', this), this, 'bindUI');
+        this.after(Y.bind('_syncMessageUI', this), this, 'syncUI');
+    },
+
+    /**
+    Creates the <code>_messageNode</code> property from the configured <code>MESSAGE_TEMPLATE</code>
+    and inserts it before the <code>&amp;lt;table&amp;gt;</code>'s <code>&amp;lt;tbody&amp;gt;</code> node.
+
+    @method _initMessageNode
+    @protected
+    **/
+    _initMessageNode: function () {
+        if (!this._messageNode) {
+            this._messageNode = Y.Node.create(
+                Y.Lang.sub(this.MESSAGE_TEMPLATE, {
+                    className: this.getClassName('message'),
+                    contentClass: this.getClassName('message', 'content'),
+                    colspan: this._displayColumns.length || 1
+                }));
+
+            this._tableNode.insertBefore(this._messageNode, this._tbodyNode);
+        }
+    },
+
+    /**
+    Add the messaging related strings to the <code>strings</code> map.
+    
+    @method _initMessageStrings
+    @protected
+    **/
+    _initMessageStrings: function () {
+        // Not a valueFn because other class extensions will want to add to it
+        this.set('strings', Y.mix((this.get('strings') || {}), 
+            Y.Intl.get('datatable-message')));
+    },
+
+    /**
+    Node used to display messages from <code>showMessage</code>.
+
+    @property _messageNode
+    @type {Node}
+    @value <code>undefined</code> (not initially set)
+    **/
+    //_messageNode: null,
+
+    /**
+    Synchronizes the message UI with the table state.
+
+    @method _syncMessageUI
+    @protected
+    **/
+    _syncMessageUI: function () {
+        this._uiSetMessage();
+    },
+
+    /**
+    Calls <code>hideMessage</code> or <code>showMessage</code> as appropriate based on the presence of
+    records in the <code>data</code> ModelList.
+
+    This is called when <code>data</code> is reset or records are added or removed.  Also,
+    if the <code>showMessages</code> attribute is updated.  In either case, if the
+    triggering event has a <code>message</code> property on the EventFacade, it will be
+    passed to <code>showMessage</code> (if appropriate).  If no such property is on the
+    facade, the <code>emptyMessage</code> will be used (see the strings).
+
+    @method _uiSetMessage
+    @param {EventFacade} e The columnsChange event
+    @protected
+    **/
+    _uiSetMessage: function (e) {
+        if (!this.data.size()) {
+            this.showMessage((e &amp;&amp; e.message) || 'emptyMessage');
+        } else {
+            this.hideMessage();
+        }
+    }
+});
+
+
+if (Y.Lang.isFunction(Y.DataTable)) {
+    Y.Base.mix(Y.DataTable, [ Message ]);
+}
 }, '@VERSION@', { requires: ['gallery-datatable-350-preview-base'] });
 
 YUI.add('gallery-datatable-350-preview-column-widths', function (Y) {
@@ -3879,7 +4176,7 @@ the following values:
  * 'y' - Activate vertical scrolling only. Requires the <code>height</code> attribute is
          also set.
 
- @module @datatable-scroll
+ @module datatable-scroll
  @class DataTable.Scrollable
  @for DataTable
 **/
@@ -4613,11 +4910,40 @@ Y.mix(Scrollable.prototype, {
     **/
     //_yScrollNode
 
-    // TODO: Add _xScrollNode
+    /**
+    Overflow Node used to contain the table headers and data in a horizontally
+    scrolling table.
+
+    @property _xScrollNode
+    @type {Node}
+    @default undefined (not initially set)
+    @protected
+    **/
+    //_xScrollNode
 }, true);
 
 Y.Base.mix(Y.DataTable, [Scrollable]);
 }, '@VERSION@', { requires: ['gallery-datatable-350-preview-base', 'gallery-datatable-350-preview-column-widths', 'dom-screen'] });
+
+YUI.add('lang/gallery-datatable-350-preview-sort', function (Y) {
+Y.Intl.add('datatable-sort', '', 
+{
+    asc: "Ascending",
+    desc: "Descending",
+    sortBy: "Sort by {column}",
+    reverseSortBy: "Reverse sort by {column}"
+}
+);}, '@VERSION@');
+
+YUI.add('lang/gallery-datatable-350-preview-sort_en', function (Y) {
+Y.Intl.add('datatable-sort', 'en', 
+{
+    asc: "Ascending",
+    desc: "Descending",
+    sortBy: "Sort by {column}",
+    reverseSortBy: "Reverse sort by {column}"
+}
+);}, '@VERSION@');
 
 YUI.add('gallery-datatable-350-preview-sort', function (Y) {
 /**
@@ -4707,7 +5033,8 @@ var YLang     = Y.Lang,
     isArray   = YLang.isArray,
     isObject  = YLang.isObject,
 
-    toArray     = Y.Array,
+    toArray = Y.Array,
+    sub     = YLang.sub,
 
     dirMap = {
         asc : 1,
@@ -4776,11 +5103,7 @@ Sortable.ATTRS = {
     @type {Object}
     @default (strings for current lang configured in the YUI instance config)
     **/
-    strings: {
-        valueFn: function () {
-            return Y.Intl.get('datatable-sort');
-        }
-    }
+    strings: {}
 };
 
 Y.mix(Sortable.prototype, {
@@ -4816,6 +5139,16 @@ Y.mix(Sortable.prototype, {
             sortBy: fields || this.get('sortBy')
         }));
     },
+
+    /**
+    Template for the node that will wrap the header content for sortable
+    columns.
+
+    @property SORTABLE_HEADER_TEMPLATE
+    @type {HTML}
+    @value '&lt;div class="{className}" title="{title}" role="button"&gt;&lt;/div&gt;'
+    **/
+    SORTABLE_HEADER_TEMPLATE: '&lt;div class="{className}" title="{title}" role="button"&gt;&lt;/div&gt;',
 
     /**
     Reverse the current sort direction of one or more fields currently being
@@ -4876,24 +5209,6 @@ Y.mix(Sortable.prototype, {
     // Protected properties and methods
     //--------------------------------------------------------------------------
     /**
-    Applies the sorting logic to the new ModelList if the <code>newVal</code> is a new
-    ModelList.
-
-    @method _afterDataChange
-    @param {EventFacade} e the <code>dataChange</code> event
-    @protected
-    **/
-    _afterDataChange: function (e) {
-        // object values always trigger a change event, but we only want to
-        // call _initSortFn if the value passed to the <code>data</code> attribute was a
-        // new ModelList, not a set of new data as an array, or even the same
-        // ModelList.
-        if (e.prevVal !== e.newVal || e.newVal.hasOwnProperty('_compare')) {
-            this._initSortFn();
-        }
-    },
-
-    /**
     Sorts the <code>data</code> ModelList based on the new <code>sortBy</code> configuration.
 
     @method _afterSortByChange
@@ -4914,6 +5229,43 @@ Y.mix(Sortable.prototype, {
             }
 
             this.data.sort();
+        }
+    },
+
+    /**
+    Applies the sorting logic to the new ModelList if the <code>newVal</code> is a new
+    ModelList.
+
+    @method _afterSortDataChange
+    @param {EventFacade} e the <code>dataChange</code> event
+    @protected
+    **/
+    _afterSortDataChange: function (e) {
+        // object values always trigger a change event, but we only want to
+        // call _initSortFn if the value passed to the <code>data</code> attribute was a
+        // new ModelList, not a set of new data as an array, or even the same
+        // ModelList.
+        if (e.prevVal !== e.newVal || e.newVal.hasOwnProperty('_compare')) {
+            this._initSortFn();
+        }
+    },
+
+    /**
+    Checks if any of the fields in the modified record are fields that are
+    currently being sorted by, and if so, resorts the <code>data</code> ModelList.
+
+    @method _afterSortRecordChange
+    @param {EventFacade} e The Model's <code>change</code> event
+    @protected
+    **/
+    _afterSortRecordChange: function (e) {
+        var i, len;
+
+        for (i = 0, len = this._sortBy.length; i &lt; len; ++i) {
+            if (e.changed[this._sortBy[i].key]) {
+                this.data.sort();
+                break;
+            }
         }
     },
 
@@ -5027,12 +5379,15 @@ Y.mix(Sortable.prototype, {
 
         this._initSortFn();
 
+        this._initSortStrings();
+
         this.after({
             renderHeader  : Y.bind('_renderSortable', this),
-            dataChange    : Y.bind('_afterDataChange', this),
+            dataChange    : Y.bind('_afterSortDataChange', this),
             sortByChange  : Y.bind('_afterSortByChange', this),
             sortableChange: boundParseSortable,
-            columnsChange : boundParseSortable
+            columnsChange : boundParseSortable,
+            "*:change"    : Y.bind('_afterSortRecordChange', this)
         });
 
         this.publish('sort', {
@@ -5088,6 +5443,18 @@ Y.mix(Sortable.prototype, {
             // up again.  Mistake?
             delete this.data.comparator;
         }
+    },
+
+    /**
+    Add the sort related strings to the <code>strings</code> map.
+    
+    @method _initSortStrings
+    @protected
+    **/
+    _initSortStrings: function () {
+        // Not a valueFn because other class extensions will want to add to it
+        this.set('strings', Y.mix((this.get('strings') || {}), 
+            Y.Intl.get('datatable-sort')));
     },
 
     /**
@@ -5298,7 +5665,7 @@ Y.mix(Sortable.prototype, {
             ascClass      = this.getClassName('sorted'),
             descClass     = this.getClassName('sorted', 'desc'),
             linerClass    = this.getClassName('sort', 'liner'),
-            i, len, col, node, content;
+            i, len, col, node, content, title;
 
         this.get('boundingBox').toggleClass(
             this.getClassName('sortable'),
@@ -5331,7 +5698,16 @@ Y.mix(Sortable.prototype, {
                     }
                 }
 
-                Y.Node.create('&lt;div class="' + linerClass + '"&gt;&lt;/div&gt;')
+                title = sub(this.getString(
+                    (col.sortDir === 1) ? 'reverseSortBy' : 'sortBy'), {
+                        column: col.abbr || col.label ||
+                                col.key  || ('column ' + i)
+                });
+
+                Y.Node.create(Y.Lang.sub(this.SORTABLE_HEADER_TEMPLATE, {
+                        className: linerClass,
+                        title    : title
+                    }))
                     .append(node.get('childNodes').toFrag())
                     .appendTo(node);
             }
@@ -5377,9 +5753,14 @@ Y.use('gallery-datatable-350-preview-core',
       'gallery-datatable-350-preview-body', 
       'gallery-datatable-350-preview-base', 
       'gallery-datatable-350-preview-mutable',
+      'lang/gallery-datatable-350-preview-message',
+      'lang/gallery-datatable-350-preview-message_en',
+      'gallery-datatable-350-preview-message',
       'gallery-datatable-350-preview-column-widths', 
       'gallery-datatable-350-preview-scroll',
-      'gallery-datatable-350-preview-sort');
+      'gallery-datatable-350-preview-sort',
+      'lang/gallery-datatable-350-preview-sort',
+      'lang/gallery-datatable-350-preview-sort_en');
 
     </pre>
 </div>

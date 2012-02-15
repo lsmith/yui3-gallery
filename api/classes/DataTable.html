@@ -52,6 +52,8 @@
             
                 <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
             
+                <li><a href="../classes/DataTable.Message.html">DataTable.Message</a></li>
+            
                 <li><a href="../classes/DataTable.Mutable.html">DataTable.Mutable</a></li>
             
                 <li><a href="../classes/DataTable.Scrollable.html">DataTable.Scrollable</a></li>
@@ -72,8 +74,6 @@
 
             <ul id="api-modules" class="apis modules">
             
-                <li><a href="../modules/@datatable-scroll.html">@datatable-scroll</a></li>
-            
                 <li><a href="../modules/dataschema.html">dataschema</a></li>
             
                 <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
@@ -88,7 +88,11 @@
             
                 <li><a href="../modules/datatable-head.html">datatable-head</a></li>
             
+                <li><a href="../modules/datatable-message.html">datatable-message</a></li>
+            
                 <li><a href="../modules/datatable-mutable.html">datatable-mutable</a></li>
+            
+                <li><a href="../modules/datatable-scroll.html">datatable-scroll</a></li>
             
                 <li><a href="../modules/datatable-sort.html">datatable-sort</a></li>
             
@@ -151,7 +155,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2764"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2764</code></a>
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2770"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2770</code></a>
         </div>
     
 
@@ -271,7 +275,13 @@ var table = new Y.DataTable({
                             </li>
                         
                             <li class="index-item method protected">
-                                <a href="#method__afterDataChange">_afterDataChange</a>
+                                <a href="#method__afterMessageColumnsChange">_afterMessageColumnsChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterMessageDataChange">_afterMessageDataChange</a>
 
                                 
                             </li>
@@ -289,7 +299,31 @@ var table = new Y.DataTable({
                             </li>
                         
                             <li class="index-item method protected">
+                                <a href="#method__afterShowMessagesChange">_afterShowMessagesChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
                                 <a href="#method__afterSortByChange">_afterSortByChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterSortDataChange">_afterSortDataChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__afterSortRecordChange">_afterSortRecordChange</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__bindMessageUI">_bindMessageUI</a>
 
                                 
                             </li>
@@ -462,6 +496,18 @@ var table = new Y.DataTable({
                                 
                             </li>
                         
+                            <li class="index-item method protected">
+                                <a href="#method__initMessageNode">_initMessageNode</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__initMessageStrings">_initMessageStrings</a>
+
+                                
+                            </li>
+                        
                             <li class="index-item method protected inherited">
                                 <a href="#method__initRecordType">_initRecordType</a>
 
@@ -470,6 +516,12 @@ var table = new Y.DataTable({
                         
                             <li class="index-item method protected">
                                 <a href="#method__initSortFn">_initSortFn</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__initSortStrings">_initSortStrings</a>
 
                                 
                             </li>
@@ -613,6 +665,12 @@ var table = new Y.DataTable({
                             </li>
                         
                             <li class="index-item method protected">
+                                <a href="#method__syncMessageUI">_syncMessageUI</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
                                 <a href="#method__syncScrollUI">_syncScrollUI</a>
 
                                 
@@ -632,6 +690,12 @@ var table = new Y.DataTable({
                         
                             <li class="index-item method protected">
                                 <a href="#method__uiSetColumns">_uiSetColumns</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method__uiSetMessage">_uiSetMessage</a>
 
                                 
                             </li>
@@ -732,6 +796,18 @@ var table = new Y.DataTable({
                                 
                             </li>
                         
+                            <li class="index-item method">
+                                <a href="#method_hideMessage">hideMessage</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
+                                <a href="#method_initializer">initializer</a>
+
+                                
+                            </li>
+                        
                             <li class="index-item method protected">
                                 <a href="#method_initializer">initializer</a>
 
@@ -805,6 +881,12 @@ var table = new Y.DataTable({
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_showMessage">showMessage</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_sort">sort</a>
 
                                 
@@ -868,6 +950,12 @@ var table = new Y.DataTable({
                                 
                             </li>
                         
+                            <li class="index-item property">
+                                <a href="#property__messageNode">_messageNode</a>
+
+                                
+                            </li>
+                        
                             <li class="index-item property protected">
                                 <a href="#property__SCROLLBAR_TEMPLATE">_SCROLLBAR_TEMPLATE</a>
 
@@ -906,6 +994,12 @@ var table = new Y.DataTable({
                         
                             <li class="index-item property private">
                                 <a href="#property__xScroll">_xScroll</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property__xScrollNode">_xScrollNode</a>
 
                                 
                             </li>
@@ -966,6 +1060,18 @@ var table = new Y.DataTable({
                         
                             <li class="index-item property inherited">
                                 <a href="#property_head">head</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_MESSAGE_TEMPLATE">MESSAGE_TEMPLATE</a>
+
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_SORTABLE_HEADER_TEMPLATE">SORTABLE_HEADER_TEMPLATE</a>
 
                                 
                             </li>
@@ -1046,6 +1152,10 @@ var table = new Y.DataTable({
                         
                             <li class="index-item attr">
                                 <a href="#attr_scrollable">scrollable</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_showMessages">showMessages</a>
                             </li>
                         
                             <li class="index-item attr">
@@ -1133,12 +1243,12 @@ var table = new Y.DataTable({
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3864"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3864</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4157"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4157</code></a></p>
 
         
 
@@ -1276,12 +1386,12 @@ attribute.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3900"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3900</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4193"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4193</code></a></p>
 
         
 
@@ -1324,8 +1434,8 @@ scrolling setup.</p>
 </div>
 
                 
-                    <div id="method__afterDataChange" class="method item protected">
-    <h3 class="name"><code>_afterDataChange</code></h3>
+                    <div id="method__afterMessageColumnsChange" class="method item protected">
+    <h3 class="name"><code>_afterMessageColumnsChange</code></h3>
 
     
         <div class="args">
@@ -1359,10 +1469,12 @@ scrolling setup.</p>
         
             
                 
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4741"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4741</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3572"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3572</code></a></p>
 
         
 
@@ -1370,8 +1482,7 @@ scrolling setup.</p>
     </div>
 
     <div class="description">
-        <p>Applies the sorting logic to the new ModelList if the <code>newVal</code> is a new
-ModelList.</p>
+        <p>Updates the colspan of the <code>&lt;td&gt;</code> used to display the messages.</p>
     </div>
 
     
@@ -1389,7 +1500,89 @@ ModelList.</p>
                     
 
                     <div class="param-description">
-                        <p>the <code>dataChange</code> event</p>
+                        <p>The columnsChange event</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__afterMessageDataChange" class="method item protected">
+    <h3 class="name"><code>_afterMessageDataChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3592"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3592</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Relays to <code>_uiSetMessage</code> to hide or show the message node.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The dataChange event</p>
                     </div>
 
                     
@@ -1440,12 +1633,12 @@ ModelList.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3916"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3916</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4209"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4209</code></a></p>
 
         
 
@@ -1523,12 +1716,12 @@ and <code>_yScroll</code> properties and syncing the scrolling structure accordi
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3929"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3929</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4222"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4222</code></a></p>
 
         
 
@@ -1555,6 +1748,89 @@ and <code>_yScroll</code> properties and syncing the scrolling structure accordi
 
                     <div class="param-description">
                         <p>The relevant change event (ignored)</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__afterShowMessagesChange" class="method item protected">
+    <h3 class="name"><code>_afterShowMessagesChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3603"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3603</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes the message node if <code>showMessages</code> is <code>false</code>, or relays to
+<code>_uiSetMessage</code> if <code>true</code>.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The showMessagesChange event</p>
                     </div>
 
                     
@@ -1608,7 +1884,7 @@ and <code>_yScroll</code> properties and syncing the scrolling structure accordi
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4759"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4759</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5070"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5070</code></a></p>
 
         
 
@@ -1650,6 +1926,218 @@ and <code>_yScroll</code> properties and syncing the scrolling structure accordi
 </div>
 
                 
+                    <div id="method__afterSortDataChange" class="method item protected">
+    <h3 class="name"><code>_afterSortDataChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5094"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5094</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Applies the sorting logic to the new ModelList if the <code>newVal</code> is a new
+ModelList.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>the <code>dataChange</code> event</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__afterSortRecordChange" class="method item protected">
+    <h3 class="name"><code>_afterSortRecordChange</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5112"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5112</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Checks if any of the fields in the modified record are fields that are
+currently being sorted by, and if so, resorts the <code>data</code> ModelList.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The Model's <code>change</code> event</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__bindMessageUI" class="method item protected">
+    <h3 class="name"><code>_bindMessageUI</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3623"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3623</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Binds the events necessary to keep the message node in sync with the current
+table and configuration state.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method__bindScrollUI" class="method item protected">
     <h3 class="name"><code>_bindScrollUI</code></h3>
 
@@ -1675,12 +2163,12 @@ and <code>_yScroll</code> properties and syncing the scrolling structure accordi
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3940"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3940</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4233"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4233</code></a></p>
 
         
 
@@ -1731,7 +2219,7 @@ with changes in the table's <code>data</code>, <code>columns</code>, <code>capti
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4783"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4783</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5131"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5131</code></a></p>
 
         
 
@@ -1776,12 +2264,12 @@ click handler for triggering the sort operation from the UI.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3963"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3963</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4256"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4256</code></a></p>
 
         
 
@@ -1832,7 +2320,7 @@ The height is produced by subtracting the <code>offsetHeight</code> of the scrol
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3601"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3601</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3894"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3894</code></a></p>
 
         
 
@@ -2181,12 +2669,12 @@ set.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3981"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3981</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4274"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4274</code></a></p>
 
         
 
@@ -2231,12 +2719,12 @@ by the <code>_X_SCROLLER_TEMPLATE</code>.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3997"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3997</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4290"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4290</code></a></p>
 
         
 
@@ -2296,7 +2784,7 @@ by the <code>_Y_SCROLLER_TEMPLATE</code>.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3227"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3227</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3243"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3243</code></a></p>
 
         
 
@@ -2406,7 +2894,7 @@ by the <code>_Y_SCROLLER_TEMPLATE</code>.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3256"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3256</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3272"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3272</code></a></p>
 
         
 
@@ -2516,7 +3004,7 @@ by the <code>_Y_SCROLLER_TEMPLATE</code>.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3279"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3279</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3295"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3295</code></a></p>
 
         
 
@@ -2627,7 +3115,7 @@ specified array index (may be an array of indexes for nested headers).</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3320"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3320</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3336"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3336</code></a></p>
 
         
 
@@ -3058,7 +3546,7 @@ from the view's <code>container</code> attribute.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4801"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4801</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5149"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5149</code></a></p>
 
         
 
@@ -3125,12 +3613,12 @@ from the view's <code>container</code> attribute.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4014"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4014</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4307"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4307</code></a></p>
 
         
 
@@ -3493,7 +3981,7 @@ raw data (presumably an empty array or <code>undefined</code>).</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4824"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4824</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5172"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5172</code></a></p>
 
         
 
@@ -3719,6 +4207,105 @@ the array data.  This ModelList is then assigned to <code>this.data</code>.</p>
 </div>
 
                 
+                    <div id="method__initMessageNode" class="method item protected">
+    <h3 class="name"><code>_initMessageNode</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3658"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3658</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates the <code>_messageNode</code> property from the configured <code>MESSAGE_TEMPLATE</code>
+and inserts it before the <code>&lt;table&gt;</code>'s <code>&lt;tbody&gt;</code> node.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__initMessageStrings" class="method item protected">
+    <h3 class="name"><code>_initMessageStrings</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3678"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3678</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Add the messaging related strings to the <code>strings</code> map.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method__initRecordType" class="method item protected inherited">
     <h3 class="name"><code>_initRecordType</code></h3>
 
@@ -3816,7 +4403,7 @@ empty, it will call <code>_initColumns</code>.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4906"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4906</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5257"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5257</code></a></p>
 
         
 
@@ -3826,6 +4413,53 @@ empty, it will call <code>_initColumns</code>.</p>
     <div class="description">
         <p>Creates a <code>_compare</code> function for the <code>data</code> ModelList to allow custom
 sorting by multiple fields.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__initSortStrings" class="method item protected">
+    <h3 class="name"><code>_initSortStrings</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5307"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5307</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Add the sort related strings to the <code>strings</code> map.</p>
     </div>
 
     
@@ -3864,7 +4498,7 @@ sorting by multiple fields.</p>
                 <a href="DataTable.Core.html#method__initViewConfig">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1032"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1032</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1036"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1036</code></a></p>
 
         
 
@@ -3916,12 +4550,12 @@ configs.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4078"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4078</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4371"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4371</code></a></p>
 
         
 
@@ -3965,12 +4599,12 @@ configs.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4118"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4118</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4411"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4411</code></a></p>
 
         
 
@@ -4027,7 +4661,7 @@ configs.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4956"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4956</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5319"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5319</code></a></p>
 
         
 
@@ -4108,7 +4742,7 @@ headers.</p>
                 <a href="DataTable.Core.html#method__parseColumns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1058"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1058</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1062"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1062</code></a></p>
 
         
 
@@ -4123,11 +4757,12 @@ has a <code>children</code> property, it will be iterated, adding any nested col
 keys to the returned map. There is no limit to the levels of nesting.</p>
 
 <p>All columns are assigned a <code>_yuid</code> stamp and <code>_id</code> property corresponding
-to the column's configured <code>name</code> or <code>key</code> property.  If the same <code>name</code> or
-<code>key</code> appears in multiple columns, subsequent appearances will have their
-<code>_id</code> appended with an incrementing number (e.g. if column "foo" is
-included in the <code>columns</code> attribute twice, the first will get <code>_id</code> of
-"foo", and the second an <code>_id</code> of "foo1").</p>
+to the column's configured <code>name</code> or <code>key</code> property with any spaces
+replaced with dashes.  If the same <code>name</code> or <code>key</code> appears in multiple
+columns, subsequent appearances will have their <code>_id</code> appended with an
+incrementing number (e.g. if column "foo" is included in the <code>columns</code>
+attribute twice, the first will get <code>_id</code> of "foo", and the second an <code>_id</code>
+of "foo1").</p>
 
 <p>The result is an object map with column keys as the property name and the
 corresponding column object as the associated value.</p>
@@ -4193,7 +4828,7 @@ corresponding column object as the associated value.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4993"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4993</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5356"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5356</code></a></p>
 
         
 
@@ -4238,12 +4873,12 @@ the results in the <code>_sortable</code> property.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4139"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4139</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4432"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4432</code></a></p>
 
         
 
@@ -4291,7 +4926,7 @@ allow the scrollbar to fit below.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5034"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5034</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5397"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5397</code></a></p>
 
         
 
@@ -4348,7 +4983,7 @@ allow the scrollbar to fit below.</p>
                 <a href="DataTable.Core.html#method__setColumnMap">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1177"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1177</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1180"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1180</code></a></p>
 
         
 
@@ -4433,7 +5068,7 @@ column definitions passed.</p>
                 <a href="DataTable.Core.html#method__setColumnset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1190"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1190</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1193"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1193</code></a></p>
 
         
             <p>Deprecated: This will be removed with the deprecated <code>columnset</code> attribute
@@ -4526,7 +5161,7 @@ structure is mined.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3626"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3626</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3919"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3919</code></a></p>
 
         
 
@@ -4617,7 +5252,7 @@ browser rendering differences.</p>
                 <a href="DataTable.Core.html#method__setData">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1209"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1209</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1212"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1212</code></a></p>
 
         
 
@@ -4684,7 +5319,7 @@ than replacing the stored ModelList wholesale.</p>
                 <a href="DataTable.Core.html#method__setDisplayColumns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1258"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1258</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1261"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1261</code></a></p>
 
         
 
@@ -4753,12 +5388,12 @@ not have children, it is a display column.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4157"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4157</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4450"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4450</code></a></p>
 
         
 
@@ -4819,7 +5454,7 @@ last cell to account for the width of the scrollbar below.</p>
                 <a href="DataTable.Core.html#method__setRecordset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1288"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1288</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1291"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1291</code></a></p>
 
         
             <p>Deprecated: This will be removed with the deprecated <code>recordset</code> attribute
@@ -4908,7 +5543,7 @@ will be culled from it.</p>
                 <a href="DataTable.Core.html#method__setRecordType">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1313"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1313</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1316"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1316</code></a></p>
 
         
 
@@ -5009,12 +5644,12 @@ assigned as the <code>ATTRS</code> of the new class).</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4180"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4180</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4473"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4473</code></a></p>
 
         
 
@@ -5095,12 +5730,12 @@ case.  All other values are invalid.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4204"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4204</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4497"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4497</code></a></p>
 
         
 
@@ -5149,7 +5784,7 @@ and/or <code>width</code> is set.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5046"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5046</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5409"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5409</code></a></p>
 
         
 
@@ -5195,12 +5830,12 @@ configurations' <code>sortDir</code> properties.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4221"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4221</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4514"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4514</code></a></p>
 
         
 
@@ -5264,7 +5899,7 @@ last header cell(s) in the header table - see <code>_setHeaderScrollPadding</cod
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5134"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5134</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5497"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5497</code></a></p>
 
         
 
@@ -5345,12 +5980,12 @@ to the <code>_compare</code> method.  The deferral is accomplished by returning 
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4256"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4256</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4549"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4549</code></a></p>
 
         
 
@@ -5395,12 +6030,12 @@ a horizontally scrollable container <code>&lt;div&gt;</code>.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4288"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4288</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4581"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4581</code></a></p>
 
         
 
@@ -5410,6 +6045,55 @@ a horizontally scrollable container <code>&lt;div&gt;</code>.</p>
     <div class="description">
         <p>Splits the unified table with headers and data into two tables, the latter
 contained within a vertically scrollable container <code>&lt;div&gt;</code>.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__syncMessageUI" class="method item protected">
+    <h3 class="name"><code>_syncMessageUI</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3699"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3699</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Synchronizes the message UI with the table state.</p>
     </div>
 
     
@@ -5445,12 +6129,12 @@ contained within a vertically scrollable container <code>&lt;div&gt;</code>.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4336"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4336</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4629"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4629</code></a></p>
 
         
 
@@ -5511,12 +6195,12 @@ widget state.  If the table needs to be split, but is already, does nothing.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4390"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4390</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4683"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4683</code></a></p>
 
         
 
@@ -5613,7 +6297,7 @@ in an "xy" scroll configuration.</p>
                 <a href="DataTable.Core.html#method__uiSetCaption">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1341"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1341</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1344"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1344</code></a></p>
 
         
 
@@ -5686,7 +6370,7 @@ value.  Empty values result in the caption being removed.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3682"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3682</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3975"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3975</code></a></p>
 
         
 
@@ -5699,6 +6383,95 @@ attribute without children.  It is assumed that these are the columns that
 have data cells renderered for them.</p>
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__uiSetMessage" class="method item protected">
+    <h3 class="name"><code>_uiSetMessage</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>e</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3709"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3709</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Calls <code>hideMessage</code> or <code>showMessage</code> as appropriate based on the presence of
+records in the <code>data</code> ModelList.</p>
+
+<p>This is called when <code>data</code> is reset or records are added or removed.  Also,
+if the <code>showMessages</code> attribute is updated.  In either case, if the
+triggering event has a <code>message</code> property on the EventFacade, it will be
+passed to <code>showMessage</code> (if appropriate).  If no such property is on the
+facade, the <code>emptyMessage</code> will be used (see the strings).</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">e</code>
+                        <span class="type">EventFacade</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The columnsChange event</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -5732,12 +6505,12 @@ have data cells renderered for them.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4433"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4433</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4726"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4726</code></a></p>
 
         
 
@@ -5787,7 +6560,7 @@ as horizontally scrolling, vertically scrolling, or both (adds both classes).</p
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5148"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5148</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5511"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5511</code></a></p>
 
         
 
@@ -5838,7 +6611,7 @@ liner to give a CSS anchor for sort indicators.</p>
                 <a href="DataTable.Core.html#method__uiSetSummary">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1381"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1381</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1376"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1376</code></a></p>
 
         
 
@@ -5896,7 +6669,7 @@ liner to give a CSS anchor for sort indicators.</p>
             </a>
             but overwritten in
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4407"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4407</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4700"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4700</code></a></p>
 
         
 
@@ -5982,7 +6755,7 @@ native behavior of setting the width of the <code>boundingBox</code>.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5204"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5204</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5576"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5576</code></a></p>
 
         
 
@@ -6078,7 +6851,7 @@ native behavior of setting the width of the <code>boundingBox</code>.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5216"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5216</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5588"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5588</code></a></p>
 
         
 
@@ -6160,7 +6933,7 @@ native behavior of setting the width of the <code>boundingBox</code>.</p>
                 <a href="DataTable.Core.html#method__validateView">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1410"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1410</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1409"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1409</code></a></p>
 
         
 
@@ -6230,7 +7003,7 @@ prototype.  <code>null</code> is also accepted to remove the default View.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2907"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2907</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2916"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2916</code></a></p>
 
         
 
@@ -6382,7 +7155,7 @@ table.addColumn({ key: 'age', sortable: true }, [ 2, 1, 3 ]);
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3041"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3041</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3050"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3050</code></a></p>
 
         
 
@@ -6434,8 +7207,6 @@ as a callback to the Model's <code>save()</code> method.</p>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
-                    
-                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
                     
 
                     <div class="param-description">
@@ -6569,7 +7340,7 @@ as a callback to the Model's <code>save()</code> method.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3369"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3369</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3385"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3385</code></a></p>
 
         
 
@@ -6624,8 +7395,6 @@ as a callback to each Model's <code>save()</code> method.</p>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
-                    
-                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
                     
 
                     <div class="param-description">
@@ -6962,7 +7731,7 @@ as a callback to each Model's <code>save()</code> method.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4812"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4812</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5160"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5160</code></a></p>
 
         
 
@@ -7299,6 +8068,71 @@ If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>un
 </div>
 
                 
+                    <div id="method_hideMessage" class="method item">
+    <h3 class="name"><code>hideMessage</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3520"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3520</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Hides the message node.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method_initializer" class="method item protected">
     <h3 class="name"><code>initializer</code></h3>
 
@@ -7334,12 +8168,12 @@ If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>un
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4060"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4060</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4353"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4353</code></a></p>
 
         
 
@@ -7407,10 +8241,12 @@ behaviors with the scrolling APIs and state.</p>
         
             
                 
+                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
+                
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4877"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4877</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3904"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3904</code></a></p>
 
         
 
@@ -7418,8 +8254,8 @@ behaviors with the scrolling APIs and state.</p>
     </div>
 
     <div class="description">
-        <p>Sets up the initial sort state and instance properties.  Publishes events
-and subscribes to attribute change events to maintain internal state.</p>
+        <p>Hooks up to the rendering lifecycle to also render the <code>&lt;colgroup&gt;</code> and
+subscribe to <code>columnChange</code> events.</p>
     </div>
 
     
@@ -7455,12 +8291,12 @@ and subscribes to attribute change events to maintain internal state.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/datatable-column-widths.html">datatable-column-widths</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3611"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3611</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3640"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3640</code></a></p>
 
         
 
@@ -7468,8 +8304,56 @@ and subscribes to attribute change events to maintain internal state.</p>
     </div>
 
     <div class="description">
-        <p>Hooks up to the rendering lifecycle to also render the <code>&lt;colgroup&gt;</code> and
-subscribe to <code>columnChange</code> events.</p>
+        <p>Merges in the message related strings and hooks into the rendering cycle to
+also render and bind the message node.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_initializer" class="method item protected">
+    <h3 class="name"><code>initializer</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5225"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5225</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sets up the initial sort state and instance properties.  Publishes events
+and subscribes to attribute change events to maintain internal state.</p>
     </div>
 
     
@@ -7509,7 +8393,7 @@ subscribe to <code>columnChange</code> events.</p>
             </a>
             but overwritten in
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3348"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3348</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3364"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3364</code></a></p>
 
         
 
@@ -7585,7 +8469,7 @@ subscribe to <code>columnChange</code> events.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2960"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2960</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2969"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2969</code></a></p>
 
         
 
@@ -7730,7 +8614,7 @@ table.modifyColumn([2, 1, 3], { label: 'Experience' });
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3164"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3164</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3179"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3179</code></a></p>
 
         
 
@@ -7798,8 +8682,6 @@ as a callback to the Model's <code>save()</code> method.</p>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
-                    
-                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
                     
 
                     <div class="param-description">
@@ -7927,7 +8809,7 @@ as a callback to the Model's <code>save()</code> method.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2998"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2998</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3007"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3007</code></a></p>
 
         
 
@@ -8044,7 +8926,7 @@ header in a nested header row.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3022"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3022</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3031"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3031</code></a></p>
 
         
 
@@ -8155,7 +9037,7 @@ header in a nested header row.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3092"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3092</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3106"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3106</code></a></p>
 
         
 
@@ -8209,8 +9091,6 @@ as a callback to the Model's <code>destroy()</code> method.</p>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
-                    
-                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
                     
 
                     <div class="param-description">
@@ -8316,7 +9196,7 @@ as a callback to the Model's <code>destroy()</code> method.</p>
                 <a href="DataTable.Core.html#method_renderUI">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1131"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1131</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1140"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1140</code></a></p>
 
         
 
@@ -8375,12 +9255,12 @@ to provide a <code>contentBox</code> attribute.  This is typically provided by W
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3782"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3782</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4075"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4075</code></a></p>
 
         
 
@@ -8490,7 +9370,7 @@ well call <code>node.scrollIntoView()</code> yourself, but hey, whatever).</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3564"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3564</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3857"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3857</code></a></p>
 
         
 
@@ -8566,6 +9446,106 @@ that it should.</p>
 </div>
 
                 
+                    <div id="method_showMessage" class="method item">
+    <h3 class="name"><code>showMessage</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>message</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3534"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3534</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Display the message node and set its content to <code>message</code>.  If there is a
+localized <code>strings</code> entry for the value of <code>message</code>, that string will be
+used.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">message</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The message name or message itself to display</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/DataTable.html" class="crosslink">DataTable</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method_sort" class="method item">
     <h3 class="name"><code>sort</code></h3>
 
@@ -8614,7 +9594,7 @@ that it should.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4651"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4651</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4970"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4970</code></a></p>
 
         
 
@@ -8796,7 +9776,7 @@ ascending subsort by <code>firstName</code>. Mixed types are ok.</li>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4683"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4683</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5012"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5012</code></a></p>
 
         
 
@@ -8939,12 +9919,12 @@ render.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3822"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3822</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4115"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4115</code></a></p>
 
         
 
@@ -9127,6 +10107,44 @@ render.</p>
 </div>
 
                 
+                    <div id="property__messageNode" class="property item">
+    <h3 class="name"><code>_messageNode</code></h3>
+    <span class="type">Node</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3690"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3690</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Node used to display messages from <code>showMessage</code>.</p>
+    </div>
+
+    
+
+    
+</div>
+
+                
                     <div id="property__SCROLLBAR_TEMPLATE" class="property item protected">
     <h3 class="name"><code>_SCROLLBAR_TEMPLATE</code></h3>
     <span class="type">HTML</span>
@@ -9145,12 +10163,12 @@ render.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3833"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3833</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4126"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4126</code></a></p>
 
         
 
@@ -9188,7 +10206,7 @@ render.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5113"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5113</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5476"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5476</code></a></p>
 
         
 
@@ -9227,7 +10245,7 @@ for user interaction.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5123"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5123</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5486"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5486</code></a></p>
 
         
 
@@ -9350,12 +10368,12 @@ want them in all three of the other config objects.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3843"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3843</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4136"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4136</code></a></p>
 
         
 
@@ -9391,12 +10409,12 @@ horizontally scrolling.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4449"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4449</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4742"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4742</code></a></p>
 
         
 
@@ -9405,6 +10423,49 @@ horizontally scrolling.</p>
 
     <div class="description">
         <p>Indicates horizontal table scrolling is enabled.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> undefined (not initially set)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property__xScrollNode" class="property item protected">
+    <h3 class="name"><code>_xScrollNode</code></h3>
+    <span class="type">Node</span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4772"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4772</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Overflow Node used to contain the table headers and data in a horizontally
+scrolling table.</p>
     </div>
 
     
@@ -9433,12 +10494,12 @@ horizontally scrolling.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3854"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3854</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4147"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4147</code></a></p>
 
         
 
@@ -9474,12 +10535,12 @@ vertically scrolling.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4459"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4459</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4752"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4752</code></a></p>
 
         
 
@@ -9516,12 +10577,12 @@ vertically scrolling.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4469"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4469</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4762"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4762</code></a></p>
 
         
 
@@ -9640,7 +10701,7 @@ attribute is set.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3546"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3546</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3839"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3839</code></a></p>
 
         
 
@@ -9680,7 +10741,7 @@ attribute is set.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3555"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3555</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3848"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3848</code></a></p>
 
         
 
@@ -9811,6 +10872,83 @@ content.</p>
 
     
         <p><strong>Default:</strong> undefined (initially unset)</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_MESSAGE_TEMPLATE" class="property item">
+    <h3 class="name"><code>MESSAGE_TEMPLATE</code></h3>
+    <span class="type">HTML</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3511"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3511</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Template used to generate the node that will be used to report messages.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> &lt;tbody class="{className}"&gt;&lt;td class="{contentClass}" colspan="{colspan}"&gt;&lt;/td&gt;&lt;/tbody&gt;</p>
+    
+
+    
+</div>
+
+                
+                    <div id="property_SORTABLE_HEADER_TEMPLATE" class="property item">
+    <h3 class="name"><code>SORTABLE_HEADER_TEMPLATE</code></h3>
+    <span class="type">HTML</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l5002"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:5002</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Template for the node that will wrap the header content for sortable
+columns.</p>
+    </div>
+
     
 
     
@@ -10002,7 +11140,7 @@ content.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2890"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2890</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2896"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2896</code></a></p>
 
         
 
@@ -10508,12 +11646,12 @@ again.</li>
         
             
                 
-                    <p>Provided by the <a href="../modules/@datatable-scroll.html">@datatable-scroll</a> module.</p>
+                    <p>Provided by the <a href="../modules/datatable-scroll.html">datatable-scroll</a> module.</p>
                 
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3759"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3759</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4052"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4052</code></a></p>
 
         
 
@@ -10542,6 +11680,51 @@ again.</li>
 </div>
 
                 
+                    <div id="attr_showMessages" class="attr item">
+    <a name="config_showMessages"></a> 
+    <h3 class="name"><code>showMessages</code></h3>
+    <span class="type">Boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                    <p>Provided by the <a href="../modules/datatable-message.html">datatable-message</a> module.</p>
+                
+                <p>Defined in
+            
+        
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3495"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3495</code></a></p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Enables the display of messages in the table.  Setting this to false will
+prevent the message Node from being created and <code>showMessage</code> from doing
+anything.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="attr_sortable" class="attr item">
     <a name="config_sortable"></a> 
     <h3 class="name"><code>sortable</code></h3>
@@ -10562,7 +11745,7 @@ again.</li>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4589"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4589</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4912"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4912</code></a></p>
 
         
 
@@ -10612,7 +11795,7 @@ again.</li>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4608"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4608</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4931"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4931</code></a></p>
 
         
 
@@ -10669,7 +11852,7 @@ ascending subsort by <code>firstName</code>. Mixed types are ok.</li>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4635"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4635</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l4958"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:4958</code></a></p>
 
         
 
@@ -10761,7 +11944,7 @@ to this attribute will be HTML escaped for security.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3408"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3408</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3424"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3424</code></a></p>
 
         
 
@@ -10838,7 +12021,7 @@ to this attribute will be HTML escaped for security.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3425"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3425</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3441"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3441</code></a></p>
 
         
 
@@ -10915,7 +12098,7 @@ to this attribute will be HTML escaped for security.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3434"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3434</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3450"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3450</code></a></p>
 
         
 
@@ -10992,7 +12175,7 @@ to this attribute will be HTML escaped for security.</p>
                 <p>Defined in
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3417"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3417</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l3433"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:3433</code></a></p>
 
         
 

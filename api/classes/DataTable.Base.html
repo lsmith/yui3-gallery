@@ -52,6 +52,8 @@
             
                 <li><a href="../classes/DataTable.HeaderView.html">DataTable.HeaderView</a></li>
             
+                <li><a href="../classes/DataTable.Message.html">DataTable.Message</a></li>
+            
                 <li><a href="../classes/DataTable.Mutable.html">DataTable.Mutable</a></li>
             
                 <li><a href="../classes/DataTable.Scrollable.html">DataTable.Scrollable</a></li>
@@ -72,8 +74,6 @@
 
             <ul id="api-modules" class="apis modules">
             
-                <li><a href="../modules/@datatable-scroll.html">@datatable-scroll</a></li>
-            
                 <li><a href="../modules/dataschema.html">dataschema</a></li>
             
                 <li><a href="../modules/dataschema-class.html">dataschema-class</a></li>
@@ -88,7 +88,11 @@
             
                 <li><a href="../modules/datatable-head.html">datatable-head</a></li>
             
+                <li><a href="../modules/datatable-message.html">datatable-message</a></li>
+            
                 <li><a href="../modules/datatable-mutable.html">datatable-mutable</a></li>
+            
+                <li><a href="../modules/datatable-scroll.html">datatable-scroll</a></li>
             
                 <li><a href="../modules/datatable-sort.html">datatable-sort</a></li>
             
@@ -160,7 +164,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2830"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2830</code></a>
+            Defined in: <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l2836"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:2836</code></a>
         </div>
     
 
@@ -1862,7 +1866,7 @@ empty, it will call <code>_initColumns</code>.</p>
                 <a href="DataTable.Core.html#method__initViewConfig">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1032"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1032</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1036"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1036</code></a></p>
 
         
 
@@ -1927,7 +1931,7 @@ configs.</p>
                 <a href="DataTable.Core.html#method__parseColumns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1058"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1058</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1062"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1062</code></a></p>
 
         
 
@@ -1942,11 +1946,12 @@ has a <code>children</code> property, it will be iterated, adding any nested col
 keys to the returned map. There is no limit to the levels of nesting.</p>
 
 <p>All columns are assigned a <code>_yuid</code> stamp and <code>_id</code> property corresponding
-to the column's configured <code>name</code> or <code>key</code> property.  If the same <code>name</code> or
-<code>key</code> appears in multiple columns, subsequent appearances will have their
-<code>_id</code> appended with an incrementing number (e.g. if column "foo" is
-included in the <code>columns</code> attribute twice, the first will get <code>_id</code> of
-"foo", and the second an <code>_id</code> of "foo1").</p>
+to the column's configured <code>name</code> or <code>key</code> property with any spaces
+replaced with dashes.  If the same <code>name</code> or <code>key</code> appears in multiple
+columns, subsequent appearances will have their <code>_id</code> appended with an
+incrementing number (e.g. if column "foo" is included in the <code>columns</code>
+attribute twice, the first will get <code>_id</code> of "foo", and the second an <code>_id</code>
+of "foo1").</p>
 
 <p>The result is an object map with column keys as the property name and the
 corresponding column object as the associated value.</p>
@@ -2022,7 +2027,7 @@ corresponding column object as the associated value.</p>
                 <a href="DataTable.Core.html#method__setColumnMap">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1177"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1177</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1180"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1180</code></a></p>
 
         
 
@@ -2107,7 +2112,7 @@ column definitions passed.</p>
                 <a href="DataTable.Core.html#method__setColumnset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1190"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1190</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1193"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1193</code></a></p>
 
         
             <p>Deprecated: This will be removed with the deprecated <code>columnset</code> attribute
@@ -2182,7 +2187,7 @@ structure is mined.</p>
                 <a href="DataTable.Core.html#method__setData">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1209"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1209</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1212"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1212</code></a></p>
 
         
 
@@ -2249,7 +2254,7 @@ than replacing the stored ModelList wholesale.</p>
                 <a href="DataTable.Core.html#method__setDisplayColumns">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1258"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1258</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1261"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1261</code></a></p>
 
         
 
@@ -2334,7 +2339,7 @@ not have children, it is a display column.</p>
                 <a href="DataTable.Core.html#method__setRecordset">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1288"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1288</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1291"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1291</code></a></p>
 
         
             <p>Deprecated: This will be removed with the deprecated <code>recordset</code> attribute
@@ -2423,7 +2428,7 @@ will be culled from it.</p>
                 <a href="DataTable.Core.html#method__setRecordType">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1313"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1313</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1316"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1316</code></a></p>
 
         
 
@@ -2523,7 +2528,7 @@ assigned as the <code>ATTRS</code> of the new class).</p>
                 <a href="DataTable.Core.html#method__uiSetCaption">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1341"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1341</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1344"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1344</code></a></p>
 
         
 
@@ -2594,7 +2599,7 @@ value.  Empty values result in the caption being removed.</p>
                 <a href="DataTable.Core.html#method__uiSetSummary">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1381"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1381</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1376"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1376</code></a></p>
 
         
 
@@ -2651,7 +2656,7 @@ value.  Empty values result in the caption being removed.</p>
                 <a href="DataTable.Core.html#method__uiSetWidth">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1391"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1391</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1390"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1390</code></a></p>
 
         
 
@@ -2721,7 +2726,7 @@ value.  Empty values result in the caption being removed.</p>
                 <a href="DataTable.Core.html#method__validateView">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1410"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1410</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1409"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1409</code></a></p>
 
         
 
@@ -3365,7 +3370,7 @@ If the <code>bodyView</code> doesn't have a <code>getRow</code> method, <code>un
                 <a href="DataTable.Core.html#method_renderUI">DataTable.Core</a>:
             
         
-        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1131"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1131</code></a></p>
+        <a href="../files/_Users_lsmith_dev_yui3-gallery_src_gallery-datatable-350-preview_js_datatable.js.html#l1140"><code>&#x2F;Users&#x2F;lsmith&#x2F;dev&#x2F;yui3-gallery&#x2F;src&#x2F;gallery-datatable-350-preview&#x2F;js&#x2F;datatable.js:1140</code></a></p>
 
         
 
